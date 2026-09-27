@@ -1,0 +1,178 @@
+<script language="javascript">
+function masterclassConfirmEnrollment(myID){
+    if(confirm('Are you sure you want to confirm your attendance?')) {
+        var url="/o/c/mycourseenrollments/" + myID + "/object-actions/confirmingEnrollment"; 
+        const obj = {};
+        if (typeof LiferayService !== 'undefined') {
+            LiferayService.put(url, obj);
+            setTimeout(function(){ window.location.reload(1); }, 1000);
+        } else {
+            fetch(url, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json', 'X-CSRF-Token': Liferay.authToken},
+                body: JSON.stringify(obj)
+            }).then(() => window.location.reload(1));
+        }
+    }
+}
+function masterclassDeclineEnrollment(myID){
+    if(confirm('Are you sure you want to decline this session?')) {
+        var url="/o/c/mycourseenrollments/" + myID + "/object-actions/decliningEnrollment"; 
+        const obj = {};
+        if (typeof LiferayService !== 'undefined') {
+            LiferayService.put(url, obj);
+            setTimeout(function(){ window.location.reload(1); }, 1000);
+        } else {
+            fetch(url, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json', 'X-CSRF-Token': Liferay.authToken},
+                body: JSON.stringify(obj)
+            }).then(() => window.location.reload(1));
+        }
+    }
+}
+</script>
+
+[#assign currentUser = user.getUserId() /]
+[#assign parameters="?filter=r_courseToUser_userId eq '" + currentUser + "'&nestedFields=r_enrollmentToCourseSession_c_myCourseSessionId"/]
+[#assign enrollments = restClient.get("/c/mycourseenrollments" + parameters)/]
+
+<div class="masterclass-registrations-wrapper">
+    <table class="masterclass-registrations-table">
+        <thead>
+            <tr>
+                <th style="width:35%">Course</th>
+                <th style="width:15%">Start Date</th>
+                <th style="width:15%">End Date</th>
+                <th style="width:15%">Status</th>
+                <th style="width:20%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        [#if (enrollments?has_content && enrollments.items?has_content)]
+            [#list enrollments.items as enrollment]
+                [#assign courseTitle = "Unknown Course" /]
+                [#assign startDate = "N/A" /]
+                [#assign endDate = "N/A" /]
+                
+                [#-- Fetch the Course Title dynamically from the Courses Custom Object --]
+                [#if enrollment.courseID?? && enrollment.courseID gt 0]
+                    [#assign courseObj = restClient.get("/c/courses/" + enrollment.courseID)/]
+                    [#if courseObj?has_content && courseObj.title??]
+                        [#assign courseTitle = courseObj.title /]
+                    [/#if]
+                [/#if]
+                
+                [#-- Fetch Dates from the related MyCourseSession custom object --]
+                [#if enrollment.r_enrollmentToCourseSession_c_myCourseSessionId??]
+                    [#assign sessionId = enrollment.r_enrollmentToCourseSession_c_myCourseSessionId /]
+                    [#if sessionId gt 0]
+                        [#assign sessionObj = restClient.get("/c/mycoursesessions/" + sessionId)/]
+                        [#if sessionObj?has_content]
+                            [#if sessionObj.courseSessionStartDate??]
+                                [#assign startDate = sessionObj.courseSessionStartDate[0..9] /]
+                            [/#if]
+                            [#if sessionObj.courseSessionEndDate??]
+                                [#assign endDate = sessionObj.courseSessionEndDate[0..9] /]
+                            [/#if]
+                        [/#if]
+                    [/#if]
+                [/#if]
+                
+                [#-- Determine Status and Icon --]
+                [#assign statusKey = "" /]
+                [#if enrollment.enrollmentStatus?? && enrollment.enrollmentStatus.key??]
+                    [#assign statusKey = enrollment.enrollmentStatus.key /]
+                [#elseif enrollment.enrollmentStatus?? && enrollment.enrollmentStatus?is_string]
+                    [#assign statusKey = enrollment.enrollmentStatus /]
+                [/#if]
+                
+                [#assign contentCell = "emoji" /]
+                [#assign statusClass = "unknown" /]
+                [#assign safeStatus = statusKey?lower_case /]
+                
+                [#if safeStatus == "pending"]
+                    [#assign contentCell = "time" /]
+                    [#assign statusClass = "pending" /]
+                [#elseif safeStatus == "approved"]
+                    [#assign contentCell = "exclamation-circle" /]
+                    [#assign statusClass = "approved" /]
+                [#elseif safeStatus == "confirmed"]
+                    [#assign contentCell = "check-circle" /]
+                    [#assign statusClass = "confirmed" /]
+                [#elseif safeStatus == "completed"]
+                    [#assign contentCell = "emoji" /]
+                    [#assign statusClass = "completed" /]
+                [#elseif safeStatus == "declined"]
+                    [#assign contentCell = "times-circle" /]
+                    [#assign statusClass = "declined" /]
+                [#elseif safeStatus == "discarded"]
+                    [#assign contentCell = "times-circle" /]
+                    [#assign statusClass = "discarded" /]
+                [#else]
+                    [#assign contentCell = "emoji" /]
+                    [#assign statusClass = "unknown" /]
+                [/#if]
+
+                <tr>
+                    <td><strong>${courseTitle}</strong></td>
+                    <td>${startDate}</td>
+                    <td>${endDate}</td>
+                    <td>
+                        <span class="masterclass-status-icon ${statusClass}">
+                            [@clay["icon"] symbol="${contentCell}" /] ${statusKey?capitalize}
+                        </span>
+                    </td>
+                    
+                    <td>
+                        [#if safeStatus == "approved"]
+                            <div class="masterclass-actions-container">
+                                <a title="Confirm Course Registration" class="masterclass-action-link" href="javascript:masterclassConfirmEnrollment(${enrollment.id})">
+                                    [@clay["icon"] symbol="check" /] Confirm
+                                </a>
+                                <a title="Decline Course Registration" class="masterclass-action-link" href="javascript:masterclassDeclineEnrollment(${enrollment.id})">
+                                    [@clay["icon"] symbol="times" /] Decline
+                                </a>
+                            </div>
+                        [#else]
+                            <span style="color:#aaa; font-size:0.85em;">No actions available</span>
+                        [/#if]
+                    </td>
+                </tr>
+            [/#list]
+        [#else]
+            <tr>
+                <td colspan="5" class="masterclass-empty-state">You have not registered for any sessions yet.</td>
+            </tr>
+        [/#if]
+        </tbody>
+    </table>
+
+    <!-- Status Legend -->
+    <div class="masterclass-legend-wrapper">
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon pending">[@clay["icon"] symbol="time" /]</span>
+            <span><strong>Pending:</strong> Awaiting administrator approval.</span>
+        </div>
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon approved">[@clay["icon"] symbol="exclamation-circle" /]</span>
+            <span><strong>Approved:</strong> Action required. Please confirm your attendance.</span>
+        </div>
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon confirmed">[@clay["icon"] symbol="check-circle" /]</span>
+            <span><strong>Confirmed:</strong> Attendance is confirmed.</span>
+        </div>
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon completed">[@clay["icon"] symbol="emoji" /]</span>
+            <span><strong>Completed:</strong> Course successfully completed!</span>
+        </div>
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon declined">[@clay["icon"] symbol="times-circle" /]</span>
+            <span><strong>Declined:</strong> Registration was declined by user.</span>
+        </div>
+        <div class="masterclass-legend-item">
+            <span class="masterclass-status-icon discarded">[@clay["icon"] symbol="times-circle" /]</span>
+            <span><strong>Discarded:</strong> Registration was rejected by the administrator.</span>
+        </div>
+    </div>
+</div>

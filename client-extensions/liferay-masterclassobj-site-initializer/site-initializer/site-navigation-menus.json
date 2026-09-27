@@ -1,0 +1,49 @@
+[
+	{
+		externalReferenceCode: "MNU_Main_Navigation",
+		"menuItems": [
+			{
+				"friendlyURL": "/courses",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/blog",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/apply",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		],
+		"name": "Main Navigation"
+	},
+	{
+		externalReferenceCode: "MNU_Private_Navigation",
+		"menuItems": [
+			{
+				"friendlyURL": "/myconfirmedcourses",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/allmycourses",
+				"privateLayout": false,
+				"type": "layout"
+			},			
+			{
+				"friendlyURL": "/notifications",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"friendlyURL": "/account-settings",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		],
+		"name": "Private Area Navigation"
+	}
+]

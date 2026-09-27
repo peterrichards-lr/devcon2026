@@ -1,0 +1,15 @@
+.listado .bordeado {
+		border-color: var(--gray-500) !important;
+    border-radius: 10px !important;
+    border-style: solid;
+    border-width: 1px !important;
+    margin-bottom: var(--spacer-3, 1rem) !important;
+    padding-bottom: var(--spacer-2, 0.5rem) !important;
+    padding-left: var(--spacer-2, 0.5rem) !important;
+    padding-right: var(--spacer-2, 0.5rem) !important;
+    padding-top: var(--spacer-2, 0.5rem) !important;
+}
+.listado .bordeado .imagen img{
+    max-width: 100%;
+}
+}

@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/blog",
+	"hidden": false,
+	"name": "Blog",
+	"name_i18n": {
+		"en_US": "Blog"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

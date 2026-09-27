@@ -1,0 +1,15 @@
+{
+	"contextFileName": [
+		"GEMINI.md",
+		"cx.md",
+		"setup.md"
+	],
+	"mcpServers": {
+    "liferay": {
+      "httpUrl": "https://solaramoto.com/o/mcp",
+      "headers": {
+        "Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTpHYXJ0bmVyMjAyNg=="
+      }
+    }
+  }
+}

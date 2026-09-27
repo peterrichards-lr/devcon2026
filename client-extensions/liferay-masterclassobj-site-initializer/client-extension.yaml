@@ -1,0 +1,13 @@
+liferay-masterclassobj-site-initializer:
+    name: Liferay MasterClassObj Site Initializer
+    oAuthApplicationHeadlessServer: liferay-masterclassobj-site-initializer-oauth-application-headless-server
+    siteExternalReferenceCode: liferayMasterclassobj
+    siteName: Liferay MasterClassObj
+    type: siteInitializer
+liferay-masterclassobj-site-initializer-oauth-application-headless-server:
+    .serviceAddress: localhost:8080
+    .serviceScheme: http
+    name: Liferay MasterClassObj OAuth Application Headless Server
+    scopes:
+        - Liferay.Headless.Site.everything
+    type: oAuthApplicationHeadlessServer

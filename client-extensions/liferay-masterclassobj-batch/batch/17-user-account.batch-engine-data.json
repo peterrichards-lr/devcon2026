@@ -1,0 +1,24 @@
+{
+	"configuration": {
+		"className": "com.liferay.headless.admin.user.dto.v1_0.UserAccount",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"alternateName": "student.one",
+			"emailAddress": "student.one@liferay.com",
+			"externalReferenceCode": "STUDENT_ONE_BATCH",
+			"familyName": "One",
+			"givenName": "Student",
+			"jobTitle": "Student",
+			"name": "Student One",
+			"password": "test"
+		}
+	]
+}

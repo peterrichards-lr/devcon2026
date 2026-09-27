@@ -1,0 +1,14 @@
+{
+    "actions": {
+        "delete": {},
+        "get": {},
+        "permissions": {},
+        "update": {}
+    },
+    "externalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+    "label": {
+        "en_US": "eLearning Content Structures"
+    },
+    "name": "eLearningContentStructures",
+    "objectFolderItems": []
+}

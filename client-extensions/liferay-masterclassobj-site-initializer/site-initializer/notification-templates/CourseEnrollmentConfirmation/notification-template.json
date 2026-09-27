@@ -1,0 +1,22 @@
+{
+	"description": "This template will be used to notify Admins when Students send their final status.",
+	"editorType": "richText",
+	"externalReferenceCode": "MYCOURSE_ENROLLMENT_CONFIRMATION",
+	"name": "Course Enrollment Confirmation",
+	"name_i18n": {
+		"en_US": "Course Enrollment Confirmation"
+	},
+	"objectDefinitionExternalReferenceCode": "MYCOURSEENROLLMENT",
+	"recipientType": "role",
+	"recipients": [
+		{
+			"roleName": "Administrator"
+		}
+	],
+	"subject": {
+		"en_US": "The student [%USERTOMYCOURSEENROLLMENT_USER_GIVENNAME%] [%USERTOMYCOURSEENROLLMENT_USER_FAMILYNAME%] has updated his status to [%MYCOURSEENROLLMENT_ENROLLMENTSTATUS%] for the session [%MYCOURSESESSIONTOMYCOURSEENROLLMENT_MYCOURSESESSION_TITLE%] of the Course [%MYCOURSESESSIONTOMYCOURSEENROLLMENT_MYCOURSESESSION_R_MYCOURSETOMYCOURSESESSION_C_MYCOURSEID%]"
+	},
+	"system": false,
+	"type": "userNotification",
+	"typeLabel": "User Notification"
+}

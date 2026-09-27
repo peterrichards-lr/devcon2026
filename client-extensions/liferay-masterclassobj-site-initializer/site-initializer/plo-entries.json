@@ -1,0 +1,23 @@
+[
+	{
+		"key": "confirm-course-registration",
+		"value": {
+			"en-US": "Please Click to Confirm you are actually going to the Course",
+			"es-ES": "Por favor, pulsa para Confirmar que vas a asistir al Curso"
+		}
+	},
+	{
+		"key": "course-confirmation-empty",
+		"value": {
+			"en-US": "You have not yet Confirmed your pressence for any course",
+			"es-ES": "Todavía no has Confirmado tu presencia en ningún curso"
+		}
+	},
+	{
+		"key": "decline-course-registration",
+		"value": {
+			"en-US": "Please Click to Deny you are actually going to the Course",
+			"es-ES": "Por favor, pulsa si finalmente no vas a asistir al Curso"
+		}
+	}		
+]

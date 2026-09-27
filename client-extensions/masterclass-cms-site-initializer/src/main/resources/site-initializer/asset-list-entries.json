@@ -1,0 +1,89 @@
+[
+    {
+        "assetEntrySubtypeId": "[$OBJECT_DEFINITION_ID:ElearningCourse$]",
+        "title": "Courses",
+        "unicodeProperties": {
+            "anyClassType": "anyClassType",
+            "classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]",
+            "classTypeIds": "[$OBJECT_DEFINITION_ID:ElearningCourse$]",
+            "orderBy": [
+                {
+                    "key": "orderByColumn1",
+                    "value": "modifiedDate"
+                },
+                {
+                    "key": "orderByType1",
+                    "value": "DESC"
+                }
+            ],
+            "query": [
+                {
+                    "key": "queryAndOperator",
+                    "value": "true"
+                },
+                {
+                    "key": "queryContains",
+                    "value": "true"
+                }
+            ]
+        }
+    },
+    {
+        "assetEntrySubtypeId": "[$OBJECT_DEFINITION_ID:ElearningBlog$]",
+        "title": "Blog Entries",
+        "unicodeProperties": {
+            "anyClassType": "anyClassType",
+            "classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningBlog$]",
+            "classTypeIds": "[$OBJECT_DEFINITION_ID:ElearningBlog$]",
+            "orderBy": [
+                {
+                    "key": "orderByColumn1",
+                    "value": "modifiedDate"
+                },
+                {
+                    "key": "orderByType1",
+                    "value": "DESC"
+                }
+            ],
+            "query": [
+                {
+                    "key": "queryAndOperator",
+                    "value": "true"
+                },
+                {
+                    "key": "queryContains",
+                    "value": "true"
+                }
+            ]
+        }
+    },
+    {
+        "assetEntrySubtypeId": "[$OBJECT_DEFINITION_ID:ElearningTeacher$]",
+        "title": "Teachers",
+        "unicodeProperties": {
+            "anyClassType": "anyClassType",
+            "classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningTeacher$]",
+            "classTypeIds": "[$OBJECT_DEFINITION_ID:ElearningTeacher$]",
+            "orderBy": [
+                {
+                    "key": "orderByColumn1",
+                    "value": "modifiedDate"
+                },
+                {
+                    "key": "orderByType1",
+                    "value": "DESC"
+                }
+            ],
+            "query": [
+                {
+                    "key": "queryAndOperator",
+                    "value": "true"
+                },
+                {
+                    "key": "queryContains",
+                    "value": "true"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,6 @@
+Bundle-Name: Masterclass CMS Site Initializer
+Bundle-SymbolicName: com.liferay.site.initializer.masterclass.cms
+Bundle-Version: 1.0.0
+Liferay-Site-Initializer-Name: Masterclass CMS
+Provide-Capability: liferay.site.initializer
+Web-ContextPath: /masterclass-cms-site-initializer

@@ -1,0 +1,287 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"accountEntryRestricted": false,
+			"active": true,
+			"defaultLanguageId": "en_US",
+			"enableCategorization": true,
+			"enableComments": true,
+			"enableLocalization": false,
+			"enableObjectEntryHistory": true,
+			"externalReferenceCode": "MYTEACHER",
+			"label": {
+				"en_US": "MyTeacher"
+			},
+			"name": "MyTeacher",
+			"objectFields": [
+			     {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Author"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"47d5de96-3051-8be3-fdfc-dea931fe7e6f",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"creator",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Create Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "externalReferenceCode":"e36b3f1b-7803-2952-3733-34dd55af5927",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"createDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"External Reference Code"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"4592bca8-d4e0-2fbf-6866-910e9324161c",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"externalReferenceCode",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"ID"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "externalReferenceCode":"6cec7b55-e84a-8101-089a-99b24d8ce2a1",
+			         "indexedAsKeyword":true,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"id",
+			         "state":false,
+			         "businessType":"LongInteger",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Modified Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "externalReferenceCode":"b0003359-5d9a-243d-8876-2bbc7fb77ab3",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"modifiedDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Status"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"49f1f9ec-fc3f-9fb4-7702-40183f280d16",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"status",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Name"
+			         },
+			         "type":"String",
+			         "required":true,
+			         "externalReferenceCode":"c8a6ac9b-1b1e-d6c6-a51e-415a654424a5",
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"name",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Surname"
+			         },
+			         "type":"String",
+			         "required":true,
+			         "externalReferenceCode":"35eda0e3-9ad0-f817-e7ed-1a6d213e2928",
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"surname",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Clob",
+			         "label":{
+			            "en_US":"Specialization"
+			         },
+			         "type":"Clob",
+			         "required":false,
+			         "externalReferenceCode":"405f5c6d-3cc1-b1b8-4256-564e65dddb1b",
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"specialization",
+			         "state":false,
+			         "businessType":"RichText",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            {
+			               "name":"acceptedFileExtensions",
+			               "value":"jpeg, jpg, pdf, png"
+			            },
+			            {
+			               "name":"maximumFileSize",
+			               "value":100
+			            },
+			            {
+			               "name":"fileSource",
+			               "value":"documentsAndMedia"
+			            }
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"Photo"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "externalReferenceCode":"869214c1-b7df-f871-0864-5d2914a0d248",
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"photo",
+			         "state":false,
+			         "businessType":"Attachment",
+			         "readOnlyConditionExpression":""
+			      }
+			],				
+            "objectFolderExternalReferenceCode":"MYCOURSESFOLDER",
+			"panelCategoryKey": "control_panel.object",
+			"parameterRequired": false,			
+			"pluralLabel": {
+				"en_US": "MyTeachers"
+			},			
+			"portlet": true,
+			"restContextPath": "/o/c/myteacher",
+			"scope": "company",
+			"status": {
+				"code": 0,
+				"label": "approved",
+				"label_i18n": "Approved"
+			},
+			"system": false,
+			"titleObjectFieldName": "name"			
+		}
+	]
+}

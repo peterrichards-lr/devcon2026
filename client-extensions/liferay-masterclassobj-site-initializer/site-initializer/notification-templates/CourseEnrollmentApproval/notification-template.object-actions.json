@@ -1,0 +1,27 @@
+[
+	{
+		"active": true,
+        "conditionExpression":"enrollmentStatus == 'approved' or enrollmentStatus == 'discarded'",
+		"errorMessage": {
+		},
+		"label": {
+			"en_US": "Session Course Enrollment Notification for Student"
+		},
+		"name": "NotSessionCourseEnrollmentStudent",
+		"objectActionExecutorKey": "notification",
+		"objectActionTriggerKey": "onAfterUpdate",
+		"objectDefinitionId": "[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+		"parameters": {
+			"notificationTemplateExternalReferenceCode": "MYCOURSE_ENROLLMENT_APPROVAL",
+			"objectDefinitionExternalReferenceCode": "MYCOURSEENROLLMENT",
+			"type": "user-notification"
+		},
+		"status": {
+			"code": 1,
+			"label": "success",
+			"label_i18n": "Success"
+		},
+		"system":false
+	}
+]
+

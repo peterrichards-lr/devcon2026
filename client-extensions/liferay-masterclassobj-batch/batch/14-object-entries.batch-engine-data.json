@@ -1,0 +1,99 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "C_MyCourseTeacher",			
+			"updateStrategy": "UPDATE"		
+		},
+		"taskItemDelegateName": "C_MyCourseTeacher"
+	},
+	"items": [
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_1",      
+         "position":{
+            "key":"tutor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "position":{
+            "key":"professor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_3",      
+         "position":{
+            "key":"assistant"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "position":{
+            "key":"tutor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_5",      
+         "position":{
+            "key":"assistant"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "position":{
+            "key":"tutor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "position":{
+            "key":"professor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_1",      
+         "position":{
+            "key":"tutor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "position":{
+            "key":"assistant"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "position":{
+            "key":"professor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_5",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_5",      
+         "position":{
+            "key":"tutor"
+         }            		
+      	},
+		{
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_5",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "position":{
+            "key":"assistant"
+         }            		
+      	}      	      	      	      	      	      	      	      	      	      	      	
+      ]
+}

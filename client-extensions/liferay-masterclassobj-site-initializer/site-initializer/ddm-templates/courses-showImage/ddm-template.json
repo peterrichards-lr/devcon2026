@@ -1,0 +1,7 @@
+{
+	"className": "com.liferay.template.model.TemplateEntry",
+	"ddmTemplateKey": "COURSE-SHOWIMAGE",
+	"infoItemClassName": "com.liferay.object.model.ObjectDefinition#[$OBJECT_DEFINITION_ID:MyCourse$]",
+	"name": "Courses ShowImage",
+	"resourceClassName": "com.liferay.template.model.TemplateEntry"
+}

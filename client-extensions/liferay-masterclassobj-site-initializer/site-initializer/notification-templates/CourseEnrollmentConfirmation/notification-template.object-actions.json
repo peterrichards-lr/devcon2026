@@ -1,0 +1,26 @@
+[
+	{
+		"active": true,
+		"conditionExpression":"enrollmentStatus == 'confirmed' or enrollmentStatus == 'declined'",
+		"errorMessage": {
+		},
+		"label": {
+			"en_US": "Session Course Final Enrollment Notification for Admin"
+		},
+		"name": "notSessionCourseEnrollmentAdmin",
+		"objectActionExecutorKey": "notification",
+		"objectActionTriggerKey": "onAfterUpdate",
+		"objectDefinitionId": "[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+		"parameters": {
+			"notificationTemplateExternalReferenceCode": "MYCOURSE_ENROLLMENT_CONFIRMATION",
+			"objectDefinitionExternalReferenceCode": "MYCOURSEENROLLMENT",
+			"type": "user-notification"
+		},
+		"status": {
+			"code": 1,
+			"label": "success",
+			"label_i18n": "Success"
+		},
+		"system":false
+	}
+]

@@ -1,0 +1,33 @@
+[#assign currentUser = user.getUserId() /]
+[#assign parameters="?filter=r_userToMyCourseEnrollment_userId eq '" + currentUser + "' and enrollmentStatus eq 'confirmed'&nestedFields=myCourseSessions,myCourse&nestedFieldsDepth=2"/]
+[#assign courseSessions = restClient.get("/c/mycourseenrollments" + parameters)/]	
+[#assign elementos=0/]
+<div class="row align-items-start listado">
+[#if (courseSessions?has_content)]
+	[#list courseSessions.items as myCourseSession]
+		[#if (myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession??)]
+		[#assign currentCourseSession = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.title /]
+		[#assign currentCourseTitle = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.r_myCourseToMyCourseSession_c_myCourse.title /]
+	  	[#assign currentCourseSubTitle = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.r_myCourseToMyCourseSession_c_myCourse.shortDescription /]
+	  	[#assign currentCourseImg = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.r_myCourseToMyCourseSession_c_myCourse.representativeImage.link.href /]
+			[#assign elementos=1/]
+			<div class="col col-lg-4 col-sm-12 col-12 col-md-3 bordeado">
+				<h3 class="component-heading display-0 mb-0 text-break">
+					${currentCourseTitle}
+				</h3>
+				<div class="clearfix component-text-block text-break">
+					${currentCourseSubTitle}
+				</div>
+				<div class="imagen">
+					<img src="${currentCourseImg}"/>
+				</div>
+			</div>
+		[/#if]
+	[/#list]
+[/#if]
+[#if elementos==0]
+	<h5>
+		[@liferay.language key="course-confirmation-empty" /]
+	</h5>
+[/#if]
+</div>

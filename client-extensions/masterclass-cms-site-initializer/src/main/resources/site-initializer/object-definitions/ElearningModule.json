@@ -1,0 +1,145 @@
+{
+    "accountEntryRestricted": false,
+    "className": "com.liferay.object.model.ObjectDefinition#V7Q8",
+    "enableCategorization": true,
+    "enableComments": true,
+    "enableFriendlyURLCustomization": true,
+    "enableIndexSearch": true,
+    "enableLocalization": true,
+    "enableObjectEntryDraft": true,
+    "enableObjectEntryHistory": false,
+    "enableObjectEntrySchedule": true,
+    "enableObjectEntrySubscription": false,
+    "externalReferenceCode": "NewCMSStructure-elearning-module",
+    "label": {
+        "en_US": "eLearning Module"
+    },
+    "modifiable": true,
+    "name": "ElearningModule",
+    "objectActions": [],
+    "objectDefinitionSettings": [
+        {
+            "name": "acceptAllGroups",
+            "value": "true"
+        }
+    ],
+    "objectFields": [
+        {
+            "indexed": true,
+            "defaultValue": "null",
+            "localized": true,
+            "objectFieldSettings": [],
+            "readOnly": "false",
+            "DBType": "String",
+            "label": {
+                "en_US": "Title"
+            },
+            "type": "String",
+            "required": true,
+            "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGMODULE",
+            "indexedAsKeyword": false,
+            "system": false,
+            "unique": false,
+            "name": "title",
+            "state": false,
+            "businessType": "Text"
+        },
+        {
+            "indexed": true,
+            "defaultValue": "null",
+            "localized": false,
+            "objectFieldSettings": [],
+            "readOnly": "false",
+            "DBType": "Integer",
+            "label": {
+                "en_US": "Number of Lessons"
+            },
+            "type": "Integer",
+            "required": false,
+            "externalReferenceCode": "02670182-6a6a-4601-9613-21b23d8e3ef3",
+            "indexedAsKeyword": false,
+            "system": false,
+            "indexedLanguageId": "",
+            "unique": false,
+            "name": "numberOfLessons",
+            "state": false,
+            "businessType": "Integer",
+            "readOnlyConditionExpression": ""
+        },
+        {
+            "indexed": true,
+            "defaultValue": "null",
+            "localized": true,
+            "objectFieldSettings": [],
+            "readOnly": "false",
+            "DBType": "String",
+            "label": {
+                "en_US": "Duration"
+            },
+            "type": "String",
+            "required": false,
+            "externalReferenceCode": "00470b47-c28d-4aba-aff9-2ec8519807d8",
+            "indexedAsKeyword": false,
+            "system": false,
+            "indexedLanguageId": "en_US",
+            "unique": false,
+            "name": "duration",
+            "state": false,
+            "businessType": "Text",
+            "readOnlyConditionExpression": ""
+        },
+        {
+            "indexed": true,
+            "defaultValue": "null",
+            "localized": true,
+            "objectFieldSettings": [],
+            "readOnly": "false",
+            "DBType": "Clob",
+            "label": {
+                "en_US": "Summary"
+            },
+            "type": "Clob",
+            "required": false,
+            "externalReferenceCode": "5619dd47-886c-4e12-9920-989feffceda9",
+            "indexedAsKeyword": false,
+            "system": false,
+            "indexedLanguageId": "en_US",
+            "unique": false,
+            "name": "summary",
+            "state": false,
+            "businessType": "RichText",
+            "readOnlyConditionExpression": ""
+        },
+        {
+            "indexed": true,
+            "defaultValue": "null",
+            "localized": false,
+            "objectFieldSettings": [],
+            "readOnly": "false",
+            "DBType": "Integer",
+            "label": {
+                "en_US": "Module Number"
+            },
+            "type": "Integer",
+            "required": false,
+            "externalReferenceCode": "4bbe8c91-d1ce-4b00-a5d2-2dcdf9a1773a",
+            "indexedAsKeyword": false,
+            "system": false,
+            "indexedLanguageId": "",
+            "unique": false,
+            "name": "moduleNumber",
+            "state": false,
+            "businessType": "Integer",
+            "readOnlyConditionExpression": ""
+        }
+    ],
+    "objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+    "objectRelationships": [],
+    "panelCategoryKey": "",
+    "pluralLabel": {
+        "en_US": "eLearning Module"
+    },
+    "scope": "depot",
+    "system": false,
+    "titleObjectFieldName": "title"
+}
