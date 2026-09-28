@@ -1,0 +1,136 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "accountEntryRestricted": false,
+            "active": true,
+            "defaultLanguageId": "en_US",
+            "enableCategorization": true,
+            "enableComments": true,
+            "enableFriendlyURLCustomization": true,
+            "enableIndexSearch": true,
+            "enableLocalization": true,
+            "enableObjectEntryDraft": true,
+            "enableObjectEntryHistory": true,
+            "enableObjectEntrySchedule": true,
+            "enableObjectEntrySubscription": false,
+            "externalReferenceCode": "NewCMSStructure-elearning-teacher",
+            "label": {
+                "en_US": "eLearning Teacher"
+            },
+            "modifiable": true,
+            "name": "ElearningTeacher",
+            "objectActions": [],
+            "objectDefinitionSettings": [
+                {
+                    "name": "acceptAllGroups",
+                    "value": "true"
+                }
+            ],
+            "objectFields": [
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": true,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "String",
+                    "label": {
+                        "en_US": "Title"
+                    },
+                    "type": "String",
+                    "required": true,
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGTEACHER",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "unique": false,
+                    "name": "title",
+                    "state": false,
+                    "businessType": "Text"
+                },
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": false,
+                    "objectFieldSettings": [
+                        {
+                            "name": "acceptedFileExtensions",
+                            "value": "jpeg, jpg, png"
+                        },
+                        {
+                            "name": "fileSource",
+                            "value": "CMSBasicDocument"
+                        },
+                        {
+                            "name": "maximumFileSize",
+                            "value": 100
+                        }
+                    ],
+                    "readOnly": "false",
+                    "DBType": "Long",
+                    "label": {
+                        "en_US": "Photo"
+                    },
+                    "type": "Long",
+                    "required": false,
+                    "externalReferenceCode": "364e597f-20fa-4b23-8295-7cc685189192",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "indexedLanguageId": "en_US",
+                    "unique": false,
+                    "name": "photo",
+                    "state": false,
+                    "businessType": "Attachment",
+                    "readOnlyConditionExpression": ""
+                },
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": true,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "Clob",
+                    "label": {
+                        "en_US": "Description"
+                    },
+                    "type": "Clob",
+                    "required": false,
+                    "externalReferenceCode": "f8945cf7-a55f-4f3d-800a-f629bbfc2588",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "indexedLanguageId": "en_US",
+                    "unique": false,
+                    "name": "description",
+                    "state": false,
+                    "businessType": "RichText",
+                    "readOnlyConditionExpression": ""
+                }
+            ],
+            "objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+            "panelCategoryKey": "",
+            "parameterRequired": false,
+            "pluralLabel": {
+                "en_US": "eLearning Teacher"
+            },
+            "portlet": false,
+            "restContextPath": "/o/c/elearningteachers",
+            "scope": "depot",
+            "status": {
+                "code": 0,
+                "label": "approved",
+                "label_i18n": "Approved"
+            },
+            "system": false,
+            "titleObjectFieldName": "title"
+        }
+    ]
+}

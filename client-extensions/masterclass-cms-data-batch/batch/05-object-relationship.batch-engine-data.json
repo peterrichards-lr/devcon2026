@@ -1,0 +1,35 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectRelationship",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "INSERT",
+            "externalReferenceCode": "NewCMSStructure-elearning-course",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "deletionType": "disassociate",
+            "label": {
+                "en_US": "The Course Teachers"
+            },
+            "name": "elearningCourseTeachers",
+            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
+            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-teacher",
+            "type": "manyToMany"
+        },
+        {
+            "deletionType": "disassociate",
+            "label": {
+                "en_US": "The Course Modules"
+            },
+            "name": "elearningCourseModules",
+            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
+            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-module",
+            "type": "manyToMany"
+        }
+    ]
+}

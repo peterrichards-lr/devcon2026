@@ -6,7 +6,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "eLearning",
+            "scopeKey": "ELEARNING-SPACE",
             "taskItemDelegateName": "C_ElearningModule",
             "updateStrategy": "UPDATE"
         },
@@ -20,7 +20,7 @@
             "duration": "1 week",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-building-enterprise-websites-liferay-2",
@@ -29,7 +29,7 @@
             "duration": "1 week",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-building-enterprise-websites-liferay-3",
@@ -38,7 +38,7 @@
             "duration": "2 weeks",
             "moduleNumber": 3,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-frontend-client-extensions-1",
@@ -47,7 +47,7 @@
             "duration": "1 week",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-frontend-client-extensions-2",
@@ -56,7 +56,7 @@
             "duration": "2 weeks",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-frontend-client-extensions-3",
@@ -65,7 +65,7 @@
             "duration": "1 week",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-data-modeling-objects-1",
@@ -74,7 +74,7 @@
             "duration": "1 week",
             "moduleNumber": 1,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-data-modeling-objects-2",
@@ -83,7 +83,7 @@
             "duration": "2 weeks",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-mastering-data-modeling-objects-3",
@@ -92,7 +92,7 @@
             "duration": "1 week",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-foundations-client-extensions-1",
@@ -101,7 +101,7 @@
             "duration": "1 week",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-foundations-client-extensions-2",
@@ -110,7 +110,7 @@
             "duration": "1 week",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         },
         {
             "externalReferenceCode": "module-foundations-client-extensions-3",
@@ -119,7 +119,7 @@
             "duration": "2 weeks",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "eLearning"
+            "scopeKey": "ELEARNING-SPACE"
         }
     ]
 }

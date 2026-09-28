@@ -1,0 +1,22 @@
+{
+    "configuration": {
+        "className": "com.liferay.headless.asset.library.dto.v1_0.AssetLibrary",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT"
+        }
+    },
+    "items": [
+        {
+            "description": "Main Asset Library containing eLearning courses, teachers, modules and blogs managed content.",
+            "externalReferenceCode": "eLearning",
+            "name": "eLearning",
+            "settings": {
+                "sharingEnabled": true
+            },
+            "type": "AssetLibrary"
+        }
+    ]
+}

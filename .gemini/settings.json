@@ -6,9 +6,9 @@
 	],
 	"mcpServers": {
     "liferay": {
-      "httpUrl": "https://solaramoto.com/o/mcp",
+      "httpUrl": "http://localhost/o/mcp",
       "headers": {
-        "Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTpHYXJ0bmVyMjAyNg=="
+        "Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTpMMWZlcmF5JA=="
       }
     }
   }

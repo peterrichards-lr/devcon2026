@@ -12,4 +12,6 @@ masterclass-cms-data-batch-oauth-application-headless-server:
     scopes:
         - Liferay.Headless.Batch.Engine.everything
         - Liferay.Object.Admin.REST.everything
+        - Liferay.Headless.Asset.Library.everything
+        - Liferay.Headless.Object.everything
     type: oAuthApplicationHeadlessServer
