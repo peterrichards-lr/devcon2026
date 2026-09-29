@@ -128,7 +128,45 @@ Two of the three canonical object based initializers do exactly this. The third 
 
 Keeping `object-definitions/` in the tree removes the ordering question entirely.
 
-Reach for a sibling `batch` CET only when the objects genuinely belong to something larger than this site — shared across several initializers, or already owned and managed elsewhere. Then the tree must use the **token** form throughout, because it declares no aliases and an `ObjectDefinition#XXXX` reference in it is always dangling.
+#### Which Objects Belong In The Tree
+
+Not all of them. The test is whether **this tree renders the object** — an initializer should carry the data its own pages depend on, and nothing else.
+
+Build the reference set from the tree, not from the object list:
+
+```bash
+# Objects named directly by display page templates, collections and field mappings
+
+grep -rhoE 'OBJECT_DEFINITION_(ID|CLASS_NAME):[A-Za-z0-9]+' "${TREE}" | sort -u
+grep -rhoE 'ObjectDefinition#[A-Za-z0-9]{4}' "${TREE}" | sort -u
+
+# Collection providers name the object and the relationship together
+
+grep -rhoE 'RelatedInfoCollectionProvider_[^"]*' "${TREE}" | sort -u
+
+# Fragments that fetch object entries from the browser
+
+grep -rnoE '/o/c/[a-z0-9-]+' "${TREE}"/fragments | sort -u
+```
+
+Then close the set over relationships. If a page renders `Course` and `Course` relates to `Module`, the tree needs `Module` too — a relationship whose other end is absent fails to create. Include the picklists any included object references, since `list-type-definitions` is tree scoped and will not resolve against a picklist created elsewhere.
+
+| Belongs in the tree | Stays in a sibling `batch` CET |
+| --- | --- |
+| Rendered by a page, display page template or collection in this tree | Referenced by no page here |
+| Reached transitively through a relationship from one that is | Shared across several sites or initializers |
+| Picklists those objects reference | Owned and managed by another system |
+| Seed entries the pages need in order to render | Operational or user generated data |
+
+Seed data follows the same test. `object-entries/` is for entries a page needs to have something to show; real data does not belong in an initializer, because the tree is reapplied on every reprovision.
+
+State the partition in the plan, with the reference that justifies each inclusion. An object placed in the tree for no reason becomes an unwanted dependency; one left out that a page renders produces an empty region.
+
+#### When A Batch CET Is Still Right
+
+Then the tree must use the **token** form throughout, because it declares no aliases and an `ObjectDefinition#XXXX` reference in it is always dangling.
+
+Historically this was the only option — there was no way to couple a `batch` CET to an initializer, so the batch had to be deployed manually first for the initializer's dependencies to resolve. Trees built under that constraint carry no `object-definitions/` at all. That is a reason to consider moving them in, not evidence that they belong outside.
 
 One caveat when moving definitions into the tree: object definitions are **company scoped and survive site deletion**, so a reprovision re-runs `object-definitions/` against objects that already exist. The handler logs as `addObjectDefinitions` rather than `addOrUpdate…`, unlike its neighbours — confirm against your bundle how it behaves on a second run before relying on the tree to carry field changes, as opposed to the initial creation.
 

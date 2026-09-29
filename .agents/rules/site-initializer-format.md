@@ -423,7 +423,7 @@ grep --extended-regexp 'InitializationException|MustNotBeReserved|Unable to tran
 
 ## `site-navigation-menus.json` Format
 
-A bare JSON array of menus. Each menu needs `externalReferenceCode` and a `menuItems` array; `auto` is read on update. `name` and `typeSite` are optional — `site-initializer-dsr` omits `typeSite`, and `site-initializer-pim` omits both:
+A bare JSON array of menus. The platform requires only `externalReferenceCode` and a `menuItems` array; `auto` is read on update. **This workspace additionally mandates `name` and `typeSite` on every menu** — see below:
 
 ```json
 [
@@ -444,9 +444,17 @@ A bare JSON array of menus. Each menu needs `externalReferenceCode` and a `menuI
 ]
 ```
 
-`typeSite` is a `SiteNavigationConstants` integer: `1` primary, `2` secondary, `3` social. It is
-not required and neither canonical initializer sets it; a theme or master page selects a menu by
-`siteNavigationMenuExternalReferenceCode`, not by type.
+`typeSite` is a `SiteNavigationConstants` integer: `1` primary, `2` secondary, `3` social.
+
+**Platform behaviour:** it is not required. `site-initializer-dsr` omits it, `site-initializer-pim`
+omits `name` as well, and a master page selects its menu by `siteNavigationMenuExternalReferenceCode`
+rather than by type — so nothing in a rendered site depends on it today.
+
+**Workspace rule: set it anyway, on every menu.** Relying on an unset field means relying on a
+default that is not written down in the tree. If the field later becomes required, or its default
+changes, an omitted value fails or silently switches meaning, and the tree gives a reviewer nothing
+to check the intent against. An explicit value costs one line and removes the ambiguity. Apply the
+same reasoning to `name`: a menu without one is legal and unreadable.
 
 Give every `menuItems` entry its own `externalReferenceCode`, as both canonical initializers do —
 it makes the item addressable across a reprovision. `displayIcon` sets a Clay icon on the item.
