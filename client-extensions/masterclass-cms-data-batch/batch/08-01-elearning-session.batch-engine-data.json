@@ -1,0 +1,113 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+        "multiCompany": true,
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "scopeKey": "ELEARNING-SPACE",
+            "taskItemDelegateName": "C_ElearningSession",
+            "updateStrategy": "UPDATE"
+        },
+        "taskItemDelegateName": "C_ElearningSession"
+    },
+    "items": [
+        {
+            "externalReferenceCode": "session-building-enterprise-websites-liferay-1",
+            "title": "1st week Feb 2027",
+            "startDate": "2027-02-01T09:00:00Z",
+            "endDate": "2027-02-05T18:00:00Z",
+            "internalid": 101,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-building-enterprise-websites-liferay-2",
+            "title": "2nd week May 2027",
+            "startDate": "2027-05-10T09:00:00Z",
+            "endDate": "2027-05-14T18:00:00Z",
+            "internalid": 102,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-building-enterprise-websites-liferay-3",
+            "title": "3rd week Oct 2027",
+            "startDate": "2027-10-18T09:00:00Z",
+            "endDate": "2027-10-22T18:00:00Z",
+            "internalid": 103,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-frontend-client-extensions-1",
+            "title": "3rd week Feb 2027",
+            "startDate": "2027-02-15T09:00:00Z",
+            "endDate": "2027-02-19T18:00:00Z",
+            "internalid": 201,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-frontend-client-extensions-2",
+            "title": "1st week Jun 2027",
+            "startDate": "2027-06-07T09:00:00Z",
+            "endDate": "2027-06-11T18:00:00Z",
+            "internalid": 202,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-frontend-client-extensions-3",
+            "title": "2nd week Nov 2027",
+            "startDate": "2027-11-08T09:00:00Z",
+            "endDate": "2027-11-12T18:00:00Z",
+            "internalid": 203,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-data-modeling-objects-1",
+            "title": "1st week Mar 2027",
+            "startDate": "2027-03-01T09:00:00Z",
+            "endDate": "2027-03-05T18:00:00Z",
+            "internalid": 301,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-data-modeling-objects-2",
+            "title": "4th week Jul 2027",
+            "startDate": "2027-07-26T09:00:00Z",
+            "endDate": "2027-07-30T18:00:00Z",
+            "internalid": 302,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-mastering-data-modeling-objects-3",
+            "title": "1st week Dec 2027",
+            "startDate": "2027-12-06T09:00:00Z",
+            "endDate": "2027-12-10T18:00:00Z",
+            "internalid": 303,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-foundations-client-extensions-1",
+            "title": "3rd week Mar 2027",
+            "startDate": "2027-03-15T09:00:00Z",
+            "endDate": "2027-03-19T18:00:00Z",
+            "internalid": 401,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-foundations-client-extensions-2",
+            "title": "2nd week Sep 2027",
+            "startDate": "2027-09-13T09:00:00Z",
+            "endDate": "2027-09-17T18:00:00Z",
+            "internalid": 402,
+            "scopeKey": "ELEARNING-SPACE"
+        },
+        {
+            "externalReferenceCode": "session-foundations-client-extensions-3",
+            "title": "3rd week Dec 2027",
+            "startDate": "2027-12-13T09:00:00Z",
+            "endDate": "2027-12-17T18:00:00Z",
+            "internalid": 403,
+            "scopeKey": "ELEARNING-SPACE"
+        }
+    ]
+}

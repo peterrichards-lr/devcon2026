@@ -1,0 +1,80 @@
+{
+    "comment": "Temporarily disabled object actions for ElearningSession. Rename extension to .json to re-enable.",
+    "objectActions": [
+        {
+            "active": true,
+            "conditionExpression": "",
+            "description": "",
+            "errorMessage": {},
+            "externalReferenceCode": "CMS-ACTION-SAVE-INTERNAL-ID",
+            "label": {
+                "en_US": "saveInternalID"
+            },
+            "name": "saveInternalID",
+            "objectActionExecutorKey": "update-object-entry",
+            "objectActionTriggerKey": "onAfterAdd",
+            "parameters": {
+                "objectDefinitionExternalReferenceCode": "NewCMSStructure-elearning-session",
+                "predefinedValues": [
+                    {
+                        "businessType": "Integer",
+                        "inputAsValue": false,
+                        "label": {
+                            "en_US": "internalID"
+                        },
+                        "name": "internalid",
+                        "value": "id"
+                    }
+                ]
+            },
+            "system": false
+        },
+        {
+            "active": true,
+            "conditionExpression": "",
+            "description": "",
+            "errorMessage": {},
+            "externalReferenceCode": "CMS-ACTION-FULFILL-INTERNAL-SESSION-COURSE",
+            "label": {
+                "en_US": "fulfillInternalSessionCourse"
+            },
+            "name": "fulfillInternalSessionCourse",
+            "objectActionExecutorKey": "add-object-entry",
+            "objectActionTriggerKey": "onAfterUpdate",
+            "parameters": {
+                "objectDefinitionExternalReferenceCode": "5155e78b-668e-443d-3655-b85ce357a5d7",
+                "system": "false",
+                "predefinedValues": [
+                    {
+                        "businessType": "LongInteger",
+                        "inputAsValue": false,
+                        "label": {
+                            "en_US": "CourseSessionID"
+                        },
+                        "name": "courseSessionID",
+                        "value": "internalid"
+                    },
+                    {
+                        "businessType": "Date",
+                        "inputAsValue": false,
+                        "label": {
+                            "en_US": "CourseSessionStartDate"
+                        },
+                        "name": "courseSessionStartDate",
+                        "value": "startDate"
+                    },
+                    {
+                        "businessType": "Date",
+                        "inputAsValue": false,
+                        "label": {
+                            "en_US": "CourseSessionEndDate"
+                        },
+                        "name": "courseSessionEndDate",
+                        "value": "endDate"
+                    }
+                ]
+            },
+            "system": false
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 [
 	{
-		externalReferenceCode: "MNU_Main_Navigation",
+		"externalReferenceCode": "MNU_Main_Navigation",
 		"menuItems": [
 			{
 				"friendlyURL": "/courses",
@@ -18,10 +18,11 @@
 				"type": "layout"
 			}
 		],
-		"name": "Main Navigation"
+		"name": "Main Navigation",
+		"typeSite": 1
 	},
 	{
-		externalReferenceCode: "MNU_Private_Navigation",
+		"externalReferenceCode": "MNU_Private_Navigation",
 		"menuItems": [
 			{
 				"friendlyURL": "/myconfirmedcourses",
@@ -44,6 +45,7 @@
 				"type": "layout"
 			}
 		],
-		"name": "Private Area Navigation"
+		"name": "Private Area Navigation",
+		"typeSite": 1
 	}
 ]
