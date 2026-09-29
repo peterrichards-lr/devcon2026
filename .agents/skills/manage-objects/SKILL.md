@@ -503,10 +503,31 @@ my-batch-oauth-server:
 "relationshipName": {"externalReferenceCode": "TARGET-ERC-001"}
 ```
 
+For Many-to-Many relationships:
+```json
+"relationshipName": [
+  {"externalReferenceCode": "TARGET-ERC-001", "title": "Target Title 1"},
+  {"externalReferenceCode": "TARGET-ERC-002", "title": "Target Title 2"}
+]
+```
+> **Validation Note**: If the target object has required fields (like a localized `title`), providing *only* `externalReferenceCode` will fail DTO validation (`No value was provided for the language ID "en_US" in the required object field "title"`). Include the target object's required fields in the nested reference object to satisfy validation while Liferay links the existing entry by ERC.
+
 **Direct field mapping** (`r_...` syntax) — ERC is **not** supported here, only integer IDs:
 
 ```json
 "r_accountToMyObject_accountEntryId": 38660
+```
+
+#### Headless CMS Folders & Media Assets (`CMSBasicDocument`)
+
+- To display media in the CMS UI (`Files` tab), documents must be imported as `CMSBasicDocument` entries (`className: "com.liferay.object.rest.dto.v1_0.ObjectEntry"`, `taskItemDelegateName: "CMSBasicDocument"` — system objects do not use `C_`).
+- Custom folders must be created as `com.liferay.headless.object.dto.v1_0.ObjectEntryFolder` with `parentObjectEntryFolderExternalReferenceCode: "L_FILES"`.
+- Custom object attachment fields configured with `"fileSource": "CMSBasicDocument"` should reference the uploaded CMS file by its `externalReferenceCode`:
+```json
+"representativeImage": {
+  "name": "image.jpg",
+  "externalReferenceCode": "FILE-IMAGE-ERC"
+}
 ```
 
 #### Troubleshooting
@@ -573,7 +594,7 @@ The OpenAPI spec for `object-admin` and the per object `/o/c/<pluralLabel>` endp
 ### Field Rules
 
 - **Namespace safety**: NEVER use `userId` as a custom field name — it is a system column in `ObjectEntryTable` and will collide. Use `liferayUserId` instead.
-- **Type storage**: every `DateTime` or `Date` field MUST have `timeStorage` set in `objectFieldSettings` (e.g., `"convertToUTC"`).
+- **Type storage**: every `DateTime` field MUST have `timeStorage` set in `objectFieldSettings` (e.g., `"convertToUTC"`). `Date` fields must NOT have `timeStorage` (it throws `ObjectFieldSettingNameException$NotAllowedNames: The settings timeStorage are not allowed for object field`).
 - **Indexed language**: `indexedLanguageId` is valid only on `String` and `Clob` field types. Never set it on `Date`/`DateTime` or other nontext fields.
 
 #### Reserved Field Names

@@ -20,9 +20,10 @@
             "enableIndexSearch": true,
             "enableLocalization": true,
             "enableObjectEntryDraft": true,
-            "enableObjectEntryHistory": true,
+            "enableObjectEntryHistory": false,
             "enableObjectEntrySchedule": true,
             "enableObjectEntrySubscription": false,
+            "enableObjectEntryVersioning": true,
             "externalReferenceCode": "NewCMSStructure-elearning-course",
             "label": {
                 "en_US": "eLearning Course"
@@ -323,7 +324,7 @@
             "pluralLabel": {
                 "en_US": "eLearning Course"
             },
-            "portlet": false,
+            "portlet": true,
             "restContextPath": "/o/c/elearningcourses",
             "scope": "depot",
             "status": {

@@ -1,0 +1,15 @@
+{
+    "configuration": {
+        "className": "com.liferay.headless.asset.library.dto.v1_0.ConnectedSite",
+        "parameters": {
+            "assetLibraryExternalReferenceCode": "ELEARNING-SPACE",
+            "createStrategy": "UPSERT"
+        }
+    },
+    "items": [
+        {
+            "externalReferenceCode": "SITE-MYMASTERCLASS",
+            "searchable": true
+        }
+    ]
+}

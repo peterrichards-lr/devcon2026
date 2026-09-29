@@ -20,9 +20,10 @@
             "enableIndexSearch": true,
             "enableLocalization": true,
             "enableObjectEntryDraft": true,
-            "enableObjectEntryHistory": true,
+            "enableObjectEntryHistory": false,
             "enableObjectEntrySchedule": true,
             "enableObjectEntrySubscription": false,
+            "enableObjectEntryVersioning": true,
             "externalReferenceCode": "NewCMSStructure-elearning-teacher",
             "label": {
                 "en_US": "eLearning Teacher"
@@ -85,7 +86,7 @@
                     "externalReferenceCode": "364e597f-20fa-4b23-8295-7cc685189192",
                     "indexedAsKeyword": false,
                     "system": false,
-                    "indexedLanguageId": "en_US",
+                    "indexedLanguageId": "",
                     "unique": false,
                     "name": "photo",
                     "state": false,
@@ -121,7 +122,7 @@
             "pluralLabel": {
                 "en_US": "eLearning Teacher"
             },
-            "portlet": false,
+            "portlet": true,
             "restContextPath": "/o/c/elearningteachers",
             "scope": "depot",
             "status": {

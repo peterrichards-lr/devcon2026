@@ -604,11 +604,51 @@ Custom folder-enabled object definitions store folders as generic `ObjectEntryFo
   * `PDFs` (ID `45373` / parent `43697`)
   * `Blogs` (ID `48219` / parent `43697`)
 
-### 3. Moving Custom Documents into Folders
-To organize registered document object entries (such as `CMSBasicDocument` entries) into your nested custom folders, use the folder movement endpoint generated on your custom object:
+### 3. Creating & Moving Custom Documents into Folders
+Instead of moving files after creation, you can directly assign the folder when creating the `CMSBasicDocument` entry using `objectEntryFolderExternalReferenceCode`:
 
+```json
+POST /o/cms/basic-documents/scopes/{scopeKey}
+Content-Type: application/json
+
+{
+    "externalReferenceCode": "CMS-DOC-BLOG-01",
+    "title": "blog_01.jpg",
+    "title_i18n": { "en_US": "blog_01.jpg" },
+    "objectEntryFolderExternalReferenceCode": "BLOGS",
+    "file": {
+        "externalReferenceCode": "FILE-BLOG-01",
+        "name": "blog_01.jpg",
+        "fileBase64": "..."
+    }
+}
+```
+
+Or move an existing `CMSBasicDocument` into a folder:
 `POST /o/cms/basic-documents/{documentId}/by-object-entry-folder-id/{targetFolderId}/move`
 
 This call moves the `CMSBasicDocument` entry with `documentId` into the folder with `targetFolderId` (e.g., `48219`), updating its parent directory mapping in the CMS control panel.
 
+### 4. Many-to-Many Relationships & DTO Schema Validation
+When linking objects via Many-to-Many relationships in Batch Engine or REST payloads:
+* Use the camelCase relationship name as the property key (e.g. `elearningCourseModules`, `elearningCourseTeachers`).
+* If the related object definition has **required fields** (such as localized `title`), providing only `{"externalReferenceCode": "REL-ERC"}` fails payload DTO validation with: `No value was provided for the language ID "en_US" in the required object field "title"`.
+* Always include the target object's required fields in the nested reference object:
+```json
+"elearningCourseModules": [
+    {
+        "externalReferenceCode": "module-foundations-1",
+        "title": "Client Extensions Overview"
+    }
+]
 ```
+Liferay matches and links the existing entry by its `externalReferenceCode` and passes validation.
+
+### 5. CMS Content Structures & UI Deletion Requirements (Verified)
+For custom objects defined in an Asset Library / Space (`objectFolderExternalReferenceCode: "L_CMS_CONTENT_STRUCTURES"`, `scope: "depot"`) to function as first-class CMS Content Structures with full UI deletion support:
+* **`"enableObjectEntryVersioning": true`**: Mandatory. If omitted/false, the CMS UI bulk delete preview endpoint (`/o/bulk/v1.0/bulk-action-item/preview`) returns `404 NOT_FOUND` and entries cannot be deleted from the UI.
+* **`"portlet": true`**: Mandatory for asset rendering and UI lifecycle hooks.
+* **`"enableObjectEntryDraft": true`** and **`"enableObjectEntryHistory": false`**: Standard CMS structure configuration.
+* **`title` Field (`system: false`)**: Custom `title` fields in batch definitions must have `"system": false`. Setting `"system": true` hides the title field in the CMS form and causes entries to be created as "untitled asset".
+* **Immutability of Versioning:** Once an Object Definition is published with `enableObjectEntryVersioning: true`, Liferay strictly forbids disabling versioning on an update (`ObjectDefinitionEnableObjectEntryVersioningException`). To alter this configuration during development, delete the object definition from **Control Panel > Objects** before re-importing.
+* **Dependency & Recycle Bin Warnings:** With versioning properly configured, deleting dependent items (e.g., a Session linked to a Course) correctly triggers Liferay's dependency reference warning modal and routes items cleanly to the Recycle Bin.
