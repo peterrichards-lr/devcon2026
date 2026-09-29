@@ -170,7 +170,7 @@ Historically this was the only option — there was no way to couple a `batch` C
 
 One caveat when moving definitions into the tree: object definitions are **company scoped and survive site deletion**, so a reprovision re-runs `object-definitions/` against objects that already exist. The handler logs as `addObjectDefinitions` rather than `addOrUpdate…`, unlike its neighbours — confirm against your bundle how it behaves on a second run before relying on the tree to carry field changes, as opposed to the initial creation.
 
-See `rules/site-initializer-portability.md` for the reference forms.
+See `references/site-initializer-portability.md`, which ships with this skill, for the reference forms.
 
 ### Step 5: Inventory References To Rewrite
 
@@ -219,7 +219,7 @@ Only after confirmation.
 
 ## Verification
 
-A page composition change needs a reprovision — retriggering upserts pages but does not retrofit composition onto pages that already exist. Delete the site, redeploy the CET, and compare handler timings against the previous run. See `rules/site-initializer-format.md` for the reprovision script.
+A page composition change needs a reprovision — retriggering upserts pages but does not retrofit composition onto pages that already exist. Delete the site, redeploy the CET, and compare handler timings against the previous run. In a Liferay workspace, `rules/site-initializer-format.md` carries the reprovision script.
 
 Then verify as the visitor, because every failure here is silent and an authenticated session hides all of them:
 
@@ -227,9 +227,26 @@ Then verify as the visitor, because every failure here is silent and an authenti
 curl --silent --url "http://localhost:${PORT}/web/<site>/<page>" > /tmp/page.html
 ```
 
-Assert on real values and confirm placeholders are **absent**. An object backed collection renders empty for Guest until `resource-permissions.json` grants `VIEW` at company scope — `scope` `"1"`. A migrated page that looks blank is far more often a missing grant than a bad mapping. See `rules/guest-access.md`.
+Assert on real values and confirm placeholders are **absent**. An object backed collection renders empty for Guest until `resource-permissions.json` grants `VIEW` at company scope — `scope` `"1"`. A migrated page that looks blank is far more often a missing grant than a bad mapping.
 
-Finally, run the audit checklist in `rules/site-initializer-portability.md` against the migrated tree. The rewrite in Step 5 is exactly where captured identifiers get introduced.
+Finally, audit the migrated tree. The rewrite in Step 5 is exactly where identifiers
+captured from the authoring instance get introduced, so check for each of these before
+calling the migration done:
+
+| Check | Severity |
+| --- | --- |
+| No `[#…#]` token delimiters — only `[$…$]` substitutes | Error |
+| Every `ObjectDefinition#XXXX` alias is declared by an object definition the tree can see | Error |
+| No `ObjectField_<digits>` field keys — the named form `ObjectField_<fieldName>` is required | Error |
+| No `name<hex>` relationship names inside collection provider class names | Error |
+| Tree scoped tokens (`ASSET_LIST_ENTRY_ID`, `LIST_TYPE_DEFINITION_ID`, `DDM_*`, `DOCUMENT_*`, `ROLE_ID`, `LAYOUT_ID`) resolve within this tree | Error |
+| Company scoped tokens (`OBJECT_DEFINITION_*`) resolve against this tree or a sibling batch CET | Warning |
+| Every file is valid JSON and valid UTF-8 | Error |
+| `resource-permissions.json` uses `scope` `"1"` or `"2"`, never `"3"` | Warning |
+
+`references/site-initializer-portability.md` carries the reasoning behind each row, the
+full token vocabulary, and the grep recipes. It ships with this skill — read it when a
+finding needs justifying, not to run the checklist.
 
 ## Failure Modes
 
@@ -245,8 +262,15 @@ The site provisions with the CMS directories removed; an unauthenticated `curl` 
 
 ## References
 
-- `rules/site-initializer-portability.md` — the identifier rules this skill rewrites against.
-- `rules/site-initializer-format.md` — tree layout, handler order, reprovision.
-- `skills/manage-objects/SKILL.md` — object definitions, fields, relationships, reserved names.
-- `skills/scaffold-fragment/SKILL.md` — for DDM template conversion.
-- `rules/guest-access.md` — why a migrated public page renders empty.
+Ships with this skill:
+
+- `references/site-initializer-portability.md` — the identifier rules this skill rewrites
+  against, with the reasoning behind every checklist row.
+
+Available in a Liferay workspace, but **not** bundled with this skill — treat a reference
+to one as optional context, never as a step this skill depends on:
+
+- `rules/site-initializer-format.md` — tree layout, handler order, reprovision script.
+- `rules/guest-access.md` — why a migrated public page renders empty for a visitor.
+- `skills/manage-objects` — object definitions, fields, relationships, reserved names.
+- `skills/scaffold-fragment` — for DDM template conversion.
