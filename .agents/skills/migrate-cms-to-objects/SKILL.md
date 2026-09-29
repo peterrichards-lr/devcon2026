@@ -9,7 +9,7 @@ name: migrate-cms-to-objects
 
 Convert a site initializer whose content lives in DDM structures and journal articles into one whose content lives in Liferay Objects, and audit the result.
 
-The skill runs in two phases. **Phase 1 produces a plan and stops.** The plan is the dry run: it states every field mapping, every structural decision and every unresolvable reference, and nothing is written until the user confirms it. This exists because the decisions below are not derivable from the source — a skill that guessed them would silently produce the wrong data model.
+Propose the object model and the rewrites first, and apply only once the user has agreed them. A wrong data model is expensive to undo after entries exist.
 
 ## When to Invoke
 
@@ -17,52 +17,39 @@ The skill runs in two phases. **Phase 1 produces a plan and stops.** The plan is
 - "Convert the Course structure to an object definition"
 - "Will this initializer work on a clean bundle?"
 - "Why is this collection empty after provisioning?"
-- Audit only: the tree is already object backed and you want the Phase 1 report without migrating
+- Audit only: the tree is already object backed and you want the portability report
 
-## What Cannot Be Derived — Read This First
+## What This Skill Is For
 
-Three decisions carry the migration, and none of them follow from the DDM source. They are why the plan phase exists.
+Everything here is a fact about Liferay that is not recoverable by reasoning about the
+source tree — file formats, handler behaviour, and failure modes that are **silent**.
+The build succeeds, the site provisions, no warning is logged, and the defect shows up
+as a blank region on a page.
 
-**DDM types under specify.** Every nested field in a fieldset is typically `type=text dataType=string`, regardless of what it holds. A field named `NumberOfLessons` carrying `"12"` is a string in DDM and wants to be an `Integer` object field. Propose the upgrade; do not apply it unasked.
+Modelling judgment is not the point. Work out the object model the way you would any
+data model; use this skill for the parts Liferay will not tell you.
 
-**A fieldset has two possible fates.** See the classification rule below. Both outcomes are correct in different cases, and both occur in real migrations of the same structure.
+## Reading the Source
 
-**Field names get rethought, not transliterated.** `Name` → `title`, `ProgramDescription` → `courseProgram`, `Info` → `description`, `Image` → `photo`. PascalCase to camelCase is the floor, not the answer. Propose it; let the user correct it.
+A DDM structure is **JSON inside a CDATA block inside XML**, so the field list is not
+visible to an XML parser alone:
 
-## Phase 1 — Plan
-
-Produce the whole plan before writing anything. Read only.
-
-### Step 1: Inventory the Source
-
-```bash
-TREE=client-extensions/<name>/site-initializer      # or src/main/resources/site-initializer
-
-ls "${TREE}"/ddm-structures/ "${TREE}"/ddm-templates/ 2>/dev/null
-find "${TREE}/journal-articles" -name '*.xml' | wc -l
+```python
+import json, re
+m = re.search(r'<!\[CDATA\[(.*?)\]\]>', open(path, encoding="utf8").read(), re.S)
+fields = json.loads(m.group(1))["fields"]          # each may carry nestedFields
 ```
 
-A DDM structure is JSON inside a CDATA block inside XML. Extract the field list:
+Field values live in `journal-articles/<type>/<name>.xml`; the sibling `.json` holds
+metadata. **Read the stored values before choosing a type** — DDM under specifies, and
+every nested field in a fieldset is typically `text`/`string` whatever it holds.
 
-```bash
-python3 - <<'EOF'
-import json,re,glob,os
-for f in sorted(glob.glob("<TREE>/ddm-structures/*.xml")):
-	m=re.search(r'<!\[CDATA\[(.*?)\]\]>',open(f,encoding="utf8").read(),re.S)
-	if not m: continue
-	d=json.loads(m.group(1))
-	print("--",os.path.basename(f))
-	for fl in d.get("fields",[]):
-		nested=fl.get("nestedFields",[]) or []
-		print(f"   {fl['name']:26} type={fl.get('type',''):12} dataType={fl.get('dataType',''):8} nested={len(nested)}")
-		for nf in nested:
-			print(f"        {nf['name']:24} type={nf.get('type','')}")
-EOF
-```
+Journal article XML from an older export may not be UTF-8. Converting it with a UTF-8
+tool replaces accented characters with U+FFFD silently; check the encoding first.
 
-### Step 2: Map Field Types
+## Field Type Mapping
 
-Observed mapping. `businessType` drives the object field; `DBType` follows from it.
+`businessType` drives the object field; `DBType` follows from it.
 
 | DDM `type` | DDM `dataType` | `businessType` | `DBType` |
 | --- | --- | --- | --- |
@@ -75,200 +62,165 @@ Observed mapping. `businessType` drives the object field; `DBType` follows from 
 | `checkbox` | `boolean` | `Boolean` | `Boolean` |
 | `date` | `date` | `Date` | `Date` |
 | `numeric` | `integer` / `double` | `Integer` / `Decimal` | `Integer` / `Double` |
-| `fieldset` | — | **no equivalent — classify it** | — |
 
-`text` maps to `Text` or `LongText` depending on the values actually stored, not on the structure. Sample the journal articles before choosing: a field holding prose belongs in `LongText`/`Clob`, a label belongs in `Text`/`String`.
+`text` splits into `Text`/`String` or `LongText`/`Clob` by what is stored, not by the
+structure. A `fieldset` has no object equivalent — it is either a repeating group or a
+presentational one, and the source does not say which.
 
-Propose a type upgrade wherever the stored values are consistently numeric, boolean or date shaped, and say so explicitly in the plan.
+## Packaging: Client Extension Or OSGi Module
 
-### Step 3: Classify Every Fieldset
+The `site-initializer/` tree format is identical either way — same handlers, same
+`page.json`, same tokens. Only the build and deployment differ.
 
-This is the decision that shapes the data model. Apply the rule, then state the conclusion and the evidence in the plan.
+| Form | Marker | Deploys to |
+| --- | --- | --- |
+| Client extension | `client-extension.yaml`, flat `site-initializer/` | Self hosted, **LXC and SaaS** |
+| OSGi module | `bnd.bnd` + `build.gradle`, `src/main/resources/site-initializer/` | Self hosted only |
 
-**Repeating group → a related object.** Several fieldsets whose names differ only by a trailing integer, whose nested fields have parallel shape:
+**Default to a client extension**, and do not change an existing CET into a module as
+part of a content migration — that is two changes to untangle when the site provisions
+wrong.
 
-```
-Module1 { Module1Name, Module1Description, Module1Duration, Module1NumberOfLessons }
-Module2 { Module2Name, Module2Description, Module2Duration, Module2NumberOfLessons }
-Module3 { Module3Name, Module3Description, Module3Duration, Module3NumberOfLessons }
-```
+The canonical object based initializers in liferay-portal (`site-initializer-dsr`,
+`-cmp`, `-pim`, `-cms`) are all OSGi modules because they ship inside the product. They
+are authoritative for tree structure, object definition format and reference forms; they
+are not a signal about how a customer workspace should package its own.
 
-Becomes one `Module` object with the prefix stripped (`name`, `description`, `duration`, `numberOfLessons`), a discriminator field carrying the ordinal (`moduleNumber`, `Integer`), and a relationship to the parent. Ask for `type` and `deletionType` — a real migration of exactly this structure chose `manyToMany` with `disassociate`, which is not the obvious answer.
+## Where Object Definitions Live
 
-**Presentational grouping → flatten to scalars.** A lone fieldset whose nested fields have distinct names and no sibling of the same shape:
-
-```
-Features { NumberOfLessons, Quizzes, Duration, MaxRetakes, PassPercentage }
-```
-
-Becomes five ordinary fields directly on the parent object. The fieldset carried layout, not structure.
-
-Both patterns occur in the same DDM structure. Do not apply one rule to the whole file.
-
-### Step 4: Decide Where Object Definitions Live
-
-**Default to keeping them in the tree.** A site initializer can carry the entire data layer, and doing so makes it self contained — it provisions correctly on a clean bundle with nothing deployed beside it.
-
-Handlers run in a fixed order, so the tree can express the whole model and its seed data:
+**Default to keeping them in the tree.** Handlers run in a fixed order, so the tree can
+carry the whole model and its seed data:
 
 ```
 list-type-definitions -> object-folders -> object-definitions -> object-relationships
     -> object-fields -> publishObjectDefinitions -> object-actions -> object-entries
 ```
 
-Two of the three canonical object based initializers do exactly this. The third does not, and the consequence is visible in how each one writes its references:
+Omit `status` from a definition file — `publishObjectDefinitions` runs after the
+definitions are created.
 
-| Initializer | Object definitions | Reference form used |
-| --- | --- | --- |
-| `site-initializer-dsr` | in tree | alias — `ObjectDefinition#D1S2` |
-| `site-initializer-pim` | in tree | alias — `ObjectDefinition#C0N1` |
-| `site-initializer-cmp` | out of tree (Java batch) | token — `[$OBJECT_DEFINITION_CLASS_NAME:CMPProject$]` |
+**The reason is the dependency, not the tidiness.** `[$OBJECT_DEFINITION_ID:<Name>$]` and
+`[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` resolve company wide, but only against
+**published** definitions. When the definitions come from a sibling `batch` CET, the
+initializer depends on that CET having already deployed and published. Nothing declares
+that ordering and nothing enforces it — provision in the wrong order and every object
+token resolves to nothing: the site builds, the pages render, the collections are empty.
 
-**The reason to prefer in tree is the dependency, not the tidiness.** Object tokens resolve company wide, but only against **published** definitions — the registering pass filters on `STATUS_APPROVED`. When the definitions come from a sibling `batch` CET, the initializer therefore depends on that CET having already deployed and published. Nothing in either CET declares that ordering and nothing enforces it. Provision in the wrong order and every object token silently resolves to nothing: the site builds, the pages render, the collections are empty.
+Historically this was the only option; there was no way to couple a `batch` CET to an
+initializer, so the batch had to be deployed by hand first. Trees built under that
+constraint carry no `object-definitions/` at all, which is a reason to move them in
+rather than evidence that they belong outside.
 
-Keeping `object-definitions/` in the tree removes the ordering question entirely.
+Keep in the tree whatever this tree renders — reached from a display page template, a
+collection provider or a fragment fetch — plus anything reached transitively through a
+relationship, since a relationship whose other end is absent fails to create, plus the
+picklists those objects reference (`list-type-definitions` is tree scoped and will not
+resolve against a picklist created elsewhere). Objects that no page here renders, or
+that are shared across sites, stay in a sibling `batch` CET — and that tree must then
+use the **token** reference form throughout, because it declares no aliases.
 
-#### Which Objects Belong In The Tree
+> **There is no `batch/` directory in a site initializer.** `BundleSiteInitializer` reads
+> a fixed set of directories and `batch/` is not one of them. Files placed there are
+> packaged into the zip and silently ignored: the build succeeds, the site provisions,
+> no objects appear. The `*.batch-engine-data.json` envelope belongs to the separate
+> `batch` CET type.
 
-Not all of them. The test is whether **this tree renders the object** — an initializer should carry the data its own pages depend on, and nothing else.
-
-Build the reference set from the tree, not from the object list:
-
-```bash
-# Objects named directly by display page templates, collections and field mappings
-
-grep -rhoE 'OBJECT_DEFINITION_(ID|CLASS_NAME):[A-Za-z0-9]+' "${TREE}" | sort -u
-grep -rhoE 'ObjectDefinition#[A-Za-z0-9]{4}' "${TREE}" | sort -u
-
-# Collection providers name the object and the relationship together
-
-grep -rhoE 'RelatedInfoCollectionProvider_[^"]*' "${TREE}" | sort -u
-
-# Fragments that fetch object entries from the browser
-
-grep -rnoE '/o/c/[a-z0-9-]+' "${TREE}"/fragments | sort -u
-```
-
-Then close the set over relationships. If a page renders `Course` and `Course` relates to `Module`, the tree needs `Module` too — a relationship whose other end is absent fails to create. Include the picklists any included object references, since `list-type-definitions` is tree scoped and will not resolve against a picklist created elsewhere.
-
-| Belongs in the tree | Stays in a sibling `batch` CET |
-| --- | --- |
-| Rendered by a page, display page template or collection in this tree | Referenced by no page here |
-| Reached transitively through a relationship from one that is | Shared across several sites or initializers |
-| Picklists those objects reference | Owned and managed by another system |
-| Seed entries the pages need in order to render | Operational or user generated data |
-
-Seed data follows the same test. `object-entries/` is for entries a page needs to have something to show; real data does not belong in an initializer, because the tree is reapplied on every reprovision.
-
-State the partition in the plan, with the reference that justifies each inclusion. An object placed in the tree for no reason becomes an unwanted dependency; one left out that a page renders produces an empty region.
-
-#### When A Batch CET Is Still Right
-
-Then the tree must use the **token** form throughout, because it declares no aliases and an `ObjectDefinition#XXXX` reference in it is always dangling.
-
-Historically this was the only option — there was no way to couple a `batch` CET to an initializer, so the batch had to be deployed manually first for the initializer's dependencies to resolve. Trees built under that constraint carry no `object-definitions/` at all. That is a reason to consider moving them in, not evidence that they belong outside.
-
-One caveat when moving definitions into the tree: object definitions are **company scoped and survive site deletion**, so a reprovision re-runs `object-definitions/` against objects that already exist. The handler logs as `addObjectDefinitions` rather than `addOrUpdate…`, unlike its neighbours — confirm against your bundle how it behaves on a second run before relying on the tree to carry field changes, as opposed to the initial creation.
-
-See `references/site-initializer-portability.md`, which ships with this skill, for the reference forms.
-
-### Step 5: Inventory References To Rewrite
-
-Every place the CMS binding is named:
-
-```bash
-grep -rn 'JournalArticle\|ddmStructureKey\|ddmTemplateKey\|DDM_STRUCTURE_ID\|TEMPLATE_ENTRY_ID' "${TREE}"
-grep -rn '"fieldKey"' "${TREE}" | grep -v ObjectField_
-```
+## References To Rewrite
 
 | Location | From | To |
 | --- | --- | --- |
 | `display-page-templates/*/display-page-template.json` | `contentType.className: com.liferay.journal.model.JournalArticle` + structure ERC subtype | `[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` |
 | `page-definition.json` field mappings | `"fieldKey": "CourseName"` | `"fieldKey": "ObjectField_courseName"` |
-| Collection displays | asset list / DDM structure source | object collection provider (see the portability card) |
+| Collection displays | asset list / DDM structure source | object collection provider |
 | `asset-list-entries.json` | `classNameId` of `JournalArticle` | the object definition |
 
-### Step 6: Emit the Plan
+Find them with:
 
-Present all of it and stop. The plan must state, per structure:
+```
+JournalArticle|ddmStructureKey|ddmTemplateKey|DDM_STRUCTURE_ID|TEMPLATE_ENTRY_ID
+```
 
-- Source field → target field, with `businessType`, and a marker on every proposed type upgrade
-- Every fieldset, its classification, and the evidence for it
-- Proposed relationships with `type` and `deletionType`
-- Where object definitions will live, and the reference form that follows
-- Every reference to rewrite, with its file and line
-- Anything unresolvable, named explicitly — never guessed
+and any `"fieldKey"` whose value does not start with `ObjectField_`.
 
-Ask for confirmation. Do not write.
+`references/site-initializer-portability.md`, which ships with this skill, carries the
+two valid object reference forms and when each is legal.
 
-## Phase 2 — Apply
+## Applying
 
-Only after confirmation.
+1. **Object definitions.** Reserved field names abort initialization and **roll back the
+   entire site creation** — no site, no objects, no picklists, reading as "the CET never
+   deployed". `status`, `id`, `creator`, `keywords`, `userId` are rejected; `name`,
+   `email`, `location`, `company` are fine. A field with `"state": true` makes
+   `defaultValue` and `defaultValueType` mandatory on that same field, and `defaultValue`
+   must match a picklist entry key an earlier handler created.
 
-1. **Write object definitions.** Either `object-definitions/<NN-name>.json` in the tree, or a sibling `batch` CET. Omit `status` — the initializer publishes. Reserved field names abort the whole provision: `status`, `id`, `creator`, `keywords`, `userId` are rejected. See `manage-objects`.
+1. **Relationships.** The foreign key lands on the **child**, named for the **parent**,
+   first letter lowercased: `r_<relationshipName>_c_<parent>Id`. Getting it wrong is
+   silent — the unknown key is ignored, the child is created with the FK at `0`, and the
+   POST still returns `200`. There is an ERC twin, `r_<relationshipName>_c_<parent>ERC`,
+   which is what OData relationship filters require.
 
-1. **Write relationships.** `object-relationships/<name>.json`, resolving the parent with `[$OBJECT_DEFINITION_ID:<Name>$]`. The foreign key lands on the **child**, named for the **parent**: `r_<relationshipName>_c_<parent>Id`.
+1. **Entries.** One parent article becomes one parent entry; a repeating group becomes N
+   child entries carrying the ordinal.
 
-1. **Convert journal articles to entries.** Each `journal-articles/<type>/<name>.xml` holds the field values; the sibling `.json` holds metadata. Emit object entries, setting the relationship FK on children. For a repeating group, one parent article becomes one parent entry plus N child entries carrying the discriminator.
+1. **DDM templates to fragments.** `ddm-templates/<name>/` holds FreeMarker over the DDM
+   field namespace. This is a rewrite, not a transform. Where a template only rendered a
+   field, prefer an editable mapped to the object field over reimplementing the logic.
 
-1. **Rewrite the references** from Step 5.
-
-1. **Convert DDM templates to fragments.** `ddm-templates/<name>/` holds FreeMarker operating on the DDM field namespace. This is a rewrite, not a transform — the output is a fragment with `index.html`, `index.css`, `index.js` and `index.json`. Load `scaffold-fragment` before authoring one. Where the template only rendered a field, prefer an editable mapped to the object field over reimplementing the logic.
-
-1. **Delete the CMS sources** once the tree provisions: `ddm-structures/`, `ddm-templates/`, `journal-articles/`. Leaving them is not harmful, but they will drift.
+1. **Delete the CMS sources** once the tree provisions, or they drift.
 
 ## Verification
 
-A page composition change needs a reprovision — retriggering upserts pages but does not retrofit composition onto pages that already exist. Delete the site, redeploy the CET, and compare handler timings against the previous run. In a Liferay workspace, `rules/site-initializer-format.md` carries the reprovision script.
+**A page composition change needs a full reprovision.** Retriggering upserts pages but
+does not retrofit composition onto pages that already exist, so an edited
+`page-definition.json` takes effect only after the site is deleted and recreated. Object
+definitions and entries are company scoped and survive site deletion, so runtime data
+persists across it.
 
-Then verify as the visitor, because every failure here is silent and an authenticated session hides all of them:
+Then verify **as the visitor** — every failure here is silent and an authenticated
+session hides all of them. An unauthenticated `curl` of the page is a Guest request:
+assert on real values and confirm placeholder tokens are absent.
 
-```bash
-curl --silent --url "http://localhost:${PORT}/web/<site>/<page>" > /tmp/page.html
-```
+An object backed collection renders empty for Guest until `resource-permissions.json`
+grants `VIEW` at **company** scope — `"1"`. Scope `"3"` is the trap: it sets defaults for
+newly created entries only, applies without error, and changes nothing for entries that
+already exist. A migrated page that looks blank is more often a missing grant than a bad
+mapping.
 
-Assert on real values and confirm placeholders are **absent**. An object backed collection renders empty for Guest until `resource-permissions.json` grants `VIEW` at company scope — `scope` `"1"`. A migrated page that looks blank is far more often a missing grant than a bad mapping.
-
-Finally, audit the migrated tree. The rewrite in Step 5 is exactly where identifiers
-captured from the authoring instance get introduced, so check for each of these before
-calling the migration done:
+Finally, audit the tree. The rewrite above is exactly where captured identifiers get
+introduced:
 
 | Check | Severity |
 | --- | --- |
 | No `[#…#]` token delimiters — only `[$…$]` substitutes | Error |
 | Every `ObjectDefinition#XXXX` alias is declared by an object definition the tree can see | Error |
-| No `ObjectField_<digits>` field keys — the named form `ObjectField_<fieldName>` is required | Error |
+| No `ObjectField_<digits>` field keys — the named form is required | Error |
 | No `name<hex>` relationship names inside collection provider class names | Error |
 | Tree scoped tokens (`ASSET_LIST_ENTRY_ID`, `LIST_TYPE_DEFINITION_ID`, `DDM_*`, `DOCUMENT_*`, `ROLE_ID`, `LAYOUT_ID`) resolve within this tree | Error |
 | Company scoped tokens (`OBJECT_DEFINITION_*`) resolve against this tree or a sibling batch CET | Warning |
 | Every file is valid JSON and valid UTF-8 | Error |
 | `resource-permissions.json` uses `scope` `"1"` or `"2"`, never `"3"` | Warning |
 
-`references/site-initializer-portability.md` carries the reasoning behind each row, the
-full token vocabulary, and the grep recipes. It ships with this skill — read it when a
-finding needs justifying, not to run the checklist.
-
-## Failure Modes
-
-- **A fieldset flattened when it should have been a relationship.** Recoverable only by redoing the data model. This is why Step 3 stops for confirmation.
-- **Numeric field keys after rewriting.** `ObjectField_39733` cannot be repaired from the tree alone. Always write the named form.
-- **An alias reference in a batch backed tree.** Provisions cleanly, renders nothing. Use the token form.
-- **Reserved field name.** Aborts initialization and rolls back the entire site creation, leaving no site and no objects — reads as "the CET never deployed".
-- **Latin-1 source files.** Journal article XML from an older export may not be UTF-8. Converting it with a UTF-8 tool corrupts accented characters silently.
+Handler timings are the fastest diagnosis of a directory that was never read — a step
+reporting `took 0 ms` found no files. Fragments log as `addFragmentEntries`, with **no**
+`addOrUpdate` prefix, so grepping for `addOrUpdateFragmentEntries` matches nothing and
+reads exactly like the directory was missing. Site navigation menus log no line at all.
 
 ## Success Signal
 
-The site provisions with the CMS directories removed; an unauthenticated `curl` of each migrated page returns the real field values with no placeholder tokens left in the HTML; and the audit checklist reports no errors.
+The site provisions with the CMS directories removed; an unauthenticated `curl` of each
+migrated page returns real field values with no placeholder tokens left in the HTML; and
+the audit table above reports no errors.
 
 ## References
 
 Ships with this skill:
 
-- `references/site-initializer-portability.md` — the identifier rules this skill rewrites
-  against, with the reasoning behind every checklist row.
+- `references/site-initializer-portability.md` — which identifiers survive a move to
+  another bundle, the token vocabulary and scopes, and the two object reference forms.
 
-Available in a Liferay workspace, but **not** bundled with this skill — treat a reference
-to one as optional context, never as a step this skill depends on:
+Available in a Liferay workspace, but **not** bundled here — optional context, never a
+step this skill depends on:
 
 - `rules/site-initializer-format.md` — tree layout, handler order, reprovision script.
 - `rules/guest-access.md` — why a migrated public page renders empty for a visitor.
