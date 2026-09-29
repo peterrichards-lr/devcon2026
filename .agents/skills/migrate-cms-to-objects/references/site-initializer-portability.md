@@ -130,6 +130,26 @@ for dp,_,fns in os.walk("."):
 EOF
 ```
 
+## Permission Scope Is A ResourceConstants Integer
+
+`resource-permissions.json` grants carry a `scope`, and the wrong value fails silently —
+the handler reports no error and grants nothing useful.
+
+| `scope` | Constant | Grants |
+| --- | --- | --- |
+| `"1"` | `SCOPE_COMPANY` | The role may act on **all existing and future** entries of that resource. This is the one that makes a public listing work. |
+| `"2"` | `SCOPE_GROUP` | The same, limited to the current site. |
+| `"3"` | `SCOPE_GROUP_TEMPLATE` | Only the **default permissions applied to newly created** entries. Does nothing for entries that already exist. |
+| `"4"` | `SCOPE_INDIVIDUAL` | One specific entry, named by `primKey`. |
+
+`"3"` is the trap, and it is a common copy-paste: several portal initializers
+(seo-studio, ai-hub) use it, so lifting a grant from one produces something that appears
+to apply and changes nothing. For scopes `1` and `2` the handler overwrites `primKey`
+with the company or group ID, so `"0"` is a fine placeholder.
+
+Do not infer these values — `2` and `3` are easy to transpose, and a confident wrong
+mapping reads exactly like a correct one.
+
 ## Audit Checklist
 
 Run against any tree before trusting it on a fresh bundle:
