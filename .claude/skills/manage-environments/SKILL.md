@@ -111,7 +111,7 @@ curl \
 	--user "test@liferay.com:test"
 ```
 
-Confirm the exact request bodies against the OpenAPI spec (`get-openapi` MCP tool, or fetch `GET /o/object-admin/v1.0/openapi.json` with curl). For source controlled migration, prefer a site-initializer `batch/` file (see `rules/site-initializer-format.md`).
+Confirm the exact request bodies against the OpenAPI spec (`get-openapi` MCP tool, or fetch `GET /o/object-admin/v1.0/openapi.json` with curl). For source controlled migration, put the definitions in a site initializer's `object-definitions/` directory, or in a separate client extension of type `batch` (see `rules/site-initializer-format.md`).
 
 ### Export Object Data (Batch)
 
@@ -162,11 +162,13 @@ curl \
 # spec (get-openapi MCP tool, or GET /o/headless-admin-site/v1.0/openapi.json).
 ```
 
-**Step 3 — Capture object definitions**: Export definitions and place them under `site-initializer/batch/02-object-definition.batch-engine-data.json` using the batch engine data format (see `rules/site-initializer-format.md`).
+**Step 3 — Capture object definitions**: Write one **raw `ObjectDefinition`** per file to `site-initializer/object-definitions/<NN-name>.json` — no `configuration` wrapper and no `items` array, unlike the batch engine format. Omit `status`; the initializer publishes the definition itself. See `rules/site-initializer-format.md`.
+
+> **Do not write to `site-initializer/batch/`.** `BundleSiteInitializer` reads a fixed set of directories and `batch/` is not one of them. Files placed there are packaged into the deployed artifact and then silently ignored: the build succeeds, the site provisions, no objects appear, and the only signal is `Invoking addOrUpdateListTypeDefinitions took 0 ms` in the log. The `*.batch-engine-data.json` envelope belongs to the separate `batch` client extension type, which is its own project alongside the initializer.
 
 **Step 4 — Capture fragments**: Copy the deployed fragment source directories into `site-initializer/fragments/group/`.
 
-**Step 5 — Capture picklists**: Export list type definitions to `site-initializer/batch/00-list-type-definition.batch-engine-data.json`.
+**Step 5 — Capture picklists**: Write each raw `ListTypeDefinition` to `site-initializer/list-type-definitions/<name>.json`. Entries may be inline under `listTypeEntries`, or in a sibling `<name>.list-type-entries.json` holding a bare JSON array.
 
 **Step 6 — Commit and deploy to the target environment** via `deploy-and-verify`.
 
