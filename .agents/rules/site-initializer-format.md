@@ -208,7 +208,12 @@ A raw `ListTypeDefinition`. `listTypeEntries` may be inline (as below), or in a 
 
 ### `object-definitions/<NN-name>.json`
 
-A raw `ObjectDefinition`. Reference a picklist by **ERC**, via `listTypeDefinitionExternalReferenceCode` on the field:
+A raw `ObjectDefinition`. Reference a picklist by **ERC**, via `listTypeDefinitionExternalReferenceCode` on the field.
+
+A definition may also declare a `className` alias — `"className": "com.liferay.object.model.ObjectDefinition#D1S2"` —
+an author chosen four character mnemonic that other files in the **same tree** may then use in place of a token.
+A tree that declares no aliases (because its objects come from a `batch` CET) must use
+`[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` instead. See `rules/site-initializer-portability.md`.
 
 ```json
 {
@@ -418,7 +423,7 @@ grep --extended-regexp 'InitializationException|MustNotBeReserved|Unable to tran
 
 ## `site-navigation-menus.json` Format
 
-A bare JSON array of menus. Each menu needs `externalReferenceCode`, `name`, `typeSite`, and a `menuItems` array; `auto` is read on update:
+A bare JSON array of menus. Each menu needs `externalReferenceCode` and a `menuItems` array; `auto` is read on update. `name` and `typeSite` are optional — `site-initializer-dsr` omits `typeSite`, and `site-initializer-pim` omits both:
 
 ```json
 [
@@ -439,7 +444,12 @@ A bare JSON array of menus. Each menu needs `externalReferenceCode`, `name`, `ty
 ]
 ```
 
-`typeSite` is a `SiteNavigationConstants` integer: `1` primary, `2` secondary, `3` social.
+`typeSite` is a `SiteNavigationConstants` integer: `1` primary, `2` secondary, `3` social. It is
+not required and neither canonical initializer sets it; a theme or master page selects a menu by
+`siteNavigationMenuExternalReferenceCode`, not by type.
+
+Give every `menuItems` entry its own `externalReferenceCode`, as both canonical initializers do —
+it makes the item addressable across a reprovision. `displayIcon` sets a Clay icon on the item.
 
 Item `type` is `layout`, `node`, `url`, or `display-page`. A `layout` item is resolved by **friendly URL**, not by name or ID, and needs `privateLayout` alongside it. Add `"useCustomName": true` plus a name to override the page's own title. A `url` item takes `url` and `useNewTab`; a `node` item takes `title`. Nest children by giving an item its own `menuItems` array.
 
