@@ -4,7 +4,7 @@
         "parameters": {
             "containsHeaders": "true",
             "createStrategy": "INSERT",
-            "externalReferenceCode": "5155e78b-668e-443d-3655-b85ce357a5d7",
+            "externalReferenceCode": "MY_COURSE_SESSION",
             "onErrorFail": "false",
             "taskItemDelegateName": "DEFAULT",
             "updateStrategy": "UPDATE"
@@ -17,8 +17,8 @@
                 "en_US": "enrollmentToCourseSession"
             },
             "name": "enrollmentToCourseSession",
-            "objectDefinitionExternalReferenceCode1": "5155e78b-668e-443d-3655-b85ce357a5d7",
-            "objectDefinitionExternalReferenceCode2": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+            "objectDefinitionExternalReferenceCode1": "MY_COURSE_SESSION",
+            "objectDefinitionExternalReferenceCode2": "MY_COURSE_ENROLLMENT",
             "type": "oneToMany"
         }
     ]

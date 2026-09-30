@@ -42,7 +42,7 @@
             "objectActionExecutorKey": "add-object-entry",
             "objectActionTriggerKey": "onAfterUpdate",
             "parameters": {
-                "objectDefinitionExternalReferenceCode": "5155e78b-668e-443d-3655-b85ce357a5d7",
+                "objectDefinitionExternalReferenceCode": "MY_COURSE_SESSION",
                 "system": "false",
                 "predefinedValues": [
                     {
