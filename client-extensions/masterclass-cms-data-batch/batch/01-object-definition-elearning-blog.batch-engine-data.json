@@ -23,6 +23,7 @@
             "enableObjectEntryHistory": false,
             "enableObjectEntrySchedule": true,
             "enableObjectEntrySubscription": false,
+            "enableObjectEntryVersioning": true,
             "externalReferenceCode": "864b583b-aa11-4bb6-8a80-b4499b8afc59",
             "label": {
                 "en_US": "eLearning Blog"
@@ -165,7 +166,7 @@
             "pluralLabel": {
                 "en_US": "eLearning Blog"
             },
-            "portlet": false,
+            "portlet": true,
             "restContextPath": "/o/c/elearningblogs",
             "scope": "depot",
             "status": {

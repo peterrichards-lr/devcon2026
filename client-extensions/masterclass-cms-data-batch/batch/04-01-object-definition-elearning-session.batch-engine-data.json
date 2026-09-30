@@ -1,0 +1,143 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "accountEntryRestricted": false,
+            "active": true,
+            "defaultLanguageId": "en_US",
+            "enableCategorization": true,
+            "enableComments": true,
+            "enableFriendlyURLCustomization": true,
+            "enableIndexSearch": true,
+            "enableLocalization": true,
+            "enableObjectEntryDraft": true,
+            "enableObjectEntryHistory": false,
+            "enableObjectEntrySchedule": true,
+            "enableObjectEntrySubscription": false,
+            "enableObjectEntryVersioning": true,
+            "externalReferenceCode": "NewCMSStructure-elearning-session",
+            "label": {
+                "en_US": "eLearning Session"
+            },
+            "modifiable": true,
+            "name": "ElearningSession",
+            "objectActions": [],
+            "objectDefinitionSettings": [
+                {
+                    "name": "acceptAllGroups",
+                    "value": "true"
+                }
+            ],
+            "objectFields": [
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": true,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "String",
+                    "label": {
+                        "en_US": "Title"
+                    },
+                    "type": "String",
+                    "required": true,
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGSESSION",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "unique": false,
+                    "name": "title",
+                    "state": false,
+                    "businessType": "Text"
+                },
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": false,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "Date",
+                    "label": {
+                        "en_US": "Start Date"
+                    },
+                    "type": "Date",
+                    "required": false,
+                    "externalReferenceCode": "CMS-FIELD-STARTDATE-ELEARNINGSESSION",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "unique": false,
+                    "name": "startDate",
+                    "state": false,
+                    "businessType": "Date",
+                    "readOnlyConditionExpression": ""
+                },
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": false,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "Date",
+                    "label": {
+                        "en_US": "End Date"
+                    },
+                    "type": "Date",
+                    "required": false,
+                    "externalReferenceCode": "CMS-FIELD-ENDDATE-ELEARNINGSESSION",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "unique": false,
+                    "name": "endDate",
+                    "state": false,
+                    "businessType": "Date",
+                    "readOnlyConditionExpression": ""
+                },
+                {
+                    "indexed": true,
+                    "defaultValue": "null",
+                    "localized": false,
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "DBType": "Integer",
+                    "label": {
+                        "en_US": "internalID"
+                    },
+                    "type": "Integer",
+                    "required": false,
+                    "externalReferenceCode": "CMS-FIELD-INTERNALID-ELEARNINGSESSION",
+                    "indexedAsKeyword": false,
+                    "system": false,
+                    "unique": false,
+                    "name": "internalid",
+                    "state": false,
+                    "businessType": "Integer",
+                    "readOnlyConditionExpression": ""
+                }
+            ],
+            "objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+            "panelCategoryKey": "",
+            "parameterRequired": false,
+            "pluralLabel": {
+                "en_US": "eLearning Sessions"
+            },
+            "portlet": true,
+            "restContextPath": "/o/c/elearningsessions",
+            "scope": "depot",
+            "status": {
+                "code": 0,
+                "label": "approved",
+                "label_i18n": "Approved"
+            },
+            "system": false,
+            "titleObjectFieldName": "title"
+        }
+    ]
+}

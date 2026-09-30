@@ -30,6 +30,16 @@
             "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
             "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-module",
             "type": "manyToMany"
+        },
+        {
+            "deletionType": "disassociate",
+            "label": {
+                "en_US": "The Course Sessions"
+            },
+            "name": "elearningCourseSessions",
+            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
+            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-session",
+            "type": "manyToMany"
         }
     ]
 }
