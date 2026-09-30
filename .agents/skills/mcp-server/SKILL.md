@@ -54,6 +54,14 @@ When MCP is available, always attempt operations via MCP before reaching for hea
 
 The Liferay MCP server on DXP 2026.Q1 and later requires the **Streamable HTTP** transport. MCP clients configured to use SSE will show "Disconnected" even when the server is running and the endpoint URL is correct. Check your MCP client configuration and ensure it is using Streamable HTTP, not SSE.
 
+### Handshake Requires Both JSON and Event-Stream Headers
+
+To successfully initiate either the Streamable HTTP or SSE transport handshake, the Liferay MCP server strictly requires both `application/json` and `text/event-stream` in the `Accept` header of the connection request. If either media type is missing, the server will reject the connection with an HTTP `400 Bad Request` and return the following error message:
+```json
+{"code":-32601,"message":"Both application/json and text/event-stream required in Accept header"}
+```
+Ensure that your MCP client includes both media types (e.g., `Accept: application/json, text/event-stream`) in its configured handshake headers.
+
 ### Session Restart Required After Any Config Change
 
 CLI sessions load MCP server config once at startup. Any change — including initial setup, endpoint URL updates, or auth credential changes — will not be visible until you exit and restart the session. This applies whether the change was made before or during the session.
