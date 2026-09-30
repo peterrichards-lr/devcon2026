@@ -208,7 +208,12 @@ A raw `ListTypeDefinition`. `listTypeEntries` may be inline (as below), or in a 
 
 ### `object-definitions/<NN-name>.json`
 
-A raw `ObjectDefinition`. Reference a picklist by **ERC**, via `listTypeDefinitionExternalReferenceCode` on the field:
+A raw `ObjectDefinition`. Reference a picklist by **ERC**, via `listTypeDefinitionExternalReferenceCode` on the field.
+
+A definition may also declare a `className` alias — `"className": "com.liferay.object.model.ObjectDefinition#D1S2"` —
+an author chosen four character mnemonic that other files in the **same tree** may then use in place of a token.
+A tree that declares no aliases (because its objects come from a `batch` CET) must use
+`[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` instead. See `rules/site-initializer-portability.md`.
 
 ```json
 {
@@ -418,7 +423,7 @@ grep --extended-regexp 'InitializationException|MustNotBeReserved|Unable to tran
 
 ## `site-navigation-menus.json` Format
 
-A bare JSON array of menus. Each menu needs `externalReferenceCode`, `name`, `typeSite`, and a `menuItems` array; `auto` is read on update:
+A bare JSON array of menus. The platform requires only `externalReferenceCode` and a `menuItems` array; `auto` is read on update. **This workspace additionally mandates `name` and `typeSite` on every menu** — see below:
 
 ```json
 [
@@ -440,6 +445,19 @@ A bare JSON array of menus. Each menu needs `externalReferenceCode`, `name`, `ty
 ```
 
 `typeSite` is a `SiteNavigationConstants` integer: `1` primary, `2` secondary, `3` social.
+
+**Platform behaviour:** it is not required. `site-initializer-dsr` omits it, `site-initializer-pim`
+omits `name` as well, and a master page selects its menu by `siteNavigationMenuExternalReferenceCode`
+rather than by type — so nothing in a rendered site depends on it today.
+
+**Workspace rule: set it anyway, on every menu.** Relying on an unset field means relying on a
+default that is not written down in the tree. If the field later becomes required, or its default
+changes, an omitted value fails or silently switches meaning, and the tree gives a reviewer nothing
+to check the intent against. An explicit value costs one line and removes the ambiguity. Apply the
+same reasoning to `name`: a menu without one is legal and unreadable.
+
+Give every `menuItems` entry its own `externalReferenceCode`, as both canonical initializers do —
+it makes the item addressable across a reprovision. `displayIcon` sets a Clay icon on the item.
 
 Item `type` is `layout`, `node`, `url`, or `display-page`. A `layout` item is resolved by **friendly URL**, not by name or ID, and needs `privateLayout` alongside it. Add `"useCustomName": true` plus a name to override the page's own title. A `url` item takes `url` and `useNewTab`; a `node` item takes `title`. Nest children by giving an item its own `menuItems` array.
 
