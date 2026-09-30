@@ -28,3 +28,4 @@ test-results
 
 # Skill eval suite — cases, fixtures and run outputs stay local
 evals/
+.gemini/settings.json
