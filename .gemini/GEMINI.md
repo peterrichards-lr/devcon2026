@@ -98,9 +98,12 @@ Every skill lives under `skills/` and owns one workflow. Match the user's intent
 | Walk a beginner through a first client extension | `guided-client-extension` |
 | Create roles or grant permissions on objects, pages, or sites | `manage-roles-permissions` |
 | Manage environment configs, promote to UAT, or capture a site initializer | `manage-environments` |
+| Migrate a site from web content (DDM structures, journal articles) to objects, or audit an initializer's portability | `migrate-cms-to-objects` |
 | Manage Commerce catalogs, products, SKUs, or B2B accounts | `commerce-catalogs` |
 | Deploy and operate a Liferay Cloud (LXC) project via `lcp` | `manage-cloud-project` |
 | Build an entire site experience from one prompt (orchestrator; calls the others) | `build-site` |
+| Author a new workspace skill from source code or a spec doc | `author-skill` |
+| Commit a workspace skill to liferay-portal | `commit-skill` |
 
 Site building is **site initializer first**: the `siteInitializer` CET tree is the single source of truth. Build by triggering the initializer, then iterate by editing the source tree and applying each change live (theme, objects, fragments) or by reprovisioning (pages). See `rules/site-initializer-format.md`.
 
@@ -113,6 +116,7 @@ Reference cards under `rules/` hold the data skills look up. Skills cite the car
 - `rules/headless-apis.md` — REST modules, base URIs, OAuth scopes
 - `rules/feature-flags-catalog.md` — flag table with defaults and dependencies
 - `rules/site-initializer-format.md` — site initializer directory tree and per entity file formats
+- `rules/site-initializer-portability.md` — which identifiers survive a move to another bundle; audit checklist
 - `rules/object-actions-catalog.md` — triggers, conditions, action types
 - `rules/oauth-scopes.md` — `Liferay.*` scope strings for `oAuthApplicationHeadlessServer` blocks in CET scaffolding
 - `rules/page-types.md` — page types and their applicable APIs
