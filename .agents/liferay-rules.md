@@ -33,6 +33,30 @@ Before answering, identify three things:
 
 `configs/common` holds shared settings. `configs/local` is the default for development. Promotion order is `local` to `dev` to `uat` to `prod`.
 
+## Prerequisites
+
+The skills here assume the following are on `PATH`. None is checked at runtime, so a
+missing one surfaces as `command not found` partway through a procedure rather than as a
+clear prerequisite failure.
+
+| Tool | Why | Ships by default? |
+| --- | --- | --- |
+| `curl` | Every Headless API example | Yes — macOS, Linux, Windows 10+ |
+| `jq` | Shaping REST responses; used throughout the skills | **No** — install it (`brew install jq`) |
+| `python3` | Parsing where a shell one liner would be wrong, such as DDM JSON inside CDATA inside XML | macOS and most Linux; not Windows |
+| A POSIX shell | Every example uses `bash`/`zsh` syntax — heredocs, `$(…)`, line continuations | Not `cmd.exe` or PowerShell; use WSL or Git Bash |
+
+`blade` and the Gradle wrapper handle their own platform differences, and `gradlew.bat`
+exists for Windows.
+
+**On Windows, git symlinks need enabling.** `.claude/` is a tree of symlinks into
+`.agents/`, and git only creates real symlinks when `core.symlinks` is true — which
+defaults to **false on Windows** unless Developer Mode is on or the clone runs elevated.
+Without it every symlink checks out as a small text file containing a path, and an agent
+reading `.claude/skills/<name>/SKILL.md` gets that path instead of the skill, silently.
+Check with `git config core.symlinks`, and reclone after setting it if the entries are
+already wrong.
+
 ## Tooling
 
 Use Blade as the primary CLI. Prefer `blade gw <task>` over invoking Gradle directly; this guarantees the workspace Gradle wrapper. Key commands:
