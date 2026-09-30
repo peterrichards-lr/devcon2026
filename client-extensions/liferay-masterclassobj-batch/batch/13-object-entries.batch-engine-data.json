@@ -12,7 +12,7 @@
 	},
 	"items": [
 		{
-			"externalReferenceCode": "MYTEACHER_BATCH_1",
+			"externalReferenceCode": "MYTEACHER-BATCH-1",
 			"name":"Olaf",
 			"photo":{
 				"fileBase64": "@batch_object_entry_file_base64@",
@@ -22,7 +22,7 @@
 			"surname":"Smith"			
       	},
 		{
-			"externalReferenceCode": "MYTEACHER_BATCH_2",
+			"externalReferenceCode": "MYTEACHER-BATCH-2",
 			"name":"Esther",
 			"photo":{
 				"fileBase64": "@batch_object_entry_file_base64@",
@@ -32,7 +32,7 @@
 			"surname":"Hordward"			
       	},
 		{
-			"externalReferenceCode": "MYTEACHER_BATCH_3",
+			"externalReferenceCode": "MYTEACHER-BATCH-3",
 			"name":"Jane",
 			"photo":{
 				"fileBase64": "@batch_object_entry_file_base64@",
@@ -42,7 +42,7 @@
 			"surname":"Cooper"
       	},
 		{
-			"externalReferenceCode": "MYTEACHER_BATCH_4",
+			"externalReferenceCode": "MYTEACHER-BATCH-4",
 			"name":"Patrick",
 			"photo":{
 				"fileBase64": "@batch_object_entry_file_base64@",
@@ -52,7 +52,7 @@
 			"surname":"Bell"			
       	},
 		{
-			"externalReferenceCode": "MYTEACHER_BATCH_5",
+			"externalReferenceCode": "MYTEACHER-BATCH-5",
 			"name":"Brooklyn",
 			"photo":{
 				"fileBase64": "@batch_object_entry_file_base64@",

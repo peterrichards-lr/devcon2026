@@ -24,7 +24,7 @@
             "enableObjectEntrySchedule": true,
             "enableObjectEntrySubscription": false,
             "enableObjectEntryVersioning": true,
-            "externalReferenceCode": "NewCMSStructure-elearning-session",
+            "externalReferenceCode": "ELEARNING-SESSION",
             "label": {
                 "en_US": "eLearning Session"
             },

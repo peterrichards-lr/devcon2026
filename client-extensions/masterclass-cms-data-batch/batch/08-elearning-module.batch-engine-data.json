@@ -14,7 +14,7 @@
     },
     "items": [
         {
-            "externalReferenceCode": "module-building-enterprise-websites-liferay-1",
+            "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
             "title": "Site Planning and Structure",
             "summary": "<p>Define target audiences, lay out information architectures, and establish navigation structures.</p>",
             "duration": "1 week",
@@ -23,7 +23,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-building-enterprise-websites-liferay-2",
+            "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
             "title": "Content Management Foundations",
             "summary": "<p>Learn to manage web content, structures, templates, and map content fields dynamically.</p>",
             "duration": "1 week",
@@ -32,7 +32,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-building-enterprise-websites-liferay-3",
+            "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
             "title": "Modern Page Building",
             "summary": "<p>Leverage Liferay Fragments, Content Pages, and Style Books to craft beautiful and responsive designs.</p>",
             "duration": "2 weeks",
@@ -41,7 +41,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-frontend-client-extensions-1",
+            "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
             "title": "Getting Started with Custom Elements",
             "summary": "<p>Configure custom element client extensions, host web components, and integrate them onto pages.</p>",
             "duration": "1 week",
@@ -50,7 +50,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-frontend-client-extensions-2",
+            "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
             "title": "Routing and State in React Elements",
             "summary": "<p>Establish client-side routing and share states between separate custom elements on a page.</p>",
             "duration": "2 weeks",
@@ -59,7 +59,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-frontend-client-extensions-3",
+            "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
             "title": "Using Liferay Frontend Tokens",
             "summary": "<p>Use CSS variables, design tokens, and style books to make extensions automatically theme-native.</p>",
             "duration": "1 week",
@@ -68,7 +68,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-data-modeling-objects-1",
+            "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-1",
             "title": "Object Definitions and Fields",
             "summary": "<p>Create custom object definitions, configure field types, and publish definitions to the database.</p>",
             "duration": "1 week",
@@ -77,7 +77,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-data-modeling-objects-2",
+            "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-2",
             "title": "Triggers and Actions",
             "summary": "<p>Create data-driven validation rules and invoke external webhooks using object triggers.</p>",
             "duration": "2 weeks",
@@ -86,7 +86,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-mastering-data-modeling-objects-3",
+            "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-3",
             "title": "Relationship Modeling",
             "summary": "<p>Configure 1-to-Many and Many-to-Many relationships between objects and system entities.</p>",
             "duration": "1 week",
@@ -95,7 +95,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-foundations-client-extensions-1",
+            "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-1",
             "title": "Client Extensions Overview",
             "summary": "<p>Learn the core architecture of client extensions and how they differ from OSGi bundles.</p>",
             "duration": "1 week",
@@ -104,7 +104,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-foundations-client-extensions-2",
+            "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-2",
             "title": "Configuration via client-extension.yaml",
             "summary": "<p>Understand the configuration schema, set up environments, and orchestrate client extension bundles.</p>",
             "duration": "1 week",
@@ -113,7 +113,7 @@
             "scopeKey": "ELEARNING-SPACE"
         },
         {
-            "externalReferenceCode": "module-foundations-client-extensions-3",
+            "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-3",
             "title": "Deploying to Liferay SaaS and PaaS",
             "summary": "<p>Deploy client extension zip archives, configure OAuth2 clients, and secure backend microservices.</p>",
             "duration": "2 weeks",

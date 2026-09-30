@@ -24,7 +24,7 @@
             "enableObjectEntrySchedule": true,
             "enableObjectEntrySubscription": false,
             "enableObjectEntryVersioning": true,
-            "externalReferenceCode": "NewCMSStructure-elearning-teacher",
+            "externalReferenceCode": "ELEARNING-TEACHER",
             "label": {
                 "en_US": "eLearning Teacher"
             },
@@ -83,7 +83,7 @@
                     },
                     "type": "Long",
                     "required": false,
-                    "externalReferenceCode": "ELEARNING_TEACHER_PHOTO",
+                    "externalReferenceCode": "ELEARNING-TEACHER-PHOTO",
                     "indexedAsKeyword": false,
                     "system": false,
                     "indexedLanguageId": "",
@@ -105,7 +105,7 @@
                     },
                     "type": "Clob",
                     "required": false,
-                    "externalReferenceCode": "ELEARNING_TEACHER_DESCRIPTION",
+                    "externalReferenceCode": "ELEARNING-TEACHER-DESCRIPTION",
                     "indexedAsKeyword": false,
                     "system": false,
                     "indexedLanguageId": "en_US",

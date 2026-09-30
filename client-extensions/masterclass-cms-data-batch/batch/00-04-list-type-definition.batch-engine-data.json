@@ -11,7 +11,7 @@
     },
     "items": [
         {
-            "externalReferenceCode": "M_Y_E_N_R_O_L_L_M_E_N_T_S_T_A_T_U_S",
+            "externalReferenceCode": "M-Y-E-N-R-O-L-L-M-E-N-T-S-T-A-T-U-S",
             "name": "MYENROLLMENTSTATUS",
             "name_i18n": {
                 "en_US": "MYENROLLMENTSTATUS"

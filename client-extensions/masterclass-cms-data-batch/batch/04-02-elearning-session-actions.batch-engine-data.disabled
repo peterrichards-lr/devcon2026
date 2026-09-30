@@ -14,7 +14,7 @@
             "objectActionExecutorKey": "update-object-entry",
             "objectActionTriggerKey": "onAfterAdd",
             "parameters": {
-                "objectDefinitionExternalReferenceCode": "NewCMSStructure-elearning-session",
+                "objectDefinitionExternalReferenceCode": "ELEARNING-SESSION",
                 "predefinedValues": [
                     {
                         "businessType": "Integer",
@@ -42,7 +42,7 @@
             "objectActionExecutorKey": "add-object-entry",
             "objectActionTriggerKey": "onAfterUpdate",
             "parameters": {
-                "objectDefinitionExternalReferenceCode": "MY_COURSE_SESSION",
+                "objectDefinitionExternalReferenceCode": "MY-COURSE-SESSION",
                 "system": "false",
                 "predefinedValues": [
                     {

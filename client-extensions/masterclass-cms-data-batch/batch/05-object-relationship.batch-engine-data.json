@@ -4,7 +4,7 @@
         "parameters": {
             "containsHeaders": "true",
             "createStrategy": "INSERT",
-            "externalReferenceCode": "NewCMSStructure-elearning-course",
+            "externalReferenceCode": "ELEARNING-COURSE",
             "onErrorFail": "false",
             "taskItemDelegateName": "DEFAULT",
             "updateStrategy": "UPDATE"
@@ -17,8 +17,8 @@
                 "en_US": "The Course Teachers"
             },
             "name": "elearningCourseTeachers",
-            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
-            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-teacher",
+            "objectDefinitionExternalReferenceCode1": "ELEARNING-COURSE",
+            "objectDefinitionExternalReferenceCode2": "ELEARNING-TEACHER",
             "type": "manyToMany"
         },
         {
@@ -27,8 +27,8 @@
                 "en_US": "The Course Modules"
             },
             "name": "elearningCourseModules",
-            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
-            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-module",
+            "objectDefinitionExternalReferenceCode1": "ELEARNING-COURSE",
+            "objectDefinitionExternalReferenceCode2": "ELEARNING-MODULE",
             "type": "manyToMany"
         },
         {
@@ -37,8 +37,8 @@
                 "en_US": "The Course Sessions"
             },
             "name": "elearningCourseSessions",
-            "objectDefinitionExternalReferenceCode1": "NewCMSStructure-elearning-course",
-            "objectDefinitionExternalReferenceCode2": "NewCMSStructure-elearning-session",
+            "objectDefinitionExternalReferenceCode1": "ELEARNING-COURSE",
+            "objectDefinitionExternalReferenceCode2": "ELEARNING-SESSION",
             "type": "manyToMany"
         }
     ]
