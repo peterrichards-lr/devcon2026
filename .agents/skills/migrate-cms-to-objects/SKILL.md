@@ -21,51 +21,19 @@ Propose the object model and the rewrites first, and apply only once the user ha
 
 ## What This Skill Is For
 
-Everything here is a fact about Liferay that is not recoverable by reasoning about the
-source tree — file formats, handler behaviour, and failure modes that are **silent**.
-The build succeeds, the site provisions, no warning is logged, and the defect shows up
-as a blank region on a page.
+Everything here is **undocumented implementation behaviour** — how handlers actually
+behave, and failure modes that are silent. The build succeeds, the site provisions, no
+warning is logged, and the defect shows up as a blank region on a page.
 
-Modelling judgment is not the point. Work out the object model the way you would any
-data model; use this skill for the parts Liferay will not tell you.
+The test for anything added here is: **could someone find this in the documentation?**
+If yes, leave it out. Measured against baseline, an agent already reconstructs the DDM
+to object field type mapping from the stored values, spots that a display page
+template's `JournalArticle` binding has to change, and rewrites every DDM `fieldKey` to
+`ObjectField_…` — all unaided, five times out of five. Sections covering those were
+removed rather than kept for completeness.
 
-## Reading the Source
-
-A DDM structure is **JSON inside a CDATA block inside XML**, so the field list is not
-visible to an XML parser alone:
-
-```python
-import json, re
-m = re.search(r'<!\[CDATA\[(.*?)\]\]>', open(path, encoding="utf8").read(), re.S)
-fields = json.loads(m.group(1))["fields"]          # each may carry nestedFields
-```
-
-Field values live in `journal-articles/<type>/<name>.xml`; the sibling `.json` holds
-metadata. **Read the stored values before choosing a type** — DDM under specifies, and
-every nested field in a fieldset is typically `text`/`string` whatever it holds.
-
-Journal article XML from an older export may not be UTF-8. Converting it with a UTF-8
-tool replaces accented characters with U+FFFD silently; check the encoding first.
-
-## Field Type Mapping
-
-`businessType` drives the object field; `DBType` follows from it.
-
-| DDM `type` | DDM `dataType` | `businessType` | `DBType` |
-| --- | --- | --- | --- |
-| `text` | `string` | `Text` | `String` |
-| `text` | `string` | `LongText` | `Clob` |
-| `rich_text` | `string` | `RichText` | `Clob` |
-| `image` | `image` | `Attachment` | `Long` |
-| `document_library` | `document-library` | `Attachment` | `Long` |
-| `select`, `radio` | `string` | `Picklist` | `String` |
-| `checkbox` | `boolean` | `Boolean` | `Boolean` |
-| `date` | `date` | `Date` | `Date` |
-| `numeric` | `integer` / `double` | `Integer` / `Decimal` | `Integer` / `Double` |
-
-`text` splits into `Text`/`String` or `LongText`/`Clob` by what is stored, not by the
-structure. A `fieldset` has no object equivalent — it is either a repeating group or a
-presentational one, and the source does not say which.
+Work out the object model the way you would any data model. Use this skill for the
+parts Liferay will not tell you.
 
 ## Packaging: Client Extension Or OSGi Module
 
@@ -125,25 +93,12 @@ use the **token** reference form throughout, because it declares no aliases.
 > no objects appear. The `*.batch-engine-data.json` envelope belongs to the separate
 > `batch` CET type.
 
-## References To Rewrite
+## Source File Encoding
 
-| Location | From | To |
-| --- | --- | --- |
-| `display-page-templates/*/display-page-template.json` | `contentType.className: com.liferay.journal.model.JournalArticle` + structure ERC subtype | `[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` |
-| `page-definition.json` field mappings | `"fieldKey": "CourseName"` | `"fieldKey": "ObjectField_courseName"` |
-| Collection displays | asset list / DDM structure source | object collection provider |
-| `asset-list-entries.json` | `classNameId` of `JournalArticle` | the object definition |
-
-Find them with:
-
-```
-JournalArticle|ddmStructureKey|ddmTemplateKey|DDM_STRUCTURE_ID|TEMPLATE_ENTRY_ID
-```
-
-and any `"fieldKey"` whose value does not start with `ObjectField_`.
-
-`references/site-initializer-portability.md`, which ships with this skill, carries the
-two valid object reference forms and when each is legal.
+Journal article XML from an older export may not be UTF-8. Converting it with a UTF-8
+tool replaces accented characters with U+FFFD silently, corrupting localised strings
+with no error. Check the encoding of `journal-articles/**/*.xml` before reading values
+out of them.
 
 ## Applying
 
