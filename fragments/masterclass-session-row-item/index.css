@@ -1,0 +1,138 @@
+/* Card Container */
+.masterclass-session-row-card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.masterclass-session-row-card:hover {
+  border-color: #ced4da;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Label Layout */
+.masterclass-session-label {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+  margin: 0;
+  width: 100%;
+}
+
+/* Radio Custom styling */
+.masterclass-session-radio-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.masterclass-session-radio {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.masterclass-session-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #ffffff;
+  border: 2px solid #adb5bd;
+  border-radius: 50%;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.masterclass-session-radio:checked ~ .masterclass-session-checkmark {
+  border-color: #ed1c24; /* Red border */
+  background-color: #ffffff;
+}
+
+.masterclass-session-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.masterclass-session-radio:checked ~ .masterclass-session-checkmark:after {
+  display: block;
+}
+
+.masterclass-session-checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ed1c24; /* Red Dot inside */
+}
+
+/* Active card state (when radio is selected) */
+.masterclass-session-row-card:has(.masterclass-session-radio:checked) {
+  border-color: #ed1c24;
+  background-color: rgba(237, 28, 36, 0.01);
+  box-shadow: 0 4px 12px rgba(237, 28, 36, 0.05);
+}
+
+/* Details and texts */
+.masterclass-session-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+}
+
+.masterclass-session-title {
+  color: #333333;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  transition: color 0.2s ease;
+}
+
+.masterclass-session-row-card:hover .masterclass-session-title {
+  color: #000000;
+}
+
+.masterclass-session-row-card:has(.masterclass-session-radio:checked) .masterclass-session-title {
+  color: #ed1c24;
+}
+
+.masterclass-session-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.masterclass-session-damasterclass-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.masterclass-session-start-date,
+.masterclass-session-end-date {
+  color: #666666;
+  font-weight: 400;
+}
+
+.masterclass-session-damasterclass-separator {
+  color: #dee2e6;
+  font-weight: 300;
+}

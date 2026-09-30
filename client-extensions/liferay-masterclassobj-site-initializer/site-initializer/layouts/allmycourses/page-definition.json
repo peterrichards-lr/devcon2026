@@ -1,0 +1,401 @@
+{
+	"pageElement": {
+      "pageElements": [
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {}
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-courseregistrations",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [],
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "fragment": {
+              "key": "BASIC_COMPONENT-separator"
+            },
+            "fragmentConfig": {
+              "separatorColor": "info",
+              "bottomSpacing": "1"
+            },
+            "fragmentFields": [],
+            "fragmentStyle": {
+              "marginTop": "3"
+            },
+            "indexed": true
+          },
+          "type": "Fragment"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "star-o",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is pending Approval from Course Administrator"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "circle",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is Discarded from Course Administrator"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "star-half",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is Approved, you need to confirm your assistance to the Course"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "star",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is Approved and you have Confirmed your assistance"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "block",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is Approved but you have Declined your assistance"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        },
+        {
+          "definition": {
+            "indexed": true,
+            "layout": {
+              "align": "Center",
+              "contentDisplay": "FlexRow",
+              "justify": "End"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "courses-clayicon",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "iconName": "emoji",
+                  "iconSize": "16px"
+                },
+                "fragmentFields": [],
+                "fragmentStyle": {
+                  "paddingRight": "1"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+                "fragment": {
+                  "key": "BASIC_COMPONENT-paragraph"
+                },
+                "fragmentConfig": {},
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "Course is Completed!"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "fontSize": "fontSizeSm"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            }
+          ],
+          "type": "Section"
+        }
+      ],
+      "type": "Root"
+    },
+	"settings": {
+      "colorSchemeName":"01",
+ 		"masterPage": {
+			"key": "private-area"
+		},
+		"themeName": "Classic",
+		"themeSettings": {
+			"lfr-theme:regular:show-footer": "false",
+			"lfr-theme:regular:show-header": "false",
+			"lfr-theme:regular:show-header-search": "false",
+			"lfr-theme:regular:wrap-widget-page-content": "false"
+		}
+	},
+	"version": 1.1
+}

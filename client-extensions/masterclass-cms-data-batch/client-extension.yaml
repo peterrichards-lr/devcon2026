@@ -1,0 +1,17 @@
+assemble:
+    - from: batch
+      into: batch
+masterclass-cms-data-batch:
+    name: Masterclass CMS Data Batch
+    oAuthApplicationHeadlessServer: masterclass-cms-data-batch-oauth-application-headless-server
+    type: batch
+masterclass-cms-data-batch-oauth-application-headless-server:
+    .serviceAddress: localhost:8080
+    .serviceScheme: http
+    name: Masterclass CMS Data Batch Importer
+    scopes:
+        - Liferay.Headless.Batch.Engine.everything
+        - Liferay.Object.Admin.REST.everything
+        - Liferay.Headless.Asset.Library.everything
+        - Liferay.Headless.Object.everything
+    type: oAuthApplicationHeadlessServer

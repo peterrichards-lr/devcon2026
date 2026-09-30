@@ -1,0 +1,20 @@
+{
+    "configuration": {
+        "className": "com.liferay.headless.asset.library.dto.v1_0.AssetLibrary",
+        "parameters": {
+            "createStrategy": "UPSERT"
+        }
+    },
+    "items": [
+        {
+            "description": "Main Asset Library containing eLearning courses, teachers, modules and blogs managed content.",
+            "externalReferenceCode": "ELEARNING-SPACE",
+            "name": "eLearning",
+            "settings": {
+                "logoColor": "outline-0",
+                "sharingEnabled": true
+            },
+            "type": "Space"
+        }
+    ]
+}

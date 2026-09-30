@@ -1,0 +1,12 @@
+{
+	"deletionType": "cascade",
+	"externalReferenceCode": "EVENT_REGISTRATIONS",
+	"label": {
+		"en_US": "Registrations"
+	},
+	"name": "eventRegistrations",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:Event$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:Registration$]",
+	"objectDefinitionName2": "Registration",
+	"type": "oneToMany"
+}

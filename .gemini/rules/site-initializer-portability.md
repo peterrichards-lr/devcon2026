@@ -1,0 +1,1 @@
+../../.agents/skills/migrate-cms-to-objects/references/site-initializer-portability.md

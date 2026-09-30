@@ -1,0 +1,63 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "C_MyCourseSession",			
+			"updateStrategy": "UPDATE"		
+		},
+		"taskItemDelegateName": "C_MyCourseSession"
+	},
+	"items": [
+		{
+         "endDate":"2024-09-06T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "startDate":"2024-09-03T00:00:00.000Z",
+         "title":"2024 September. Second Week"                  		
+      	},
+		{
+         "endDate":"2025-01-10T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "startDate":"2024-01-07T00:00:00.000Z",
+         "title":"2025 January. Second Week"                  		
+      	},
+		{
+         "endDate":"2025-06-06T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "startDate":"2025-06-03T00:00:00.000Z",
+         "title":"2025 June. First Week"                  		
+      	},
+		{
+         "endDate":"2025-01-10T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "startDate":"2024-01-07T00:00:00.000Z",
+         "title":"2025 January. Second Week"                  		
+      	},
+		{
+         "endDate":"2025-03-20T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "startDate":"2025-03-17T00:00:00.000Z",
+         "title":"2025 March. Third Week"                  		
+      	},
+		{
+         "endDate":"2025-01-10T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "startDate":"2024-01-07T00:00:00.000Z",
+         "title":"2025 January. Second Week"               		
+      	},
+		{
+         "endDate":"2025-03-20T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "startDate":"2025-03-17T00:00:00.000Z",
+         "title":"2025 March. Third Week"                   		
+      	},
+		{
+         "endDate":"2025-01-10T00:00:00.000Z",
+         "r_myCourseToMyCourseSession_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "startDate":"2024-01-07T00:00:00.000Z",
+         "title":"2025 January. Second Week"                  		
+      	}   	     	   	      	      	      	      	      	      	      	      	      	
+      ]
+}

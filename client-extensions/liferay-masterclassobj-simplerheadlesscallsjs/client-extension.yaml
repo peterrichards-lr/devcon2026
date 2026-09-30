@@ -1,0 +1,7 @@
+assemble:
+    - from: build/static
+      into: static
+liferay-masterclassobj-simplerheadlesscallsjs:
+    name: Liferay JS for Simpler Headless Calls
+    type: globalJS
+    url: global.*.js

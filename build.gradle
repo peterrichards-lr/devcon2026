@@ -1,0 +1,25 @@
+// Check GETTING_STARTED.md for information regarding usage.
+
+task zipFragments(type: Copy) {
+    description = "Zips all fragments into a dist folder."
+    def fragmentsDir = new File(project.projectDir, 'fragments')
+    def distDir = new File(project.buildDir, 'dist/fragments')
+
+    fragmentsDir.eachDir { fragmentDir ->
+        def isCollection = new File(fragmentDir, 'collection.json').exists() || 
+                           fragmentDir.listFiles().any { it.isDirectory() && new File(it, 'fragment.json').exists() }
+        
+        def safeTaskName = "zip_${fragmentDir.name.replaceAll(/[^a-zA-Z0-9_]/, '_')}"
+        def zipTask = tasks.create(name: safeTaskName, type: Zip) {
+            group = "Fragment"
+            description = "Zips the ${fragmentDir.name} fragment or collection."
+            from(fragmentDir) {
+                into fragmentDir.name
+                exclude '**/readme.md', '**/README.md'
+            }
+            archiveBaseName.set(fragmentDir.name)
+            destinationDirectory.set(distDir)
+        }
+        dependsOn(zipTask)
+    }
+}

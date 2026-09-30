@@ -1,0 +1,420 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"accountEntryRestricted": false,
+			"active": true,
+			"defaultLanguageId": "en_US",
+			"enableCategorization": true,
+			"enableComments": true,
+			"enableLocalization": false,
+			"enableObjectEntryHistory": true,
+			"externalReferenceCode": "MYCOURSE",
+			"label": {
+				"en_US": "MyCourse"
+			},
+			"name": "MyCourse",
+			"objectFields": [
+			    {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Author"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"creator",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Create Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"createDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"External Reference Code"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"externalReferenceCode",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"ID"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "indexedAsKeyword":true,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"id",
+			         "state":false,
+			         "businessType":"LongInteger",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Modified Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"modifiedDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Status"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"status",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Title"
+			         },
+			         "type":"String",
+			         "required":true,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"title",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Short Description"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"shortDescription",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Duration"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"duration",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Max Retakes"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"maxRetakes",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Integer",
+			         "label":{
+			            "en_US":"Pass Percentage"
+			         },
+			         "type":"Integer",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"passPercentage",
+			         "state":false,
+			         "businessType":"Integer",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Integer",
+			         "label":{
+			            "en_US":"Lessons"
+			         },
+			         "type":"Integer",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"lessons",
+			         "state":false,
+			         "businessType":"Integer",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Integer",
+			         "label":{
+			            "en_US":"Quizzes"
+			         },
+			         "type":"Integer",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"quizzes",
+			         "state":false,
+			         "businessType":"Integer",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Clob",
+			         "label":{
+			            "en_US":"Course Program"
+			         },
+			         "type":"Clob",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"courseProgram",
+			         "state":false,
+			         "businessType":"RichText",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            {
+			               "name":"acceptedFileExtensions",
+			               "value":"jpeg, jpg, pdf, png"
+			            },
+			            {
+			               "name":"maximumFileSize",
+			               "value":100
+			            },
+			            {
+			               "name":"fileSource",
+			               "value":"documentsAndMedia"
+			            }
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"Representative Image"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"representativeImage",
+			         "state":false,
+			         "businessType":"Attachment",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            {
+			               "name":"acceptedFileExtensions",
+			               "value":"jpeg, jpg, pdf, png, mp4, avi"
+			            },
+			            {
+			               "name":"maximumFileSize",
+			               "value":100
+			            },
+			            {
+			               "name":"fileSource",
+			               "value":"documentsAndMedia"
+			            }
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"Representative Video"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"representativeVideo",
+			         "state":false,
+			         "businessType":"Attachment",
+			         "readOnlyConditionExpression":""
+			      }
+			],				
+            "objectFolderExternalReferenceCode":"MYCOURSESFOLDER",			
+			"panelCategoryKey": "control_panel.object",
+			"parameterRequired": false,			
+			"pluralLabel": {
+				"en_US": "MyCourses"
+			},			
+			"portlet": true,
+			"restContextPath": "/o/c/mycourse",
+			"scope": "company",
+			"status": {
+				"code": 0,
+				"label": "approved",
+				"label_i18n": "Approved"
+			},
+			"system": false,
+			"titleObjectFieldName": "title"			
+		}
+	]
+}

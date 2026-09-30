@@ -1,0 +1,7 @@
+{
+	"className": "com.liferay.template.model.TemplateEntry",
+	"ddmTemplateKey": "COURSE-COURSECARDFROMENROLLMENT",
+	"infoItemClassName": "com.liferay.object.model.ObjectDefinition#[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+	"name": "Courses CourseCardFromEnrollment",
+	"resourceClassName": "com.liferay.template.model.TemplateEntry"
+}

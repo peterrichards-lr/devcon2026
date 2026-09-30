@@ -1,0 +1,82 @@
+<script language="javascript">
+function confirmar(myID){
+	var url="/o/c/mycourseenrollments/" + myID + "/object-actions/confirmingEnrollment"; 
+	const obj = "{}";
+	LiferayService.put(url,obj);
+	setTimeout(function(){
+		 window.location.reload(1);
+	}, 1000);
+}
+function decline(myID){
+	var url="/o/c/mycourseenrollments/" + myID + "/object-actions/decliningEnrollment"; 
+	const obj = "{}";
+	LiferayService.put(url,obj);
+	setTimeout(function(){
+		 window.location.reload(1);
+	}, 1000);
+}
+</script>
+
+[#assign currentUser = user.getUserId() /]
+[#assign parameters="?filter=r_userToMyCourseEnrollment_userId eq '" + currentUser + "'&nestedFields=myCourseSessions"/]
+[#assign courseSessions = restClient.get("/c/mycourseenrollments" + parameters)/]
+<div style="width:100%">
+<table class="fragment_83421" style="width:100%">
+	<thead>
+	<th style="font-weight:bold;width:30%">Curso</th>
+	<th style="font-weight:bold;width:30%">Convocatoria</th>
+	<th style="font-weight:bold;width:15%">Fecha Inicio</th>
+	<th style="font-weight:bold;width:15%">Fecha Fin</th>
+	<th style="font-weight:bold;width:10%">Estado</th>
+	</thead>
+[#if (courseSessions?has_content)]
+	<tbody>
+	[#list courseSessions.items as myCourseSession]
+		[#if (myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession??)]
+		[#assign currentCourseSession = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.title /]
+	  [#assign currentCourse = "" /]
+		[#assign startDate = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.startDate[0..9] /]
+		[#assign endDate = myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.endDate[0..9] /]
+		[#assign myCourse = restClient.get("/c/mycourses/" + myCourseSession.r_myCourseSessionToMyCourseEnrollment_c_myCourseSession.r_myCourseToMyCourseSession_c_myCourseId + "?fields=title")/]	
+		[#if (myCourse?has_content)]
+		[#assign currentCourse = myCourse.title /]
+		[/#if]
+		[#assign useClay=false /]
+		[#if myCourseSession.enrollmentStatus.key=="approved"]
+			[#assign contentCell = "link" /]
+		[#elseif myCourseSession.enrollmentStatus.key=="pending"]
+				[#assign contentCell = "star-o" /]
+		[#elseif myCourseSession.enrollmentStatus.key=="confirmed"]
+				[#assign contentCell = "star" /]
+		[#elseif myCourseSession.enrollmentStatus.key=="declined"]
+				[#assign contentCell = "block" /]
+		[#else]
+				[#assign contentCell = "emoji" /]
+		[/#if]
+
+		<tr>
+			<td style="width:30%">${currentCourse}</td>
+			<td style="width:30%">${currentCourseSession}</td>
+			<td style="width:15%">${startDate}</td>
+			<td style="width:15%">${endDate}</td>
+			[#if contentCell=="link"]
+			<td style="width:10%">
+				<a title='[@liferay.language key="confirm-course-registration" /]' href='javascript:confirmar(${myCourseSession.id})'>
+					[@clay["icon"] symbol="star-half" /]
+				</a>&nbsp;
+				<a title='[@liferay.language key="decline-course-registration" /]' href='javascript:decline(${myCourseSession.id})'>
+					[@clay["icon"] symbol="block" /]
+				</a>&nbsp;
+				
+			</td>
+			[#else]
+				<td style="width:10%">[@clay["icon"] symbol="${contentCell}" /]</td>
+			[/#if]	
+		</tr>
+		[/#if]
+	[/#list]
+</tbody>
+[/#if]
+</table>
+
+</div>

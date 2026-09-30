@@ -1,0 +1,110 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "C_MyCourse",			
+			"updateStrategy": "UPDATE"	
+		},
+		"taskItemDelegateName": "C_MyCourse"
+	},
+	"items": [
+		{
+			"courseProgram":"<p>For today digital market, businesses need to provide users with engaging, personalized online experiences that distinguish their brand and drive conversions. Liferay DXP provides a comprehensive environment for business teams and developers to efficiently build enterprise websites at scale. With low-code capabilities and a user-friendly editor, Liferay DXP flexible platform simplifies and optimizes site development. You can also leverage Liferay to unify your technical infrastructure and enable seamless integration with existing systems.</p>",
+			"duration":"3 days",
+			"externalReferenceCode": "MYCOURSE_BATCH_1",
+			"representativeImage":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "course_01.jpg"
+			},
+			"quizzes":1,
+			"representativeVideo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "video_design.mp4"
+			},
+			"shortDescription":"Liferay DXP provides a comprehensive environment for business teams and developers to efficiently build enterprise websites at scale. ",
+			"maxRetakes":"5",
+			"passPercentage":70,
+			"title":"Building Enterprise Websites",
+			"lessons":3
+      },
+      {
+	      "courseProgram":"<p>In this course you will learn how to build enterprise websites with Liferay following best practices. While this course primarily focuses on the needs of Enterprise Websites, many of the following capabilities and use cases also apply to other solutions. Programming knowledge is not needed, but an understanding of HTML, CSS, Javascript and templating languages like FreeMarker would be helpful.</p><p>Given the breadth and depth of Liferay features and configurations, it is impossible to cover every detail necessary for building a production ready website. However, this course will equip you with the knowledge and skills necessary to tackle real-world problems and create solutions with Liferay.</p><p>To bridge the gap between theory and practice, this course will lead you through building an enterprise marketing website for a fictional company, Clarity Vision Solutions. </p>",
+	      "duration":"1 week",
+		  "externalReferenceCode": "MYCOURSE_BATCH_2",
+	      "representativeImage":{
+			"fileBase64": "@batch_object_entry_file_base64@",
+			"name": "course_02.jpg"
+	      },
+	      "quizzes":2,
+	      "representativeVideo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "video_management.mp4"
+	      },      
+	      "shortDescription":"Liferay DXP flexible platform simplifies and optimizes site development. Come on and dive in together with our first steps",
+	      "maxRetakes":"2",
+	      "passPercentage":75,
+	      "title":"Back-End Developer 2",
+	      "lessons":3      
+      },
+      {
+	      "courseProgram":"<p>So far, you have learned about using Liferay DXP out-of-the-box features to build enterprise websites. While these features cover many use cases, unique business needs may require custom applications. Fortunately, Liferay provides extensive tools for building custom applications that seamlessly integrate with Liferay DXP core frameworks. Using low-code capabilities and client extensions, you can enhance the Liferay platform and streamline critical business processes without modifying its core.</p>",
+	      "duration":"2 days",
+		  "externalReferenceCode": "MYCOURSE_BATCH_3",
+	      "representativeImage":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "course_03.jpg"
+	      },
+	      "quizzes":1,
+	      "representativeVideo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "video_design.mp4"
+	      },     
+	      "shortDescription":"Now we will dig into the best practices on how to extend Liferay DXP to its limits, taking into consideration all that we have learnt and expanding it.",
+	      "maxRetakes":"2",
+	      "passPercentage":85,
+	      "title":"Back-End Developer 3",
+	      "lessons":3      
+      },
+      {
+	      "courseProgram":"<p><strong>Ready to build dynamic digital experiences with Liferay DXP?</strong> Our introductory back-end development course equips you with the essential skills to become a Liferay developer.</p><p><strong>In this course, you will:</strong></p><ul><li><strong>Master the Liferay DXP architecture:</strong>Gain a solid understanding of Liferay DXP core components, APIs, and frameworks.</li><li><strong>Navigate the back-end landscape:</strong>Learn to create custom portlets, services, and modules to extend Liferay DXP functionality.</li><li><strong>Work with Liferay APIs:</strong> Unlock the power of Liferay DXP APIs to interact with users, content, and data.</li><li><strong>Deploy your creations:</strong>Confidently deploy your back-end developments into a Liferay environment.</li></ul>",
+	      "duration":"5 days",
+	      "externalReferenceCode": "MYCOURSE_BATCH_4",
+	      "representativeImage":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "course_04.jpg"
+	      },
+	      "quizzes":2,
+	      "representativeVideo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "video_marketing.mp4"
+	      },	      
+	      "shortDescription":"An introductory course for starting with Liferay DXP and its extension capabilities",
+	      "maxRetakes":"2",
+	      "passPercentage":90,
+	      "title":"Back-End Development 1",
+	      "lessons":3      
+      },
+      {
+	      "courseProgram":"<h2>Craft Captivating User Experiences with Liferay DXP: Your Front-End Dev Journey Begins!</h2><p><strong>Want to build beautiful and interactive interfaces for Liferay DXP?</strong> Our introductory front-end development course equips you with the essential skills to become a Liferay front-end developer.</p><p><strong>In this course, you will:</strong></p><ul><li><strong>Dive into Liferay DXP front-end tools:</strong> Master the ins and outs of Liferay DXP built-in themes and templates to create custom layouts and experiences.</li><li><strong>Leverage modern frameworks:</strong>Learn to integrate popular front-end frameworks like React or Angular to build dynamic and responsive user interfaces.</li><li><strong>Become a UI/UX pro:</strong> Understand best practices for crafting user-friendly interfaces that engage and delight Liferay users.</li><li><strong>Customize with confidence:</strong> Develop the skills to tailor Liferay DXP front-end to perfectly match your specific project needs.</li></ul>",
+	      "duration":"1 week",
+		  "externalReferenceCode": "MYCOURSE_BATCH_5",
+	      "representativeImage":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "course_05.jpg"
+	      },
+	      "quizzes":2,
+	      "representativeVideo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "video_management.mp4"
+	      },	      
+	      "shortDescription":"Starting course for front-end developers at Liferay",
+	      "maxRetakes":"2",
+	      "passPercentage":80,
+	      "title":"Front-End Development Intro",
+	      "lessons":3      
+      }
+	]
+}

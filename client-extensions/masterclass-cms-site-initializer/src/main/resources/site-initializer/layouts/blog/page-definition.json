@@ -1,0 +1,624 @@
+{
+    "pageElement": {
+        "pageElements": [
+            {
+                "definition": {
+                    "fragmentStyle": {
+                        "backgroundColor": "brandColor1",
+                        "hidden": true,
+                        "paddingBottom": "7",
+                        "paddingLeft": "2",
+                        "paddingRight": "2",
+                        "paddingTop": "5"
+                    },
+                    "fragmentViewports": [
+                        {
+                            "fragmentViewportStyle": {
+                                "paddingBottom": "5"
+                            },
+                            "id": "tablet"
+                        }
+                    ],
+                    "indexed": true,
+                    "layout": {
+                        "paddingBottom": 8,
+                        "paddingTop": 4
+                    }
+                },
+                "pageElements": [
+                    {
+                        "definition": {
+                            "indexed": true,
+                            "layout": {
+                                "widthType": "Fixed"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "gutters": true,
+                                    "indexed": true,
+                                    "modulesPerRow": 2,
+                                    "numberOfColumns": 2,
+                                    "reverseOrder": false,
+                                    "rowViewports": [
+                                        {
+                                            "id": "landscapeMobile",
+                                            "rowViewportDefinition": {}
+                                        },
+                                        {
+                                            "id": "portraitMobile",
+                                            "rowViewportDefinition": {}
+                                        },
+                                        {
+                                            "id": "tablet",
+                                            "rowViewportDefinition": {
+                                                "modulesPerRow": 1,
+                                                "reverseOrder": true
+                                            }
+                                        }
+                                    ],
+                                    "verticalAlignment": "middle"
+                                },
+                                "pageElements": [
+                                    {
+                                        "definition": {
+                                            "columnViewports": [
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "landscapeMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "portraitMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {
+                                                        "size": 12
+                                                    },
+                                                    "id": "tablet"
+                                                }
+                                            ],
+                                            "size": 6
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragmentStyle": {
+                                                        "marginRight": "4"
+                                                    },
+                                                    "indexed": true,
+                                                    "layout": {
+                                                        "marginRight": 2
+                                                    }
+                                                },
+                                                "pageElements": [
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-heading",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {
+                                                                "displayLevel": "4",
+                                                                "headingLevel": "h1"
+                                                            },
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "element-text",
+                                                                    "value": {
+                                                                        "fragmentLink": {
+                                                                            "value": {
+                                                                                "href": {
+                                                                                    "mapping": {
+                                                                                        "fieldKey": "displayPageURL",
+                                                                                        "itemReference": {
+                                                                                            "contextSource": "CollectionItem"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "text": {
+                                                                            "mapping": {
+                                                                                "fieldKey": "ObjectField_title",
+                                                                                "itemReference": {
+                                                                                    "contextSource": "CollectionItem"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "fragmentStyle": {
+                                                                "marginBottom": "3"
+                                                            },
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    },
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-text-block",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {},
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "element-text",
+                                                                    "value": {
+                                                                        "fragmentLink": {},
+                                                                        "text": {
+                                                                            "mapping": {
+                                                                                "fieldKey": "ObjectField_subtitle",
+                                                                                "itemReference": {
+                                                                                    "contextSource": "CollectionItem"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "fragmentStyle": {
+                                                                "fontSize": "fontSizeLg",
+                                                                "marginBottom": "4",
+                                                                "marginRight": "3"
+                                                            },
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    },
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-button",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {
+                                                                "buttonType": "primary",
+                                                                "buttonSize": "lg"
+                                                            },
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "link",
+                                                                    "value": {
+                                                                        "fragmentLink": {
+                                                                            "value": {
+                                                                                "href": {
+                                                                                    "mapping": {
+                                                                                        "fieldKey": "displayPageURL",
+                                                                                        "itemReference": {
+                                                                                            "contextSource": "CollectionItem"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "text": {
+                                                                            "value_i18n": {
+                                                                                "en_US": "Read More"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    }
+                                                ],
+                                                "type": "Section"
+                                            }
+                                        ],
+                                        "type": "Column"
+                                    },
+                                    {
+                                        "definition": {
+                                            "columnViewports": [
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "landscapeMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "portraitMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {
+                                                        "size": 12
+                                                    },
+                                                    "id": "tablet"
+                                                }
+                                            ],
+                                            "size": 6
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragment": {
+                                                        "key": "masterclass-image",
+                                                        "siteKey": "eLearning"
+                                                    },
+                                                    "fragmentConfig": {
+                                                        "imageSize": "w-100"
+                                                    },
+                                                    "fragmentFields": [
+                                                        {
+                                                            "id": "image-square",
+                                                            "value": {
+                                                                "fragmentImage": {
+                                                                    "url": {
+                                                                        "mapping": {
+                                                                            "fieldKey": "ObjectField_47204#fileURL",
+                                                                            "itemReference": {
+                                                                                "contextSource": "CollectionItem"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "fragmentLink": {
+                                                                    "value": {
+                                                                        "href": {
+                                                                            "mapping": {
+                                                                                "fieldKey": "displayPageURL",
+                                                                                "itemReference": {
+                                                                                    "contextSource": "CollectionItem"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "fragmentStyle": {
+                                                        "marginLeft": "4"
+                                                    },
+                                                    "fragmentViewports": [
+                                                        {
+                                                            "fragmentViewportStyle": {
+                                                                "marginBottom": "4"
+                                                            },
+                                                            "id": "tablet"
+                                                        }
+                                                    ],
+                                                    "indexed": true
+                                                },
+                                                "type": "Fragment"
+                                            }
+                                        ],
+                                        "type": "Column"
+                                    }
+                                ],
+                                "type": "Row"
+                            }
+                        ],
+                        "type": "Section"
+                    }
+                ],
+                "type": "Section"
+            },
+            {
+                "definition": {
+                    "fragmentStyle": {
+                        "paddingBottom": "5",
+                        "paddingLeft": "2",
+                        "paddingRight": "2",
+                        "paddingTop": "7"
+                    },
+                    "fragmentViewports": [
+                        {
+                            "fragmentViewportStyle": {
+                                "paddingTop": "5"
+                            },
+                            "id": "tablet"
+                        }
+                    ],
+                    "indexed": true,
+                    "layout": {
+                        "paddingBottom": 4,
+                        "paddingTop": 8
+                    }
+                },
+                "pageElements": [
+                    {
+                        "definition": {
+                            "fragmentStyle": {
+                                "marginBottom": "6"
+                            },
+                            "fragmentViewports": [
+                                {
+                                    "fragmentViewportStyle": {
+                                        "marginBottom": "5"
+                                    },
+                                    "id": "tablet"
+                                }
+                            ],
+                            "indexed": true,
+                            "layout": {
+                                "align": "Center",
+                                "contentDisplay": "FlexRow",
+                                "justify": "SpaceBetween",
+                                "marginBottom": 6,
+                                "widthType": "Fixed"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "fragment": {
+                                        "key": "masterclass-heading",
+                                        "siteKey": "eLearning"
+                                    },
+                                    "fragmentConfig": {
+                                        "displayLevel": "0",
+                                        "headingLevel": "h5"
+                                    },
+                                    "fragmentFields": [
+                                        {
+                                            "id": "element-text",
+                                            "value": {
+                                                "fragmentLink": {},
+                                                "text": {
+                                                    "value_i18n": {
+                                                        "en_US": "All articles"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "fragmentStyle": {
+                                        "fontFamily": "fontFamilySansSerif",
+                                        "fontWeight": "fontWeightBold"
+                                    },
+                                    "indexed": true
+                                },
+                                "type": "Fragment"
+                            },
+                            {
+                                "definition": {
+                                    "fragment": {
+                                        "key": "masterclass-text-block",
+                                        "siteKey": "eLearning"
+                                    },
+                                    "fragmentConfig": {},
+                                    "fragmentFields": [
+                                        {
+                                            "id": "element-text",
+                                            "value": {
+                                                "fragmentLink": {},
+                                                "text": {
+                                                    "value_i18n": {
+                                                        "en_US": "<strong>Filter by: </strong>\n\nCategory"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "fragmentStyle": {
+                                        "fontFamily": "fontFamilySansSerif"
+                                    },
+                                    "indexed": true
+                                },
+                                "type": "Fragment"
+                            }
+                        ],
+                        "type": "Section"
+                    },
+                    {
+                        "definition": {
+                            "indexed": true,
+                            "layout": {
+                                "widthType": "Fixed"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "collectionConfig": {
+                                        "collectionReference": {
+                                            "className": "com.liferay.asset.list.model.AssetListEntry",
+                                            "classPK": "[$ASSET_LIST_ENTRY_ID:NEW-BLOG-ENTRIES$]"
+                                        },
+                                        "collectionType": "Collection"
+                                    },
+                                    "collectionViewports": [
+                                        {
+                                            "collectionViewportDefinition": {},
+                                            "id": "landscapeMobile"
+                                        },
+                                        {
+                                            "collectionViewportDefinition": {},
+                                            "id": "portraitMobile"
+                                        },
+                                        {
+                                            "collectionViewportDefinition": {},
+                                            "id": "tablet"
+                                        }
+                                    ],
+                                    "displayAllItems": false,
+                                    "displayAllPages": true,
+                                    "listItemStyle": "",
+                                    "listStyle": "",
+                                    "numberOfColumns": 3,
+                                    "numberOfItems": 9,
+                                    "numberOfItemsPerPage": 6,
+                                    "numberOfPages": 1,
+                                    "paginationType": "Numeric",
+                                    "showAllItems": false,
+                                    "templateKey": ""
+                                },
+                                "pageElements": [
+                                    {
+                                        "definition": {
+                                            "collectionItemConfig": {}
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragmentStyle": {
+                                                        "marginBottom": "6"
+                                                    },
+                                                    "fragmentViewports": [
+                                                        {
+                                                            "fragmentViewportStyle": {
+                                                                "marginBottom": "5"
+                                                            },
+                                                            "id": "tablet"
+                                                        }
+                                                    ],
+                                                    "indexed": true,
+                                                    "layout": {
+                                                        "marginBottom": 6
+                                                    }
+                                                },
+                                                "pageElements": [
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-image",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {
+                                                                "imageSize": "w-100"
+                                                            },
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "image-square",
+                                                                    "value": {
+                                                                        "fragmentImage": {
+                                                                            "url": {
+                                                                                "mapping": {
+                                                                                    "fieldKey": "ObjectField_47204#fileURL",
+                                                                                    "itemReference": {
+                                                                                        "contextSource": "CollectionItem"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "fragmentLink": {
+                                                                            "value": {
+                                                                                "href": {
+                                                                                    "mapping": {
+                                                                                        "fieldKey": "displayPageURL",
+                                                                                        "itemReference": {
+                                                                                            "contextSource": "CollectionItem"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "fragmentStyle": {
+                                                                "marginBottom": "4"
+                                                            },
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    },
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-heading",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {
+                                                                "displayLevel": "0",
+                                                                "headingLevel": "h3"
+                                                            },
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "element-text",
+                                                                    "value": {
+                                                                        "fragmentLink": {
+                                                                            "value": {
+                                                                                "href": {
+                                                                                    "mapping": {
+                                                                                        "fieldKey": "displayPageURL",
+                                                                                        "itemReference": {
+                                                                                            "contextSource": "CollectionItem"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "text": {
+                                                                            "mapping": {
+                                                                                "fieldKey": "ObjectField_title",
+                                                                                "itemReference": {
+                                                                                    "contextSource": "CollectionItem"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "fragmentStyle": {
+                                                                "marginBottom": "3"
+                                                            },
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    },
+                                                    {
+                                                        "definition": {
+                                                            "fragment": {
+                                                                "key": "masterclass-link",
+                                                                "siteKey": "eLearning"
+                                                            },
+                                                            "fragmentConfig": {
+                                                                "linkSize": "sm"
+                                                            },
+                                                            "fragmentFields": [
+                                                                {
+                                                                    "id": "link",
+                                                                    "value": {
+                                                                        "fragmentLink": {
+                                                                            "value": {
+                                                                                "href": {
+                                                                                    "mapping": {
+                                                                                        "fieldKey": "displayPageURL",
+                                                                                        "itemReference": {
+                                                                                            "contextSource": "CollectionItem"
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "indexed": true
+                                                        },
+                                                        "type": "Fragment"
+                                                    }
+                                                ],
+                                                "type": "Section"
+                                            }
+                                        ],
+                                        "type": "CollectionItem"
+                                    }
+                                ],
+                                "type": "Collection"
+                            }
+                        ],
+                        "type": "Section"
+                    }
+                ],
+                "type": "Section"
+            }
+        ],
+        "type": "Root"
+    },
+    "settings": {
+        "colorSchemeName": "01",
+        "masterPage": {
+            "key": "main-1"
+        },
+        "themeName": "Classic"
+    },
+    "version": 1.1
+}

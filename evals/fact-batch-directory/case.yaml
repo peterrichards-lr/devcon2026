@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: fact-batch-directory
+description: >-
+  BundleSiteInitializer reads a fixed set of directories and batch/ is not one
+  of them. Files placed there are packaged and silently ignored. The prompt
+  invites the wrong answer.
+tags: [fact, site-initializer]
+runs: 5
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 20
+  timeout_seconds: 300
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    I have a site initializer client extension at `client-extensions/demo-site-init`
+    and a `product.batch-engine-data.json` defining an object I want the site to
+    create when it provisions.
+
+    I was going to drop it in `site-initializer/batch/` so it gets picked up with
+    everything else. Is that the right place? Where exactly should it go?

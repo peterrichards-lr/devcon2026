@@ -1,0 +1,23 @@
+schema_version: "1.0"
+name: plan-object-model-end-to-end
+description: >-
+  Grades the whole migration plan, not one diagnostic answer: the field
+  types it proposes, and whether it spots the two reference rewrites the
+  display page template and its page definition need. Targets the two
+  SKILL.md sections whose value is unmeasured.
+tags: [plan, migration, end-to-end]
+runs: 5
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 30
+  timeout_seconds: 420
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    We are moving this site off web content and onto Liferay Objects. The Course
+    content structure, the articles written against it, and the display page
+    template that renders them are all under
+    `client-extensions/liferay-masterclassobj-site-initializer`.
+
+    Give me the full plan: what the object model should be, and everything that has
+    to change for the existing display page to keep rendering.

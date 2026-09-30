@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/my-learning",
+	"hidden": false,
+	"name": "My Learning",
+	"name_i18n": {
+		"en_US": "My Learning"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

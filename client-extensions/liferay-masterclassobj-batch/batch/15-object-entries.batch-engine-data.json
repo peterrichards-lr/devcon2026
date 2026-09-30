@@ -1,0 +1,113 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "C_MyCourseModule",			
+			"updateStrategy": "UPDATE"		
+		},
+		"taskItemDelegateName": "C_MyCourseModule"
+	},
+	"items": [
+		{
+         "duration":"1 day",
+         "summary":"Develop the skills to tailor Liferay DXP front-end to perfectly match your specific project needs.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_5",
+         "title":"Customize with confidence",
+         "lessons":2		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"This module tells the story of Clarity Vision Solutions, a fictional B2B manufacturer of eyewear products. You will learn about their pain points, how Liferay can help, and the enterprise marketing website you will build for them.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "title":"Getting Started with Liferay DXP",
+         "lessons":5		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"Liferay offers a suite of features for authoring and managing content that you can leverage to bring the site to life. In this module, we will introduce you to several out-of-the-box capabilities with which you can manage all types of content.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "title":"Content Authoring & Management",
+         "lessons":3		
+      	},
+		{
+         "duration":"2 days",
+         "summary":"Dive into Liferay's front-end tools: Master the ins and outs of Liferay DXP built-in themes and templates to create custom layouts and experiences.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_5",
+         "title":"Master Design at Liferay",
+         "lessons":2		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"We are going to learn best practices on how to use Liferay features to manage Users, Roles and Permissions in an escalable and effective way.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "title":"Users & Permissions",
+         "lessons":2		
+      	},
+		{
+         "duration":"2 days",
+         "summary":"Become a UI/UX pro: Understand best practices for crafting user-friendly interfaces that engage and delight Liferay users.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_5",
+         "title":"Become a UI/UX pro",
+         "lessons":3		
+      	},
+		{
+         "duration":"6 hours",
+         "summary":"Now, it is time to start building Clarity public site! Liferay provides out-of-the-box tools for designing personalized website experiences across multiple channels and devices with ease.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_1",
+         "title":"Site Building",
+         "lessons":3		
+      	},
+		{
+         "duration":"4 hours",
+         "summary":"Start your journey by getting to summarize the basics of the Java knowledge and skills you will need.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "title":"Java Introduction",
+         "lessons":1		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"Our next step is the specifics of Liferay when it comes to back-end development. We will learn OSGI, Portlets, etc.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "title":"Liferay Development",
+         "lessons":2		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"Throughout this process, we will use low-code features like Objects, Picklists, and Workflows. We will also leverage page builder features to design a dynamic, responsive user interface for their custom application.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_4",
+         "title":"Deploying the Application",
+         "lessons":2		
+      	},
+		{
+         "duration":"4 hours",
+         "summary":"This module will introduce you to Liferay Workspace and Client Extensions, two key features for building applications with Liferay. You will have your workspace ready to go before you continue the course.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "title":"Developer Setup",
+         "lessons":3		
+      	},
+		{
+         "duration":"1 day",
+         "summary":"This is accomplished using Liferay Objects, which is the foundation of Liferay DXP low-code application development. With it, you can define database tables, implement business logic, integrate with external services, and more, all without writing code.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_2",
+         "title":"Modeling Data Structures",
+         "lessons":3		
+      	},
+		{
+         "duration":"2 days",
+         "summary":"Liferay DXP is the enterprise-grade platform that has the capabilities to meet our Customers needs. Liferay DXP is available in three different deployment approaches, Liferay SaaS, Liferay PaaS, and Liferay Self-Hosted.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "title":"Deploying Liferay DXP Self Hosted",
+         "lessons":3		
+      	}, 	     	      	      	      	      	      	     	      	      			
+      	{
+         "duration":"2 days",
+         "summary":"Business logic refers to the rules and processes that determine how an application behaves within a system to meet business needs. Implementing business logic effectively can streamline operations, improve efficiency, and promote consistency across your organization.",
+         "r_myCourseToMyCourseModule_c_myCourseERC":"MYCOURSE_BATCH_3",
+         "title":"Implementing Business Logic",
+         "lessons":3		
+      	}
+	]
+}

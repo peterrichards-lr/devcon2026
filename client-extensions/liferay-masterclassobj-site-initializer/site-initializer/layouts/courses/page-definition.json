@@ -1,0 +1,233 @@
+{
+	"pageElement": {
+     "pageElements": [
+        {
+          "definition": {
+            "fragmentStyle": {
+              "paddingBottom": "3",
+              "paddingTop": "5"
+            },
+            "indexed": true,
+            "layout": {
+              "paddingBottom": 1,
+              "paddingTop": 4,
+              "widthType": "Fixed"
+            }
+          },
+          "pageElements": [
+            {
+              "definition": {
+                "fragment": {
+                  "key": "masterclass-heading",
+                  "siteKey": "MasterClass"
+                },
+                "fragmentConfig": {
+                  "displayLevel": "0",
+                  "headingLevel": "h1"
+                },
+                "fragmentFields": [
+                  {
+                    "id": "element-text",
+                    "value": {
+                      "fragmentLink": {},
+                      "text": {
+                        "value_i18n": {
+                          "en_US": "All Courses"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "fragmentStyle": {
+                  "marginBottom": "4"
+                },
+                "indexed": true
+              },
+              "type": "Fragment"
+            },
+            {
+              "definition": {
+				"collectionConfig": {
+					"collectionReference": {
+						"className": "com.liferay.object.web.internal.info.collection.provider.ObjectEntrySingleFormVariationInfoCollectionProvider_[$COMPANY_ID$]_C_MyCourse"
+					},
+					"collectionType": "CollectionProvider"
+				},
+                "collectionViewports": [
+                  {
+                    "collectionViewportDefinition": {
+                      "numberOfColumns": 1
+                    },
+                    "id": "landscapeMobile"
+                  },
+                  {
+                    "collectionViewportDefinition": {},
+                    "id": "portraitMobile"
+                  },
+                  {
+                    "collectionViewportDefinition": {},
+                    "id": "tablet"
+                  }
+                ],
+                "displayAllItems": false,
+                "displayAllPages": true,
+                "emptyCollectionConfig": {
+                  "message_i18n": {
+                    "en_US": "No Results Found"
+                  }
+                },
+                "listItemStyle": "",
+                "listStyle": "",
+                "numberOfColumns": 3,
+                "numberOfItems": 5,
+                "numberOfItemsPerPage": 6,
+                "numberOfPages": 5,
+                "paginationType": "Numeric",
+                "showAllItems": false,
+                "templateKey": ""
+              },
+              "pageElements": [
+                {
+                  "definition": {
+                    "collectionItemConfig": {}
+                  },
+                  "pageElements": [
+                    {
+                      "definition": {
+                        "fragmentStyle": {
+                          "borderColor": "gray500Color",
+                          "borderRadius": "10px",
+                          "borderWidth": "1px",
+                          "marginBottom": "3",
+                          "paddingBottom": "2",
+                          "paddingLeft": "2",
+                          "paddingRight": "2",
+                          "paddingTop": "2"
+                        },
+                        "indexed": true,
+                        "layout": {
+                          "borderColor": "gray500Color",
+                          "marginBottom": 1
+                        }
+                      },
+                      "pageElements": [
+                        {
+                          "definition": {
+                            "fragment": {
+                              "key": "masterclass-heading",
+                              "siteKey": "MasterClass"
+                            },
+                            "fragmentConfig": {
+                              "displayLevel": "0",
+                              "headingLevel": "h3"
+                            },
+                            "fragmentFields": [
+                              {
+                                "id": "element-text",
+                                "value": {
+                                  "fragmentLink": {
+                                    "value": {
+                                      "href": {
+                                        "mapping": {
+                                          "fieldKey": "displayPageURL",
+                                          "itemReference": {
+                                            "contextSource": "CollectionItem"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "text": {
+                                    "mapping": {
+                                      "fieldKey": "ObjectField_title",
+                                      "itemReference": {
+                                        "contextSource": "CollectionItem"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "fragmentStyle": {
+                              "marginBottom": "2"
+                            },
+                            "indexed": true
+                          },
+                          "type": "Fragment"
+                        },
+                        {
+                          "definition": {
+                            "fragment": {
+                              "key": "masterclass-text-block",
+                              "siteKey": "MasterClass"
+                            },
+                            "fragmentConfig": {},
+                            "fragmentFields": [
+                              {
+                                "id": "element-text",
+                                "value": {
+                                  "fragmentLink": {},
+                                  "text": {
+                                    "mapping": {
+                                      "fieldKey": "ObjectField_shortDescription",
+                                      "itemReference": {
+                                        "contextSource": "CollectionItem"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "fragmentStyle": {
+                              "paddingBottom": "2"
+                            },
+                            "indexed": true
+                          },
+                          "type": "Fragment"
+                        },
+                        {
+                          "definition": {
+                            "fragment": {
+                              "key": "BASIC_COMPONENT-html"
+                            },
+                            "fragmentConfig": {},
+                            "fragmentFields": [
+                              {
+                                "id": "element-html",
+                                "value": {
+                                  "html": {
+                                    "mapping": {
+                                      "fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowImage$]",
+                                      "itemReference": {
+                                        "contextSource": "CollectionItem"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "indexed": true
+                          },
+                          "type": "Fragment"
+                        }
+                      ],
+                      "type": "Section"
+                    }
+                  ],
+                  "type": "CollectionItem"
+                }
+              ],
+              "type": "Collection"
+            }
+          ],
+          "type": "Section"
+        }
+      ],
+      "type": "Root"
+    },
+	"settings": {
+		"masterPage": {
+			"key": "main-1"
+		}
+	}
+}

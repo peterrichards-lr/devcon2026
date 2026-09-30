@@ -1,0 +1,19 @@
+[#assign infoListDisplayObject = "" /]
+[#assign infoListDisplayObject = (request.getAttribute("INFO_ITEM"))! /]
+[#assign currentCourse=""/]
+[#if infoListDisplayObject?? && infoListDisplayObject.objectEntryId??]
+[#assign currentCourse=infoListDisplayObject.objectEntryId/]
+[/#if]
+[#if currentCourse?has_content]
+[#assign courseSessions = restClient.get("/c/mycourses/" + currentCourse + "/myCourseToMyCourseSession") /]	
+[#if courseSessions?has_content]
+<div style="font-size:20px;margin-right:5px">
+WHEN:	
+<select name="courseSessions" id="courseSessions" style="height:43px;padding:10px">
+[#list courseSessions.items as myCourseSession]
+	<option value="${myCourseSession.id}">${myCourseSession.title}</option>
+[/#list]
+</select>
+</div>
+[/#if]
+[/#if]

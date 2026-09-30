@@ -1,0 +1,8 @@
+{
+	"author": {
+		"name": "Liferay"
+	},
+	"description": "Liferay workspace skills and reference cards for building, migrating and auditing DXP sites, client extensions and site initializers.",
+	"name": "devcon2026-liferay",
+	"version": "1.0.0"
+}

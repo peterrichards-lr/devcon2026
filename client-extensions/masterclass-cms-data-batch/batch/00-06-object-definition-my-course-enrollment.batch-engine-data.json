@@ -1,0 +1,226 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "accountEntryRestricted": false,
+            "active": true,
+            "defaultLanguageId": "en_US",
+            "enableCategorization": true,
+            "enableComments": false,
+            "enableFormContainer": true,
+            "enableFriendlyURLCustomization": false,
+            "enableIndexSearch": true,
+            "enableLocalization": true,
+            "enableObjectEntryDraft": false,
+            "enableObjectEntryHistory": false,
+            "enableObjectEntrySchedule": false,
+            "enableObjectEntrySubscription": false,
+            "enableObjectEntryVersioning": false,
+            "externalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+            "label": {
+                "en_US": "MyCourseEnrollment"
+            },
+            "modifiable": true,
+            "name": "MyCourseEnrollment",
+            "objectActions": [
+                {
+                    "active": true,
+                    "conditionExpression": "",
+                    "errorMessage": {
+                        "en_US": "Registration is now Approved by Admin"
+                    },
+                    "externalReferenceCode": "4311f229-ad9c-24a3-c50a-5ac0d39d8934",
+                    "label": {
+                        "en_US": "Approve a Course"
+                    },
+                    "name": "approveACourse",
+                    "objectActionExecutorKey": "update-object-entry",
+                    "objectActionTriggerKey": "standalone",
+                    "parameters": {
+                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "predefinedValues": [
+                            {
+                                "businessType": "Picklist",
+                                "inputAsValue": true,
+                                "label": {
+                                    "en_US": "Enrollment Status"
+                                },
+                                "name": "enrollmentStatus",
+                                "value": "Approved"
+                            }
+                        ]
+                    },
+                    "system": false
+                },
+                {
+                    "active": true,
+                    "conditionExpression": "",
+                    "errorMessage": {
+                        "en_US": "The student has confirmed the assistance to the Course in the selected Session"
+                    },
+                    "externalReferenceCode": "3229afa4-2aa4-52bd-be45-88aabf2c8aed",
+                    "label": {
+                        "en_US": "Confirming Enrollment"
+                    },
+                    "name": "confirmingEnrollment",
+                    "objectActionExecutorKey": "update-object-entry",
+                    "objectActionTriggerKey": "standalone",
+                    "parameters": {
+                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "predefinedValues": [
+                            {
+                                "businessType": "Picklist",
+                                "inputAsValue": true,
+                                "label": {
+                                    "en_US": "Enrollment Status"
+                                },
+                                "name": "enrollmentStatus",
+                                "value": "Confirmed"
+                            }
+                        ]
+                    },
+                    "system": false
+                },
+                {
+                    "active": true,
+                    "conditionExpression": "",
+                    "errorMessage": {
+                        "en_US": "The student has declined the assistance to the course in the given session"
+                    },
+                    "externalReferenceCode": "4d25dcc7-1837-e368-5a4c-f4123a5e1b3a",
+                    "label": {
+                        "en_US": "Declining Enrollment"
+                    },
+                    "name": "decliningEnrollment",
+                    "objectActionExecutorKey": "update-object-entry",
+                    "objectActionTriggerKey": "standalone",
+                    "parameters": {
+                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "predefinedValues": [
+                            {
+                                "businessType": "Picklist",
+                                "inputAsValue": true,
+                                "label": {
+                                    "en_US": "Enrollment Status"
+                                },
+                                "name": "enrollmentStatus",
+                                "value": "Declined"
+                            }
+                        ]
+                    },
+                    "system": false
+                },
+                {
+                    "active": true,
+                    "conditionExpression": "",
+                    "errorMessage": {
+                        "en_US": "Course enrollment has been discarded for the user"
+                    },
+                    "externalReferenceCode": "b8837350-e9b5-2db8-ad80-a9eb448d12f3",
+                    "label": {
+                        "en_US": "Discard a Course"
+                    },
+                    "name": "discardACourse",
+                    "objectActionExecutorKey": "update-object-entry",
+                    "objectActionTriggerKey": "standalone",
+                    "parameters": {
+                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "predefinedValues": [
+                            {
+                                "businessType": "Picklist",
+                                "inputAsValue": true,
+                                "label": {
+                                    "en_US": "Enrollment Status"
+                                },
+                                "name": "enrollmentStatus",
+                                "value": "Discarded"
+                            }
+                        ]
+                    },
+                    "system": false
+                }
+            ],
+            "objectDefinitionSettings": [],
+            "objectFields": [
+                {
+                    "DBType": "String",
+                    "businessType": "Picklist",
+                    "defaultValue": "Pending",
+                    "externalReferenceCode": "62969b2b-d439-018d-b289-1fae7c642692",
+                    "indexed": true,
+                    "indexedAsKeyword": false,
+                    "indexedLanguageId": "en_US",
+                    "label": {
+                        "en_US": "Enrollment Status"
+                    },
+                    "listTypeDefinitionExternalReferenceCode": "53be1a3d-caf4-8a87-8c25-ba3460307fd1",
+                    "localized": false,
+                    "name": "enrollmentStatus",
+                    "objectFieldSettings": [
+                        {
+                            "name": "defaultValueType",
+                            "value": "inputAsValue"
+                        },
+                        {
+                            "name": "defaultValue",
+                            "value": "Pending"
+                        }
+                    ],
+                    "readOnly": "false",
+                    "readOnlyConditionExpression": "",
+                    "required": true,
+                    "state": true,
+                    "system": false,
+                    "type": "String",
+                    "unique": false
+                },
+                {
+                    "DBType": "Long",
+                    "businessType": "LongInteger",
+                    "defaultValue": "null",
+                    "externalReferenceCode": "8ddaa6ff-2cd5-a491-b51c-acaf92581860",
+                    "indexed": true,
+                    "indexedAsKeyword": false,
+                    "indexedLanguageId": "",
+                    "label": {
+                        "en_US": "CourseID"
+                    },
+                    "localized": false,
+                    "name": "courseID",
+                    "objectFieldSettings": [],
+                    "readOnly": "false",
+                    "readOnlyConditionExpression": "",
+                    "required": false,
+                    "state": false,
+                    "system": false,
+                    "type": "Long",
+                    "unique": false
+                }
+            ],
+            "panelCategoryKey": "control_panel.object",
+            "parameterRequired": false,
+            "pluralLabel": {
+                "en_US": "MyCourseEnrollments"
+            },
+            "portlet": true,
+            "restContextPath": "/o/c/mycourseenrollments",
+            "scope": "company",
+            "status": {
+                "code": 0,
+                "label": "approved",
+                "label_i18n": "Approved"
+            },
+            "system": false,
+            "titleObjectFieldName": "id"
+        }
+    ]
+}

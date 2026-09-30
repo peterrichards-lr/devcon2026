@@ -1,0 +1,36 @@
+**/*.iml
+**/.ivy
+**/.classpath
+**/.project
+**/.sass-cache
+**/.settings
+**/bin
+**/build
+**/build_gradle
+**/dist
+**/node_modules
+**/node_modules_cache
+**/test-coverage
+**/tmp
+**/.web_bundle_build
+.gradle
+.idea
+/bundles
+/gradle-*.properties
+/plugins-sdk/**/classes
+/plugins-sdk/**/ivy.xml.MD5
+/plugins-sdk/**/liferay-hook.xml.processed
+/plugins-sdk/build.*.properties
+/plugins-sdk/dependencies/**/*.jar
+/plugins-sdk/dist
+/plugins-sdk/lib
+test-results
+
+# Skill eval run output — timestamped reports, traces and cost data.
+# The cases, graders, scaffolds and fixtures ARE tracked: without the
+# fixtures the scaffolds have nothing to stage and the suite cannot run.
+evals/results/
+
+# Local MCP credentials. Note that ignoring this does NOT untrack the copy
+# already committed in 90b9899 — see issue #9.
+.gemini/settings.json

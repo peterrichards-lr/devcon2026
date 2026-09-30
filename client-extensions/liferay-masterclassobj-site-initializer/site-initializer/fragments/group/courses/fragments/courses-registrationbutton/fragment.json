@@ -1,0 +1,10 @@
+{
+  "configurationPath": "index.json",
+  "jsPath": "index.js",
+  "htmlPath": "index.html",
+  "cssPath": "index.css",
+  "icon": "code",
+  "name": "Courses Registration Button",
+  "thumbnailPath": "thumbnail.png",
+  "type": "component"
+}

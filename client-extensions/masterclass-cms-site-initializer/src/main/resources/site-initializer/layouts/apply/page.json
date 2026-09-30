@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/apply",
+	"hidden": false,
+	"name": "Apply",
+	"name_i18n": {
+		"en_US": "Apply"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

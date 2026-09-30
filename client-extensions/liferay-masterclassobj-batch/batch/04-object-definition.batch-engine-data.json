@@ -1,0 +1,244 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"accountEntryRestricted": false,
+			"active": true,
+			"defaultLanguageId": "en_US",
+			"enableCategorization": true,
+			"enableComments": true,
+			"enableLocalization": false,
+			"enableObjectEntryHistory": true,
+			"externalReferenceCode": "MYCOURSESESSION",
+			"label": {
+				"en_US": "MyCourseSession"
+			},
+			"name": "MyCourseSession",
+			"objectFields": [
+			     {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Author"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"creator",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Create Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"createDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"External Reference Code"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"externalReferenceCode",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"ID"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "indexedAsKeyword":true,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"id",
+			         "state":false,
+			         "businessType":"LongInteger",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Modified Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"modifiedDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Status"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"status",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Title"
+			         },
+			         "type":"String",
+			         "required":true,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"title",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"StartDate"
+			         },
+			         "type":"Date",
+			         "required":true,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"startDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"EndDate"
+			         },
+			         "type":"Date",
+			         "required":true,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"endDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      } 
+	],				
+            "objectFolderExternalReferenceCode":"MYCOURSESFOLDER",
+			"panelCategoryKey": "control_panel.object",
+			"parameterRequired": false,			
+			"pluralLabel": {
+				"en_US": "MyCoursesSessions"
+			},			
+			"portlet": true,
+			"restContextPath": "/o/c/mycoursesession",
+			"scope": "company",
+			"status": {
+				"code": 0,
+				"label": "approved",
+				"label_i18n": "Approved"
+			},
+			"system": false,
+			"titleObjectFieldName": "id"			
+		}
+	]
+}

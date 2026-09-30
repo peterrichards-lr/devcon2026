@@ -1,0 +1,19 @@
+assemble:
+    - from: site-initializer
+      into: site-initializer
+
+demo-site-init:
+    name: Demo Site Initializer
+    oAuthApplicationHeadlessServer: demo-site-oauth
+    siteExternalReferenceCode: demo
+    siteName: Demo Site
+    type: siteInitializer
+
+demo-site-oauth:
+    .serviceAddress: localhost:8080
+    .serviceScheme: http
+    name: Demo Site OAuth
+    scopes:
+        - Liferay.Headless.Admin.Site.everything
+        - Liferay.Object.Admin.REST.everything
+    type: oAuthApplicationHeadlessServer

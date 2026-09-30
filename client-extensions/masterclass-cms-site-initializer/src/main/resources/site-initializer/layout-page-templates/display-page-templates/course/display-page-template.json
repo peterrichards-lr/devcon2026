@@ -1,0 +1,7 @@
+{
+    "contentType": {
+        "className": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]"
+    },
+    "name": "Course",
+    "defaultTemplate": true
+}

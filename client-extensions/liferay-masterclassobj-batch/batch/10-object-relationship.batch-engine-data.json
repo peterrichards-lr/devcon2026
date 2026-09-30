@@ -1,0 +1,25 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectRelationship",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "INSERT",
+			"externalReferenceCode": "MYTEACHER",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"deletionType": "prevent",
+			"label": {
+				"en_US": "Teachers for the Courses"
+			},
+			"name": "myTeacherToMyCourseTeacher",
+			"objectDefinitionExternalReferenceCode1": "MYTEACHER",
+			"objectDefinitionExternalReferenceCode2": "MYCOURSETEACHER",
+			"type": "oneToMany"
+		}		
+	]
+}

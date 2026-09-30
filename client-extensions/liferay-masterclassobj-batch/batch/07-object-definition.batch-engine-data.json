@@ -1,0 +1,401 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "DEFAULT",
+			"updateStrategy": "UPDATE"
+		}
+	},
+	"items": [
+		{
+			"accountEntryRestricted": false,
+			"active": true,
+			"defaultLanguageId": "en_US",
+			"enableCategorization": true,
+			"enableComments": true,
+			"enableLocalization": false,
+			"enableObjectEntryHistory": true,
+			"externalReferenceCode": "MYCOURSEENROLLMENT",
+			"label": {
+				"en_US": "MyCourseEnrollment"
+			},
+			"name": "MyCourseEnrollment",
+			  "objectActions":[
+			      {
+			         "conditionExpression":"",
+			         "objectActionExecutorKey":"update-object-entry",
+			         "errorMessage":{
+			            "en_US":"An error ocurred. The enrollment could not be APPROVED"
+			         },
+			         "active":true,
+			         "description":"",
+			         "label":{
+			            "en_US":"Approving Enrollment"
+			         },
+			         "system":false,
+			         "objectActionTriggerKey":"standalone",
+			         "name":"approvingEnrollment",
+			         "parameters":{
+			            "objectDefinitionExternalReferenceCode":"MYCOURSEENROLLMENT",
+			            "predefinedValues":[
+			               {
+			                  "name":"enrollmentStatus",
+			                  "inputAsValue":false,
+			                  "label":{
+			                     "en_US":"Enrollment Status"
+			                  },
+			                  "businessType":"Picklist",
+			                  "value":"\"approved\""
+			               }
+			            ]
+			         }
+			      },
+			      {
+			         "conditionExpression":"",
+			         "objectActionExecutorKey":"update-object-entry",
+			         "errorMessage":{
+			            "en_US":"An error ocurred. The enrollment could not be CONFIRMED"
+			         },
+			         "active":true,
+			         "description":"",
+			         "label":{
+			            "en_US":"Confirming Enrollment"
+			         },
+			         "system":false,
+			         "objectActionTriggerKey":"standalone",
+			         "name":"confirmingEnrollment",
+			         "parameters":{
+			            "objectDefinitionExternalReferenceCode":"MYCOURSEENROLLMENT",
+			            "predefinedValues":[
+			               {
+			                  "name":"enrollmentStatus",
+			                  "inputAsValue":false,
+			                  "label":{
+			                     "en_US":"Enrollment Status"
+			                  },
+			                  "businessType":"Picklist",
+			                  "value":"\"confirmed\""
+			               }
+			            ]
+			         }
+			      },
+			      {
+			         "conditionExpression":"",
+			         "objectActionExecutorKey":"update-object-entry",
+			         "errorMessage":{
+			            "en_US":"An error ocurred. The enrollment could not be DECLINED"
+			         },
+			         "active":true,
+			         "description":"",
+			         "label":{
+			            "en_US":"Declining Enrollment"
+			         },
+			         "system":false,
+			         "objectActionTriggerKey":"standalone",
+			         "name":"decliningEnrollment",
+			         "parameters":{
+			            "objectDefinitionExternalReferenceCode":"MYCOURSEENROLLMENT",
+			            "predefinedValues":[
+			               {
+			                  "name":"enrollmentStatus",
+			                  "inputAsValue":false,
+			                  "label":{
+			                     "en_US":"Enrollment Status"
+			                  },
+			                  "businessType":"Picklist",
+			                  "value":"\"declined\""
+			               }
+			            ]
+			         }
+			      },
+			      {
+			         "conditionExpression":"",
+			         "objectActionExecutorKey":"update-object-entry",
+			         "errorMessage":{
+			            "en_US":"An error ocurred. The enrollment could not be COMPLETED"
+			         },
+			         "active":true,
+			         "description":"",
+			         "label":{
+			            "en_US":"Completing Course"
+			         },
+			         "system":false,
+			         "objectActionTriggerKey":"standalone",
+			         "name":"completingCourse",
+			         "parameters":{
+			            "objectDefinitionExternalReferenceCode":"MYCOURSEENROLLMENT",
+			            "predefinedValues":[
+			               {
+			                  "name":"enrollmentStatus",
+			                  "inputAsValue":false,
+			                  "label":{
+			                     "en_US":"Enrollment Status"
+			                  },
+			                  "businessType":"Picklist",
+			                  "value":"\"completed\""
+			               }
+			            ]
+			         }
+			      }
+			],		
+			"objectFields": [
+			     {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Author"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"21a3de4d-dd49-a485-f7fb-401b0a69dc1c",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"creator",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Create Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "externalReferenceCode":"70b6835e-a64e-1494-7786-c2382b6110bd",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"createDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"External Reference Code"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"6c7c45df-5fee-4797-4c23-8476f4bc7a39",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"externalReferenceCode",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":true,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Long",
+			         "label":{
+			            "en_US":"ID"
+			         },
+			         "type":"Long",
+			         "required":false,
+			         "externalReferenceCode":"e96f2685-c7b3-eb29-9a3d-183696e60e07",
+			         "indexedAsKeyword":true,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"id",
+			         "state":false,
+			         "businessType":"LongInteger",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"Date",
+			         "label":{
+			            "en_US":"Modified Date"
+			         },
+			         "type":"Date",
+			         "required":false,
+			         "externalReferenceCode":"12c0bebc-8da2-a7a2-7ac7-de45d608788e",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"modifiedDate",
+			         "state":false,
+			         "businessType":"Date",
+			         "readOnlyConditionExpression":""
+			      },
+			      {
+			         "indexed":false,
+			         "localized":false,
+			         "objectFieldSettings":[
+			            
+			         ],
+			         "readOnly":"true",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Status"
+			         },
+			         "type":"String",
+			         "required":false,
+			         "externalReferenceCode":"58a1da80-6ba0-5951-88a6-faaedc2d3c6d",
+			         "indexedAsKeyword":false,
+			         "system":true,
+			         "indexedLanguageId":"",
+			         "unique":false,
+			         "name":"status",
+			         "state":false,
+			         "businessType":"Text",
+			         "readOnlyConditionExpression":""
+			      },
+			     {
+			         "listTypeDefinitionExternalReferenceCode":"MYENROLLMENTSTATUS",
+			         "indexed":true,
+			         "defaultValue":"pending",
+			         "localized":false,
+			         "objectFieldSettings":[
+			            {
+			               "name":"stateFlow",
+			               "value":{
+			                  "objectStates":[
+			                     {
+			                        "objectStateTransitions":[
+			                           {
+			                              "key":"approved"
+			                           },
+			                           {
+			                              "key":"discarded"
+			                           }
+			                        ],
+			                        "key":"pending"
+			                     },
+			                     {
+			                        "objectStateTransitions":[
+			                           {
+			                              "key":"pending"
+			                           },
+			                           {
+			                              "key":"confirmed"
+			                           },
+			                           {
+			                              "key":"declined"
+			                           }
+			                        ],
+			                        "key":"approved"
+			                     },
+			                     {
+			                        "objectStateTransitions":[
+			                           {
+			                              "key":"pending"
+			                           }
+			                       	],
+			                        "key":"discarded"
+			                     },			                     
+			                     {
+			                        "objectStateTransitions":[
+			                           {
+			                              "key":"pending"
+			                           },
+			                           {
+			                              "key":"declined"
+			                           },
+			                           {
+			                              "key":"completed"
+			                           }
+			                        ],
+			                        "key":"confirmed"
+			                     },
+			                     {
+			                        "objectStateTransitions":[
+			                           {
+			                              "key":"pending"
+			                           }
+			                        ],
+			                        "key":"declined"
+			                     },
+			                     {
+			                        "objectStateTransitions":[
+			                           
+			                        ],
+			                        "key":"completed"
+			                     }
+			                  ]
+			               }
+			            },
+			            {
+			               "name":"defaultValueType",
+			               "value":"inputAsValue"
+			            },
+			            {
+			               "name":"defaultValue",
+			               "value":"pending"
+			            }
+			         ],
+			         "readOnly":"false",
+			         "DBType":"String",
+			         "label":{
+			            "en_US":"Enrollment Status"
+			         },
+			         "type":"String",
+			         "required":true,
+			         "indexedAsKeyword":false,
+			         "system":false,
+			         "indexedLanguageId":"en_US",
+			         "unique":false,
+			         "name":"enrollmentStatus",
+			         "state":true,
+			         "businessType":"Picklist",
+			         "readOnlyConditionExpression":""
+			      }	      
+			],				
+            "objectFolderExternalReferenceCode":"MYCOURSESFOLDER",
+			"panelCategoryKey": "control_panel.object",
+			"parameterRequired": false,			
+			"pluralLabel": {
+				"en_US": "MyCoursesEnrollments"
+			},			
+			"portlet": true,
+			"restContextPath": "/o/c/mycourseenrollment",
+			"scope": "company",
+			"status": {
+				"code": 0,
+				"label": "approved",
+				"label_i18n": "Approved"
+			},
+			"system": false,
+			"titleObjectFieldName": "id"			
+		}
+	]
+}

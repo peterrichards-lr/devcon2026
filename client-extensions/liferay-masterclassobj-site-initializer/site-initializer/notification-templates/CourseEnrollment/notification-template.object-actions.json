@@ -1,0 +1,26 @@
+[
+	{
+		"active": true,
+		"conditionExpression":"",
+		"errorMessage": {
+		},
+		"label": {
+			"en_US": "Session Course Enrollment Notification"
+		},
+		"name": "notificationSessionCourseEnrollment",
+		"objectActionExecutorKey": "notification",
+		"objectActionTriggerKey": "onAfterAdd",
+		"objectDefinitionId": "[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+		"parameters": {
+			"notificationTemplateExternalReferenceCode": "NEW_MYCOURSE_REGISTRATION",
+			"objectDefinitionExternalReferenceCode": "MYCOURSEENROLLMENT",
+			"type": "user-notification"
+		},
+		"status": {
+			"code": 1,
+			"label": "success",
+			"label_i18n": "Success"
+		},
+		"system":false
+	}
+]

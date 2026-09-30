@@ -1,0 +1,65 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+		"parameters": {
+			"containsHeaders": "true",
+			"createStrategy": "UPSERT",
+			"onErrorFail": "false",
+			"taskItemDelegateName": "C_MyTeacher",			
+			"updateStrategy": "UPDATE"		
+		},
+		"taskItemDelegateName": "C_MyTeacher"
+	},
+	"items": [
+		{
+			"externalReferenceCode": "MYTEACHER_BATCH_1",
+			"name":"Olaf",
+			"photo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "instructor_olaf.png"
+			},
+			"specialization":"<p>All kind of development around Liferay</p>",
+			"surname":"Smith"			
+      	},
+		{
+			"externalReferenceCode": "MYTEACHER_BATCH_2",
+			"name":"Esther",
+			"photo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "teacher_esther_howard.jpg"
+			},
+			"specialization":"<p>Artificial Intelligence, algorithms and training</p>",
+			"surname":"Hordward"			
+      	},
+		{
+			"externalReferenceCode": "MYTEACHER_BATCH_3",
+			"name":"Jane",
+			"photo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "teacher_jane_cooper.jpg"
+			},
+			"specialization":"<p>Specialized in all kinds of development around Liferay</p>",
+			"surname":"Cooper"
+      	},
+		{
+			"externalReferenceCode": "MYTEACHER_BATCH_4",
+			"name":"Patrick",
+			"photo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "teacher_patrick.jpg"
+			},
+			"specialization":"<p>Front-End</p>",
+			"surname":"Bell"			
+      	},
+		{
+			"externalReferenceCode": "MYTEACHER_BATCH_5",
+			"name":"Brooklyn",
+			"photo":{
+				"fileBase64": "@batch_object_entry_file_base64@",
+				"name": "teacher_brooklyn_simmons.jpg"
+			},
+			"specialization":"<p>Back End</p>",
+			"surname":"Simmons"			
+      	}      	      	      	      	      	
+	]
+}

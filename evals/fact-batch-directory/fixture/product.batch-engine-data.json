@@ -1,0 +1,18 @@
+{
+	"configuration": {
+		"className": "com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition"
+	},
+	"items": [
+		{
+			"externalReferenceCode": "L_DEMO_PRODUCT",
+			"label": {
+				"en_US": "Product"
+			},
+			"name": "DemoProduct",
+			"pluralLabel": {
+				"en_US": "Products"
+			},
+			"scope": "company"
+		}
+	]
+}

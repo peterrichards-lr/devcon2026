@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: fact-relationship-foreign-key
+description: >-
+  The relationship foreign key sits on the child but is named for the parent.
+  Guessing wrong is silent: the unknown key is ignored, the FK stays 0, and the
+  POST still returns 200.
+tags: [fact, objects]
+runs: 5
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 20
+  timeout_seconds: 300
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    The relationship in `site-initializer/object-relationships/` links Event to
+    Registration.
+
+    I am creating a Registration over REST and need it attached to an Event. What
+    exactly do I put in the POST body to set that link, and is there anything I
+    should watch out for?

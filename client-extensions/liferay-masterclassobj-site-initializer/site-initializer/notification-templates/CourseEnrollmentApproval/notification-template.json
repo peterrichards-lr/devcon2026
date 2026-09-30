@@ -1,0 +1,32 @@
+{
+  "body": {
+    "en_US": "<p>Your enrollment to the Session [%MYCOURSESESSIONTOMYCOURSEENROLLMENT_MYCOURSESESSION_TITLE%] has been [%MYCOURSEENROLLMENT_ENROLLMENTSTATUS%].</p>\n"
+  },
+	"description": "This template will be used when an enrollment is Approved or Discarded by the Course Administrator.",
+	"editorType": "richText",
+	"externalReferenceCode": "MYCOURSE_ENROLLMENT_APPROVAL_EMAIL",
+	"name": "Email Course Enrollment Approval",
+	"name_i18n": {
+		"en_US": "Email Course Enrollment Approval"
+	},
+	"objectDefinitionExternalReferenceCode": "MYCOURSEENROLLMENT",
+	"recipientType": "email",
+	"recipients": [
+	   {
+	      "singleRecipient": false,
+	      "fromName": {
+	        "en_US": "Liferay Course Admin"
+	      },
+	      "from": "courseadmin@liferay.com",
+	      "to": {
+	        "en_US": "[%USERTOMYCOURSEENROLLMENT_USER_AUTHOR_EMAIL_ADDRESS%]"
+	      }
+	    }		
+	],
+	"subject": {
+		"en_US": "Enrollment to session update."
+	},
+	"system": false,
+	"type": "email",
+	"typeLabel": "Email"
+}
