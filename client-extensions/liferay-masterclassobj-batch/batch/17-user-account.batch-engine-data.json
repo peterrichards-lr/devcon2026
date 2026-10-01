@@ -13,7 +13,7 @@
 		{
 			"alternateName": "student.one",
 			"emailAddress": "student.one@liferay.com",
-			"externalReferenceCode": "STUDENT_ONE_BATCH",
+			"externalReferenceCode": "STUDENT-ONE-BATCH",
 			"familyName": "One",
 			"givenName": "Student",
 			"jobTitle": "Student",

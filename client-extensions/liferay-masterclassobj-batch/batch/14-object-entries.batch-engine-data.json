@@ -12,85 +12,85 @@
 	},
 	"items": [
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_1",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-1",      
          "position":{
             "key":"tutor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-2",      
          "position":{
             "key":"professor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_1",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_3",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-1",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-3",      
          "position":{
             "key":"assistant"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_2",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-2",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-4",      
          "position":{
             "key":"tutor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_2",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_5",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-2",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-5",      
          "position":{
             "key":"assistant"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_3",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-3",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-2",      
          "position":{
             "key":"tutor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_3",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-3",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-4",      
          "position":{
             "key":"professor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_1",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-1",      
          "position":{
             "key":"tutor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-2",      
          "position":{
             "key":"assistant"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_4",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_4",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-4",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-4",      
          "position":{
             "key":"professor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_5",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_5",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-5",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-5",      
          "position":{
             "key":"tutor"
          }            		
       	},
 		{
-         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE_BATCH_5",
-         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER_BATCH_2",      
+         "r_myCourseToMyCourseTeacher_c_myCourseERC":"MYCOURSE-BATCH-5",
+         "r_myTeacherToMyCourseTeacher_c_myTeacherERC":"MYTEACHER-BATCH-2",      
          "position":{
             "key":"assistant"
          }            		

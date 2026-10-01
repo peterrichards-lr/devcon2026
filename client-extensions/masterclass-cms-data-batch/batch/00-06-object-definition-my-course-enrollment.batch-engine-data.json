@@ -25,7 +25,7 @@
             "enableObjectEntrySchedule": false,
             "enableObjectEntrySubscription": false,
             "enableObjectEntryVersioning": false,
-            "externalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+            "externalReferenceCode": "MY-COURSE-ENROLLMENT",
             "label": {
                 "en_US": "MyCourseEnrollment"
             },
@@ -38,7 +38,7 @@
                     "errorMessage": {
                         "en_US": "Registration is now Approved by Admin"
                     },
-                    "externalReferenceCode": "4311f229-ad9c-24a3-c50a-5ac0d39d8934",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-APPROVE-A-COURSE",
                     "label": {
                         "en_US": "Approve a Course"
                     },
@@ -46,7 +46,7 @@
                     "objectActionExecutorKey": "update-object-entry",
                     "objectActionTriggerKey": "standalone",
                     "parameters": {
-                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "objectDefinitionExternalReferenceCode": "MY-COURSE-ENROLLMENT",
                         "predefinedValues": [
                             {
                                 "businessType": "Picklist",
@@ -67,7 +67,7 @@
                     "errorMessage": {
                         "en_US": "The student has confirmed the assistance to the Course in the selected Session"
                     },
-                    "externalReferenceCode": "3229afa4-2aa4-52bd-be45-88aabf2c8aed",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-CONFIRMING-ENROLLMENT",
                     "label": {
                         "en_US": "Confirming Enrollment"
                     },
@@ -75,7 +75,7 @@
                     "objectActionExecutorKey": "update-object-entry",
                     "objectActionTriggerKey": "standalone",
                     "parameters": {
-                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "objectDefinitionExternalReferenceCode": "MY-COURSE-ENROLLMENT",
                         "predefinedValues": [
                             {
                                 "businessType": "Picklist",
@@ -96,7 +96,7 @@
                     "errorMessage": {
                         "en_US": "The student has declined the assistance to the course in the given session"
                     },
-                    "externalReferenceCode": "4d25dcc7-1837-e368-5a4c-f4123a5e1b3a",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-DECLINING-ENROLLMENT",
                     "label": {
                         "en_US": "Declining Enrollment"
                     },
@@ -104,7 +104,7 @@
                     "objectActionExecutorKey": "update-object-entry",
                     "objectActionTriggerKey": "standalone",
                     "parameters": {
-                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "objectDefinitionExternalReferenceCode": "MY-COURSE-ENROLLMENT",
                         "predefinedValues": [
                             {
                                 "businessType": "Picklist",
@@ -125,7 +125,7 @@
                     "errorMessage": {
                         "en_US": "Course enrollment has been discarded for the user"
                     },
-                    "externalReferenceCode": "b8837350-e9b5-2db8-ad80-a9eb448d12f3",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-DISCARD-A-COURSE",
                     "label": {
                         "en_US": "Discard a Course"
                     },
@@ -133,7 +133,7 @@
                     "objectActionExecutorKey": "update-object-entry",
                     "objectActionTriggerKey": "standalone",
                     "parameters": {
-                        "objectDefinitionExternalReferenceCode": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+                        "objectDefinitionExternalReferenceCode": "MY-COURSE-ENROLLMENT",
                         "predefinedValues": [
                             {
                                 "businessType": "Picklist",
@@ -155,14 +155,14 @@
                     "DBType": "String",
                     "businessType": "Picklist",
                     "defaultValue": "Pending",
-                    "externalReferenceCode": "62969b2b-d439-018d-b289-1fae7c642692",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-ENROLLMENT-STATUS",
                     "indexed": true,
                     "indexedAsKeyword": false,
                     "indexedLanguageId": "en_US",
                     "label": {
                         "en_US": "Enrollment Status"
                     },
-                    "listTypeDefinitionExternalReferenceCode": "53be1a3d-caf4-8a87-8c25-ba3460307fd1",
+                    "listTypeDefinitionExternalReferenceCode": "MY-ENROLLMENT-STATUS",
                     "localized": false,
                     "name": "enrollmentStatus",
                     "objectFieldSettings": [
@@ -187,7 +187,7 @@
                     "DBType": "Long",
                     "businessType": "LongInteger",
                     "defaultValue": "null",
-                    "externalReferenceCode": "8ddaa6ff-2cd5-a491-b51c-acaf92581860",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-COURSE-ID",
                     "indexed": true,
                     "indexedAsKeyword": false,
                     "indexedLanguageId": "",

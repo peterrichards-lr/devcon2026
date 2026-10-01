@@ -18,7 +18,7 @@
             },
             "name": "courseToUser",
             "objectDefinitionExternalReferenceCode1": "L_USER",
-            "objectDefinitionExternalReferenceCode2": "57960ca4-709a-28c0-f373-13c3c1d12b02",
+            "objectDefinitionExternalReferenceCode2": "MY-COURSE-ENROLLMENT",
             "type": "oneToMany"
         }
     ]
