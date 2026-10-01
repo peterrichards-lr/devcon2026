@@ -50,7 +50,7 @@
                     },
                     "type": "String",
                     "required": true,
-                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGTEACHER",
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-TEACHER",
                     "indexedAsKeyword": false,
                     "system": false,
                     "unique": false,

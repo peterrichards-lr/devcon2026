@@ -50,7 +50,7 @@
                     },
                     "type": "String",
                     "required": true,
-                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGCOURSE",
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-COURSE",
                     "indexedAsKeyword": false,
                     "system": false,
                     "unique": false,

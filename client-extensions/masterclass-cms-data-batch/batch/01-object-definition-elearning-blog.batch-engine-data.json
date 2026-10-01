@@ -50,7 +50,7 @@
                     },
                     "type": "String",
                     "required": true,
-                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGBLOG",
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-BLOG",
                     "indexedAsKeyword": false,
                     "system": false,
                     "unique": false,

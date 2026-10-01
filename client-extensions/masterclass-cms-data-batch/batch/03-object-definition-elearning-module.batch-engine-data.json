@@ -50,7 +50,7 @@
                     },
                     "type": "String",
                     "required": true,
-                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNINGMODULE",
+                    "externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-MODULE",
                     "indexedAsKeyword": false,
                     "system": false,
                     "unique": false,
