@@ -71,6 +71,28 @@ The tables below list the common endpoints per module — they are not exhaustiv
 
 Object entries (after publish): `/o/c/<pluralLabel>` — GET, POST, PUT, PATCH, DELETE by ID.
 
+> **That path serves `company` scoped objects only.** An object scoped to a site or a Space
+> (asset library) has a **group aware** scope provider, and `ObjectDefinitionDeployerImpl._processMethods`
+> excludes every unscoped collection operation for those — keeping only the scoped forms:
+>
+> ```
+> /o/c/<pluralLabel>/scopes/{scopeKey}
+> ```
+>
+> The unscoped call then returns **`409 Conflict with getObjectEntriesPage`**, which reads
+> as a duplicate REST path and is nothing of the sort — the deployer wrote that operation ID
+> into a `VulcanCompanyConfiguration`, and `ContextContainerRequestFilter` aborts on it.
+> Entry operations addressed by ID (`/{objectEntryId}`) are unaffected and stay on the bare path.
+>
+> **`scopeKey` is the groupId.** For a Space, read `siteId` from
+> `GET /o/headless-asset-library/v1.0/asset-libraries` — **not** `id`, which is the depot
+> entry ID and returns `404 NOT_FOUND`. A `404` here means the wrong scope key, not a wrong
+> path, so it sends you back to doubting a path that was already correct.
+>
+> Verified on 2026.q3.5: five `depot` scoped objects all `409` on `/o/c/<plural>` and return
+> their entries on `/scopes/<siteId>`, while two `company` scoped objects answer normally on
+> the bare path.
+
 **OAuth scope:** `Liferay.Object.Admin.REST.everything` for the admin endpoints above (definitions, fields, etc.). `Liferay.Headless.Object.everything` for the dynamic `/o/c/<plural>` entry endpoints.
 
 ## headless-admin-fragment
@@ -154,7 +176,7 @@ Fragment code is in `fragmentVersions[]` (`html`, `css`, `js`, `configuration`, 
 | 401 | Not authenticated; check credentials or OAuth token |
 | 403 | Authenticated but forbidden; scope too narrow or permissions missing |
 | 404 | Resource not found or feature flag off; check flag state |
-| 409 | Conflict; typically duplicate name or ERC |
+| 409 | Conflict; typically duplicate name or ERC. On `/o/c/<plural>` it instead means the operation is **excluded** for a group scoped object — see the object-admin note above |
 | 500 | Server error; check `bundles/logs/liferay.<date>.log` |
 
 ## References

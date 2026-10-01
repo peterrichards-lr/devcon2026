@@ -36,7 +36,9 @@ Gather from the user or infer from context:
 - `name` — singular CamelCase label (e.g. `Book`)
 - `label` — human readable singular (e.g. `Book`)
 - `pluralLabel` — REST path safe plural (e.g. `books`)
-- `scope` — `company` (default, global) or `site`
+- `scope` — `company` (default, global), `site`, or `depot` (an asset library / Space).
+  `site` and `depot` are **group scoped**, which changes the entry REST path and
+  constrains relationships — see below and `rules/site-initializer-format.md`.
 - `storageType` — where entries are stored: Liferay's own DB (the default) or an external source such as `salesforce` or `ext-Service` (see `integrate-external-data`). Do **not** send this on the create call for default DB storage — omit it and Liferay assigns the default (see **Create the Object Definition**).
 - Fields list — each with `businessType`, `name`, `label`, `required`
 
@@ -291,7 +293,11 @@ curl \
 	--user "test@liferay.com:test"
 ```
 
-After publishing, object entries are available at `/o/c/<pluralLabel>`.
+After publishing, object entries are available at `/o/c/<pluralLabel>` — **for a `company`
+scoped object**. A `site` or `depot` scoped object serves its entries only at
+`/o/c/<pluralLabel>/scopes/{scopeKey}`, and the bare path returns `409 Conflict with
+getObjectEntriesPage`, which reads like a duplicate path and is not one. `scopeKey` is the
+groupId — for a Space that is `siteId`, not `id`. See `rules/headless-apis.md`.
 
 ### Create and Query Object Entries
 
