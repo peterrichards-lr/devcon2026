@@ -11,7 +11,7 @@
     },
     "items": [
         {
-            "externalReferenceCode": "M-Y-E-N-R-O-L-L-M-E-N-T-S-T-A-T-U-S",
+            "externalReferenceCode": "MY-ENROLLMENT-STATUS",
             "name": "MYENROLLMENTSTATUS",
             "name_i18n": {
                 "en_US": "MYENROLLMENTSTATUS"

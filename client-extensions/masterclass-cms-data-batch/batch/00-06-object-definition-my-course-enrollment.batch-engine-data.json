@@ -162,7 +162,7 @@
                     "label": {
                         "en_US": "Enrollment Status"
                     },
-                    "listTypeDefinitionExternalReferenceCode": "M-Y-E-N-R-O-L-L-M-E-N-T-S-T-A-T-U-S",
+                    "listTypeDefinitionExternalReferenceCode": "MY-ENROLLMENT-STATUS",
                     "localized": false,
                     "name": "enrollmentStatus",
                     "objectFieldSettings": [
