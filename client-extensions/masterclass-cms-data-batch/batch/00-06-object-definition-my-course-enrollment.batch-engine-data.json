@@ -187,7 +187,7 @@
                     "DBType": "Long",
                     "businessType": "LongInteger",
                     "defaultValue": "null",
-                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-COURSE-I-D",
+                    "externalReferenceCode": "MY-COURSE-ENROLLMENT-COURSE-ID",
                     "indexed": true,
                     "indexedAsKeyword": false,
                     "indexedLanguageId": "",

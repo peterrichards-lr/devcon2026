@@ -38,7 +38,7 @@
                     "DBType": "Long",
                     "businessType": "LongInteger",
                     "defaultValue": "null",
-                    "externalReferenceCode": "MY-COURSE-SESSION-COURSE-SESSION-I-D",
+                    "externalReferenceCode": "MY-COURSE-SESSION-COURSE-SESSION-ID",
                     "indexed": true,
                     "indexedAsKeyword": false,
                     "indexedLanguageId": "",
