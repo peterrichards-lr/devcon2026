@@ -70,7 +70,7 @@
 												"siteNavigationMenuName": "Main Navigation",
 												"siteNavigationMenuType": "-1"
 											},
-											"widgetInstanceId": "nav0",
+											"widgetInstanceId": "nav",
 											"widgetName": "com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet"
 										}
 									]
@@ -131,12 +131,6 @@
 							},
 							{
 								"key": "COOKIE_BANNER-cookie-banner-simple"
-							},
-							{
-								"key": "DIALECT-dialect-button"
-							},
-							{
-								"key": "DIALECT-dialect-nav"
 							},
 							{
 								"key": "FEATURED_CONTENT-banner-slider"

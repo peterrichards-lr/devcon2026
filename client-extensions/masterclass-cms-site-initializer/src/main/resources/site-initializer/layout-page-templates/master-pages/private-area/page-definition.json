@@ -140,7 +140,7 @@
 													"siteNavigationMenuName": "Private Area Navigation",
 													"siteNavigationMenuType": "-1"
 												},
-												"widgetInstanceId": "nav0",
+												"widgetInstanceId": "nav",
 												"widgetName": "com_liferay_site_navigation_menu_web_portlet_SiteNavigationMenuPortlet"
 											}
 										},
@@ -275,12 +275,6 @@
 													},
 													{
 														"key": "com.liferay.fragment.renderer.menu.display.internal.MenuDisplayFragmentRenderer"
-													},
-													{
-														"key": "DIALECT-dialect-button"
-													},
-													{
-														"key": "DIALECT-dialect-nav"
 													},
 													{
 														"key": "BASIC_COMPONENT-image"
