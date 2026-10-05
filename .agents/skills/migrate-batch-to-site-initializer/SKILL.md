@@ -184,6 +184,44 @@ A Space is `"type": "Space"`; the handler accepts `AssetLibrary`, `DesignLibrary
 connected site relation to the site being provisioned, which is otherwise a manual step
 repeated after every reprovision.
 
+### Moving a Space Costs Its External Reference Code
+
+`depot-entries.json` has **no `externalReferenceCode` field**. The handler matches an
+existing depot on its group **name** and lets Liferay generate a code, so a Space the tree
+creates has a UUID that differs on every bundle.
+
+Anything that named that Space by code has to change. For batch entry files that means
+`scopeKey`, and the fix is to scope by the name instead — `GroupUtil.getGroupId` resolves a
+scope key by name first, then numeric id, then external reference code:
+
+```java
+Group group = groupLocalService.fetchGroup(companyId, siteKey);            // name
+if (group == null) group = groupLocalService.fetchGroup(getLong(siteKey));  // id
+if (group == null) group = fetchGroupByExternalReferenceCode(siteKey, …);   // erc
+```
+
+Verified on 2026.q3.5: the name, the code and the numeric id all returned the same four
+entries. Name is also what the depot handler matches on, which makes it the stable join
+across both artifacts.
+
+### Moving a Space Inverts the Deploy Order
+
+A batch runs when its client extension deploys. The tree runs at **site creation**. So a
+Space the tree owns does not exist while the batch is importing, and every batch file
+scoped to it fails:
+
+```text
+Unable to deploy batch engine file …/00-02-….json:
+    com.liferay.portal.kernel.exception.NoSuchGroupException
+Unable to deploy batch engine file …/00-03-….json:
+    No ObjectEntryFolder exists with the key {externalReferenceCode=COURSES, groupId=0, …}
+```
+
+This fails loudly rather than importing nothing, which is the good outcome — but the
+sequence becomes **deploy the tree, create the site, then deploy the batch**, and nothing
+enforces it. Say so wherever the project documents its deploy, because the batch was
+previously self contained and a newcomer will hit this once.
+
 ## Patterns and Gotchas
 
 - **A `took 0 ms` handler found no files.** `addOrUpdateDepotEntries took 0 ms` on a tree
