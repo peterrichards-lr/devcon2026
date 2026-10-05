@@ -110,14 +110,29 @@ There is already an object relationship with this name in the object definition 
 
 That failure is a reason to move a relationship out, not something to fix in place.
 
-## The Space Ordering Hazard
+**A batch relationship that reaches the object first permanently breaks the tree's
+upsert.** `_addOrUpdateObjectRelationships` finds an existing relationship by
+`(externalReferenceCode, objectDefinitionId1)` and `PUT`s it, or `POST`s when nothing
+matches. A batch file carrying no external reference code creates the relationship with a
+generated UUID, so the tree's lookup misses, it posts a second one, and the add throws:
 
-**Inferred from source; not yet measured.** Applies only to `site` and `depot` scoped
-definitions — a company scoped move is unaffected.
+```text
+DuplicateObjectRelationshipException: There is already an object relationship
+with this name in the object definition "MyCourseSession"
+```
 
-`BundleSiteInitializer` can create a Space itself, from `depot-entries.json` with
-`"type": "Space"`, and connects it to the site it is provisioning. But the handler graph
-does not couple the two steps:
+That is thrown inside site creation, so **every later provision rolls the site back**, and
+deleting the site does not clear it — object definitions and their relationships are
+company scoped and survive. Recovery is deleting the UUID relationship by hand.
+
+Observed on 2026.q3.5 after a portal restart replayed batch units that an earlier deploy
+had registered, even though the zip on disk no longer contained them. The sibling
+relationship whose parent was the `User` system object kept its authored code, because
+nothing else had ever created it.
+
+## Space Ordering: Measured, Not A Hazard
+
+The handler graph does **not** order these two, which reads as a race:
 
 ```java
 addObjectDefinitionsR, _dependsOn(
@@ -126,21 +141,48 @@ addObjectDefinitionsR, _dependsOn(
 addOrUpdateDepotEntriesR, _dependsOn()
 ```
 
-Nothing orders `addOrUpdateDepotEntries` before `addObjectDefinitions`. The executor walks
-a `HashMap` via `entrySet()`, and its key class overrides neither `hashCode` nor `equals`,
-so among handlers whose dependencies are already satisfied the order follows identity hash
-and need not repeat between runs.
+The executor walks a `HashMap` via `entrySet()`, and its key class overrides neither
+`hashCode` nor `equals`, so nothing in the graph guarantees an order between them.
 
-A depot scoped definition naming its Space in `acceptedGroupExternalReferenceCodes` may
-therefore be created before that Space exists. Measure before relying on it: provision
-repeatedly and compare the two `Invoking …` lines.
+**Measured on 2026.q3.5: 18 provisions across two JVMs, 18 depot-first, 0 objects-first.**
+The reason is the pass structure rather than luck. The executor sweeps the map repeatedly,
+running whatever has its dependencies met:
 
-```bash
-grep --extended-regexp 'Invoking (addOrUpdateDepotEntries|addObjectDefinitions)' \
-	bundles/tomcat*/logs/catalina.out
+| Handler | Dependencies | Position observed |
+| --- | --- | --- |
+| `addOrUpdateDepotEntries` | none | 2nd of 53 |
+| `addOrUpdateListTypeDefinitions` | — | 11th |
+| `addOrUpdateObjectFolders` | — | 16th |
+| `addUserAccounts` | — | 28th |
+| `addObjectDefinitions` | the three above | 35th |
+
+`addOrUpdateDepotEntries` is eligible on the first sweep wherever it is iterated;
+`addObjectDefinitions` cannot run until three other handlers have, which pushes it late.
+For objects to win, all three dependencies would have to be iterated before it *and* the
+depot handler after it.
+
+So a Space may be declared in the tree alongside the depot scoped definitions that name
+it. This is strong evidence, not a guarantee the graph enforces — re-measure if a release
+changes the dependency lists, and assert the outcome rather than the ordering.
+
+## `depot-entries.json` Requires `depotAppCustomization`
+
+Omitting it throws, and because this runs inside site creation the whole site rolls back:
+
+```text
+java.lang.NullPointerException: Cannot invoke
+"com.liferay.portal.kernel.json.JSONObject.getBoolean(String)"
+because "depotAppCustomizationJSONObject" is null
 ```
 
-If the order is not stable, keep the Space in the batch CET, which completes on deploy.
+Observed on 2026.q3.5. A later commit (`LPD-103976`, 2026-09-10) extracted the block into
+a null guarded method, so on a build carrying that fix the key is optional. Include it
+either way — four portlet keys, as `site-initializer-extender-test-bundle-1` writes them.
+
+A Space is `"type": "Space"`; the handler accepts `AssetLibrary`, `DesignLibrary` and
+`Space`, and throws `IllegalArgumentException` on anything else. It also creates the
+connected site relation to the site being provisioned, which is otherwise a manual step
+repeated after every reprovision.
 
 ## Patterns and Gotchas
 
