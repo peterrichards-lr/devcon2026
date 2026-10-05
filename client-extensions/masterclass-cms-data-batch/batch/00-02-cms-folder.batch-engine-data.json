@@ -5,7 +5,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "updateStrategy": "UPDATE"
         }
     },

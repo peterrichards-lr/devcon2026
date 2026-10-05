@@ -6,7 +6,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "taskItemDelegateName": "C_ElearningCourse",
             "updateStrategy": "UPDATE"
         },
@@ -14,28 +14,12 @@
     },
     "items": [
         {
-            "externalReferenceCode": "COURSE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY",
-            "title": "Building Enterprise Websites with Liferay",
-            "shortDescription": "tudents will master how to layout pages using Liferay Content Pages, widgets, and standard layout containers, focusing on building a user-centric navigation experience",
+            "courseOnePagerSheet": {
+                "externalReferenceCode": "FILE-COURSE-1-SHEET",
+                "name": "product_design_bootcamp.pdf"
+            },
             "courseProgram": "<p>The curriculum begins with site setup, page planning, and navigation configurations. Students will master how to layout pages using Liferay Content Pages, widgets, and standard layout containers, focusing on building a user-centric navigation experience.</p><p>In the second half, the focus shifts to dynamic content publication. Students will learn to map web content structures and templates, set up asset publishers, and create personalized experiences using Liferay segments and experiences. Finally, we will cover responsive layouts and style books to polish the site design.</p>",
             "duration": "4 weeks",
-            "lessons": 11,
-            "quizzes": 3,
-            "maxRetakes": 3,
-            "passPercentage": 80,
-            "representativeImage": {
-                "name": "thumb_video_management.jpg",
-                "externalReferenceCode": "FILE-COURSE-1-IMAGE"
-            },
-            "referenceVideo": {
-                "name": "video_management.mp4",
-                "externalReferenceCode": "FILE-COURSE-1-VIDEO"
-            },
-            "courseOnePagerSheet": {
-                "name": "product_design_bootcamp.pdf",
-                "externalReferenceCode": "FILE-COURSE-1-SHEET"
-            },
-            "scopeKey": "ELEARNING-SPACE",
             "elearningCourseModules": [
                 {
                     "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
@@ -48,6 +32,20 @@
                 {
                     "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
                     "title": "Modern Page Building"
+                }
+            ],
+            "elearningCourseSessions": [
+                {
+                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
+                    "title": "1st week Feb 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
+                    "title": "2nd week May 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
+                    "title": "3rd week Oct 2027"
                 }
             ],
             "elearningCourseTeachers": [
@@ -64,44 +62,30 @@
                     "title": "Jane Cooper"
                 }
             ],
-            "elearningCourseSessions": [
-                {
-                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
-                    "title": "1st week Feb 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
-                    "title": "2nd week May 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
-                    "title": "3rd week Oct 2027"
-                }
-            ]
-        },
-        {
-            "externalReferenceCode": "COURSE-MASTERING-FRONTEND-CLIENT-EXTENSIONS",
-            "title": "Mastering Liferay Frontend Client Extensions",
-            "shortDescription": "This program kicks off with a comprehensive deep-dive into standard custom elements",
-            "courseProgram": "<p>This program kicks off with a comprehensive deep-dive into standard custom elements. You will configure client-extension.yaml to map, package, and deploy micro-frontends (React/Angular) upgrade-proof onto Liferay pages, mastering decoupled asset loading.</p><p>We then transition to advanced client-side orchestration. You will establish client-side routing, handle cross-element state communication, and leverage Liferay's globally injected theme variables and CSS tokens to ensure that your external extensions automatically blend with the active portal theme.</p>",
-            "duration": "6 weeks",
-            "lessons": 10,
-            "quizzes": 3,
+            "externalReferenceCode": "COURSE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY",
+            "lessons": 11,
             "maxRetakes": 3,
             "passPercentage": 80,
-            "representativeImage": {
-                "name": "thumb_video_design.jpg",
-                "externalReferenceCode": "FILE-COURSE-2-IMAGE"
-            },
+            "quizzes": 3,
             "referenceVideo": {
-                "name": "video_design.mp4",
-                "externalReferenceCode": "FILE-COURSE-2-VIDEO"
+                "externalReferenceCode": "FILE-COURSE-1-VIDEO",
+                "name": "video_management.mp4"
             },
-            "courseOnePagerSheet": {
-                "name": "project_manager_certification.pdf",
-                "externalReferenceCode": "FILE-COURSE-2-SHEET"
+            "representativeImage": {
+                "externalReferenceCode": "FILE-COURSE-1-IMAGE",
+                "name": "thumb_video_management.jpg"
             },
             "scopeKey": "ELEARNING-SPACE",
+            "shortDescription": "tudents will master how to layout pages using Liferay Content Pages, widgets, and standard layout containers, focusing on building a user-centric navigation experience",
+            "title": "Building Enterprise Websites with Liferay"
+        },
+        {
+            "courseOnePagerSheet": {
+                "externalReferenceCode": "FILE-COURSE-2-SHEET",
+                "name": "project_manager_certification.pdf"
+            },
+            "courseProgram": "<p>This program kicks off with a comprehensive deep-dive into standard custom elements. You will configure client-extension.yaml to map, package, and deploy micro-frontends (React/Angular) upgrade-proof onto Liferay pages, mastering decoupled asset loading.</p><p>We then transition to advanced client-side orchestration. You will establish client-side routing, handle cross-element state communication, and leverage Liferay's globally injected theme variables and CSS tokens to ensure that your external extensions automatically blend with the active portal theme.</p>",
+            "duration": "6 weeks",
             "elearningCourseModules": [
                 {
                     "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
@@ -114,6 +98,20 @@
                 {
                     "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
                     "title": "Using Liferay Frontend Tokens"
+                }
+            ],
+            "elearningCourseSessions": [
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
+                    "title": "3rd week Feb 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
+                    "title": "1st week Jun 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
+                    "title": "2nd week Nov 2027"
                 }
             ],
             "elearningCourseTeachers": [
@@ -130,44 +128,30 @@
                     "title": "Balazs Demeter"
                 }
             ],
-            "elearningCourseSessions": [
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
-                    "title": "3rd week Feb 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
-                    "title": "1st week Jun 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
-                    "title": "2nd week Nov 2027"
-                }
-            ]
-        },
-        {
-            "externalReferenceCode": "COURSE-MASTERING-DATA-MODELING-OBJECTS",
-            "title": "Mastering Data Modeling with Liferay Objects",
-            "shortDescription": "The program starts with custom object modeling, fields setup, and publishing flows",
-            "courseProgram": "<p>The program starts with custom object modeling, fields setup, and publishing flows. Students will learn the database layout, mapping rules, and how Liferay automatically structures headless REST APIs for every custom object published in the system.</p><p>Next, we master triggers and validation logic. You will write robust validation scripts, set up object triggers to perform actions on database states, configure Many-to-Many and One-to-Many relationships between objects, and orchestrate external integrations using real-time outgoing webhooks.</p>",
-            "duration": "5 weeks",
-            "lessons": 11,
-            "quizzes": 3,
+            "externalReferenceCode": "COURSE-MASTERING-FRONTEND-CLIENT-EXTENSIONS",
+            "lessons": 10,
             "maxRetakes": 3,
             "passPercentage": 80,
-            "representativeImage": {
-                "name": "thumb_video_marketing.jpg",
-                "externalReferenceCode": "FILE-COURSE-3-IMAGE"
-            },
+            "quizzes": 3,
             "referenceVideo": {
-                "name": "video_marketing.mp4",
-                "externalReferenceCode": "FILE-COURSE-3-VIDEO"
+                "externalReferenceCode": "FILE-COURSE-2-VIDEO",
+                "name": "video_design.mp4"
             },
-            "courseOnePagerSheet": {
-                "name": "digital_marketing_bootcamp.pdf",
-                "externalReferenceCode": "FILE-COURSE-3-SHEET"
+            "representativeImage": {
+                "externalReferenceCode": "FILE-COURSE-2-IMAGE",
+                "name": "thumb_video_design.jpg"
             },
             "scopeKey": "ELEARNING-SPACE",
+            "shortDescription": "This program kicks off with a comprehensive deep-dive into standard custom elements",
+            "title": "Mastering Liferay Frontend Client Extensions"
+        },
+        {
+            "courseOnePagerSheet": {
+                "externalReferenceCode": "FILE-COURSE-3-SHEET",
+                "name": "digital_marketing_bootcamp.pdf"
+            },
+            "courseProgram": "<p>The program starts with custom object modeling, fields setup, and publishing flows. Students will learn the database layout, mapping rules, and how Liferay automatically structures headless REST APIs for every custom object published in the system.</p><p>Next, we master triggers and validation logic. You will write robust validation scripts, set up object triggers to perform actions on database states, configure Many-to-Many and One-to-Many relationships between objects, and orchestrate external integrations using real-time outgoing webhooks.</p>",
+            "duration": "5 weeks",
             "elearningCourseModules": [
                 {
                     "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-1",
@@ -180,6 +164,20 @@
                 {
                     "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-3",
                     "title": "Relationship Modeling"
+                }
+            ],
+            "elearningCourseSessions": [
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-1",
+                    "title": "1st week Mar 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-2",
+                    "title": "4th week Jul 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-3",
+                    "title": "1st week Dec 2027"
                 }
             ],
             "elearningCourseTeachers": [
@@ -196,44 +194,30 @@
                     "title": "Balazs Demeter"
                 }
             ],
-            "elearningCourseSessions": [
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-1",
-                    "title": "1st week Mar 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-2",
-                    "title": "4th week Jul 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-3",
-                    "title": "1st week Dec 2027"
-                }
-            ]
-        },
-        {
-            "externalReferenceCode": "COURSE-FOUNDATIONS-CLIENT-EXTENSIONS",
-            "title": "Foundations of Liferay Client Extensions",
-            "shortDescription": "The program introduces the architectural shift from legacy OSGi plugins to client extensions",
-            "courseProgram": "<p>The program introduces the architectural shift from legacy OSGi plugins to client extensions. Students will explore decoupled integration patterns, mapping out the local environment, and understanding the core schema specifications inside client-extension.yaml.</p><p>In the second part, we cover deployment, security, and orchestration. You will learn to deploy client extensions, set up OAuth2 user-agent authorization profiles, integrate custom headers and footers, and establish secure microservice communication.</p>",
-            "duration": "4 weeks",
-            "lessons": 10,
-            "quizzes": 3,
+            "externalReferenceCode": "COURSE-MASTERING-DATA-MODELING-OBJECTS",
+            "lessons": 11,
             "maxRetakes": 3,
             "passPercentage": 80,
-            "representativeImage": {
-                "name": "thumb_video_management.jpg",
-                "externalReferenceCode": "FILE-COURSE-4-IMAGE"
-            },
+            "quizzes": 3,
             "referenceVideo": {
-                "name": "video_management.mp4",
-                "externalReferenceCode": "FILE-COURSE-4-VIDEO"
+                "externalReferenceCode": "FILE-COURSE-3-VIDEO",
+                "name": "video_marketing.mp4"
             },
-            "courseOnePagerSheet": {
-                "name": "project_manager_certification.pdf",
-                "externalReferenceCode": "FILE-COURSE-4-SHEET"
+            "representativeImage": {
+                "externalReferenceCode": "FILE-COURSE-3-IMAGE",
+                "name": "thumb_video_marketing.jpg"
             },
             "scopeKey": "ELEARNING-SPACE",
+            "shortDescription": "The program starts with custom object modeling, fields setup, and publishing flows",
+            "title": "Mastering Data Modeling with Liferay Objects"
+        },
+        {
+            "courseOnePagerSheet": {
+                "externalReferenceCode": "FILE-COURSE-4-SHEET",
+                "name": "project_manager_certification.pdf"
+            },
+            "courseProgram": "<p>The program introduces the architectural shift from legacy OSGi plugins to client extensions. Students will explore decoupled integration patterns, mapping out the local environment, and understanding the core schema specifications inside client-extension.yaml.</p><p>In the second part, we cover deployment, security, and orchestration. You will learn to deploy client extensions, set up OAuth2 user-agent authorization profiles, integrate custom headers and footers, and establish secure microservice communication.</p>",
+            "duration": "4 weeks",
             "elearningCourseModules": [
                 {
                     "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-1",
@@ -246,6 +230,20 @@
                 {
                     "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-3",
                     "title": "Deploying to Liferay SaaS and PaaS"
+                }
+            ],
+            "elearningCourseSessions": [
+                {
+                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-1",
+                    "title": "3rd week Mar 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-2",
+                    "title": "2nd week Sep 2027"
+                },
+                {
+                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-3",
+                    "title": "3rd week Dec 2027"
                 }
             ],
             "elearningCourseTeachers": [
@@ -262,20 +260,22 @@
                     "title": "Ralph Edwards"
                 }
             ],
-            "elearningCourseSessions": [
-                {
-                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-1",
-                    "title": "3rd week Mar 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-2",
-                    "title": "2nd week Sep 2027"
-                },
-                {
-                    "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-3",
-                    "title": "3rd week Dec 2027"
-                }
-            ]
+            "externalReferenceCode": "COURSE-FOUNDATIONS-CLIENT-EXTENSIONS",
+            "lessons": 10,
+            "maxRetakes": 3,
+            "passPercentage": 80,
+            "quizzes": 3,
+            "referenceVideo": {
+                "externalReferenceCode": "FILE-COURSE-4-VIDEO",
+                "name": "video_management.mp4"
+            },
+            "representativeImage": {
+                "externalReferenceCode": "FILE-COURSE-4-IMAGE",
+                "name": "thumb_video_management.jpg"
+            },
+            "scopeKey": "ELEARNING-SPACE",
+            "shortDescription": "The program introduces the architectural shift from legacy OSGi plugins to client extensions",
+            "title": "Foundations of Liferay Client Extensions"
         }
     ]
 }

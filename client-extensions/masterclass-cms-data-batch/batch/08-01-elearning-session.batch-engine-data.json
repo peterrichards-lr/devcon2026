@@ -6,7 +6,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "taskItemDelegateName": "C_ElearningSession",
             "updateStrategy": "UPDATE"
         },
@@ -14,100 +14,100 @@
     },
     "items": [
         {
-            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
-            "title": "1st week Feb 2027",
-            "startDate": "2027-02-01T09:00:00Z",
             "endDate": "2027-02-05T18:00:00Z",
+            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
             "internalid": 101,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-02-01T09:00:00Z",
+            "title": "1st week Feb 2027"
         },
         {
-            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
-            "title": "2nd week May 2027",
-            "startDate": "2027-05-10T09:00:00Z",
             "endDate": "2027-05-14T18:00:00Z",
+            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
             "internalid": 102,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-05-10T09:00:00Z",
+            "title": "2nd week May 2027"
         },
         {
-            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
-            "title": "3rd week Oct 2027",
-            "startDate": "2027-10-18T09:00:00Z",
             "endDate": "2027-10-22T18:00:00Z",
+            "externalReferenceCode": "SESSION-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
             "internalid": 103,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-10-18T09:00:00Z",
+            "title": "3rd week Oct 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
-            "title": "3rd week Feb 2027",
-            "startDate": "2027-02-15T09:00:00Z",
             "endDate": "2027-02-19T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
             "internalid": 201,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-02-15T09:00:00Z",
+            "title": "3rd week Feb 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
-            "title": "1st week Jun 2027",
-            "startDate": "2027-06-07T09:00:00Z",
             "endDate": "2027-06-11T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
             "internalid": 202,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-06-07T09:00:00Z",
+            "title": "1st week Jun 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
-            "title": "2nd week Nov 2027",
-            "startDate": "2027-11-08T09:00:00Z",
             "endDate": "2027-11-12T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
             "internalid": 203,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-11-08T09:00:00Z",
+            "title": "2nd week Nov 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-1",
-            "title": "1st week Mar 2027",
-            "startDate": "2027-03-01T09:00:00Z",
             "endDate": "2027-03-05T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-1",
             "internalid": 301,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-03-01T09:00:00Z",
+            "title": "1st week Mar 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-2",
-            "title": "4th week Jul 2027",
-            "startDate": "2027-07-26T09:00:00Z",
             "endDate": "2027-07-30T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-2",
             "internalid": 302,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-07-26T09:00:00Z",
+            "title": "4th week Jul 2027"
         },
         {
-            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-3",
-            "title": "1st week Dec 2027",
-            "startDate": "2027-12-06T09:00:00Z",
             "endDate": "2027-12-10T18:00:00Z",
+            "externalReferenceCode": "SESSION-MASTERING-DATA-MODELING-OBJECTS-3",
             "internalid": 303,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-12-06T09:00:00Z",
+            "title": "1st week Dec 2027"
         },
         {
-            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-1",
-            "title": "3rd week Mar 2027",
-            "startDate": "2027-03-15T09:00:00Z",
             "endDate": "2027-03-19T18:00:00Z",
+            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-1",
             "internalid": 401,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-03-15T09:00:00Z",
+            "title": "3rd week Mar 2027"
         },
         {
-            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-2",
-            "title": "2nd week Sep 2027",
-            "startDate": "2027-09-13T09:00:00Z",
             "endDate": "2027-09-17T18:00:00Z",
+            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-2",
             "internalid": 402,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-09-13T09:00:00Z",
+            "title": "2nd week Sep 2027"
         },
         {
-            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-3",
-            "title": "3rd week Dec 2027",
-            "startDate": "2027-12-13T09:00:00Z",
             "endDate": "2027-12-17T18:00:00Z",
+            "externalReferenceCode": "SESSION-FOUNDATIONS-CLIENT-EXTENSIONS-3",
             "internalid": 403,
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "startDate": "2027-12-13T09:00:00Z",
+            "title": "3rd week Dec 2027"
         }
     ]
 }

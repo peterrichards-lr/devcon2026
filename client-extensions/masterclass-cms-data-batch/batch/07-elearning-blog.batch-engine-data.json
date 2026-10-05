@@ -6,7 +6,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "taskItemDelegateName": "C_ElearningBlog",
             "updateStrategy": "UPDATE"
         },
@@ -14,97 +14,97 @@
     },
     "items": [
         {
-            "externalReferenceCode": "BLOG-01",
-            "title": "Think you're cut out for doing management?",
-            "subtitle": "Transitioning from an individual contributor to a management role requires a profound shift in mindset, prioritizing team enablement and strategic delegation over personal execution.",
             "body": "<p>Stepping into a management role is often seen as the natural next step in a professional career, but the transition is far more challenging than it appears. Many high-performing individual contributors struggle when they discover that the skills that made them successful in their previous roles are entirely different from the skills required to lead others.</p> <h3>The Shift in Mindset</h3> <p>To succeed as a manager, you must shift your focus from personal task execution to team enablement. Your job is no longer about doing the work yourself, but about clearing obstacles, providing resources, and empowering your team members to achieve their best. This requires a high degree of emotional intelligence, active listening, and patience.</p> <h3>Strategic Delegation</h3> <p>One of the hardest habits to break for new managers is the urge to micromanage. Trusting your team with critical responsibilities is essential. Effective delegation not only frees up your time to focus on high-level strategy but also fosters professional growth and ownership among your team members.</p> <h3>Communication is Key</h3> <p>As a leader, your communication style sets the tone for the entire team. Transparent, consistent, and empathetic communication helps build trust and psychological safety. Regular one-on-ones, constructive feedback loops, and celebrating collective wins are crucial practices for maintaining team cohesion and high morale.</p>",
-            "imageAuthor": "Photo by Monstera from Pexels.",
+            "externalReferenceCode": "BLOG-01",
             "image": {
-                "name": "blog_01.jpg",
-                "externalReferenceCode": "FILE-BLOG-01"
+                "externalReferenceCode": "FILE-BLOG-01",
+                "name": "blog_01.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE"
+            "imageAuthor": "Photo by Monstera from Pexels.",
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Transitioning from an individual contributor to a management role requires a profound shift in mindset, prioritizing team enablement and strategic delegation over personal execution.",
+            "title": "Think you're cut out for doing management?"
         },
         {
-            "externalReferenceCode": "BLOG-02",
-            "title": "Meet the Steve Jobs of the marketing industry",
-            "subtitle": "Discover the visionary strategies and relentless innovation of the industry's most influential marketing pioneer, who redefined how brands connect with consumers on an emotional level.",
             "body": "<p>Every industry has its trailblazers, but in the fast-paced world of modern marketing, one figure stands out as a true visionary. Much like Steve Jobs transformed personal computing and mobile technology, this pioneer has completely revolutionized how brands communicate, build loyalty, and deliver memorable customer experiences.</p> <h3>Emotional Branding First</h3> <p>At the core of this visionary's philosophy is the belief that marketing is not about selling features; it is about building deep, emotional connections. By focusing on storytelling and human experiences rather than transactional benefits, they have helped global brands cultivate fierce customer loyalty that transcends price and utility.</p> <h3>Simplifying the Message</h3> <p>In an era overwhelmed by digital noise and information overload, this marketing genius advocates for radical simplicity. Their campaigns strip away unnecessary complexity, leaving only a clear, compelling, and memorable message that resonates instantly with target audiences across diverse platforms.</p> <h3>Challenging the Status Quo</h3> <p>Innovation requires the courage to fail and the willingness to challenge established industry norms. By consistently experimenting with emerging technologies, interactive media, and unconventional narrative structures, this pioneer has proven that the greatest risk in marketing is taking no risks at all.</p>",
+            "externalReferenceCode": "BLOG-02",
+            "image": {
+                "externalReferenceCode": "FILE-BLOG-02",
+                "name": "blog_02.jpg"
+            },
             "imageAuthor": "Photo by fauxels from Pexels.",
-            "image": {
-                "name": "blog_02.jpg",
-                "externalReferenceCode": "FILE-BLOG-02"
-            },
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Discover the visionary strategies and relentless innovation of the industry's most influential marketing pioneer, who redefined how brands connect with consumers on an emotional level.",
+            "title": "Meet the Steve Jobs of the marketing industry"
         },
         {
-            "externalReferenceCode": "BLOG-04",
-            "title": "5 tools everyone in the design industry should be using",
-            "subtitle": "Elevate your creative workflow with our curated selection of the five most powerful and essential tools that are currently transforming the modern graphic and digital design landscape.",
             "body": "<p>The digital design landscape is evolving at a breakneck pace, with new software and platforms emerging constantly. To stay competitive, modern designers must equip themselves with a powerful toolkit that streamlines collaboration, enhances precision, and unleashes creative freedom.</p> <h3>1. Collaborative Interface Design</h3> <p>Real-time collaborative interface design has become the industry standard for UI/UX teams. Tools that allow designers, copywriters, and developers to work simultaneously on a single canvas have dramatically reduced feedback loops and accelerated the transition from prototype to final production code.</p> <h3>2. Dynamic Prototyping</h3> <p>Interactive prototyping tools enable designers to breathe life into static screens, demonstrating complex transitions, micro-interactions, and user flows. This capability is critical for conducting realistic usability testing and securing stakeholder alignment early in the product development lifecycle.</p> <h3>3. AI-Powered Asset Creation</h3> <p>Generative AI tools are transforming how designers generate placeholder assets, brainstorm initial concepts, and retouch complex imagery. Integrating these intelligent helpers into your daily workflow can automate repetitive tasks, giving you more space to focus on high-concept creative direction.</p> <h3>4. Advanced Typography Managers</h3> <p>With thousands of typefaces available, organizing and selecting fonts can quickly become overwhelming. Modern typography managers allow creative professionals to catalog font families, test pairs in real-time, and ensure seamless licensing compliance across large, multi-channel marketing campaigns.</p>",
-            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "externalReferenceCode": "BLOG-04",
             "image": {
-                "name": "blog_04.jpg",
-                "externalReferenceCode": "FILE-BLOG-04"
+                "externalReferenceCode": "FILE-BLOG-04",
+                "name": "blog_04.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE"
+            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Elevate your creative workflow with our curated selection of the five most powerful and essential tools that are currently transforming the modern graphic and digital design landscape.",
+            "title": "5 tools everyone in the design industry should be using"
         },
         {
-            "externalReferenceCode": "BLOG-05",
-            "title": "When professionals run into problems with design",
-            "subtitle": "We explore the most common design pitfalls encountered by professional teams, analyzing why they happen and providing practical solutions to align aesthetics with optimal user experience.",
             "body": "<p>Even the most experienced creative teams occasionally encounter major bottlenecks when executing design projects. These problems rarely stem from a lack of artistic talent; instead, they are usually the result of misalignment between design aesthetics, business goals, and actual user behavior.</p> <h3>Aesthetics Over Usability</h3> <p>A common pitfall is prioritizing visual novelty over functional usability. When navigation menus, interactive buttons, or core layouts are overly complex for the sake of looking \"artistic,\" users become frustrated and abandon the site, leading to high bounce rates and poor conversion metrics.</p> <h3>Inadequate Communication</h3> <p>Design does not happen in a vacuum. A lack of clear, structured communication between creative designers, technical developers, and business stakeholders often leads to final products that either cannot be implemented technically or fail to meet key business requirements.</p> <h3>Ignoring User Feedback</h3> <p>Designing based on internal assumptions rather than empirical user testing is a high-risk strategy. Professional teams that skip the user validation phase often deliver interfaces that make logical sense to them but prove confusing and unintuitive to their actual target audience.</p>",
+            "externalReferenceCode": "BLOG-05",
+            "image": {
+                "externalReferenceCode": "FILE-BLOG-05",
+                "name": "blog_05.jpg"
+            },
             "imageAuthor": "Photo by Fauxels from Pexels.",
-            "image": {
-                "name": "blog_05.jpg",
-                "externalReferenceCode": "FILE-BLOG-05"
-            },
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "We explore the most common design pitfalls encountered by professional teams, analyzing why they happen and providing practical solutions to align aesthetics with optimal user experience.",
+            "title": "When professionals run into problems with design"
         },
         {
-            "externalReferenceCode": "BLOG-06",
-            "title": "Great people doing a great job in the design industry",
-            "subtitle": "Celebrate the extraordinary talent, exceptional dedication, and inspiring collaborative spirit of the leading creative professionals who are currently shaping the future of global digital design.",
             "body": "<p>Behind every beautiful website, seamless mobile application, and memorable brand campaign is a group of incredibly talented individuals working in harmony. Today, we shine a spotlight on the exceptional professionals in the design industry whose dedication and collaborative spirit elevate our digital world.</p> <h3>The Power of Collaboration</h3> <p>Great design is rarely the work of a single lone genius. It is the result of deep, cross-functional collaboration between UI/UX designers, copywriters, frontend developers, and product managers who challenge and inspire one another to build experiences that are greater than the sum of their parts.</p> <h3>Designing for Inclusivity</h3> <p>The most inspiring designers working today are those championing digital accessibility and universal design. By ensuring that web applications and digital assets are fully usable by individuals with diverse abilities, these professionals are building a more inclusive, equitable digital future for everyone.</p> <h3>Mentorship and Community</h3> <p>A thriving creative industry relies on open knowledge-sharing and mentorship. The leading figures in design today are actively involved in writing guides, publishing open-source assets, and mentoring the next generation of creatives, ensuring that the community continues to innovate and grow.</p>",
+            "externalReferenceCode": "BLOG-06",
+            "image": {
+                "externalReferenceCode": "FILE-BLOG-06",
+                "name": "blog_06.jpg"
+            },
             "imageAuthor": "Photo by Vlada Karpovich from Pexels.",
-            "image": {
-                "name": "blog_06.jpg",
-                "externalReferenceCode": "FILE-BLOG-06"
-            },
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Celebrate the extraordinary talent, exceptional dedication, and inspiring collaborative spirit of the leading creative professionals who are currently shaping the future of global digital design.",
+            "title": "Great people doing a great job in the design industry"
         },
         {
-            "externalReferenceCode": "BLOG-07",
-            "title": "What the best Management pros do (and you should too)",
-            "subtitle": "Uncover the highly effective habits, daily routines, and strategic frameworks practiced by top-tier managers to build trust, boost team productivity, and achieve sustainable organizational success.",
             "body": "<p>What separates average managers from truly exceptional leaders? While management styles can vary widely across organizations, the most successful leaders share several key habits and strategic frameworks that consistently drive team performance and cultivate a positive workplace culture.</p> <h3>Empowerment Over Control</h3> <p>Top-tier managers understand that their primary role is to empower, not to control. Instead of dictating how every task should be done, they clearly define the expected outcomes and give team members the autonomy and support necessary to find their own creative paths to success.</p> <h3>Radical Candor and Feedback</h3> <p>Creating a culture of continuous improvement requires honest, constructive feedback. The best managers practice radical candor, combining genuine personal care with direct professional challenges. This approach ensures team members understand their growth areas without feeling demoralized.</p> <h3>Prioritizing Psychological Safety</h3> <p>High-performing teams thrive on psychological safety, where members feel safe to take calculated risks, voice dissenting opinions, and admit mistakes without fear of retribution. Exceptional managers actively foster this environment by modeling vulnerability and treating failures as learning opportunities.</p>",
+            "externalReferenceCode": "BLOG-07",
+            "image": {
+                "externalReferenceCode": "FILE-BLOG-07",
+                "name": "blog_07.jpg"
+            },
             "imageAuthor": "Photo by Monstera from Pexels.",
-            "image": {
-                "name": "blog_07.jpg",
-                "externalReferenceCode": "FILE-BLOG-07"
-            },
-            "scopeKey": "ELEARNING-SPACE"
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Uncover the highly effective habits, daily routines, and strategic frameworks practiced by top-tier managers to build trust, boost team productivity, and achieve sustainable organizational success.",
+            "title": "What the best Management pros do (and you should too)"
         },
         {
-            "externalReferenceCode": "BLOG-08",
-            "title": "20 gifts you can give to your marketing boss",
-            "subtitle": "Show your appreciation with our comprehensive guide to twenty thoughtful, practical, and highly creative gift ideas tailored perfectly for the busy, modern marketing professional.",
             "body": "<p>Finding the perfect gift for a manager can be a delicate task. You want to offer something that is professional yet thoughtful, practical yet creative, and genuinely appreciative of their daily leadership, guidance, and support throughout the year.</p> <h3>Premium Desk Accessories</h3> <p>For a marketing director who spends hours organizing strategic campaigns, elegant desk organizers, premium notebook sets, or ergonomic mouse pads can add a touch of comfort and style to their daily workspace, making long strategy sessions far more pleasant.</p> <h3>Tech Tools for Efficiency</h3> <p>Marketing professionals are constantly on the move and connected. Portable power banks, premium noise-canceling headphones for deep focus in busy offices, or smart notebooks that digitize handwritten brainstorming notes are highly functional gifts they will actually use every day.</p> <h3>Inspirational Marketing Literature</h3> <p>Keep your boss inspired and ahead of industry curves with curated books on modern consumer psychology, behavioral design, or the biographies of iconic brand builders. A beautiful coffee table book showcasing historic, legendary advertising campaigns is also an excellent choice.</p>",
-            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "externalReferenceCode": "BLOG-08",
             "image": {
-                "name": "blog_08.jpg",
-                "externalReferenceCode": "FILE-BLOG-08"
+                "externalReferenceCode": "FILE-BLOG-08",
+                "name": "blog_08.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE"
+            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Show your appreciation with our comprehensive guide to twenty thoughtful, practical, and highly creative gift ideas tailored perfectly for the busy, modern marketing professional.",
+            "title": "20 gifts you can give to your marketing boss"
         },
         {
-            "externalReferenceCode": "BLOG-09",
-            "title": "25 management tips from top industry experts",
-            "subtitle": "Accelerate your professional leadership development with twenty-five actionable, highly practical tips compiled directly from the world's most successful and experienced management consultants and executives.",
             "body": "<p>To help you navigate the complexities of modern corporate leadership, we have compiled twenty-five invaluable tips directly from leading executive coaches, successful CEOs, and veteran management consultants who have successfully steered global teams through rapid change.</p> <h3>Focus on Clear Expectations</h3> <p>Ambiguity is the single greatest enemy of team productivity. Ensure that every team member understands their specific responsibilities, key performance indicators, and how their day-to-day contributions align directly with the broader strategic objectives of the organization.</p> <h3>Listen Twice as Much as You Speak</h3> <p>Effective management begins with active listening. By dedicating time to understand your team's perspectives, challenges, and aspirations during regular one-on-ones, you can gain deep insights that help you make better, more informed operational decisions.</p> <h3>Build Resilience Through Adaptability</h3> <p>In a volatile business environment, rigidity leads to failure. Encourage a culture of agility and resilience within your team, where members are comfortable pivoting strategies in response to real-time market feedback, user testing, and evolving customer needs.</p>",
-            "imageAuthor": "Photo by Ivan Samkov from Pexels.",
+            "externalReferenceCode": "BLOG-09",
             "image": null,
-            "scopeKey": "ELEARNING-SPACE"
+            "imageAuthor": "Photo by Ivan Samkov from Pexels.",
+            "scopeKey": "ELEARNING-SPACE",
+            "subtitle": "Accelerate your professional leadership development with twenty-five actionable, highly practical tips compiled directly from the world's most successful and experienced management consultants and executives.",
+            "title": "25 management tips from top industry experts"
         }
     ]
 }
