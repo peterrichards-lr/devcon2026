@@ -1,0 +1,25 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectRelationship",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "INSERT",
+            "externalReferenceCode": "MY-COURSE-SESSION",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "deletionType": "prevent",
+            "label": {
+                "en_US": "enrollmentToCourseSession"
+            },
+            "name": "enrollmentToCourseSession",
+            "objectDefinitionExternalReferenceCode1": "MY-COURSE-SESSION",
+            "objectDefinitionExternalReferenceCode2": "MY-COURSE-ENROLLMENT",
+            "type": "oneToMany"
+        }
+    ]
+}
