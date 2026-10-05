@@ -1,0 +1,12 @@
+{
+	"deletionType": "prevent",
+	"externalReferenceCode": "MY-COURSE-TO-USER",
+	"label": {
+		"en_US": "CourseToUser"
+	},
+	"name": "courseToUser",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:User$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+	"objectDefinitionName2": "MyCourseEnrollment",
+	"type": "oneToMany"
+}

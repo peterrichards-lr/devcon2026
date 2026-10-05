@@ -1,0 +1,57 @@
+{
+	"externalReferenceCode": "MY-ENROLLMENT-STATUS",
+	"listTypeEntries": [
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-PENDING",
+			"key": "Pending",
+			"name": "Pending",
+			"name_i18n": {
+				"en_US": "Pending"
+			}
+		},
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-APPROVED",
+			"key": "Approved",
+			"name": "Approved",
+			"name_i18n": {
+				"en_US": "Approved"
+			}
+		},
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-DISCARDED",
+			"key": "Discarded",
+			"name": "Discarded",
+			"name_i18n": {
+				"en_US": "Discarded"
+			}
+		},
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-CONFIRMED",
+			"key": "Confirmed",
+			"name": "Confirmed",
+			"name_i18n": {
+				"en_US": "Confirmed"
+			}
+		},
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-DECLINED",
+			"key": "Declined",
+			"name": "Declined",
+			"name_i18n": {
+				"en_US": "Declined"
+			}
+		},
+		{
+			"externalReferenceCode": "MY-ENROLLMENT-STATUS-COMPLETED",
+			"key": "Completed",
+			"name": "Completed",
+			"name_i18n": {
+				"en_US": "Completed"
+			}
+		}
+	],
+	"name": "MYENROLLMENTSTATUS",
+	"name_i18n": {
+		"en_US": "MYENROLLMENTSTATUS"
+	}
+}

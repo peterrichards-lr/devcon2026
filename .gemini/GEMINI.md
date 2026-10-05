@@ -99,6 +99,7 @@ Every skill lives under `skills/` and owns one workflow. Match the user's intent
 | Create roles or grant permissions on objects, pages, or sites | `manage-roles-permissions` |
 | Manage environment configs, promote to UAT, or capture a site initializer | `manage-environments` |
 | Migrate a site from web content (DDM structures, journal articles) to objects, or audit an initializer's portability | `migrate-cms-to-objects` |
+| Move object definitions out of a batch client extension into the site initializer tree | `migrate-batch-to-site-initializer` |
 | Manage Commerce catalogs, products, SKUs, or B2B accounts | `commerce-catalogs` |
 | Deploy and operate a Liferay Cloud (LXC) project via `lcp` | `manage-cloud-project` |
 | Build an entire site experience from one prompt (orchestrator; calls the others) | `build-site` |
