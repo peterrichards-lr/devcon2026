@@ -1,0 +1,12 @@
+{
+	"deletionType": "disassociate",
+	"externalReferenceCode": "ELEARNING-COURSE-TEACHERS",
+	"label": {
+		"en_US": "The Course Teachers"
+	},
+	"name": "elearningCourseTeachers",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:ElearningCourse$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:ElearningTeacher$]",
+	"objectDefinitionName2": "ElearningTeacher",
+	"type": "manyToMany"
+}

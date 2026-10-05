@@ -1,0 +1,148 @@
+{
+	"accountEntryRestricted": false,
+	"active": true,
+	"defaultLanguageId": "en_US",
+	"enableCategorization": true,
+	"enableComments": true,
+	"enableFriendlyURLCustomization": true,
+	"enableIndexSearch": true,
+	"enableLocalization": true,
+	"enableObjectEntryDraft": true,
+	"enableObjectEntryHistory": false,
+	"enableObjectEntrySchedule": true,
+	"enableObjectEntrySubscription": false,
+	"enableObjectEntryVersioning": true,
+	"externalReferenceCode": "ELEARNING-MODULE",
+	"label": {
+		"en_US": "eLearning Module"
+	},
+	"modifiable": true,
+	"name": "ElearningModule",
+	"objectActions": [],
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-MODULE",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Title"
+			},
+			"localized": true,
+			"name": "title",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"required": true,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-MODULE-NUMBER-OF-LESSONS",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Number of Lessons"
+			},
+			"localized": false,
+			"name": "numberOfLessons",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-MODULE-DURATION",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Duration"
+			},
+			"localized": true,
+			"name": "duration",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "RichText",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-MODULE-SUMMARY",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Summary"
+			},
+			"localized": true,
+			"name": "summary",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Clob",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-MODULE-MODULE-NUMBER",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Module Number"
+			},
+			"localized": false,
+			"name": "moduleNumber",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"panelCategoryKey": "",
+	"parameterRequired": false,
+	"pluralLabel": {
+		"en_US": "eLearning Module"
+	},
+	"portlet": true,
+	"scope": "depot",
+	"system": false,
+	"titleObjectFieldName": "title"
+}

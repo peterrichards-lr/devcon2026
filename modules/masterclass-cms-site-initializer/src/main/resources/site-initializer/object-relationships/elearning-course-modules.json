@@ -1,0 +1,12 @@
+{
+	"deletionType": "disassociate",
+	"externalReferenceCode": "ELEARNING-COURSE-MODULES",
+	"label": {
+		"en_US": "The Course Modules"
+	},
+	"name": "elearningCourseModules",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:ElearningCourse$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:ElearningModule$]",
+	"objectDefinitionName2": "ElearningModule",
+	"type": "manyToMany"
+}

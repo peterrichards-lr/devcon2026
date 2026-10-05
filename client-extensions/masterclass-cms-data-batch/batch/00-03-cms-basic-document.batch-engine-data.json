@@ -6,7 +6,7 @@
             "containsHeaders": "true",
             "createStrategy": "UPSERT",
             "onErrorFail": "false",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "taskItemDelegateName": "CMSBasicDocument",
             "updateStrategy": "UPDATE"
         },
@@ -15,352 +15,352 @@
     "items": [
         {
             "externalReferenceCode": "CMS-DOC-COURSE-1-IMAGE",
-            "title": "thumb_video_management.jpg",
-            "title_i18n": {
-                "en_US": "thumb_video_management.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-1-IMAGE",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "thumb_video_management.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-1-IMAGE",
-                "name": "thumb_video_management.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "thumb_video_management.jpg",
+            "title_i18n": {
+                "en_US": "thumb_video_management.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-1-VIDEO",
-            "title": "video_management.mp4",
-            "title_i18n": {
-                "en_US": "video_management.mp4"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-1-VIDEO",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "video_management.mp4"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-1-VIDEO",
-                "name": "video_management.mp4",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "video_management.mp4",
+            "title_i18n": {
+                "en_US": "video_management.mp4"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-1-SHEET",
-            "title": "product_design_bootcamp.pdf",
-            "title_i18n": {
-                "en_US": "product_design_bootcamp.pdf"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-1-SHEET",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "product_design_bootcamp.pdf"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-1-SHEET",
-                "name": "product_design_bootcamp.pdf",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "product_design_bootcamp.pdf",
+            "title_i18n": {
+                "en_US": "product_design_bootcamp.pdf"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-2-IMAGE",
-            "title": "thumb_video_design.jpg",
-            "title_i18n": {
-                "en_US": "thumb_video_design.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-2-IMAGE",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "thumb_video_design.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-2-IMAGE",
-                "name": "thumb_video_design.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "thumb_video_design.jpg",
+            "title_i18n": {
+                "en_US": "thumb_video_design.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-2-VIDEO",
-            "title": "video_design.mp4",
-            "title_i18n": {
-                "en_US": "video_design.mp4"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-2-VIDEO",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "video_design.mp4"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-2-VIDEO",
-                "name": "video_design.mp4",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "video_design.mp4",
+            "title_i18n": {
+                "en_US": "video_design.mp4"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-2-SHEET",
-            "title": "project_manager_certification.pdf",
-            "title_i18n": {
-                "en_US": "project_manager_certification.pdf"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-2-SHEET",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "project_manager_certification.pdf"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-2-SHEET",
-                "name": "project_manager_certification.pdf",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "project_manager_certification.pdf",
+            "title_i18n": {
+                "en_US": "project_manager_certification.pdf"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-3-IMAGE",
-            "title": "thumb_video_marketing.jpg",
-            "title_i18n": {
-                "en_US": "thumb_video_marketing.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-3-IMAGE",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "thumb_video_marketing.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-3-IMAGE",
-                "name": "thumb_video_marketing.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "thumb_video_marketing.jpg",
+            "title_i18n": {
+                "en_US": "thumb_video_marketing.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-3-VIDEO",
-            "title": "video_marketing.mp4",
-            "title_i18n": {
-                "en_US": "video_marketing.mp4"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-3-VIDEO",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "video_marketing.mp4"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-3-VIDEO",
-                "name": "video_marketing.mp4",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "video_marketing.mp4",
+            "title_i18n": {
+                "en_US": "video_marketing.mp4"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-3-SHEET",
-            "title": "digital_marketing_bootcamp.pdf",
-            "title_i18n": {
-                "en_US": "digital_marketing_bootcamp.pdf"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-3-SHEET",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "digital_marketing_bootcamp.pdf"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-3-SHEET",
-                "name": "digital_marketing_bootcamp.pdf",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "digital_marketing_bootcamp.pdf",
+            "title_i18n": {
+                "en_US": "digital_marketing_bootcamp.pdf"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-4-IMAGE",
-            "title": "thumb_video_management.jpg",
-            "title_i18n": {
-                "en_US": "thumb_video_management.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-4-IMAGE",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "thumb_video_management.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-4-IMAGE",
-                "name": "thumb_video_management.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "thumb_video_management.jpg",
+            "title_i18n": {
+                "en_US": "thumb_video_management.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-4-VIDEO",
-            "title": "video_management.mp4",
-            "title_i18n": {
-                "en_US": "video_management.mp4"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-4-VIDEO",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "video_management.mp4"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-4-VIDEO",
-                "name": "video_management.mp4",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "video_management.mp4",
+            "title_i18n": {
+                "en_US": "video_management.mp4"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-COURSE-4-SHEET",
-            "title": "project_manager_certification.pdf",
-            "title_i18n": {
-                "en_US": "project_manager_certification.pdf"
+            "file": {
+                "externalReferenceCode": "FILE-COURSE-4-SHEET",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "project_manager_certification.pdf"
             },
             "objectEntryFolderExternalReferenceCode": "COURSES",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-COURSE-4-SHEET",
-                "name": "project_manager_certification.pdf",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "project_manager_certification.pdf",
+            "title_i18n": {
+                "en_US": "project_manager_certification.pdf"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-BROOKLYN-SIMMONS",
-            "title": "teacher_brooklyn_simmons.jpg",
-            "title_i18n": {
-                "en_US": "teacher_brooklyn_simmons.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-BROOKLYN-SIMMONS",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "teacher_brooklyn_simmons.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-BROOKLYN-SIMMONS",
-                "name": "teacher_brooklyn_simmons.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "teacher_brooklyn_simmons.jpg",
+            "title_i18n": {
+                "en_US": "teacher_brooklyn_simmons.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-ESTHER-HOWARD",
-            "title": "teacher_esther_howard.jpg",
-            "title_i18n": {
-                "en_US": "teacher_esther_howard.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-ESTHER-HOWARD",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "teacher_esther_howard.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-ESTHER-HOWARD",
-                "name": "teacher_esther_howard.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "teacher_esther_howard.jpg",
+            "title_i18n": {
+                "en_US": "teacher_esther_howard.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-RALPH-EDWARDS",
-            "title": "teacher_ralph_edwards.jpg",
-            "title_i18n": {
-                "en_US": "teacher_ralph_edwards.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-RALPH-EDWARDS",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "teacher_ralph_edwards.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-RALPH-EDWARDS",
-                "name": "teacher_ralph_edwards.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "teacher_ralph_edwards.jpg",
+            "title_i18n": {
+                "en_US": "teacher_ralph_edwards.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-JANE-COOPER",
-            "title": "teacher_jane_cooper.jpg",
-            "title_i18n": {
-                "en_US": "teacher_jane_cooper.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-JANE-COOPER",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "teacher_jane_cooper.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-JANE-COOPER",
-                "name": "teacher_jane_cooper.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "teacher_jane_cooper.jpg",
+            "title_i18n": {
+                "en_US": "teacher_jane_cooper.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-JEROME-BELL",
-            "title": "teacher_jerome_bell.jpg",
-            "title_i18n": {
-                "en_US": "teacher_jerome_bell.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-JEROME-BELL",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "teacher_jerome_bell.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-JEROME-BELL",
-                "name": "teacher_jerome_bell.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "teacher_jerome_bell.jpg",
+            "title_i18n": {
+                "en_US": "teacher_jerome_bell.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-TEACHER-BALAZS-DEMETER",
-            "title": "Balasz.png",
-            "title_i18n": {
-                "en_US": "Balasz.png"
+            "file": {
+                "externalReferenceCode": "FILE-TEACHER-BALAZS-DEMETER",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "Balasz.png"
             },
             "objectEntryFolderExternalReferenceCode": "TEACHERS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-TEACHER-BALAZS-DEMETER",
-                "name": "Balasz.png",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "Balasz.png",
+            "title_i18n": {
+                "en_US": "Balasz.png"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-01",
-            "title": "blog_01.jpg",
-            "title_i18n": {
-                "en_US": "blog_01.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-01",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_01.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-01",
-                "name": "blog_01.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_01.jpg",
+            "title_i18n": {
+                "en_US": "blog_01.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-02",
-            "title": "blog_02.jpg",
-            "title_i18n": {
-                "en_US": "blog_02.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-02",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_02.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-02",
-                "name": "blog_02.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_02.jpg",
+            "title_i18n": {
+                "en_US": "blog_02.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-04",
-            "title": "blog_04.jpg",
-            "title_i18n": {
-                "en_US": "blog_04.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-04",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_04.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-04",
-                "name": "blog_04.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_04.jpg",
+            "title_i18n": {
+                "en_US": "blog_04.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-05",
-            "title": "blog_05.jpg",
-            "title_i18n": {
-                "en_US": "blog_05.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-05",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_05.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-05",
-                "name": "blog_05.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_05.jpg",
+            "title_i18n": {
+                "en_US": "blog_05.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-06",
-            "title": "blog_06.jpg",
-            "title_i18n": {
-                "en_US": "blog_06.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-06",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_06.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-06",
-                "name": "blog_06.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_06.jpg",
+            "title_i18n": {
+                "en_US": "blog_06.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-07",
-            "title": "blog_07.jpg",
-            "title_i18n": {
-                "en_US": "blog_07.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-07",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_07.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-07",
-                "name": "blog_07.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_07.jpg",
+            "title_i18n": {
+                "en_US": "blog_07.jpg"
             }
         },
         {
             "externalReferenceCode": "CMS-DOC-BLOG-08",
-            "title": "blog_08.jpg",
-            "title_i18n": {
-                "en_US": "blog_08.jpg"
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-08",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_08.jpg"
             },
             "objectEntryFolderExternalReferenceCode": "BLOGS",
             "scopeKey": "ELEARNING-SPACE",
-            "file": {
-                "externalReferenceCode": "FILE-BLOG-08",
-                "name": "blog_08.jpg",
-                "fileBase64": "@batch_object_entry_file_base64@"
+            "title": "blog_08.jpg",
+            "title_i18n": {
+                "en_US": "blog_08.jpg"
             }
         }
     ]
