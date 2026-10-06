@@ -54,12 +54,26 @@ reached by renaming fields, and the one part worth showing live.
 | Real copy | `ProgramDescription` and every `Module*Description` are lorem ipsum |
 | A 4th course, a 6th teacher | The source has 3 and 5 |
 
-## Classroom
+## Classroom can be deleted outright
 
-`classroom.xml` carries `CourseName` plus its own `Module1/2/3`, each with a
-**`Module*VideoURL`** that `course.xml` does not have. It is unused in the site, but it is
-the only source for a module's video. Decide whether to drop it or to fold `VideoURL` into
-`MCModule` before deleting it.
+`classroom.xml` carries `CourseName` and its own `Module1/2/3`, each with a
+`Module*VideoURL` that `course.xml` does not have. The field name suggests a per module
+video worth preserving. It is not.
+
+All three URLs in a classroom point at the **same** file, and `course.xml` already
+references that same video in its own `Video` field:
+
+| Classroom | its three `Module*VideoURL` | the matching `course.xml` `Video` |
+| --- | --- | --- |
+| `classroom_design` | `video_design.mp4` ×3 | `video_design.mp4` |
+| `classroom_management` | `video_management.mp4` ×3 | `video_management.mp4` |
+| `classroom_marketing` | `video_marketing.mp4` ×3 | `video_marketing.mp4` |
+
+So nothing is lost by dropping Classroom, and no fold into `MCModule` is needed.
+
+**Read the values, not the field names.** An earlier version of this file claimed Classroom
+was the only source for a module's video. That was asserted from the field existing, without
+checking whether its values differed across the three modules. They do not.
 
 ## Field typing
 
