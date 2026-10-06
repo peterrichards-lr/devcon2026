@@ -1,0 +1,132 @@
+{
+	"active": true,
+	"enableCategorization": true,
+	"enableComments": false,
+	"externalReferenceCode": "MC-MCCOURSE",
+	"label": {
+		"en_US": "Course"
+	},
+	"name": "MCCourse",
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-TITLE",
+			"label": {
+				"en_US": "Name"
+			},
+			"name": "title",
+			"required": true
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-SHORTDESCRIPTION",
+			"label": {
+				"en_US": "Short Description"
+			},
+			"name": "shortDescription",
+			"required": false
+		},
+		{
+			"businessType": "RichText",
+			"externalReferenceCode": "MC-PROGRAMDESCRIPTION",
+			"label": {
+				"en_US": "Program Description"
+			},
+			"name": "programDescription",
+			"required": false
+		},
+		{
+			"businessType": "Attachment",
+			"externalReferenceCode": "MC-VIDEOTHUMBNAIL",
+			"label": {
+				"en_US": "Video Thumbnail"
+			},
+			"name": "videoThumbnail",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": "100"
+				},
+				{
+					"name": "showFilesInLibrary",
+					"value": "false"
+				}
+			],
+			"required": false
+		},
+		{
+			"businessType": "RichText",
+			"externalReferenceCode": "MC-VIDEO",
+			"label": {
+				"en_US": "Video"
+			},
+			"name": "video",
+			"required": false
+		},
+		{
+			"businessType": "Integer",
+			"externalReferenceCode": "MC-NUMBEROFLESSONS",
+			"label": {
+				"en_US": "Number Of Lessons"
+			},
+			"name": "numberOfLessons",
+			"required": false
+		},
+		{
+			"businessType": "Integer",
+			"externalReferenceCode": "MC-QUIZZES",
+			"label": {
+				"en_US": "Quizzes"
+			},
+			"name": "quizzes",
+			"required": false
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-DURATION",
+			"label": {
+				"en_US": "Duration"
+			},
+			"name": "duration",
+			"required": false
+		},
+		{
+			"businessType": "Integer",
+			"externalReferenceCode": "MC-MAXRETAKES",
+			"label": {
+				"en_US": "Max Retakes"
+			},
+			"name": "maxRetakes",
+			"required": false
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-PASSPERCENTAGE",
+			"label": {
+				"en_US": "Pass Percentage"
+			},
+			"name": "passPercentage",
+			"required": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"pluralLabel": {
+		"en_US": "Courses"
+	},
+	"scope": "depot",
+	"titleObjectFieldName": "title"
+}

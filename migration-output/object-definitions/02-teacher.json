@@ -1,0 +1,69 @@
+{
+	"active": true,
+	"enableCategorization": true,
+	"enableComments": false,
+	"externalReferenceCode": "MC-MCTEACHER",
+	"label": {
+		"en_US": "Teacher"
+	},
+	"name": "MCTeacher",
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-TITLE",
+			"label": {
+				"en_US": "Name"
+			},
+			"name": "title",
+			"required": true
+		},
+		{
+			"businessType": "Attachment",
+			"externalReferenceCode": "MC-IMAGE",
+			"label": {
+				"en_US": "Image"
+			},
+			"name": "image",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": "100"
+				},
+				{
+					"name": "showFilesInLibrary",
+					"value": "false"
+				}
+			],
+			"required": false
+		},
+		{
+			"businessType": "RichText",
+			"externalReferenceCode": "MC-INFO",
+			"label": {
+				"en_US": "Info"
+			},
+			"name": "info",
+			"required": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"pluralLabel": {
+		"en_US": "Teachers"
+	},
+	"scope": "depot",
+	"titleObjectFieldName": "title"
+}

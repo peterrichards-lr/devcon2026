@@ -1,0 +1,87 @@
+{
+	"active": true,
+	"enableCategorization": true,
+	"enableComments": false,
+	"externalReferenceCode": "MC-MCBLOG",
+	"label": {
+		"en_US": "Blog"
+	},
+	"name": "MCBlog",
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-TITLE",
+			"label": {
+				"en_US": "Title"
+			},
+			"name": "title",
+			"required": true
+		},
+		{
+			"businessType": "LongText",
+			"externalReferenceCode": "MC-SUBTITLE",
+			"label": {
+				"en_US": "Subtitle"
+			},
+			"name": "subtitle",
+			"required": false
+		},
+		{
+			"businessType": "Attachment",
+			"externalReferenceCode": "MC-MAINIMAGE",
+			"label": {
+				"en_US": "Main Image"
+			},
+			"name": "mainImage",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": "100"
+				},
+				{
+					"name": "showFilesInLibrary",
+					"value": "false"
+				}
+			],
+			"required": false
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-IMAGEAUTHOR",
+			"label": {
+				"en_US": "Image Author"
+			},
+			"name": "imageAuthor",
+			"required": false
+		},
+		{
+			"businessType": "RichText",
+			"externalReferenceCode": "MC-BODY",
+			"label": {
+				"en_US": "Body"
+			},
+			"name": "body",
+			"required": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"pluralLabel": {
+		"en_US": "Blogs"
+	},
+	"scope": "depot",
+	"titleObjectFieldName": "title"
+}

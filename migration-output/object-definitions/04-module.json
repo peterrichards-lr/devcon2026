@@ -1,0 +1,69 @@
+{
+	"active": true,
+	"enableCategorization": true,
+	"enableComments": false,
+	"externalReferenceCode": "MC-MCMODULE",
+	"label": {
+		"en_US": "Module"
+	},
+	"name": "MCModule",
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-TITLE",
+			"label": {
+				"en_US": "Name"
+			},
+			"name": "title",
+			"required": true
+		},
+		{
+			"businessType": "RichText",
+			"externalReferenceCode": "MC-DESCRIPTION",
+			"label": {
+				"en_US": "Description"
+			},
+			"name": "description",
+			"required": false
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-DURATION",
+			"label": {
+				"en_US": "Duration"
+			},
+			"name": "duration",
+			"required": false
+		},
+		{
+			"businessType": "Text",
+			"externalReferenceCode": "MC-NUMBEROFLESSONS",
+			"label": {
+				"en_US": "Number Of Lessons"
+			},
+			"name": "numberOfLessons",
+			"required": false
+		},
+		{
+			"businessType": "Integer",
+			"externalReferenceCode": "MC-MODULENUMBER",
+			"label": {
+				"en_US": "Module Number"
+			},
+			"name": "moduleNumber",
+			"required": true
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"pluralLabel": {
+		"en_US": "Modules"
+	},
+	"scope": "depot",
+	"titleObjectFieldName": "title"
+}

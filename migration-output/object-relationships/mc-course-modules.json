@@ -1,0 +1,12 @@
+{
+	"deletionType": "cascade",
+	"externalReferenceCode": "MC-COURSE-MODULES",
+	"label": {
+		"en_US": "Modules"
+	},
+	"name": "mcCourseModules",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:MCCourse$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:MCModule$]",
+	"objectDefinitionName2": "MCModule",
+	"type": "oneToMany"
+}

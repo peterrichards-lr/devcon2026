@@ -1,0 +1,65 @@
+[
+	{
+		"course": "Product Design Bootcamp",
+		"moduleNumber": 1,
+		"title": "Design Fundamentals",
+		"duration": "1 week",
+		"numberOfLessons": "2 lessons"
+	},
+	{
+		"course": "Product Design Bootcamp",
+		"moduleNumber": 2,
+		"title": "Research and Strategy",
+		"duration": "1 week",
+		"numberOfLessons": "3 lessons"
+	},
+	{
+		"course": "Product Design Bootcamp",
+		"moduleNumber": 3,
+		"title": "User Interface Design",
+		"duration": "2 weeks",
+		"numberOfLessons": "4 lessons"
+	},
+	{
+		"course": "Project Manager Certification",
+		"moduleNumber": 1,
+		"title": "Exploration & Strategy",
+		"duration": "1 week",
+		"numberOfLessons": "2 lessons"
+	},
+	{
+		"course": "Project Manager Certification",
+		"moduleNumber": 2,
+		"title": "Agile Product Development",
+		"duration": "1 week",
+		"numberOfLessons": "3 lessons"
+	},
+	{
+		"course": "Project Manager Certification",
+		"moduleNumber": 3,
+		"title": "Refining Products",
+		"duration": "2 weeks",
+		"numberOfLessons": "4 lessons"
+	},
+	{
+		"course": "Digital Marketing Bootcamp",
+		"moduleNumber": 1,
+		"title": "Marketing Planning",
+		"duration": "1 week",
+		"numberOfLessons": "2 lessons"
+	},
+	{
+		"course": "Digital Marketing Bootcamp",
+		"moduleNumber": 2,
+		"title": "Content Marketing",
+		"duration": "1 week",
+		"numberOfLessons": "3 lessons"
+	},
+	{
+		"course": "Digital Marketing Bootcamp",
+		"moduleNumber": 3,
+		"title": "Social Media Marketing",
+		"duration": "2 weeks",
+		"numberOfLessons": "4 lessons"
+	}
+]
