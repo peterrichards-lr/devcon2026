@@ -1,0 +1,25 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.admin.rest.dto.v1_0.ObjectRelationship",
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "INSERT",
+            "externalReferenceCode": "DEMO-COURSE",
+            "onErrorFail": "false",
+            "taskItemDelegateName": "DEFAULT",
+            "updateStrategy": "UPDATE"
+        }
+    },
+    "items": [
+        {
+            "deletionType": "cascade",
+            "label": {
+                "en_US": "Modules"
+            },
+            "name": "demoCourseModules",
+            "objectDefinitionExternalReferenceCode1": "DEMO-COURSE",
+            "objectDefinitionExternalReferenceCode2": "DEMO-MODULE",
+            "type": "oneToMany"
+        }
+    ]
+}
