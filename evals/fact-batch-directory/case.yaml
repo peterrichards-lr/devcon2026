@@ -18,4 +18,5 @@ execution:
     create when it provisions.
 
     I was going to drop it in `site-initializer/batch/` so it gets picked up with
-    everything else. Is that the right place? Where exactly should it go?
+    everything else. Is that the right place? Where exactly should it go, and what
+    happens if I leave it where I was going to put it?
