@@ -8,6 +8,32 @@ without — and the number that matters is the **delta**, not the score. A case 
 1.00 with a delta of 0.00 means the model already knew; that content is documentation,
 not instruction.
 
+## Check the instruments first
+
+```bash
+./evals/check.sh                 # before a run — structure only
+./evals/check.sh /tmp/eval.json  # after a run  — structure, then results
+```
+
+**Two instrument failures have produced confident wrong conclusions here, and both looked
+like results.** `skills` was committed as a text file rather than a symlink, so the manifest
+resolved, every run reported `plugins: [devcon2026-liferay]`, and the plugin served nothing
+— a week of deltas measured the model against itself. Later, a case with no `skill-fired`
+grader made a summary print `0/5`, which reads exactly like a skill that never fired, and a
+whole finding was built on it.
+
+A delta near zero has three causes and they are not interchangeable:
+
+| Indicator | Δ ≈ 0 means |
+| --- | --- |
+| absent | not measured — the number says nothing |
+| dark | the content never arrived |
+| lit | the content is redundant |
+
+`check.sh` asserts that `skills/` resolves and serves skills, that every case carries a
+`skill-fired` grader, and — given a results file — that the indicator was lit. It exits
+non-zero when the instruments are unsound, so it can gate a run.
+
 ## Running
 
 ```bash
