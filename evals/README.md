@@ -34,7 +34,7 @@ at `skills/`. Without it the harness silently falls back to baseline and reports
 
 | Case | Asserts | Last measured |
 | --- | --- | --- |
-| `fact-batch-directory` | `site-initializer/batch/` is never read by `BundleSiteInitializer` | **Δ +0.08** (7 Oct) — but its grader is a compound rubric that fails a correct answer; not trustworthy until split. The earlier **+0.76** was measured with no skill loaded |
+| `fact-batch-directory` | `site-initializer/batch/` is never read by `BundleSiteInitializer` | **Δ +0.32** (7 Oct, after splitting a compound grader). The earlier **+0.76** was measured with no skill loaded |
 | `fact-relationship-foreign-key` | The FK sits on the child but is named for the parent; a wrong key still returns `200` | Δ +0.18 |
 | `plan-object-model-end-to-end` | Grades a whole migration plan: field types, and both reference rewrites | Δ −0.07 |
 
