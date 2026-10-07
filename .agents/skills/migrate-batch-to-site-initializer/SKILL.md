@@ -57,36 +57,15 @@ Three keys are dropped on the way:
 
 ### Rewrite Relationship Ends
 
-This is the one conversion that is not mechanical. The batch names both ends by external
-reference code. **The tree's relationship handler resolves the parent by numeric ID**, so
-the ERC fields alone resolve to nothing:
+The one conversion that is not mechanical. The batch names both ends by external reference
+code; the tree's handler resolves the parent by **numeric ID**, so those fields resolve to
+nothing and the relationship is never created. The token form, and the fact that a system
+object end additionally needs an `object-definitions/` directory to exist, are both in
+`rules/site-initializer-format.md` → **`object-relationships/<name>.json`** and **Object
+Definition Tokens Are the Exception**.
 
-```json
-"objectDefinitionExternalReferenceCode1": "MY-COURSE-SESSION",
-"objectDefinitionExternalReferenceCode2": "MY-COURSE-ENROLLMENT"
-```
-
-becomes
-
-```json
-"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:MyCourseSession$]",
-"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
-"objectDefinitionName2": "MyCourseEnrollment"
-```
-
-The token is keyed on the definition **`name`**, not its ERC.
-
-### A System Object End Needs The Directory To Exist
-
-A relationship onto `User`, `AccountEntry` or another system object uses the same token
-form — `[$OBJECT_DEFINITION_ID:User$]`. It resolves only once the tree has an
-`object-definitions/` directory.
-
-`_addObjectDefinitions` registers company wide tokens for custom definitions, then
-returns early when `getResourcePaths("/site-initializer/object-definitions")` is empty —
-**before** the loop that registers system object definitions. So a tree with no
-`object-definitions/` cannot name a system object at all, and adding the first definition
-file is what makes the system tokens available. Source: `BundleSiteInitializer`.
+Measured: an agent produces the correct token form unaided, five runs out of five, with and
+without this skill. Do not restate the mapping here — cite the card.
 
 ### Give Every Moved Entity A Readable ERC
 
@@ -165,62 +144,16 @@ So a Space may be declared in the tree alongside the depot scoped definitions th
 it. This is strong evidence, not a guarantee the graph enforces — re-measure if a release
 changes the dependency lists, and assert the outcome rather than the ordering.
 
-## `depot-entries.json` Requires `depotAppCustomization`
+## Moving a Space
 
-Omitting it throws, and because this runs inside site creation the whole site rolls back:
+`rules/site-initializer-format.md` → **`depot-entries.json`** carries the three facts that
+decide whether this is worth doing: `depotAppCustomization` is required on 2026.q3.5, the
+format has no `externalReferenceCode` field so the Space gets a UUID, and a Space the tree
+owns inverts the deploy order.
 
-```text
-java.lang.NullPointerException: Cannot invoke
-"com.liferay.portal.kernel.json.JSONObject.getBoolean(String)"
-because "depotAppCustomizationJSONObject" is null
-```
-
-Observed on 2026.q3.5. A later commit (`LPD-103976`, 2026-09-10) extracted the block into
-a null guarded method, so on a build carrying that fix the key is optional. Include it
-either way — four portlet keys, as `site-initializer-extender-test-bundle-1` writes them.
-
-A Space is `"type": "Space"`; the handler accepts `AssetLibrary`, `DesignLibrary` and
-`Space`, and throws `IllegalArgumentException` on anything else. It also creates the
-connected site relation to the site being provisioned, which is otherwise a manual step
-repeated after every reprovision.
-
-### Moving a Space Costs Its External Reference Code
-
-`depot-entries.json` has **no `externalReferenceCode` field**. The handler matches an
-existing depot on its group **name** and lets Liferay generate a code, so a Space the tree
-creates has a UUID that differs on every bundle.
-
-Anything that named that Space by code has to change. For batch entry files that means
-`scopeKey`, and the fix is to scope by the name instead — `GroupUtil.getGroupId` resolves a
-scope key by name first, then numeric id, then external reference code:
-
-```java
-Group group = groupLocalService.fetchGroup(companyId, siteKey);            // name
-if (group == null) group = groupLocalService.fetchGroup(getLong(siteKey));  // id
-if (group == null) group = fetchGroupByExternalReferenceCode(siteKey, …);   // erc
-```
-
-Verified on 2026.q3.5: the name, the code and the numeric id all returned the same four
-entries. Name is also what the depot handler matches on, which makes it the stable join
-across both artifacts.
-
-### Moving a Space Inverts the Deploy Order
-
-A batch runs when its client extension deploys. The tree runs at **site creation**. So a
-Space the tree owns does not exist while the batch is importing, and every batch file
-scoped to it fails:
-
-```text
-Unable to deploy batch engine file …/00-02-….json:
-    com.liferay.portal.kernel.exception.NoSuchGroupException
-Unable to deploy batch engine file …/00-03-….json:
-    No ObjectEntryFolder exists with the key {externalReferenceCode=COURSES, groupId=0, …}
-```
-
-This fails loudly rather than importing nothing, which is the good outcome — but the
-sequence becomes **deploy the tree, create the site, then deploy the batch**, and nothing
-enforces it. Say so wherever the project documents its deploy, because the batch was
-previously self contained and a newcomer will hit this once.
+The consequence for this procedure: whatever named that Space by code has to be rewritten
+to name it by **group name** instead, and the project's deploy sequence becomes tree, site,
+batch.
 
 ## Patterns and Gotchas
 

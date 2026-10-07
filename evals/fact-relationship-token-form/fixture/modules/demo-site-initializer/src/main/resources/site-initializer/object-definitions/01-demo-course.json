@@ -1,0 +1,22 @@
+{
+	"externalReferenceCode": "DEMO-COURSE",
+	"label": {
+		"en_US": "Demo Course"
+	},
+	"name": "DemoCourse",
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"label": {
+				"en_US": "Title"
+			},
+			"name": "title",
+			"required": true
+		}
+	],
+	"pluralLabel": {
+		"en_US": "Demo Courses"
+	},
+	"scope": "company",
+	"titleObjectFieldName": "title"
+}
