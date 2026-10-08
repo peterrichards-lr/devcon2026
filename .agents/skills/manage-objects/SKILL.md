@@ -624,6 +624,32 @@ Inside a `siteInitializer` this failure is disproportionate: the exception abort
 
 Source: `_reservedNames` in `modules/apps/object/object-service/src/main/java/com/liferay/object/service/impl/ObjectFieldLocalServiceImpl.java`.
 
+#### No Field Name May Be a Prefix of Another
+
+Separate from the reserved list, and the opposite of its "exact match" reassurance: within one definition, **no field name may be a prefix of another field name**. `image` beside `imageAuthor` provisions, accepts entries over REST, and renders — then every **Publish** in the CMS or Form Container editor fails, even with nothing changed, with only *"An error occurred while sending the form information."*
+
+The editor form is parsed by prefix. `InfoRequestFieldValuesProviderHelper._getInputNames` assigns a request parameter to a field when `parameterName.startsWith(infoField.getUniqueId())`, so `ObjectField_image` also claims `ObjectField_imageAuthor` and `ObjectField_imageAuthor_<languageId>`. `ObjectEntryUtil.toProperties` puts each into `image`, the last one wins, and attachment validation rejects the text: `ObjectEntryValuesException$InvalidValue: The value is invalid for object field "image"`. That is logged only at DEBUG on `ObjectEntryInfoItemExceptionRequestHandler`.
+
+**Localization decides whether it shows**, which is why a hand built copy appears to disprove it. Verified on 2026.q3.5 with copies of one definition, a no-change Publish each, with and without a file in `image`:
+
+| Shorter field (`image`, Attachment) | Longer field (`imageAuthor`, Text) | Publish, unchanged |
+| --- | --- | --- |
+| not localized | localized | **Fails** — the shape `ElearningBlog` shipped with |
+| not localized | not localized | Saves |
+| localized | localized | Saves |
+| localized | not localized | Saves |
+
+A non-localized field claims matching parameter names as they are, so `image` keeps `ObjectField_imageAuthor_<languageId>` — one per locale, and nothing else writes those keys. A localized field keeps only names ending in a language ID and strips the suffix, so the stray it collects lands on `ObjectField_imageAuthor`, the same key the real field writes. The three passing rows survive because the right field happens to write that key last. That is ordering, not a fix, so do not "solve" this by flipping `localized` — rename. Emptying the longer field also "works", because a blank value passes validation; that is how it gets misread as bad data.
+
+Rename one of the pair so neither is a prefix — `photoCredit`, or `coverImage` beside `imageAuthor`. A published field cannot be renamed, so on an existing instance this is a new definition and a reprovision. Check a definition before deploying:
+
+```bash
+jq -r '[.objectFields[].name] as $n | $n[] as $a | $n[] as $b
+	| select($a != $b and ($b | startswith($a))) | "\($a) is a prefix of \($b)"' <definition>.json
+```
+
+Treat this as a portal bug, not a modelling rule: delete this section once the match is exact (name, or name plus `_<languageId>`). Source: `InfoRequestFieldValuesProviderHelper` in `modules/apps/info/info-impl`, unchanged on liferay-portal master as of 2026-09-30.
+
 ### Field Settings Gotchas
 
 `objectFieldSettings` entries that use generic string `value` fields (e.g., `fileSource`, `acceptedFileExtensions`, `maximumFileSize`) are **not documented as enums in the OpenAPI schema** and are not discoverable via GraphQL introspection — the `value` field resolves as a generic `Object` scalar. Guessing common values will produce `400 Bad Request` with no enum hint in the response.
