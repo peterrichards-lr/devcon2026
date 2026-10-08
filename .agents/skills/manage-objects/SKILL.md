@@ -626,7 +626,7 @@ Source: `_reservedNames` in `modules/apps/object/object-service/src/main/java/co
 
 #### No Field Name May Be a Prefix of Another
 
-Separate from the reserved list, and the opposite of its "exact match" reassurance: within one definition, **no field name may be a prefix of another field name**. `image` beside `imageAuthor` provisions, accepts entries over REST, and renders — then every **Publish** in the CMS or Form Container editor fails, even with nothing changed, with only *"An error occurred while sending the form information."*
+Separate from the reserved list, and the opposite of its "exact match" reassurance: within one definition, **no field name may be a prefix of another field name**. `image` beside `imageAuthor` provisions, accepts entries over REST, and renders — then every **Publish** in the CMS editor fails, even with nothing changed, with only *"An error occurred while sending the form information."* Form Containers submit through the same `/c/portal/edit_info_item` action and should fail the same way, but that is inferred from the source, not verified.
 
 The editor form is parsed by prefix. `InfoRequestFieldValuesProviderHelper._getInputNames` assigns a request parameter to a field when `parameterName.startsWith(infoField.getUniqueId())`, so `ObjectField_image` also claims `ObjectField_imageAuthor` and `ObjectField_imageAuthor_<languageId>`. `ObjectEntryUtil.toProperties` puts each into `image`, the last one wins, and attachment validation rejects the text: `ObjectEntryValuesException$InvalidValue: The value is invalid for object field "image"`. That is logged only at DEBUG on `ObjectEntryInfoItemExceptionRequestHandler`.
 
