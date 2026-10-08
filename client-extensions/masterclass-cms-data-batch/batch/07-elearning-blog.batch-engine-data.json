@@ -20,7 +20,7 @@
                 "externalReferenceCode": "FILE-BLOG-01",
                 "name": "blog_01.jpg"
             },
-            "imageAuthor": "Photo by Monstera from Pexels.",
+            "photoCredit": "Photo by Monstera from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Transitioning from an individual contributor to a management role requires a profound shift in mindset, prioritizing team enablement and strategic delegation over personal execution.",
             "title": "Think you're cut out for doing management?"
@@ -32,7 +32,7 @@
                 "externalReferenceCode": "FILE-BLOG-02",
                 "name": "blog_02.jpg"
             },
-            "imageAuthor": "Photo by fauxels from Pexels.",
+            "photoCredit": "Photo by fauxels from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Discover the visionary strategies and relentless innovation of the industry's most influential marketing pioneer, who redefined how brands connect with consumers on an emotional level.",
             "title": "Meet the Steve Jobs of the marketing industry"
@@ -44,7 +44,7 @@
                 "externalReferenceCode": "FILE-BLOG-04",
                 "name": "blog_04.jpg"
             },
-            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "photoCredit": "Photo by William Fortunato from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Elevate your creative workflow with our curated selection of the five most powerful and essential tools that are currently transforming the modern graphic and digital design landscape.",
             "title": "5 tools everyone in the design industry should be using"
@@ -56,7 +56,7 @@
                 "externalReferenceCode": "FILE-BLOG-05",
                 "name": "blog_05.jpg"
             },
-            "imageAuthor": "Photo by Fauxels from Pexels.",
+            "photoCredit": "Photo by Fauxels from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "We explore the most common design pitfalls encountered by professional teams, analyzing why they happen and providing practical solutions to align aesthetics with optimal user experience.",
             "title": "When professionals run into problems with design"
@@ -68,7 +68,7 @@
                 "externalReferenceCode": "FILE-BLOG-06",
                 "name": "blog_06.jpg"
             },
-            "imageAuthor": "Photo by Vlada Karpovich from Pexels.",
+            "photoCredit": "Photo by Vlada Karpovich from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Celebrate the extraordinary talent, exceptional dedication, and inspiring collaborative spirit of the leading creative professionals who are currently shaping the future of global digital design.",
             "title": "Great people doing a great job in the design industry"
@@ -80,7 +80,7 @@
                 "externalReferenceCode": "FILE-BLOG-07",
                 "name": "blog_07.jpg"
             },
-            "imageAuthor": "Photo by Monstera from Pexels.",
+            "photoCredit": "Photo by Monstera from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Uncover the highly effective habits, daily routines, and strategic frameworks practiced by top-tier managers to build trust, boost team productivity, and achieve sustainable organizational success.",
             "title": "What the best Management pros do (and you should too)"
@@ -92,7 +92,7 @@
                 "externalReferenceCode": "FILE-BLOG-08",
                 "name": "blog_08.jpg"
             },
-            "imageAuthor": "Photo by William Fortunato from Pexels.",
+            "photoCredit": "Photo by William Fortunato from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Show your appreciation with our comprehensive guide to twenty thoughtful, practical, and highly creative gift ideas tailored perfectly for the busy, modern marketing professional.",
             "title": "20 gifts you can give to your marketing boss"
@@ -101,7 +101,7 @@
             "body": "<p>To help you navigate the complexities of modern corporate leadership, we have compiled twenty-five invaluable tips directly from leading executive coaches, successful CEOs, and veteran management consultants who have successfully steered global teams through rapid change.</p> <h3>Focus on Clear Expectations</h3> <p>Ambiguity is the single greatest enemy of team productivity. Ensure that every team member understands their specific responsibilities, key performance indicators, and how their day-to-day contributions align directly with the broader strategic objectives of the organization.</p> <h3>Listen Twice as Much as You Speak</h3> <p>Effective management begins with active listening. By dedicating time to understand your team's perspectives, challenges, and aspirations during regular one-on-ones, you can gain deep insights that help you make better, more informed operational decisions.</p> <h3>Build Resilience Through Adaptability</h3> <p>In a volatile business environment, rigidity leads to failure. Encourage a culture of agility and resilience within your team, where members are comfortable pivoting strategies in response to real-time market feedback, user testing, and evolving customer needs.</p>",
             "externalReferenceCode": "BLOG-09",
             "image": null,
-            "imageAuthor": "Photo by Ivan Samkov from Pexels.",
+            "photoCredit": "Photo by Ivan Samkov from Pexels.",
             "scopeKey": "ELEARNING-SPACE",
             "subtitle": "Accelerate your professional leadership development with twenty-five actionable, highly practical tips compiled directly from the world's most successful and experienced management consultants and executives.",
             "title": "25 management tips from top industry experts"
