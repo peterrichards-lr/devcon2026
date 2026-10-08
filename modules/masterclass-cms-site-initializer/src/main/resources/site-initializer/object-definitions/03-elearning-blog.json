@@ -72,7 +72,7 @@
 			"DBType": "String",
 			"businessType": "Text",
 			"defaultValue": "null",
-			"externalReferenceCode": "ELEARNING-BLOG-IMAGE-AUTHOR",
+			"externalReferenceCode": "ELEARNING-BLOG-PHOTO-CREDIT",
 			"indexed": true,
 			"indexedAsKeyword": false,
 			"indexedLanguageId": "en_US",
@@ -80,7 +80,7 @@
 				"en_US": "Image Author"
 			},
 			"localized": true,
-			"name": "imageAuthor",
+			"name": "photoCredit",
 			"objectFieldSettings": [],
 			"readOnly": "false",
 			"readOnlyConditionExpression": "",
