@@ -1,9 +1,9 @@
 {
-	"friendlyURL": "/account-settings",
+	"friendlyURL": "/course-completions",
 	"hidden": false,
-	"name": "Account Settings",
+	"name": "Course Completions",
 	"name_i18n": {
-		"en_US": "Account Settings"
+		"en_US": "Course Completions"
 	},
 	"permissions": [
 		{

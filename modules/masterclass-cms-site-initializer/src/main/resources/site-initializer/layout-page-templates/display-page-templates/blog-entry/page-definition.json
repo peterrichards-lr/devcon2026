@@ -14,8 +14,7 @@
 						"positionTop": 0,
 						"zIndex": 0
 					},
-					"fragmentFields": [
-					],
+					"fragmentFields": [],
 					"fragmentStyle": {
 						"backgroundColor": ""
 					}
@@ -77,47 +76,6 @@
 					{
 						"definition": {
 							"fragment": {
-								"key": "masterclass-text-block"
-							},
-							"fragmentConfig": {
-							},
-							"fragmentFields": [
-								{
-									"id": "element-text",
-									"value": {
-										"fragmentLink": {
-											"value_i18n": {
-											}
-										},
-										"text": {
-											"mapping": {
-												"fieldKey": "masterclass",
-												"itemReference": {
-													"contextSource": "DisplayPageItem"
-												}
-											}
-										}
-									}
-								}
-							],
-							"fragmentStyle": {
-								"fontFamily": "fontFamilySansSerif",
-								"marginBottom": "4"
-							},
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"marginTop": "2"
-									},
-									"id": "portraitMobile"
-								}
-							]
-						},
-						"type": "Fragment"
-					},
-					{
-						"definition": {
-							"fragment": {
 								"key": "masterclass-heading"
 							},
 							"fragmentConfig": {
@@ -129,12 +87,11 @@
 									"id": "element-text",
 									"value": {
 										"fragmentLink": {
-											"value_i18n": {
-											}
+											"value_i18n": {}
 										},
 										"text": {
 											"mapping": {
-												"fieldKey": "title",
+												"fieldKey": "ObjectField_title",
 												"itemReference": {
 													"contextSource": "DisplayPageItem"
 												}
@@ -157,19 +114,17 @@
 							"fragment": {
 								"key": "masterclass-text-block"
 							},
-							"fragmentConfig": {
-							},
+							"fragmentConfig": {},
 							"fragmentFields": [
 								{
 									"id": "element-text",
 									"value": {
 										"fragmentLink": {
-											"value_i18n": {
-											}
+											"value_i18n": {}
 										},
 										"text": {
 											"mapping": {
-												"fieldKey": "Subtitle",
+												"fieldKey": "ObjectField_subtitle",
 												"itemReference": {
 													"contextSource": "DisplayPageItem"
 												}
@@ -211,7 +166,7 @@
 										"fragmentImage": {
 											"url": {
 												"mapping": {
-													"fieldKey": "MainImage",
+													"fieldKey": "ObjectField_image",
 													"itemReference": {
 														"contextSource": "DisplayPageItem"
 													}
@@ -219,8 +174,7 @@
 											}
 										},
 										"fragmentLink": {
-											"value_i18n": {
-											}
+											"value_i18n": {}
 										}
 									}
 								}
@@ -247,19 +201,17 @@
 							"fragment": {
 								"key": "masterclass-text-block"
 							},
-							"fragmentConfig": {
-							},
+							"fragmentConfig": {},
 							"fragmentFields": [
 								{
 									"id": "element-text",
 									"value": {
 										"fragmentLink": {
-											"value_i18n": {
-											}
+											"value_i18n": {}
 										},
 										"text": {
 											"mapping": {
-												"fieldKey": "ImageAuthor",
+												"fieldKey": "ObjectField_imageAuthor",
 												"itemReference": {
 													"contextSource": "DisplayPageItem"
 												}
@@ -292,19 +244,17 @@
 							"fragment": {
 								"key": "masterclass-text-block"
 							},
-							"fragmentConfig": {
-							},
+							"fragmentConfig": {},
 							"fragmentFields": [
 								{
 									"id": "element-text",
 									"value": {
 										"fragmentLink": {
-											"value_i18n": {
-											}
+											"value_i18n": {}
 										},
 										"text": {
 											"mapping": {
-												"fieldKey": "Body",
+												"fieldKey": "ObjectField_body",
 												"itemReference": {
 													"contextSource": "DisplayPageItem"
 												}
@@ -387,15 +337,13 @@
 									"fragment": {
 										"key": "masterclass-text-block"
 									},
-									"fragmentConfig": {
-									},
+									"fragmentConfig": {},
 									"fragmentFields": [
 										{
 											"id": "element-text",
 											"value": {
 												"fragmentLink": {
-													"value_i18n": {
-													}
+													"value_i18n": {}
 												},
 												"text": {
 													"value_i18n": {
@@ -426,8 +374,7 @@
 											"id": "element-text",
 											"value": {
 												"fragmentLink": {
-													"value_i18n": {
-													}
+													"value_i18n": {}
 												},
 												"text": {
 													"value_i18n": {
@@ -451,8 +398,7 @@
 									"fragmentConfig": {
 										"buttonType": "primary"
 									},
-									"fragmentFields": [
-									],
+									"fragmentFields": [],
 									"fragmentStyle": {
 										"marginBottom": "4"
 									}
@@ -464,15 +410,13 @@
 									"fragment": {
 										"key": "masterclass-text-block"
 									},
-									"fragmentConfig": {
-									},
+									"fragmentConfig": {},
 									"fragmentFields": [
 										{
 											"id": "element-text",
 											"value": {
 												"fragmentLink": {
-													"value_i18n": {
-													}
+													"value_i18n": {}
 												},
 												"text": {
 													"value_i18n": {
@@ -542,8 +486,7 @@
 											"id": "element-text",
 											"value": {
 												"fragmentLink": {
-													"value_i18n": {
-													}
+													"value_i18n": {}
 												},
 												"text": {
 													"value_i18n": {
@@ -593,8 +536,7 @@
 															}
 														}
 													},
-													"value_i18n": {
-													}
+													"value_i18n": {}
 												},
 												"text": {
 													"value_i18n": {
@@ -615,7 +557,7 @@
 							"collectionConfig": {
 								"collectionReference": {
 									"className": "com.liferay.asset.list.model.AssetListEntry",
-									"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"
+									"classPK": "[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"
 								},
 								"collectionType": "Collection"
 							},
@@ -629,8 +571,7 @@
 						"pageElements": [
 							{
 								"definition": {
-									"collectionItemConfig": {
-									}
+									"collectionItemConfig": {}
 								},
 								"pageElements": [
 									{
@@ -648,7 +589,7 @@
 														"fragmentImage": {
 															"url": {
 																"mapping": {
-																	"fieldKey": "MainImage",
+																	"fieldKey": "ObjectField_image",
 																	"itemReference": {
 																		"contextSource": "CollectionItem"
 																	}
@@ -659,55 +600,20 @@
 															"value": {
 																"href": {
 																	"mapping": {
-																		"fieldKey": "displayPageURL",
+																		"fieldKey": "ObjectEntry_displayPageURL",
 																		"itemReference": {
 																			"contextSource": "CollectionItem"
 																		}
 																	}
 																}
 															},
-															"value_i18n": {
-															}
+															"value_i18n": {}
 														}
 													}
 												}
 											],
 											"fragmentStyle": {
 												"marginBottom": "3"
-											}
-										},
-										"type": "Fragment"
-									},
-									{
-										"definition": {
-											"fragment": {
-												"key": "masterclass-text-block"
-											},
-											"fragmentConfig": {
-											},
-											"fragmentFields": [
-												{
-													"id": "element-text",
-													"value": {
-														"fragmentLink": {
-															"value_i18n": {
-															}
-														},
-														"text": {
-															"mapping": {
-																"fieldKey": "masterclass",
-																"itemReference": {
-																	"contextSource": "CollectionItem"
-																}
-															}
-														}
-													}
-												}
-											],
-											"fragmentStyle": {
-												"fontFamily": "fontFamilySansSerif",
-												"marginBottom": "2",
-												"textColor": "gray600Color"
 											}
 										},
 										"type": "Fragment"
@@ -729,19 +635,18 @@
 															"value": {
 																"href": {
 																	"mapping": {
-																		"fieldKey": "displayPageURL",
+																		"fieldKey": "ObjectEntry_displayPageURL",
 																		"itemReference": {
 																			"contextSource": "CollectionItem"
 																		}
 																	}
 																}
 															},
-															"value_i18n": {
-															}
+															"value_i18n": {}
 														},
 														"text": {
 															"mapping": {
-																"fieldKey": "Title",
+																"fieldKey": "ObjectField_title",
 																"itemReference": {
 																	"contextSource": "CollectionItem"
 																}
@@ -772,15 +677,14 @@
 															"value": {
 																"href": {
 																	"mapping": {
-																		"fieldKey": "displayPageURL",
+																		"fieldKey": "ObjectEntry_displayPageURL",
 																		"itemReference": {
 																			"contextSource": "CollectionItem"
 																		}
 																	}
 																}
 															},
-															"value_i18n": {
-															}
+															"value_i18n": {}
 														}
 													}
 												}
@@ -825,8 +729,7 @@
 					{
 						"definition": {
 							"widgetInstance": {
-								"widgetConfig": {
-								},
+								"widgetConfig": {},
 								"widgetName": "com_liferay_comment_page_comments_web_portlet_PageCommentsPortlet"
 							}
 						},

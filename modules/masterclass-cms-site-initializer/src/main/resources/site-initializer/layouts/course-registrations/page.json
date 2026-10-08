@@ -1,9 +1,9 @@
 {
-	"friendlyURL": "/account-settings",
+	"friendlyURL": "/course-registrations",
 	"hidden": false,
-	"name": "Account Settings",
+	"name": "Course Registrations",
 	"name_i18n": {
-		"en_US": "Account Settings"
+		"en_US": "Course Registrations"
 	},
 	"permissions": [
 		{
