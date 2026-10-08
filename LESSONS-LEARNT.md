@@ -21,7 +21,7 @@ Gemini.
 **Root cause.** A portal bug, set off by our field names. The editor form assigns request
 parameters to a field by **prefix**, so the `image` field also claimed the
 `imageAuthor` text and failed attachment validation. The real error was logged only at
-DEBUG; the UI showed a generic toast. Issue #8, skill fix PR #9.
+DEBUG; the UI showed a generic toast. Issue peterrichards-lr/devcon2026#8; skill fix #28, data fix #29.
 
 ### Lessons
 
@@ -70,7 +70,7 @@ DEBUG; the UI showed a generic toast. Issue #8, skill fix PR #9.
    after the database reset. Check the log and the API before acting on what a list
    shows, or you create a second site on top of the first.
 
-1. **The fix was verified, not assumed.** The rename (PR #11) was proven on a clean
+1. **The fix was verified, not assumed.** The rename (#29) was proven on a clean
    baseline: all 8 blogs failed a no-change Publish before, and all 8 saved after, with
    their values intact. That before/after count is the number for the slide.
 
