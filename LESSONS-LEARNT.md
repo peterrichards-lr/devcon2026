@@ -63,6 +63,17 @@ DEBUG; the UI showed a generic toast. Issue #8, skill fix PR #9.
    and the reset brought back an old batch zip that would have run against the clean
    database. Say out loud who is driving the environment.
 
+1. **The UI is not the source of truth.** After the reset the new site did not appear in
+   the Sites list, which read as "the site initializer never ran". It had: the log said
+   `Initialized … in 14722 ms`, and the site answered over the API and at its URL. The
+   list is served from the search index, and the shared Elasticsearch index was stale
+   after the database reset. Check the log and the API before acting on what a list
+   shows, or you create a second site on top of the first.
+
+1. **The fix was verified, not assumed.** The rename (PR #11) was proven on a clean
+   baseline: all 8 blogs failed a no-change Publish before, and all 8 saved after, with
+   their values intact. That before/after count is the number for the slide.
+
 ---
 
 ## Earlier, from `.agent-state.md`
