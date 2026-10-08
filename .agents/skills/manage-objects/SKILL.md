@@ -630,14 +630,16 @@ Separate from the reserved list, and the opposite of its "exact match" reassuran
 
 The editor form is parsed by prefix. `InfoRequestFieldValuesProviderHelper._getInputNames` assigns a request parameter to a field when `parameterName.startsWith(infoField.getUniqueId())`, so `ObjectField_image` also claims `ObjectField_imageAuthor` and `ObjectField_imageAuthor_<languageId>`. `ObjectEntryUtil.toProperties` puts each into `image`, the last one wins, and attachment validation rejects the text: `ObjectEntryValuesException$InvalidValue: The value is invalid for object field "image"`. That is logged only at DEBUG on `ObjectEntryInfoItemExceptionRequestHandler`.
 
-**Localization decides whether it shows**, which is why a hand built copy appears to disprove it. Verified on 2026.q3.5 with copies of one definition:
+**Localization decides whether it shows**, which is why a hand built copy appears to disprove it. Verified on 2026.q3.5 with copies of one definition, a no-change Publish each, with and without a file in `image`:
 
-| Longer field (`imageAuthor`) | Publish, unchanged |
-| --- | --- |
-| `"localized": true` | Fails, with or without a value in the shorter field |
-| `"localized": false` (the UI default) | Saves |
+| Shorter field (`image`, Attachment) | Longer field (`imageAuthor`, Text) | Publish, unchanged |
+| --- | --- | --- |
+| not localized | localized | **Fails** — the shape `ElearningBlog` shipped with |
+| not localized | not localized | Saves |
+| localized | localized | Saves |
+| localized | not localized | Saves |
 
-Localized, the form also posts one `_<languageId>` parameter per locale, and nothing overwrites those. Not localized, the only stray key happens to be overwritten by the right field — order dependent, not a fix. Emptying the longer field also "works", because a blank value passes validation; that is how it gets misread as bad data.
+A non-localized field claims matching parameter names as they are, so `image` keeps `ObjectField_imageAuthor_<languageId>` — one per locale, and nothing else writes those keys. A localized field keeps only names ending in a language ID and strips the suffix, so the stray it collects lands on `ObjectField_imageAuthor`, the same key the real field writes. The three passing rows survive because the right field happens to write that key last. That is ordering, not a fix, so do not "solve" this by flipping `localized` — rename. Emptying the longer field also "works", because a blank value passes validation; that is how it gets misread as bad data.
 
 Rename one of the pair so neither is a prefix — `photoCredit`, or `coverImage` beside `imageAuthor`. A published field cannot be renamed, so on an existing instance this is a new definition and a reprovision. Check a definition before deploying:
 
