@@ -109,6 +109,12 @@ out of them.
    `defaultValue` and `defaultValueType` mandatory on that same field, and `defaultValue`
    must match a picklist entry key an earlier handler created.
 
+   Check the **renamed** field names against each other, not only against the reserved
+   list. Shortening DDM names is where a prefix pair appears — `MainImage` / `ImageAuthor`
+   are safe, `image` / `imageAuthor` are not. If one field name starts with another, every
+   Publish in the CMS editor fails while REST and provisioning succeed; see
+   `manage-objects` → "No Field Name May Be a Prefix of Another".
+
 1. **Relationships.** The foreign key lands on the **child**, named for the **parent**,
    first letter lowercased: `r_<relationshipName>_c_<parent>Id`. Getting it wrong is
    silent — the unknown key is ignored, the child is created with the FK at `0`, and the
@@ -153,6 +159,7 @@ introduced:
 | No `name<hex>` relationship names inside collection provider class names | Error |
 | Tree scoped tokens (`ASSET_LIST_ENTRY_ID`, `LIST_TYPE_DEFINITION_ID`, `DDM_*`, `DOCUMENT_*`, `ROLE_ID`, `LAYOUT_ID`) resolve within this tree | Error |
 | Company scoped tokens (`OBJECT_DEFINITION_*`) resolve against this tree or a sibling batch CET | Warning |
+| No object field name is a prefix of another field name in the same definition | Error |
 | Every file is valid JSON and valid UTF-8 | Error |
 | `resource-permissions.json` uses `scope` `"1"` or `"2"`, never `"3"` | Warning |
 
