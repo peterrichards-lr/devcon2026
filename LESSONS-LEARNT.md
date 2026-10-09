@@ -50,6 +50,12 @@ collections to the Space. Issue peterrichards-lr/devcon2026#13 has the batch hal
 1. **Silent fallbacks compound.** `!{}` in the template, 404 for a refused guest, an
    importer that drops what it cannot validate: each hid the next problem.
 
+1. **A 200 is not an image.** The first fix for the missing blog image produced an empty
+   file. Every URL for it returned `200 image/jpeg` with zero bytes, so an automated
+   check passed while the card stayed blank, and a person looking at the page caught it.
+   Checking content size, not status, found it in one step (rlluis/devcon2026#43).
+   *Slide angle: verify the thing the user sees, not the thing that is easy to assert.*
+
 ---
 
 ## 2026-10-09 — The modules that forgot their numbers
