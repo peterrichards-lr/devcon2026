@@ -100,7 +100,10 @@
         {
             "body": "<p>To help you navigate the complexities of modern corporate leadership, we have compiled twenty-five invaluable tips directly from leading executive coaches, successful CEOs, and veteran management consultants who have successfully steered global teams through rapid change.</p> <h3>Focus on Clear Expectations</h3> <p>Ambiguity is the single greatest enemy of team productivity. Ensure that every team member understands their specific responsibilities, key performance indicators, and how their day-to-day contributions align directly with the broader strategic objectives of the organization.</p> <h3>Listen Twice as Much as You Speak</h3> <p>Effective management begins with active listening. By dedicating time to understand your team's perspectives, challenges, and aspirations during regular one-on-ones, you can gain deep insights that help you make better, more informed operational decisions.</p> <h3>Build Resilience Through Adaptability</h3> <p>In a volatile business environment, rigidity leads to failure. Encourage a culture of agility and resilience within your team, where members are comfortable pivoting strategies in response to real-time market feedback, user testing, and evolving customer needs.</p>",
             "externalReferenceCode": "BLOG-09",
-            "image": null,
+            "image": {
+                "externalReferenceCode": "FILE-BLOG-09",
+                "name": "blog_09.jpg"
+            },
             "photoCredit": "Photo by Ivan Samkov from Pexels.",
             "scopeKey": "eLearning",
             "subtitle": "Accelerate your professional leadership development with twenty-five actionable, highly practical tips compiled directly from the world's most successful and experienced management consultants and executives.",
