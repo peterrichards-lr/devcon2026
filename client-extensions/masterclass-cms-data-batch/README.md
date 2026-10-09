@@ -8,14 +8,19 @@ relationships — belongs to `modules/masterclass-cms-site-initializer`, not her
 ## Deploy order matters, and nothing enforces it
 
 ```
-1. deploy modules/masterclass-cms-site-initializer
-2. create the site from it
-3. deploy this client extension
+1. deploy modules/masterclass-cms-workarounds
+2. deploy modules/masterclass-cms-site-initializer
+3. create the site from it
+4. deploy this client extension
 ```
+
+Step 1 has to come before step 3. The workarounds module corrects collections and
+attachment mappings **as the site saves them**; a site created without it keeps the
+uncorrected versions until it is recreated. See `modules/masterclass-cms-workarounds/README.md`.
 
 A client extension runs its batch files **when it deploys**. The site initializer runs
 **when a site is created from it**. The Space is created by the initializer, so it does not
-exist until step 2 — and every file here is scoped to it.
+exist until step 3 — and every file here is scoped to it.
 
 Deploy this before the site exists and the import fails:
 
