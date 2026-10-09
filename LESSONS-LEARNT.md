@@ -11,6 +11,35 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-09 — The modules that forgot their numbers
+
+**What happened.** Rafa found every course module showing an empty duration and `0` for
+module number and lesson count. The module batch file had all three values, so the data
+looked right. The bad import was the one that ran **after** it.
+
+**Root cause.** The course batch nests its modules, teachers and sessions by reference:
+just an external reference code and a title. Liferay doesn't treat a nested item as a
+link. It upserts it with a full replace, so every field the item leaves out is reset.
+Courses imported last, so they blanked the modules, and very likely teacher photos and
+descriptions too. Issue peterrichards-lr/devcon2026#13.
+
+### Lessons
+
+1. **The file with the bug isn't the file with the symptom.** Reading the module data
+   proves nothing. The defect was in a different file, two steps later in the import.
+   *Slide angle: when correct data arrives wrong, look at what touched it afterwards.*
+
+1. **The obvious fix didn't work.** `PARTIAL_UPDATE` looks like the answer, but on a fresh
+   bundle the course doesn't exist yet. It takes the create path, which ignores that
+   setting. Reading the source caught this before we shipped a fix that only worked on
+   a second deploy.
+
+1. **File numbering can be load bearing.** The fix was to import courses first and let
+   the later files overwrite the stubs. Nothing enforces that order except the file
+   names, so the README now says why.
+
+---
+
 ## 2026-10-08 — The blog that would not save
 
 **What happened.** Editing any `ElearningBlog` entry in the CMS and clicking Publish
