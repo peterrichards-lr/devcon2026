@@ -154,27 +154,20 @@
 					{
 						"definition": {
 							"fragment": {
-								"key": "masterclass-image"
+								"key": "BASIC_COMPONENT-html"
 							},
-							"fragmentConfig": {
-								"imageSize": "w-100"
-							},
+							"fragmentConfig": {},
 							"fragmentFields": [
 								{
-									"id": "image-square",
+									"id": "element-html",
 									"value": {
-										"fragmentImage": {
-											"url": {
-												"mapping": {
-													"fieldKey": "ObjectField_image",
-													"itemReference": {
-														"contextSource": "DisplayPageItem"
-													}
+										"html": {
+											"mapping": {
+												"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Blogs ShowImage$]",
+												"itemReference": {
+													"contextSource": "DisplayPageItem"
 												}
 											}
-										},
-										"fragmentLink": {
-											"value_i18n": {}
 										}
 									}
 								}
@@ -182,17 +175,9 @@
 							"fragmentStyle": {
 								"marginBottom": "6",
 								"maxWidth": "100%",
-								"shadow": "boxShadowLg",
 								"width": "880px"
 							},
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"marginBottom": "4"
-									},
-									"id": "tablet"
-								}
-							]
+							"indexed": true
 						},
 						"type": "Fragment"
 					},
@@ -577,44 +562,28 @@
 									{
 										"definition": {
 											"fragment": {
-												"key": "masterclass-image"
+												"key": "BASIC_COMPONENT-html"
 											},
-											"fragmentConfig": {
-												"imageSize": "w-100"
-											},
+											"fragmentConfig": {},
 											"fragmentFields": [
 												{
-													"id": "image-square",
+													"id": "element-html",
 													"value": {
-														"fragmentImage": {
-															"url": {
-																"mapping": {
-																	"fieldKey": "ObjectField_image",
-																	"itemReference": {
-																		"contextSource": "CollectionItem"
-																	}
+														"html": {
+															"mapping": {
+																"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Blogs ShowImage$]",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
 																}
 															}
-														},
-														"fragmentLink": {
-															"value": {
-																"href": {
-																	"mapping": {
-																		"fieldKey": "ObjectEntry_displayPageURL",
-																		"itemReference": {
-																			"contextSource": "CollectionItem"
-																		}
-																	}
-																}
-															},
-															"value_i18n": {}
 														}
 													}
 												}
 											],
 											"fragmentStyle": {
 												"marginBottom": "3"
-											}
+											},
+											"indexed": true
 										},
 										"type": "Fragment"
 									},

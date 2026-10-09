@@ -1,0 +1,7 @@
+{
+	"className": "com.liferay.template.model.TemplateEntry",
+	"ddmTemplateKey": "COURSE-SHOWVIDEO",
+	"infoItemClassName": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]",
+	"name": "Courses ShowVideo",
+	"resourceClassName": "com.liferay.template.model.TemplateEntry"
+}

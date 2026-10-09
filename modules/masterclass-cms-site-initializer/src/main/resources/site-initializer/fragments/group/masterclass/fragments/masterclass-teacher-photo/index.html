@@ -1,0 +1,59 @@
+[#assign photoUrl = "" /]
+[#assign teacherName = "" /]
+[#assign docId = 0 /]
+
+[#assign req = (request)!(themeDisplay.getRequest())! /]
+
+[#if (req?has_content)]
+	[#-- 1. Check if item is directly available (Teacher) --]
+	[#assign currentItem = (req.getAttribute("COLLECTION_INFO_ITEM"))!(req.getAttribute("INFO_ITEM"))! /]
+	
+	[#if (currentItem?has_content && currentItem.getValues??)]
+		[#assign valMap = currentItem.getValues()!{} /]
+		[#if (valMap["photo"]?? && valMap["photo"]?string != "0")]
+			[#assign docId = valMap["photo"] /]
+			[#assign teacherName = (valMap["title"])!"" /]
+		[/#if]
+	[/#if]
+
+	[#-- 2. If docId not found directly, get from Course related teachers sequence --]
+	[#if (docId == 0 && currentItem?has_content && currentItem.getObjectEntryId??)]
+		[#assign courseId = (currentItem.getObjectEntryId())!0 /]
+		[#if (restClient?? && courseId != 0)]
+			[#assign teacherIdx = ((req.getAttribute("LFR_TEACHER_PHOTO_INDEX"))!0)?number /]
+			[#assign _ = req.setAttribute("LFR_TEACHER_PHOTO_INDEX", teacherIdx + 1)! /]
+
+			[#assign teachersRes = (req.getAttribute("LFR_CACHED_TEACHERS"))! /]
+			[#if (!teachersRes?has_content)]
+				[#assign teachersRes = (restClient.get("/c/elearningcourses/" + courseId?string + "/elearningCourseTeachers?nestedFields=photo"))!{} /]
+				[#assign _ = req.setAttribute("LFR_CACHED_TEACHERS", teachersRes)! /]
+			[/#if]
+
+			[#if (teachersRes.items?? && teachersRes.items?size > teacherIdx)]
+				[#assign currentTeacher = teachersRes.items[teacherIdx] /]
+				[#assign teacherName = (currentTeacher.title)!"" /]
+				[#if (currentTeacher.photo??)]
+					[#assign docId = (currentTeacher.photo.id)!0 /]
+				[/#if]
+			[/#if]
+		[/#if]
+	[/#if]
+[/#if]
+
+[#-- 3. Fetch clean public document URL via restClient --]
+[#if (docId?has_content && docId?string != "0")]
+	[#if (restClient??)]
+		[#assign myDoc = (restClient.get("/headless-delivery/v1.0/documents/" + docId?string))!{} /]
+		[#if (myDoc.contentUrl)??]
+			[#assign photoUrl = myDoc.contentUrl /]
+		[/#if]
+	[/#if]
+[/#if]
+
+<div class="component-image overflow-hidden masterclass-teacher-photo">
+	[#if (photoUrl?has_content)]
+		<img alt="${teacherName}" class="w-100 h-auto" src="${photoUrl}" />
+	[#else]
+		<img alt="Teacher Photo" class="w-100 h-auto" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABECAYAAABK3PEEAAAACXBIWXMAAC4jAAAuIwF4pT92AAABBUlEQVR4Xu3VAQkAIBDFUO0fRLCD2RSM8dg12Mbn5trnjo41MAvMtv1gBbb7FhjvW+AC6wZwvn5wgXEDOF4LLjBuAMdrwQXGDeB4LbjAuAEcrwUXGDeA47XgAuMGcLwWXGDcAI7XgguMG8DxWnCBcQM4XgsuMG4Ax2vBBcYN4DjteAC4wZwvBZcYNwAjteCC4wbwPFacIFxAzheCy4wbgDHa8EFxg3geC24wLgBHK8FFxg3gOO14ALjBnC8Flxg3ACO14ILjBvA8VpwgXEDOF4LLjBuAMdrwQXGDeB4LbjAuAEcrwUXGDeA47XgAuMGcLwWXGDcAI73ADVez7kdh2y/AAAAAElFTkSuQmCC" />
+	[/#if]
+</div>

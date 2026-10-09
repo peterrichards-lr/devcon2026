@@ -362,96 +362,92 @@
 										"pageElements": [
 											{
 												"definition": {
-													"fragmentStyle": {
-														"marginBottom": "6"
+													"fragment": {
+														"key": "BASIC_COMPONENT-html"
 													},
-													"fragmentViewports": [
+													"fragmentConfig": {},
+													"fragmentFields": [
 														{
-															"fragmentViewportStyle": {
-																"marginBottom": "5"
-															},
-															"id": "tablet"
+															"id": "element-html",
+															"value": {
+																"html": {
+																	"mapping": {
+																		"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Blogs ShowImage$]",
+																		"itemReference": {
+																			"contextSource": "CollectionItem"
+																		}
+																	}
+																}
+															}
 														}
 													],
-													"indexed": true,
-													"layout": {
-														"marginBottom": 6,
-														"widthType": "Fluid"
-													}
+													"fragmentStyle": {
+														"marginBottom": "4"
+													},
+													"indexed": true
 												},
-												"pageElements": [
-													{
-														"definition": {
-															"fragment": {
-																"key": "masterclass-image"
-															},
-															"fragmentConfig": {
-																"imageSize": "w-100"
-															},
-															"fragmentFields": [
-																{
-																	"id": "image-square",
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "masterclass-heading"
+													},
+													"fragmentConfig": {
+														"displayLevel": "0",
+														"headingLevel": "h3"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {
 																	"value": {
-																		"fragmentImage": {
-																			"url": {
-																				"mapping": {
-																					"fieldKey": "ObjectField_image",
-																					"itemReference": {
-																						"contextSource": "CollectionItem"
-																					}
-																				}
-																			}
-																		},
-																		"fragmentLink": {
-																			"value": {
-																				"href": {
-																					"mapping": {
-																						"fieldKey": "ObjectEntry_displayPageURL",
-																						"itemReference": {
-																							"contextSource": "CollectionItem"
-																						}
-																					}
+																		"href": {
+																			"mapping": {
+																				"fieldKey": "ObjectEntry_displayPageURL",
+																				"itemReference": {
+																					"contextSource": "CollectionItem"
 																				}
 																			}
 																		}
 																	}
+																},
+																"text": {
+																	"mapping": {
+																		"fieldKey": "ObjectField_title",
+																		"itemReference": {
+																			"contextSource": "CollectionItem"
+																		}
+																	}
 																}
-															],
-															"fragmentStyle": {
-																"marginBottom": "4"
-															},
-															"indexed": true
-														},
-														"type": "Fragment"
+															}
+														}
+													],
+													"fragmentStyle": {
+														"marginBottom": "3"
 													},
-													{
-														"definition": {
-															"fragment": {
-																"key": "masterclass-heading"
-															},
-															"fragmentConfig": {
-																"displayLevel": "0",
-																"headingLevel": "h3"
-															},
-															"fragmentFields": [
-																{
-																	"id": "element-text",
+													"indexed": true
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "masterclass-link"
+													},
+													"fragmentConfig": {
+														"linkSize": "sm"
+													},
+													"fragmentFields": [
+														{
+															"id": "link",
+															"value": {
+																"fragmentLink": {
 																	"value": {
-																		"fragmentLink": {
-																			"value": {
-																				"href": {
-																					"mapping": {
-																						"fieldKey": "ObjectEntry_displayPageURL",
-																						"itemReference": {
-																							"contextSource": "CollectionItem"
-																						}
-																					}
-																				}
-																			}
-																		},
-																		"text": {
+																		"href": {
 																			"mapping": {
-																				"fieldKey": "ObjectField_title",
+																				"fieldKey": "ObjectEntry_displayPageURL",
 																				"itemReference": {
 																					"contextSource": "CollectionItem"
 																				}
@@ -459,47 +455,12 @@
 																		}
 																	}
 																}
-															],
-															"fragmentStyle": {
-																"marginBottom": "3"
-															},
-															"indexed": true
-														},
-														"type": "Fragment"
-													},
-													{
-														"definition": {
-															"fragment": {
-																"key": "masterclass-link"
-															},
-															"fragmentConfig": {
-																"linkSize": "sm"
-															},
-															"fragmentFields": [
-																{
-																	"id": "link",
-																	"value": {
-																		"fragmentLink": {
-																			"value": {
-																				"href": {
-																					"mapping": {
-																						"fieldKey": "ObjectEntry_displayPageURL",
-																						"itemReference": {
-																							"contextSource": "CollectionItem"
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															],
-															"indexed": true
-														},
-														"type": "Fragment"
-													}
-												],
-												"type": "Section"
+															}
+														}
+													],
+													"indexed": true
+												},
+												"type": "Fragment"
 											}
 										],
 										"type": "CollectionItem"

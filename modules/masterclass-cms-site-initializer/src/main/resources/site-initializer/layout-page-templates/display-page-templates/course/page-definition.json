@@ -374,7 +374,7 @@
 																			"value": {
 																				"href": {
 																					"mapping": {
-																						"fieldKey": "ObjectField_courseOnePagerSheet#downloadURL",
+																						"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowPdf$]",
 																						"itemReference": {
 																							"contextSource": "DisplayPageItem"
 																						}
@@ -427,32 +427,29 @@
 											{
 												"definition": {
 													"fragment": {
-														"key": "masterclass-image"
+														"key": "BASIC_COMPONENT-html"
 													},
-													"fragmentConfig": {
-														"imageSize": "w-100"
-													},
+													"fragmentConfig": {},
 													"fragmentFields": [
 														{
-															"id": "image-square",
+															"id": "element-html",
 															"value": {
-																"fragmentImage": {
-																	"url": {
-																		"mapping": {
-																			"fieldKey": "ObjectField_representativeImage#fileURL",
-																			"itemReference": {
-																				"contextSource": "DisplayPageItem"
-																			}
+																"html": {
+																	"mapping": {
+																		"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowImage$]",
+																		"itemReference": {
+																			"contextSource": "DisplayPageItem"
 																		}
 																	}
-																},
-																"fragmentLink": {}
+																}
 															}
 														}
 													],
+													"fragmentStyle": {
+														"marginLeft": "4"
+													},
 													"indexed": true
 												},
-												"id": "c87c1fbb-fb7d-bb26-f4ec-bc7e810c5019",
 												"type": "Fragment"
 											}
 										],
@@ -527,7 +524,7 @@
 												"fragmentLink": {},
 												"text": {
 													"mapping": {
-														"fieldKey": "ObjectField_referenceVideo#fileURL",
+														"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowVideo$]",
 														"itemReference": {
 															"contextSource": "DisplayPageItem"
 														}
@@ -1565,35 +1562,15 @@
 									{
 										"definition": {
 											"fragment": {
-												"key": "masterclass-image"
+												"key": "masterclass-teacher-photo"
 											},
-											"fragmentConfig": {
-												"imageSize": "w-100"
-											},
-											"fragmentFields": [
-												{
-													"id": "image-square",
-													"value": {
-														"fragmentImage": {
-															"url": {
-																"mapping": {
-																	"fieldKey": "ObjectField_photo",
-																	"itemReference": {
-																		"contextSource": "CollectionItem"
-																	}
-																}
-															}
-														},
-														"fragmentLink": {}
-													}
-												}
-											],
+											"fragmentConfig": {},
+											"fragmentFields": [],
 											"fragmentStyle": {
 												"marginBottom": "4"
 											},
 											"indexed": true
 										},
-										"id": "361478f7-b4a5-4759-3d1e-cd47eb3a567e",
 										"type": "Fragment"
 									},
 									{

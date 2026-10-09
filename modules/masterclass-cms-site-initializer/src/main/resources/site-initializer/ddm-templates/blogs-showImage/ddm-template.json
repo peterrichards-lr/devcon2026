@@ -1,0 +1,7 @@
+{
+	"className": "com.liferay.template.model.TemplateEntry",
+	"ddmTemplateKey": "BLOG-SHOWIMAGE",
+	"infoItemClassName": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningBlog$]",
+	"name": "Blogs ShowImage",
+	"resourceClassName": "com.liferay.template.model.TemplateEntry"
+}
