@@ -294,6 +294,20 @@
             }
         },
         {
+            "externalReferenceCode": "CMS-DOC-BLOG-03",
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-03",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_03.jpg"
+            },
+            "objectEntryFolderExternalReferenceCode": "BLOGS",
+            "scopeKey": "eLearning",
+            "title": "blog_03.jpg",
+            "title_i18n": {
+                "en_US": "blog_03.jpg"
+            }
+        },
+        {
             "externalReferenceCode": "CMS-DOC-BLOG-04",
             "file": {
                 "externalReferenceCode": "FILE-BLOG-04",
