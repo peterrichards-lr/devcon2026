@@ -30,9 +30,11 @@ the field with a token instead, and `FragmentEntryLinkModelListener` resolves it
 | Where the mapping is | Put the token in | Becomes |
 | --- | --- | --- |
 | A collection item | the mapping's `fieldKey`, `contextSource` `CollectionItem` | `collectionFieldId` |
-| A display page | the editable's literal value (`value_i18n`) | `mappedField` |
+| A display page image or text | the editable's literal value (`value_i18n`) | `mappedField` |
+| A display page link | the link's literal `href` (`"href": {"value": …}`) | `mappedField` in the editable's `config` |
 
-A display page needs the literal form because the importer validates a display page
+Use `#fileURL` for an image and `#downloadURL` for a link or a URL shown as text. A
+display page needs the literal form because the importer validates a display page
 mapping against the live fields and drops it when it does not match.
 
 ## Removing it
