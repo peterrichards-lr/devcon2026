@@ -362,6 +362,20 @@
             "title_i18n": {
                 "en_US": "blog_08.jpg"
             }
+        },
+        {
+            "externalReferenceCode": "CMS-DOC-BLOG-09",
+            "file": {
+                "externalReferenceCode": "FILE-BLOG-09",
+                "fileBase64": "@batch_object_entry_file_base64@",
+                "name": "blog_09.jpg"
+            },
+            "objectEntryFolderExternalReferenceCode": "BLOGS",
+            "scopeKey": "eLearning",
+            "title": "blog_09.jpg",
+            "title_i18n": {
+                "en_US": "blog_09.jpg"
+            }
         }
     ]
 }
