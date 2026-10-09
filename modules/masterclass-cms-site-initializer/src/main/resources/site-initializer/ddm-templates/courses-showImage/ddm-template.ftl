@@ -1,13 +1,7 @@
-<#-- Attachment subfields are keyed by numeric object field ID, so find the image by pattern rather than by name -->
-<#assign imageURL = "" />
-<#list .data_model?keys as key>
-	<#if key?starts_with("ObjectField_") && key?ends_with("#fileURL")>
-		<#assign value = (.data_model[key].getData())!"" />
-		<#if value?has_content>
-			<#assign imageURL = value />
-		</#if>
+<#if (ObjectField_representativeImage.getData())??>
+	<#assign mydocID=ObjectField_representativeImage.getData()/>
+	<#assign myImage = (restClient.get("/headless-delivery/v1.0/documents/" + mydocID))!{}/>
+	<#if (myImage.contentUrl)??>
+		<img class="w-100 h-auto" src="${myImage.contentUrl}">
 	</#if>
-</#list>
-<#if imageURL?has_content>
-	<img class="w-100 h-auto" src="${imageURL}">
 </#if>
