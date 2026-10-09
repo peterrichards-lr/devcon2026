@@ -2164,21 +2164,23 @@
 											{
 												"definition": {
 													"fragment": {
-														"key": "BASIC_COMPONENT-html"
+														"key": "BASIC_COMPONENT-image"
 													},
-													"fragmentConfig": {},
 													"fragmentFields": [
 														{
-															"id": "element-html",
+															"id": "image-square",
 															"value": {
-																"html": {
-																	"mapping": {
-																		"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Blogs ShowImage$]",
-																		"itemReference": {
-																			"contextSource": "CollectionItem"
+																"fragmentImage": {
+																	"url": {
+																		"mapping": {
+																			"fieldKey": "[$OBJECT_FIELD_KEY:ElearningBlog:image#fileURL$]",
+																			"itemReference": {
+																				"contextSource": "CollectionItem"
+																			}
 																		}
 																	}
-																}
+																},
+																"fragmentLink": {}
 															}
 														}
 													],

@@ -1,7 +1,0 @@
-{
-	"className": "com.liferay.template.model.TemplateEntry",
-	"ddmTemplateKey": "COURSE-SHOWIMAGE",
-	"infoItemClassName": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]",
-	"name": "Courses ShowImage",
-	"resourceClassName": "com.liferay.template.model.TemplateEntry"
-}
