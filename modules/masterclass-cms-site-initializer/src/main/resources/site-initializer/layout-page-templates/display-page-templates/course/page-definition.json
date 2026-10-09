@@ -373,12 +373,7 @@
 																		"fragmentLink": {
 																			"value": {
 																				"href": {
-																					"mapping": {
-																						"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowPdf$]",
-																						"itemReference": {
-																							"contextSource": "DisplayPageItem"
-																						}
-																					}
+																					"value": "[$OBJECT_FIELD_KEY:ElearningCourse:courseOnePagerSheet#downloadURL$]"
 																				},
 																				"target": "Blank"
 																			}
@@ -518,11 +513,8 @@
 											"value": {
 												"fragmentLink": {},
 												"text": {
-													"mapping": {
-														"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowVideo$]",
-														"itemReference": {
-															"contextSource": "DisplayPageItem"
-														}
+													"value_i18n": {
+														"en_US": "[$OBJECT_FIELD_KEY:ElearningCourse:referenceVideo#downloadURL$]"
 													}
 												}
 											}
