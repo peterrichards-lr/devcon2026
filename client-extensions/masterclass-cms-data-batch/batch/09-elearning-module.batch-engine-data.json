@@ -18,7 +18,7 @@
             "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-1",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Define target audiences, lay out information architectures, and establish navigation structures.</p>",
             "title": "Site Planning and Structure"
         },
@@ -27,7 +27,7 @@
             "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-2",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Learn to manage web content, structures, templates, and map content fields dynamically.</p>",
             "title": "Content Management Foundations"
         },
@@ -36,7 +36,7 @@
             "externalReferenceCode": "MODULE-BUILDING-ENTERPRISE-WEBSITES-LIFERAY-3",
             "moduleNumber": 3,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Leverage Liferay Fragments, Content Pages, and Style Books to craft beautiful and responsive designs.</p>",
             "title": "Modern Page Building"
         },
@@ -45,7 +45,7 @@
             "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-1",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Configure custom element client extensions, host web components, and integrate them onto pages.</p>",
             "title": "Getting Started with Custom Elements"
         },
@@ -54,7 +54,7 @@
             "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-2",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Establish client-side routing and share states between separate custom elements on a page.</p>",
             "title": "Routing and State in React Elements"
         },
@@ -63,7 +63,7 @@
             "externalReferenceCode": "MODULE-MASTERING-FRONTEND-CLIENT-EXTENSIONS-3",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Use CSS variables, design tokens, and style books to make extensions automatically theme-native.</p>",
             "title": "Using Liferay Frontend Tokens"
         },
@@ -72,7 +72,7 @@
             "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-1",
             "moduleNumber": 1,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Create custom object definitions, configure field types, and publish definitions to the database.</p>",
             "title": "Object Definitions and Fields"
         },
@@ -81,7 +81,7 @@
             "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-2",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Create data-driven validation rules and invoke external webhooks using object triggers.</p>",
             "title": "Triggers and Actions"
         },
@@ -90,7 +90,7 @@
             "externalReferenceCode": "MODULE-MASTERING-DATA-MODELING-OBJECTS-3",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Configure 1-to-Many and Many-to-Many relationships between objects and system entities.</p>",
             "title": "Relationship Modeling"
         },
@@ -99,7 +99,7 @@
             "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-1",
             "moduleNumber": 1,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Learn the core architecture of client extensions and how they differ from OSGi bundles.</p>",
             "title": "Client Extensions Overview"
         },
@@ -108,7 +108,7 @@
             "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-2",
             "moduleNumber": 2,
             "numberOfLessons": 4,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Understand the configuration schema, set up environments, and orchestrate client extension bundles.</p>",
             "title": "Configuration via client-extension.yaml"
         },
@@ -117,7 +117,7 @@
             "externalReferenceCode": "MODULE-FOUNDATIONS-CLIENT-EXTENSIONS-3",
             "moduleNumber": 3,
             "numberOfLessons": 3,
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "summary": "<p>Deploy client extension zip archives, configure OAuth2 clients, and secure backend microservices.</p>",
             "title": "Deploying to Liferay SaaS and PaaS"
         }
