@@ -75,7 +75,7 @@
                 "externalReferenceCode": "FILE-COURSE-1-IMAGE",
                 "name": "thumb_video_management.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "shortDescription": "tudents will master how to layout pages using Liferay Content Pages, widgets, and standard layout containers, focusing on building a user-centric navigation experience",
             "title": "Building Enterprise Websites with Liferay"
         },
@@ -141,7 +141,7 @@
                 "externalReferenceCode": "FILE-COURSE-2-IMAGE",
                 "name": "thumb_video_design.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "shortDescription": "This program kicks off with a comprehensive deep-dive into standard custom elements",
             "title": "Mastering Liferay Frontend Client Extensions"
         },
@@ -207,7 +207,7 @@
                 "externalReferenceCode": "FILE-COURSE-3-IMAGE",
                 "name": "thumb_video_marketing.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "shortDescription": "The program starts with custom object modeling, fields setup, and publishing flows",
             "title": "Mastering Data Modeling with Liferay Objects"
         },
@@ -273,7 +273,7 @@
                 "externalReferenceCode": "FILE-COURSE-4-IMAGE",
                 "name": "thumb_video_management.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "shortDescription": "The program introduces the architectural shift from legacy OSGi plugins to client extensions",
             "title": "Foundations of Liferay Client Extensions"
         }

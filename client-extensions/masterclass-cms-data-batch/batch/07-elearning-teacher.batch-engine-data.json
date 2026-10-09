@@ -20,7 +20,7 @@
                 "externalReferenceCode": "FILE-TEACHER-BROOKLYN-SIMMONS",
                 "name": "teacher_brooklyn_simmons.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Brooklyn Simmons"
         },
         {
@@ -30,7 +30,7 @@
                 "externalReferenceCode": "FILE-TEACHER-ESTHER-HOWARD",
                 "name": "teacher_esther_howard.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Esther Howard"
         },
         {
@@ -40,7 +40,7 @@
                 "externalReferenceCode": "FILE-TEACHER-RALPH-EDWARDS",
                 "name": "teacher_ralph_edwards.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Ralph Edwards"
         },
         {
@@ -50,7 +50,7 @@
                 "externalReferenceCode": "FILE-TEACHER-JANE-COOPER",
                 "name": "teacher_jane_cooper.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Jane Cooper"
         },
         {
@@ -60,7 +60,7 @@
                 "externalReferenceCode": "FILE-TEACHER-JEROME-BELL",
                 "name": "teacher_jerome_bell.jpg"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Jerome Bell"
         },
         {
@@ -70,7 +70,7 @@
                 "externalReferenceCode": "FILE-TEACHER-BALAZS-DEMETER",
                 "name": "Balasz.png"
             },
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Balazs Demeter"
         }
     ]

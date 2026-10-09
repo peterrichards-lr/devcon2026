@@ -17,7 +17,7 @@
                 "en_US": "Courses"
             },
             "parentObjectEntryFolderExternalReferenceCode": "L_FILES",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Courses"
         },
         {
@@ -27,7 +27,7 @@
                 "en_US": "Teachers"
             },
             "parentObjectEntryFolderExternalReferenceCode": "L_FILES",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Teachers"
         },
         {
@@ -37,7 +37,7 @@
                 "en_US": "Blogs"
             },
             "parentObjectEntryFolderExternalReferenceCode": "L_FILES",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "title": "Blogs"
         }
     ]

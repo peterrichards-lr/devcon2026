@@ -21,7 +21,7 @@
                 "name": "blog_01.jpg"
             },
             "photoCredit": "Photo by Monstera from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Transitioning from an individual contributor to a management role requires a profound shift in mindset, prioritizing team enablement and strategic delegation over personal execution.",
             "title": "Think you're cut out for doing management?"
         },
@@ -33,7 +33,7 @@
                 "name": "blog_02.jpg"
             },
             "photoCredit": "Photo by fauxels from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Discover the visionary strategies and relentless innovation of the industry's most influential marketing pioneer, who redefined how brands connect with consumers on an emotional level.",
             "title": "Meet the Steve Jobs of the marketing industry"
         },
@@ -45,7 +45,7 @@
                 "name": "blog_04.jpg"
             },
             "photoCredit": "Photo by William Fortunato from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Elevate your creative workflow with our curated selection of the five most powerful and essential tools that are currently transforming the modern graphic and digital design landscape.",
             "title": "5 tools everyone in the design industry should be using"
         },
@@ -57,7 +57,7 @@
                 "name": "blog_05.jpg"
             },
             "photoCredit": "Photo by Fauxels from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "We explore the most common design pitfalls encountered by professional teams, analyzing why they happen and providing practical solutions to align aesthetics with optimal user experience.",
             "title": "When professionals run into problems with design"
         },
@@ -69,7 +69,7 @@
                 "name": "blog_06.jpg"
             },
             "photoCredit": "Photo by Vlada Karpovich from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Celebrate the extraordinary talent, exceptional dedication, and inspiring collaborative spirit of the leading creative professionals who are currently shaping the future of global digital design.",
             "title": "Great people doing a great job in the design industry"
         },
@@ -81,7 +81,7 @@
                 "name": "blog_07.jpg"
             },
             "photoCredit": "Photo by Monstera from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Uncover the highly effective habits, daily routines, and strategic frameworks practiced by top-tier managers to build trust, boost team productivity, and achieve sustainable organizational success.",
             "title": "What the best Management pros do (and you should too)"
         },
@@ -93,7 +93,7 @@
                 "name": "blog_08.jpg"
             },
             "photoCredit": "Photo by William Fortunato from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Show your appreciation with our comprehensive guide to twenty thoughtful, practical, and highly creative gift ideas tailored perfectly for the busy, modern marketing professional.",
             "title": "20 gifts you can give to your marketing boss"
         },
@@ -102,7 +102,7 @@
             "externalReferenceCode": "BLOG-09",
             "image": null,
             "photoCredit": "Photo by Ivan Samkov from Pexels.",
-            "scopeKey": "ELEARNING-SPACE",
+            "scopeKey": "eLearning",
             "subtitle": "Accelerate your professional leadership development with twenty-five actionable, highly practical tips compiled directly from the world's most successful and experienced management consultants and executives.",
             "title": "25 management tips from top industry experts"
         }
