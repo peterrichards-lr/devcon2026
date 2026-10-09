@@ -1,6 +1,17 @@
 [
 	{
 		"actionIds": [
+			"DOWNLOAD_FILE",
+			"VIEW"
+		],
+		"primKey": "0",
+		"resourceName": "[$OBJECT_DEFINITION_CLASS_NAME:CMSBasicDocument$]",
+		"roleName": "Guest",
+		"scope": "1"
+	},
+	{
+		"actionIds": [
+			"DOWNLOAD_IMAGE",
 			"VIEW"
 		],
 		"primKey": "0",
@@ -10,6 +21,9 @@
 	},
 	{
 		"actionIds": [
+			"DOWNLOAD_COURSE_ONE_PAGER_SHEET",
+			"DOWNLOAD_REFERENCE_VIDEO",
+			"DOWNLOAD_REPRESENTATIVE_IMAGE",
 			"VIEW"
 		],
 		"primKey": "0",
@@ -37,6 +51,7 @@
 	},
 	{
 		"actionIds": [
+			"DOWNLOAD_PHOTO",
 			"VIEW"
 		],
 		"primKey": "0",
