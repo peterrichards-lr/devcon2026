@@ -427,28 +427,23 @@
 											{
 												"definition": {
 													"fragment": {
-														"key": "BASIC_COMPONENT-html"
+														"key": "BASIC_COMPONENT-image"
 													},
-													"fragmentConfig": {},
 													"fragmentFields": [
 														{
-															"id": "element-html",
+															"id": "image-square",
 															"value": {
-																"html": {
-																	"mapping": {
-																		"fieldKey": "ddmTemplate__ddmTemplate_[$TEMPLATE_ENTRY_ID:Courses ShowImage$]",
-																		"itemReference": {
-																			"contextSource": "DisplayPageItem"
+																"fragmentImage": {
+																	"url": {
+																		"value_i18n": {
+																			"en_US": "[$OBJECT_FIELD_KEY:ElearningCourse:representativeImage#fileURL$]"
 																		}
 																	}
-																}
+																},
+																"fragmentLink": {}
 															}
 														}
-													],
-													"fragmentStyle": {
-														"marginLeft": "4"
-													},
-													"indexed": true
+													]
 												},
 												"type": "Fragment"
 											}
@@ -786,7 +781,7 @@
 																				"fragmentLink": {},
 																				"text": {
 																					"value_i18n": {
-																						"en_US": "Duration:  "
+																						"en_US": "Duration:\u00a0\u00a0"
 																					}
 																				}
 																			}
@@ -857,7 +852,7 @@
 																				"fragmentLink": {},
 																				"text": {
 																					"value_i18n": {
-																						"en_US": "Max Retakes:  "
+																						"en_US": "Max Retakes:\u00a0\u00a0"
 																					}
 																				}
 																			}
@@ -928,7 +923,7 @@
 																				"fragmentLink": {},
 																				"text": {
 																					"value_i18n": {
-																						"en_US": "Pass Percentage:  "
+																						"en_US": "Pass Percentage:\u00a0\u00a0"
 																					}
 																				}
 																			}
@@ -999,7 +994,7 @@
 																				"fragmentLink": {},
 																				"text": {
 																					"value_i18n": {
-																						"en_US": "Lessons:  "
+																						"en_US": "Lessons:\u00a0\u00a0"
 																					}
 																				}
 																			}
@@ -1070,7 +1065,7 @@
 																				"fragmentLink": {},
 																				"text": {
 																					"value_i18n": {
-																						"en_US": "Quizzes:  "
+																						"en_US": "Quizzes:\u00a0\u00a0"
 																					}
 																				}
 																			}
@@ -1562,14 +1557,26 @@
 									{
 										"definition": {
 											"fragment": {
-												"key": "masterclass-teacher-photo"
+												"key": "BASIC_COMPONENT-image"
 											},
-											"fragmentConfig": {},
-											"fragmentFields": [],
-											"fragmentStyle": {
-												"marginBottom": "4"
-											},
-											"indexed": true
+											"fragmentFields": [
+												{
+													"id": "image-square",
+													"value": {
+														"fragmentImage": {
+															"url": {
+																"mapping": {
+																	"fieldKey": "[$OBJECT_FIELD_KEY:ElearningTeacher:photo#fileURL$]",
+																	"itemReference": {
+																		"contextSource": "CollectionItem"
+																	}
+																}
+															}
+														},
+														"fragmentLink": {}
+													}
+												}
+											]
 										},
 										"type": "Fragment"
 									},
