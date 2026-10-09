@@ -11,6 +11,53 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-09 — The images only the author could see
+
+**What happened.** Rafa's info templates mapped course images, PDFs and video
+correctly when signed in, and not at all on a second machine or as a visitor. An AI
+diagnosis called it a race condition in the site initializer and concluded it could
+not be fixed. It was three separate problems, none of them a race.
+
+**Root causes.**
+- *Not a race.* The dependency graph orders the templates before the display pages
+  through an indirect dependency the diagnosis missed, and the steps run one at a time.
+  A clean first run proved it: every mapping resolved to a real template ID.
+- *Guests were refused, silently, twice.* The templates fetched documents over REST as
+  the visitor, which the Service Access Policy blocks; `!{}` turned the error into empty
+  output. Under that, every attachment download was 404 for a guest, because the file
+  is owned by the CMS Basic Document that uploaded it, and downloading also needs the
+  per field `DOWNLOAD_<FIELD>` action. The servlet reports a guest permission failure as
+  404, not 403.
+- *The tree cannot name an attachment mapping.* Attachment subfields are keyed by
+  numeric object field ID, and the importer drops display page mappings it cannot
+  validate. The info template is a real workaround, not a mistake.
+
+Fixes: guest grants in `resource-permissions.json`, templates that read the URL from
+their own fields, a missing blog image restored, and a removable module that scopes
+collections to the Space. Issue peterrichards-lr/devcon2026#13 has the batch half.
+
+### Lessons
+
+1. **Test as the visitor, on a clean instance, before believing a diagnosis.**
+   Both conditions mattered: signed in hid the permission bugs, and a reused instance
+   made run 2 look fixed.
+   *Slide angle: "works on my machine" now has a second clause: "as me".*
+
+1. **A confident explanation is not evidence.** The race story was detailed, cited
+   real source, and was wrong because it read one dependency list instead of the graph.
+   One clean run settled what an hour of reasoning could not.
+
+1. **Silent fallbacks compound.** `!{}` in the template, 404 for a refused guest, an
+   importer that drops what it cannot validate: each hid the next problem.
+
+1. **A 200 is not an image.** The first fix for the missing blog image produced an empty
+   file. Every URL for it returned `200 image/jpeg` with zero bytes, so an automated
+   check passed while the card stayed blank, and a person looking at the page caught it.
+   Checking content size, not status, found it in one step (rlluis/devcon2026#43).
+   *Slide angle: verify the thing the user sees, not the thing that is easy to assert.*
+
+---
+
 ## 2026-10-09 — The modules that forgot their numbers
 
 **What happened.** Rafa found every course module showing an empty duration and `0` for
