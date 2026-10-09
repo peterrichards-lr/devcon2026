@@ -40,7 +40,9 @@ import org.osgi.service.component.annotations.Reference;
  * <li>
  * A display page mapping is validated by the importer and dropped when it does
  * not resolve, so there the tree puts the token in the editable's literal value
- * instead, and it becomes <code>mappedField</code> here.
+ * instead, and it becomes <code>mappedField</code> here. For a link that value
+ * is the <code>href</code>, which the importer keeps in the editable's
+ * <code>config</code>.
  * </li>
  * </ul>
  *
@@ -98,7 +100,86 @@ public class FragmentEntryLinkModelListener
 			matcher.group(3);
 	}
 
+	private boolean _isLanguageId(String key) {
+		Matcher matcher = _languageIdPattern.matcher(key);
+
+		return matcher.matches();
+	}
+
 	private boolean _resolveEditable(
+		long companyId, JSONObject editableJSONObject) {
+
+		boolean resolved = _resolveMapping(companyId, editableJSONObject);
+
+		JSONObject configJSONObject = editableJSONObject.getJSONObject(
+			"config");
+
+		if ((configJSONObject != null) &&
+			_resolveLink(companyId, configJSONObject)) {
+
+			resolved = true;
+		}
+
+		return resolved;
+	}
+
+	private boolean _resolveLink(long companyId, JSONObject configJSONObject) {
+		String collectionFieldId = configJSONObject.getString(
+			"collectionFieldId");
+
+		Matcher matcher = _pattern.matcher(collectionFieldId);
+
+		if (matcher.matches()) {
+			String fieldKey = _getFieldKey(companyId, matcher);
+
+			if (fieldKey == null) {
+				return false;
+			}
+
+			configJSONObject.put("collectionFieldId", fieldKey);
+
+			return true;
+		}
+
+		// A display page link mapping is dropped on import, so the token
+		// arrives as a literal href, plain or per locale
+
+		Object href = configJSONObject.get("href");
+
+		String fieldKey = null;
+
+		if (href instanceof String) {
+			matcher = _pattern.matcher((String)href);
+
+			if (matcher.matches()) {
+				fieldKey = _getFieldKey(companyId, matcher);
+			}
+		}
+		else if (href instanceof JSONObject) {
+			JSONObject hrefJSONObject = (JSONObject)href;
+
+			for (String key : hrefJSONObject.keySet()) {
+				matcher = _pattern.matcher(hrefJSONObject.getString(key));
+
+				if (matcher.matches()) {
+					fieldKey = _getFieldKey(companyId, matcher);
+
+					break;
+				}
+			}
+		}
+
+		if (fieldKey == null) {
+			return false;
+		}
+
+		configJSONObject.remove("href");
+		configJSONObject.put("mappedField", fieldKey);
+
+		return true;
+	}
+
+	private boolean _resolveMapping(
 		long companyId, JSONObject editableJSONObject) {
 
 		String collectionFieldId = editableJSONObject.getString(
@@ -150,12 +231,6 @@ public class FragmentEntryLinkModelListener
 		editableJSONObject.put("mappedField", fieldKey);
 
 		return true;
-	}
-
-	private boolean _isLanguageId(String key) {
-		Matcher matcher = _languageIdPattern.matcher(key);
-
-		return matcher.matches();
 	}
 
 	private void _resolveTokens(FragmentEntryLink fragmentEntryLink) {
