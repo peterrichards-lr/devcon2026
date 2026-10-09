@@ -1,7 +1,12 @@
-<#if (ObjectField_courseOnePagerSheet.getData())??>
-	<#assign mydocID=ObjectField_courseOnePagerSheet.getData()/>
-	<#assign myDoc = (restClient.get("/headless-delivery/v1.0/documents/" + mydocID))!{}/>
-	<#if (myDoc.contentUrl)??>
-		${myDoc.contentUrl}
+<#-- Find the attachment whose MIME type starts with application/pdf and print its download URL -->
+<#assign downloadURL = "" />
+<#list .data_model?keys as key>
+	<#if key?starts_with("ObjectField_") && key?ends_with("#mimeType")>
+		<#assign mimeType = (.data_model[key].getData())!"" />
+		<#if mimeType?starts_with("application/pdf")>
+			<#assign downloadKey = key?keep_before("#") + "#downloadURL" />
+			<#assign downloadURL = (.data_model[downloadKey].getData())!"" />
+		</#if>
 	</#if>
-</#if>
+</#list>
+${downloadURL}
