@@ -1,0 +1,33 @@
+{
+    "objectActions": [
+        {
+            "active": true,
+            "conditionExpression": "",
+            "description": "Bridge eLearning Session to MyCourseSession",
+            "errorMessage": {},
+            "externalReferenceCode": "CMS-ACTION-FULFILL-INTERNAL-SESSION-COURSE",
+            "label": {
+                "en_US": "fulfillInternalSessionCourse"
+            },
+            "name": "fulfillInternalSessionCourse",
+            "objectActionExecutorKey": "add-object-entry",
+            "objectActionTriggerKey": "onAfterAdd",
+            "parameters": {
+                "objectDefinitionExternalReferenceCode": "MY-COURSE-SESSION",
+                "system": "false",
+                "predefinedValues": [
+                    {
+                        "businessType": "LongInteger",
+                        "inputAsValue": false,
+                        "label": {
+                            "en_US": "CourseSessionID"
+                        },
+                        "name": "courseSessionID",
+                        "value": "id"
+                    }
+                ]
+            },
+            "system": false
+        }
+    ]
+}

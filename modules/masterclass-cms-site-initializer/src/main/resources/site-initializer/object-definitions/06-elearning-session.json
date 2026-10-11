@@ -18,7 +18,37 @@
 	},
 	"modifiable": true,
 	"name": "ElearningSession",
-	"objectActions": [],
+	"objectActions": [
+		{
+			"active": true,
+			"conditionExpression": "",
+			"description": "Bridge eLearning Session to MyCourseSession",
+			"errorMessage": {},
+			"externalReferenceCode": "CMS-ACTION-FULFILL-INTERNAL-SESSION-COURSE",
+			"label": {
+				"en_US": "fulfillInternalSessionCourse"
+			},
+			"name": "fulfillInternalSessionCourse",
+			"objectActionExecutorKey": "add-object-entry",
+			"objectActionTriggerKey": "onAfterAdd",
+			"parameters": {
+				"objectDefinitionExternalReferenceCode": "MY-COURSE-SESSION",
+				"system": "false",
+				"predefinedValues": [
+					{
+						"businessType": "LongInteger",
+						"inputAsValue": false,
+						"label": {
+							"en_US": "CourseSessionID"
+						},
+						"name": "courseSessionID",
+						"value": "id"
+					}
+				]
+			},
+			"system": false
+		}
+	],
 	"objectDefinitionSettings": [
 		{
 			"name": "acceptAllGroups",
@@ -86,27 +116,6 @@
 			"state": false,
 			"system": false,
 			"type": "Date",
-			"unique": false
-		},
-		{
-			"DBType": "Integer",
-			"businessType": "Integer",
-			"defaultValue": "null",
-			"externalReferenceCode": "CMS-FIELD-INTERNAL-ID-ELEARNING-SESSION",
-			"indexed": true,
-			"indexedAsKeyword": false,
-			"label": {
-				"en_US": "internalID"
-			},
-			"localized": false,
-			"name": "internalid",
-			"objectFieldSettings": [],
-			"readOnly": "false",
-			"readOnlyConditionExpression": "",
-			"required": false,
-			"state": false,
-			"system": false,
-			"type": "Integer",
 			"unique": false
 		}
 	],
