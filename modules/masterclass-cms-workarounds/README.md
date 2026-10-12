@@ -14,8 +14,10 @@ Space's group ID. Collections over eLearning entries therefore showed "No Result
 until someone added the Space by hand after every provision.
 
 `AssetListEntrySegmentsEntryRelModelListener` adds the site's connected Spaces when a
-collection is **created** in `/masterclass-cms` with the site as its only scope. A scope
-an editor changes later is left alone.
+collection is **created** with the site as its only scope. It is not tied to this site:
+it works for any site connected to a Space, and leaves a site with no connected Spaces,
+or a collection created with any other scope, untouched. A scope an editor changes later
+is left alone.
 
 ## Attachment fields mapped by name
 

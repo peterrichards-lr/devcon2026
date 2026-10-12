@@ -10,11 +10,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModelListener;
-import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ModelListener;
-import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
@@ -34,7 +31,8 @@ import org.osgi.service.component.annotations.Reference;
  * a Space renders "No Results Found" until someone adds the Space by hand.
  * </p>
  *
- * <p>Only acts on creation, so a scope an editor later narrows stays
+ * <p>Applies to any site, and changes nothing on a site with no connected
+ * Spaces. Only acts on creation, so a scope an editor later narrows stays
  * narrowed. Remove this bundle once the initializer can scope a collection to
  * a Space itself.</p>
  */
@@ -62,14 +60,6 @@ public class AssetListEntrySegmentsEntryRelModelListener
 		throws PortalException {
 
 		long groupId = assetListEntrySegmentsEntryRel.getGroupId();
-
-		Group group = _groupLocalService.fetchGroup(groupId);
-
-		if ((group == null) ||
-			!_SITE_FRIENDLY_URLS.contains(group.getFriendlyURL())) {
-
-			return;
-		}
 
 		UnicodeProperties unicodeProperties = UnicodePropertiesBuilder.load(
 			assetListEntrySegmentsEntryRel.getTypeSettings()
@@ -115,16 +105,10 @@ public class AssetListEntrySegmentsEntryRelModelListener
 		}
 	}
 
-	private static final Set<String> _SITE_FRIENDLY_URLS = SetUtil.fromArray(
-		"/masterclass-cms");
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		AssetListEntrySegmentsEntryRelModelListener.class);
 
 	@Reference
 	private DepotEntryLocalService _depotEntryLocalService;
-
-	@Reference
-	private GroupLocalService _groupLocalService;
 
 }
