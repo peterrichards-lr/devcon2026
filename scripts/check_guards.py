@@ -44,13 +44,19 @@ def git(*args):
 
 
 def files():
+
+	# A symlink is the file it points to, not a copy, so it is checked there.
+
 	tracked = git("ls-files", "-z").split("\0")
 	untracked = git("ls-files", "-z", "--others", "--exclude-standard").split("\0")
 
 	return sorted(
 		path
 		for path in set(tracked + untracked)
-		if path and path != CONFIG and os.path.isfile(path)
+		if path
+		and path != CONFIG
+		and os.path.isfile(path)
+		and not os.path.islink(path)
 	)
 
 
