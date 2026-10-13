@@ -1,0 +1,112 @@
+/* Masterclass Registrations Table Styling */
+.masterclass-registrations-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+}
+
+.masterclass-registrations-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  text-align: left;
+}
+
+.masterclass-registrations-table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  padding: 0.85rem 1rem;
+  border-bottom: 2px solid #dee2e6;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.masterclass-registrations-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e9ecef;
+  color: #333333;
+  vertical-align: middle;
+  font-size: 0.9rem; /* Reduced font size for better fit on 14" screens */
+}
+
+.masterclass-registrations-table tr:hover td {
+  background-color: #fcfcfc;
+}
+
+/* Status Icon Colors */
+.masterclass-status-icon {
+  font-size: 0.95rem; /* Matched to be proportional with the row font size */
+  color: #6c757d;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.masterclass-status-icon.pending { color: #f39c12; }    /* Orange */
+.masterclass-status-icon.approved { color: #17a2b8; }   /* Teal (Needs Action) */
+.masterclass-status-icon.confirmed { color: #00a651; }  /* Green */
+.masterclass-status-icon.completed { color: #6f42c1; }  /* Purple */
+.masterclass-status-icon.declined,
+.masterclass-status-icon.discarded { color: #d9534f; }   /* Red */
+
+/* Action Links */
+.masterclass-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+}
+
+.masterclass-action-link {
+  color: #ed1c24;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.masterclass-action-link:hover {
+  opacity: 0.7;
+  text-decoration: none;
+  color: #ed1c24;
+}
+
+/* Legend Styling */
+.masterclass-legend-wrapper {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column; /* Stack vertically (one per line) */
+  align-items: flex-end;  /* Align everything to the right */
+  gap: 0.75rem; /* Tighter gap between rows */
+}
+
+.masterclass-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Keep the content pushed to the right */
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #555555;
+  text-align: right;
+}
+
+.masterclass-legend-item strong {
+  color: #333333;
+}
+
+.masterclass-empty-state {
+  text-align: center;
+  color: #888;
+  padding: 2rem;
+  font-style: italic;
+}

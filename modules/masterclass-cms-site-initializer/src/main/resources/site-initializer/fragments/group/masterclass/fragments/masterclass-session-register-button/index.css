@@ -1,0 +1,151 @@
+/* Core Button Styles (aligned with Masterclass native design) */
+.masterclass-register-trigger-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  cursor: pointer;
+}
+
+/* Arrow hover slide effect matching Masterclass design */
+.masterclass-register-trigger-btn .link-arrow {
+  transition: transform 0.25s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.masterclass-register-trigger-btn:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+/* Modal Styling */
+.masterclass-modal-content {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+.masterclass-modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem 2rem;
+  align-items: center;
+}
+
+.masterclass-modal-title {
+  color: #333333;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.masterclass-modal-close {
+  font-size: 1.5rem;
+  color: #aaaaaa;
+  opacity: 0.8;
+  transition: color 0.15s ease;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+
+.masterclass-modal-close:hover {
+  color: #ed1c24;
+  opacity: 1;
+}
+
+.masterclass-modal-body {
+  padding: 2rem;
+}
+
+.masterclass-modal-intro {
+  color: #666666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Dropzone styling inside Modal */
+.masterclass-modal-dropzone-container {
+  background-color: #f8f9fa;
+  border: 1px dashed #ced4da;
+  border-radius: 6px;
+  padding: 1rem;
+  min-height: 150px;
+  margin-bottom: 2rem;
+}
+
+/* Modal Actions Buttons */
+.masterclass-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  border-top: 1px solid #e9ecef;
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.masterclass-btn-secondary {
+  background-color: #f1f3f5;
+  color: #495057 !important;
+  font-weight: 500;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.masterclass-btn-secondary:hover {
+  background-color: #e2e6ea;
+  color: #212529 !important;
+}
+
+.masterclass-btn-primary.masterclass-confirm-register-btn {
+  background-color: #ed1c24;
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.masterclass-btn-primary.masterclass-confirm-register-btn:hover {
+  background-color: #c7141b;
+}
+
+/* ==========================================================================
+   LIFERAY EDITOR CONTROL OVERRIDES (EDIT MODE ONLY)
+   ========================================================================== */
+
+/* Liferay page-editor active state is characterized by .has-edit-mode-menu on body */
+body.has-edit-mode-menu .masterclass-session-register-wrapper .modal.fade:not(.show) {
+  display: block !important;
+  position: static !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  z-index: 1 !important;
+  margin-top: 1rem;
+}
+
+body.has-edit-mode-menu .masterclass-session-register-wrapper .modal-dialog {
+  transform: none !important;
+  max-width: 100% !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: none !important;
+}
+
+body.has-edit-mode-menu .masterclass-session-register-wrapper .masterclass-modal-content {
+  box-shadow: 0 0 0 1px #ced4da !important;
+  border-radius: 8px !important;
+}
+
+body.has-edit-mode-menu .masterclass-session-register-wrapper .modal-backdrop {
+  display: none !important;
+}
+
+body.has-edit-mode-menu .masterclass-session-register-wrapper .masterclass-modal-close {
+  display: none !important;
+}

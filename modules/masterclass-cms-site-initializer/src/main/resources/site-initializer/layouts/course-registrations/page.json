@@ -1,0 +1,25 @@
+{
+	"friendlyURL": "/course-registrations",
+	"hidden": false,
+	"name": "Course Registrations",
+	"name_i18n": {
+		"en_US": "Course Registrations"
+	},
+	"permissions": [
+		{
+			"actionIds": [],
+			"roleName": "Guest",
+			"scope": 4
+		},
+		{
+			"actionIds": [
+				"VIEW"
+			],
+			"roleName": "Site Member",
+			"scope": 4
+		}
+	],
+	"private": false,
+	"system": false,
+	"type": "Content"
+}
