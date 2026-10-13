@@ -13,13 +13,11 @@
 					"rowViewports": [
 						{
 							"id": "landscapeMobile",
-							"rowViewportDefinition": {
-							}
+							"rowViewportDefinition": {}
 						},
 						{
 							"id": "portraitMobile",
-							"rowViewportDefinition": {
-							}
+							"rowViewportDefinition": {}
 						},
 						{
 							"id": "tablet",
@@ -36,13 +34,11 @@
 						"definition": {
 							"columnViewports": [
 								{
-									"columnViewportDefinition": {
-									},
+									"columnViewportDefinition": {},
 									"id": "landscapeMobile"
 								},
 								{
-									"columnViewportDefinition": {
-									},
+									"columnViewportDefinition": {},
 									"id": "portraitMobile"
 								},
 								{
@@ -111,8 +107,7 @@
 															}
 														},
 														"fragmentLink": {
-															"value_i18n": {
-															}
+															"value_i18n": {}
 														}
 													}
 												}
@@ -156,13 +151,11 @@
 						"definition": {
 							"columnViewports": [
 								{
-									"columnViewportDefinition": {
-									},
+									"columnViewportDefinition": {},
 									"id": "landscapeMobile"
 								},
 								{
-									"columnViewportDefinition": {
-									},
+									"columnViewportDefinition": {},
 									"id": "portraitMobile"
 								},
 								{
@@ -231,8 +224,7 @@
 													"fragmentConfig": {
 														"position": "static"
 													},
-													"fragmentFields": [
-													]
+													"fragmentFields": []
 												},
 												"type": "Fragment"
 											}
@@ -326,21 +318,18 @@
 													"fragment": {
 														"key": "masterclass-footer"
 													},
-													"fragmentConfig": {
-													},
+													"fragmentConfig": {},
 													"fragmentFields": [
 														{
 															"id": "imageLogoFooter",
 															"value": {
 																"fragmentImage": {
 																	"url": {
-																		"value_i18n": {
-																		}
+																		"value_i18n": {}
 																	}
 																},
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -349,13 +338,11 @@
 															"value": {
 																"fragmentImage": {
 																	"url": {
-																		"value_i18n": {
-																		}
+																		"value_i18n": {}
 																	}
 																},
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -364,13 +351,11 @@
 															"value": {
 																"fragmentImage": {
 																	"url": {
-																		"value_i18n": {
-																		}
+																		"value_i18n": {}
 																	}
 																},
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -378,8 +363,7 @@
 															"id": "footerText",
 															"value": {
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -388,13 +372,11 @@
 															"value": {
 																"fragmentImage": {
 																	"url": {
-																		"value_i18n": {
-																		}
+																		"value_i18n": {}
 																	}
 																},
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -407,8 +389,7 @@
 																			"value": "#"
 																		}
 																	},
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -421,8 +402,7 @@
 																			"value": "#"
 																		}
 																	},
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -435,8 +415,7 @@
 																			"value": "#"
 																		}
 																	},
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -445,13 +424,11 @@
 															"value": {
 																"fragmentImage": {
 																	"url": {
-																		"value_i18n": {
-																		}
+																		"value_i18n": {}
 																	}
 																},
 																"fragmentLink": {
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														},
@@ -464,8 +441,7 @@
 																			"value": "#"
 																		}
 																	},
-																	"value_i18n": {
-																	}
+																	"value_i18n": {}
 																}
 															}
 														}
@@ -514,5 +490,26 @@
 			}
 		],
 		"type": "Root"
-	}
+	},
+	"settings": {
+		"colorSchemeName": "01",
+		"globalJSClientExtensions": [
+			{
+				"clientExtensionConfig": {
+					"loadType": "default",
+					"scriptLocation": "head"
+				},
+				"externalReferenceCode": "LXC:liferay-masterclassobj-simplerheadlesscallsjs",
+				"name": "Liferay JS for Simpler Headless Calls"
+			}
+		],
+		"themeName": "Classic",
+		"themeSettings": {
+			"lfr-theme:regular:show-footer": "false",
+			"lfr-theme:regular:show-header": "false",
+			"lfr-theme:regular:show-header-search": "false",
+			"lfr-theme:regular:wrap-widget-page-content": "false"
+		}
+	},
+	"version": 1.1
 }

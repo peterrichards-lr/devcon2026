@@ -3,45 +3,7 @@
 		"pageElements": [
 			{
 				"definition": {
-					"fragment": {
-						"key": "masterclass-absolute-container"
-					},
-					"fragmentConfig": {
-						"position": "absolute",
-						"positionBottom": 0,
-						"positionLeft": 0,
-						"positionRight": 0,
-						"positionTop": 0,
-						"zIndex": 0
-					},
-					"fragmentFields": [],
-					"fragmentStyle": {
-						"backgroundColor": ""
-					}
-				},
-				"pageElements": [
-					{
-						"pageElements": [
-							{
-								"definition": {
-									"fragmentStyle": {
-										"backgroundColor": "brandColor1",
-										"height": "880px"
-									},
-									"layout": {
-										"widthType": "Fluid"
-									}
-								},
-								"type": "Section"
-							}
-						],
-						"type": "FragmentDropZone"
-					}
-				],
-				"type": "Fragment"
-			},
-			{
-				"definition": {
+					"customCSS": ".[$FRAGMENT_CLASS$] {\n\tposition: relative;\n}\n\n.[$FRAGMENT_CLASS$]::before {\n\tbackground-color: var(--brand-color-1, #FFD980);\n\tcontent: '';\n\theight: 580px;\n\tleft: 50%;\n\tpointer-events: none;\n\tposition: absolute;\n\ttop: 0;\n\ttransform: translateX(-50%);\n\twidth: 100vw;\n\tz-index: 0;\n}\n\n.[$FRAGMENT_CLASS$] > * {\n\tposition: relative;\n\tz-index: 1;\n}",
 					"fragmentStyle": {
 						"marginBottom": "9",
 						"paddingLeft": "2",
