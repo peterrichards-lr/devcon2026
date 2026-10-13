@@ -9,14 +9,21 @@ relationships — belongs to `modules/masterclass-cms-site-initializer`, not her
 
 ```
 1. deploy modules/masterclass-cms-workarounds
+   and client-extensions/liferay-masterclassobj-simplerheadlesscallsjs (either order)
 2. deploy modules/masterclass-cms-site-initializer
 3. create the site from it
 4. deploy this client extension
 ```
 
-Step 1 has to come before step 3. The workarounds module corrects collections and
-attachment mappings **as the site saves them**; a site created without it keeps the
-uncorrected versions until it is recreated. See `modules/masterclass-cms-workarounds/README.md`.
+Step 1 has to come before step 3, for two reasons:
+
+- The workarounds module corrects collections and attachment mappings **as the site saves
+  them**; a site created without it keeps the uncorrected versions until it is recreated.
+  See `modules/masterclass-cms-workarounds/README.md`.
+- The master pages load the `liferay-masterclassobj-simplerheadlesscallsjs` global JS
+  client extension, which the fragments call as `window.LiferayService`. The master pages
+  reference it by external reference code, so it has to be deployed before the site is
+  created from them.
 
 A client extension runs its batch files **when it deploys**. The site initializer runs
 **when a site is created from it**. The Space is created by the initializer, so it does not
