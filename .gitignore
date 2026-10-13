@@ -34,3 +34,4 @@ evals/results/
 # Local MCP credentials. Note that ignoring this does NOT untrack the copy
 # already committed in 90b9899 — see issue #9.
 .gemini/settings.json
+__pycache__/
