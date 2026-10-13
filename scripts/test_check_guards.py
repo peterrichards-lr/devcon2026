@@ -100,6 +100,12 @@ class CheckGuardsTest(unittest.TestCase):
 
 		self.assert_rejected(f"{SI}/object-definitions/01-x.json", 2, "system-object-flag", "false")
 
+	def test_restated_skill_router(self):
+		self.write(".agents/liferay-rules.md", "## Skill Router\n")
+		self.write(".gemini/GEMINI.md", "# Rules\n\n## Skill Router\n")
+
+		self.assert_rejected(".gemini/GEMINI.md", 3, "restated-skill-router", "@.agents/liferay-rules.md")
+
 	def test_invalid_json(self):
 		self.write(f"{SI}/site-navigation-menus.json", '[{name: "Main"}]\n')
 

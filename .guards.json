@@ -49,6 +49,18 @@
 			"instead": "Leave system out, or set it to false.",
 			"pattern": "\"system\"\\s*:\\s*\"?true\"?",
 			"why": "Copied from a portal initializer, \"system\": true makes the object or picklist unmodifiable."
+		},
+		{
+			"exclude": [
+				".agents/liferay-rules.md"
+			],
+			"id": "restated-skill-router",
+			"include": [
+				"*.md"
+			],
+			"instead": "Import or link .agents/liferay-rules.md (GEMINI.md uses @.agents/liferay-rules.md; .claude/CLAUDE.md is a symlink) and list only agent-specific additions.",
+			"pattern": "^## Skill Router",
+			"why": "A copied skill router drifts. .gemini/GEMINI.md had fallen behind .agents/liferay-rules.md, and Gemini never read it anyway."
 		}
 	],
 	"json": [
