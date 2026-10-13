@@ -1033,51 +1033,6 @@
 				"pageElements": [
 					{
 						"definition": {
-							"fragment": {
-								"key": "masterclass-absolute-container"
-							},
-							"fragmentConfig": {
-								"position": "absolute",
-								"positionBottom": 0,
-								"positionLeft": -100,
-								"positionRight": 0,
-								"positionTop": -90,
-								"zIndex": 0
-							},
-							"fragmentFields": [],
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"hidden": true
-									},
-									"id": "tablet"
-								}
-							]
-						},
-						"pageElements": [
-							{
-								"pageElements": [
-									{
-										"definition": {
-											"fragmentStyle": {
-												"backgroundColor": "brandColor1",
-												"height": "320px",
-												"width": "320px"
-											},
-											"layout": {
-												"widthType": "Fluid"
-											}
-										},
-										"type": "Section"
-									}
-								],
-								"type": "FragmentDropZone"
-							}
-						],
-						"type": "Fragment"
-					},
-					{
-						"definition": {
 							"gutters": true,
 							"modulesPerRow": 2,
 							"numberOfColumns": 2,
@@ -1362,51 +1317,6 @@
 					}
 				},
 				"pageElements": [
-					{
-						"definition": {
-							"fragment": {
-								"key": "masterclass-absolute-container"
-							},
-							"fragmentConfig": {
-								"position": "absolute",
-								"positionBottom": 0,
-								"positionLeft": 1005,
-								"positionRight": 0,
-								"positionTop": -90,
-								"zIndex": 0
-							},
-							"fragmentFields": [],
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"hidden": true
-									},
-									"id": "tablet"
-								}
-							]
-						},
-						"pageElements": [
-							{
-								"pageElements": [
-									{
-										"definition": {
-											"fragmentStyle": {
-												"backgroundColor": "brandColor3",
-												"height": "320px",
-												"width": "320px"
-											},
-											"layout": {
-												"widthType": "Fluid"
-											}
-										},
-										"type": "Section"
-									}
-								],
-								"type": "FragmentDropZone"
-							}
-						],
-						"type": "Fragment"
-					},
 					{
 						"definition": {
 							"gutters": true,
@@ -1694,51 +1604,6 @@
 					}
 				},
 				"pageElements": [
-					{
-						"definition": {
-							"fragment": {
-								"key": "masterclass-absolute-container"
-							},
-							"fragmentConfig": {
-								"position": "absolute",
-								"positionBottom": 0,
-								"positionLeft": -100,
-								"positionRight": 0,
-								"positionTop": -90,
-								"zIndex": 0
-							},
-							"fragmentFields": [],
-							"fragmentViewports": [
-								{
-									"fragmentViewportStyle": {
-										"hidden": true
-									},
-									"id": "tablet"
-								}
-							]
-						},
-						"pageElements": [
-							{
-								"pageElements": [
-									{
-										"definition": {
-											"fragmentStyle": {
-												"backgroundColor": "brandColor1",
-												"height": "320px",
-												"width": "320px"
-											},
-											"layout": {
-												"widthType": "Fluid"
-											}
-										},
-										"type": "Section"
-									}
-								],
-								"type": "FragmentDropZone"
-							}
-						],
-						"type": "Fragment"
-					},
 					{
 						"definition": {
 							"gutters": true,
