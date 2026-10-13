@@ -11,6 +11,43 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-13 — The missing site ERC in headless-admin-user
+
+**What happened.** When attempting to inspect an existing live site (`myOldMasterClass`,
+numeric site ID `65391`) to begin page and DPT migration, an agent queried
+`GET /o/headless-admin-user/v1.0/sites/65391` to discover the site's
+`externalReferenceCode`. The response returned `None` for the ERC. Passing the numeric
+ID `65391` into `headless-admin-site` returned `404 NOT_FOUND`. The UI, however, clearly
+showed the site's ERC as `455c08a5-8ad6-96f7-6833-94055442141b`.
+
+**Root cause.** API schema asymmetry between sibling headless modules.
+`headless-admin-site` strictly keys all site pages, navigation menus, and DPTs by
+`{siteExternalReferenceCode}` — passing a numeric ID returns 404. But the most common
+site lookup endpoint, `headless-admin-user/v1.0/sites/{id}`, **omits the
+`externalReferenceCode` field from its DTO entirely**. The field is not `null` in the
+database; the endpoint simply doesn't expose it.
+
+To discover a site's ERC from its numeric ID or friendly URL, one must query
+`headless-admin-site` directly using an OData filter:
+`GET /o/headless-admin-site/v1.0/sites?filter=id eq <siteId>` (or in MCP:
+`headless-admin-site-v1.0:getSitesPage` with `filter: "id eq <siteId>"`).
+
+### Lessons
+
+1. **DTO omission masquerades as missing data.** When a REST call returns `null` or omits a
+   property, agents easily confuse "this record has no value" with "this API does not
+   project this column". Checking the OpenAPI schema or sibling modules prevents chasing
+   ghost issues.
+   *Slide angle: API blindness: when the endpoint you ask doesn't know the answer exists.*
+
+1. **Modules that mandate ERCs must provide ERC discovery.** `headless-admin-site` requires
+   ERC on every subresource path, but developers and admins naturally start with numeric
+   IDs or URLs. Always use `headless-admin-site/v1.0/sites?filter=...` as the discovery
+   bridge.
+   *Slide angle: Live migrations require robust discovery bridges.*
+
+---
+
 ## 2026-10-08 — The blog that would not save
 
 **What happened.** Editing any `ElearningBlog` entry in the CMS and clicking Publish
