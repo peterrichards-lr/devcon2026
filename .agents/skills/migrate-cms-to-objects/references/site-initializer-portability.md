@@ -6,20 +6,31 @@ A site initializer tree is portable when every identifier it contains either res
 
 Every failure on this card is **silent**. The build succeeds, the site provisions, the handler logs no warning, and the defect surfaces as a blank region on a page or an empty collection.
 
-## Token Delimiters Are `[$` and `$]`
+## Token Delimiters: `[$…$]`, and `"[#…#]"` for Numbers
 
-`SiteInitializerUtil.replace` keys on `[$` and `$]`. Any other delimiter is not a token — it is a literal string that reaches the JSON parser unchanged and resolves to nothing.
+`SiteInitializerUtil.replace` runs two passes over the same token values. The second is the familiar one, keyed on `[$` and `$]`. The first is keyed on `"[#` and `#]"`, **with the double quotes as part of the delimiter**, so it replaces the whole JSON string and leaves the bare value behind:
 
 ```json
-"classPK": "[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"     // substituted
-"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // literal, never substituted
+"classPK": "[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"     // becomes "classPK": "41203"
+"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // becomes "classPK": 41203
 ```
 
-The `[#…#]` form is easy to introduce by hand and impossible to spot by eye, because the entity name inside it is correct. Grep for it directly:
+Use `"[#…#]"` where the field must be a JSON number. The extender's own test bundles do this for `classPK` and `imageId` in page definitions. Both forms resolve against the same tokens, so the scope rules below apply to both.
+
+The `[#` form only works as a **whole quoted string**. Anywhere else (inside a longer string, or without the surrounding quotes) it is never substituted, and reaches the parser as a literal that resolves to nothing:
+
+```json
+"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // substituted
+"url": "/web/x/[#LAYOUT_ID:/home#]"                   // literal, never substituted
+```
+
+Find the misplaced form directly. Every match is a defect:
 
 ```bash
-grep -rn '\[#[A-Z_]*:' <tree>
+grep -rnE '(^|[^"])\[#[A-Z_]+:|#\]([^"]|$)' <tree>
 ```
+
+Source: `SiteInitializerUtil.replace` in `site-initializer-extender-api`, since LRSD-5177 (2024).
 
 ## Two Token Scopes — This Decides Whether a Reference Resolves
 
@@ -156,7 +167,7 @@ Run against any tree before trusting it on a fresh bundle:
 
 | Check | Severity |
 | --- | --- |
-| No `[#…#]` delimiters | Error |
+| `[#…#]` only as a whole quoted string, `"[#…#]"` | Error |
 | Every `ObjectDefinition#XXXX` alias declared in a visible object definition | Error |
 | No `ObjectField_<digits>` field keys | Error |
 | No `name<hex>` relationship names in provider class names | Error |

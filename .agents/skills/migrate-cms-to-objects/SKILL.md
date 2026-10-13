@@ -153,7 +153,7 @@ introduced:
 
 | Check | Severity |
 | --- | --- |
-| No `[#…#]` token delimiters — only `[$…$]` substitutes | Error |
+| `[#…#]` appears only as a whole quoted string, `"[#…#]"`, which substitutes an unquoted number; anywhere else it is never replaced | Error |
 | Every `ObjectDefinition#XXXX` alias is declared by an object definition the tree can see | Error |
 | No `ObjectField_<digits>` field keys — the named form is required | Error |
 | No `name<hex>` relationship names inside collection provider class names | Error |
