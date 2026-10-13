@@ -11,6 +11,44 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-13 — The bridge entry that arrived empty
+
+**What happened.** Enrolment lives in our own objects (MyCourseSession, MyCourseEnrollment),
+but a CMS object in a Space cannot be related to them. Rafa bridged the gap with an
+`onAfterAdd` action on ElearningSession that creates a MyCourseSession, meant to copy the
+session's `id`, `startDate` and `endDate`. Only the `id` ever arrived.
+
+**Root cause, as Rafa found it.** ElearningSession has `enableObjectEntryDraft` and
+`enableObjectEntryVersioning` on, as all five of our Space scoped objects do. Creating an entry first saves a
+draft shell, and `onAfterAdd` fires on that shell, when only the generated `id` exists. The
+author's values come later, with an update. And `onAfterUpdate` cannot fill them in
+elsewhere: `add-object-entry` there makes a new bridge record on every save, and
+`update-object-entry` has no way to find the MyCourseSession whose `courseSessionID` matches
+the session.
+
+**What we did.** Rafa weighed a Groovy action on update against storing only the ID, and
+chose the ID. The bridge now holds just `courseSessionID`, and the registrations fragment
+reads the dates from ElearningSession itself, so the CMS object is the only source of truth
+for them (rlluis/devcon2026 `ba649c7`). On a clean provision, 12 sessions created 12 bridge
+entries with matching IDs, and an ordinary signed in user could read the dates.
+
+### Lessons
+
+1. **Drafts change what "after add" means.** On a draft enabled object, `onAfterAdd`
+   happens before the author has typed anything. Any action that copies field values
+   needs a trigger that fires on publish.
+
+1. **When the platform cannot sync a value, stop copying it.** Storing the reference
+   and reading through it removed the sync problem altogether, with no code to maintain.
+   *Slide angle: the least code answer was a smaller data model, not a script.*
+
+1. **This is product feedback, not just a workaround.** Rafa is filing it as a bug (an
+   `onAfterPublish` trigger, or deferring `onAfterAdd` until the entry leaves draft) and
+   a feature request (`update-object-entry` that finds its target by a field match). Add
+   the links here when they exist; they count toward the bugs and FRs slide.
+
+---
+
 ## 2026-10-09 — The images only the author could see
 
 **What happened.** Rafa's info templates mapped course images, PDFs and video
