@@ -11,6 +11,52 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-13 — The guard that would have broken working code
+
+**What happened.** Applying a brief on agent-repo practice, we turned the portability
+audit in the `migrate-cms-to-objects` skill into blocking guards. The skill's card said
+`[#…#]` is "literal, never substituted", and its checklist made any use an error. 02 had
+five, so the first draft of the guard failed the tree. Before writing it, we checked the
+portal source. `SiteInitializerUtil.replace` has run a `"[#…#]"` pass since LRSD-5177
+(2024), with the double quotes as part of the delimiter, so it substitutes an unquoted
+number. All five uses were correct. The extender's own test bundles use the form for
+`classPK` and `imageId`.
+
+The same pass found that `.agents/rules/site-initializer-portability.md` was a symlink
+committed as a 75 byte text file, on 02, 03 and master. That is the failure that once made a
+week of evals measure nothing (#24). Claude and Gemini read the card through their own
+links, so only an agent reading `.agents/` directly got a path instead of the card.
+
+A third finding came from asking Gemini directly: it had never read `.gemini/GEMINI.md`.
+Version 0.46 only reads `GEMINI.md` from the working directory up to the git root, so
+Gemini sessions here started without the workspace rules, and the copy they would have
+read had drifted anyway.
+
+Fixed in rlluis/devcon2026#50 (card, symlink, guards with a GitHub Action) and #51 (a
+root `GEMINI.md` that imports the rules).
+
+### Lessons
+
+1. **A skill can be confidently wrong, and automation multiplies it.** As prose, the
+   card's mistake cost a reader a moment of doubt. As a blocking guard, it would have
+   failed correct code on every push, with a message citing the card as the reason.
+   Check the source before turning documentation into enforcement.
+   *Slide angle: the instructions needed a code review too.*
+
+1. **Prove a check both ways.** Every guard has a test that plants the violation, and the
+   check was run against 02 from before the fix to confirm it caught the real symlink.
+   The `[#` guard checks the rule as the code applies it (`[#…#]` outside a whole quoted
+   string), not as the card stated it.
+
+1. **Ask the tool what it loaded.** The Gemini file looked right, sat where a reader
+   would expect, and was never read. One `gemini --debug` prompt showed which files it
+   loaded and which heading it quoted, before and after.
+
+1. **Symlink failures recur.** Two instances within a week, both silent, both on files
+   agents depend on. That is now a guard, not a reminder.
+
+---
+
 ## 2026-10-13 — The bridge entry that arrived empty
 
 **What happened.** Enrolment lives in our own objects (MyCourseSession, MyCourseEnrollment),
