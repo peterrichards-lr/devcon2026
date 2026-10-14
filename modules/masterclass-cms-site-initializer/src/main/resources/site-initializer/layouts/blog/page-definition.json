@@ -362,94 +362,73 @@
 										"pageElements": [
 											{
 												"definition": {
-													"fragment": {
-														"key": "BASIC_COMPONENT-image"
-													},
-													"fragmentFields": [
-														{
-															"id": "image-square",
-															"value": {
-																"fragmentImage": {
-																	"url": {
-																		"mapping": {
-																			"fieldKey": "[$OBJECT_FIELD_KEY:ElearningBlog:image#fileURL$]",
-																			"itemReference": {
-																				"contextSource": "CollectionItem"
-																			}
-																		}
-																	}
-																},
-																"fragmentLink": {}
-															}
-														}
-													],
 													"fragmentStyle": {
-														"marginBottom": "4"
+														"marginBottom": "7"
 													},
-													"indexed": true
+													"layout": {
+														"marginBottom": 8,
+														"widthType": "Fluid"
+													}
 												},
-												"type": "Fragment"
-											},
-											{
-												"definition": {
-													"fragment": {
-														"key": "masterclass-heading"
-													},
-													"fragmentConfig": {
-														"displayLevel": "0",
-														"headingLevel": "h3"
-													},
-													"fragmentFields": [
-														{
-															"id": "element-text",
-															"value": {
-																"fragmentLink": {
+												"pageElements": [
+													{
+														"definition": {
+															"fragment": {
+																"key": "BASIC_COMPONENT-image"
+															},
+															"fragmentFields": [
+																{
+																	"id": "image-square",
 																	"value": {
-																		"href": {
-																			"mapping": {
-																				"fieldKey": "ObjectEntry_displayPageURL",
-																				"itemReference": {
-																					"contextSource": "CollectionItem"
+																		"fragmentImage": {
+																			"url": {
+																				"mapping": {
+																					"fieldKey": "[$OBJECT_FIELD_KEY:ElearningBlog:image#fileURL$]",
+																					"itemReference": {
+																						"contextSource": "CollectionItem"
+																					}
 																				}
 																			}
-																		}
-																	}
-																},
-																"text": {
-																	"mapping": {
-																		"fieldKey": "ObjectField_title",
-																		"itemReference": {
-																			"contextSource": "CollectionItem"
-																		}
+																		},
+																		"fragmentLink": {}
 																	}
 																}
-															}
-														}
-													],
-													"fragmentStyle": {
-														"marginBottom": "3"
+															],
+															"fragmentStyle": {
+																"marginBottom": "4"
+															},
+															"indexed": true
+														},
+														"type": "Fragment"
 													},
-													"indexed": true
-												},
-												"type": "Fragment"
-											},
-											{
-												"definition": {
-													"fragment": {
-														"key": "masterclass-link"
-													},
-													"fragmentConfig": {
-														"linkSize": "sm"
-													},
-													"fragmentFields": [
-														{
-															"id": "link",
-															"value": {
-																"fragmentLink": {
+													{
+														"definition": {
+															"fragment": {
+																"key": "masterclass-heading"
+															},
+															"fragmentConfig": {
+																"displayLevel": "0",
+																"headingLevel": "h3"
+															},
+															"fragmentFields": [
+																{
+																	"id": "element-text",
 																	"value": {
-																		"href": {
+																		"fragmentLink": {
+																			"value": {
+																				"href": {
+																					"mapping": {
+																						"fieldKey": "ObjectEntry_displayPageURL",
+																						"itemReference": {
+																							"contextSource": "CollectionItem"
+																						}
+																					}
+																				}
+																			}
+																		},
+																		"text": {
 																			"mapping": {
-																				"fieldKey": "ObjectEntry_displayPageURL",
+																				"fieldKey": "ObjectField_title",
 																				"itemReference": {
 																					"contextSource": "CollectionItem"
 																				}
@@ -457,12 +436,47 @@
 																		}
 																	}
 																}
-															}
-														}
-													],
-													"indexed": true
-												},
-												"type": "Fragment"
+															],
+															"fragmentStyle": {
+																"marginBottom": "3"
+															},
+															"indexed": true
+														},
+														"type": "Fragment"
+													},
+													{
+														"definition": {
+															"fragment": {
+																"key": "masterclass-link"
+															},
+															"fragmentConfig": {
+																"linkSize": "sm"
+															},
+															"fragmentFields": [
+																{
+																	"id": "link",
+																	"value": {
+																		"fragmentLink": {
+																			"value": {
+																				"href": {
+																					"mapping": {
+																						"fieldKey": "ObjectEntry_displayPageURL",
+																						"itemReference": {
+																							"contextSource": "CollectionItem"
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															],
+															"indexed": true
+														},
+														"type": "Fragment"
+													}
+												],
+												"type": "Section"
 											}
 										],
 										"type": "CollectionItem"
