@@ -345,6 +345,15 @@
 	},
 	"settings": {
 		"colorSchemeName": "01",
+		"globalCSSClientExtensions": [
+			{
+				"clientExtensionConfig": {
+					"loadType": "default"
+				},
+				"externalReferenceCode": "LXC:liferay-masterclass-custom-css",
+				"name": "Masterclass Custom CSS"
+			}
+		],
 		"globalJSClientExtensions": [
 			{
 				"clientExtensionConfig": {
