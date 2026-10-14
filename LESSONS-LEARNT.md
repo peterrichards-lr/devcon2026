@@ -11,6 +11,48 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-14 — The dual personality of collection classPK: string in pages, number in templates
+
+**What happened.** While standardizing collection displays across the site initializer,
+collections exhibited contradictory behavior between Content Pages and Display Page Templates:
+- In the Blog Display Page Template (`layout-page-templates/display-page-templates/blog-entry`),
+  the "More like this" Collection Display failed to map. Changing its `classPK` from
+  `"[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"` to `"[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"` (which
+  resolves to raw number `76456` without quotes) fixed the DPT.
+- However, applying that same numeric syntax `[#...#]` to Content Pages (`layouts/1_home`,
+  `layouts/courses`, `layouts/blog`, `layouts/my-learning`) broke all collections across the
+  entire site, leaving `collectionSettings: {}` empty.
+- Content Pages require the string token syntax `"[$ASSET_LIST_ENTRY_ID:...$]"`, while Display
+  Page Templates require numeric syntax `"[#ASSET_LIST_ENTRY_ID:...#]"`.
+
+**Root cause.** Two independent importers in Liferay Portal process `page-definition.json`:
+- `LayoutPageTemplateEntry` importer (DPTs) strictly requires a JSON number for `classPK`.
+  Passing a string causes validation failure, silently dropping the collection reference.
+- `BundleSiteInitializer` / `LayoutStructureItemImporter` (Content Pages) expects a JSON String
+  for `classPK` inside `CollectionDisplay`. Passing a raw number fails type binding and leaves
+  `collectionSettings` empty.
+Neither importer logs a warning or error — both log successful initialization.
+
+**Evidence.** PR #62, PR #63.
+
+### Lessons
+
+1. **Same JSON schema, different parser.** Even though Content Pages and Display Page Templates
+   both use `page-definition.json`, they are deserialized by different portal components with
+   conflicting type expectations for the exact same attribute (`classPK`).
+   *Slide angle: Same JSON, different parser: the hidden strictness between Content Pages and Templates.*
+
+1. **Silent drops without errors.** Neither parser logs an error when discarding an unmapped
+   collection reference. The console logs `Initialized com.liferay.site.initializer... in 5902 ms`
+   with 0 errors while the UI renders empty containers.
+   *Slide angle: The silence of the parsers: when 0 errors = missing features.*
+
+1. **Teach the agents the divergence.** Documenting this in `rules/site-initializer-portability.md`
+   ensures agents and developers use `[$...$]` for `layouts/` and `[#...#]` for `layout-page-templates/`.
+   *Slide angle: Why domain rules matter for AI-assisted migrations.*
+
+---
+
 ## 2026-10-13 — The missing site ERC in headless-admin-user
 
 **What happened.** When attempting to inspect an existing live site (`myOldMasterClass`,
