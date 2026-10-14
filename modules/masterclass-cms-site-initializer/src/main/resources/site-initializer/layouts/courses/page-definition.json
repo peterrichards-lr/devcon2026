@@ -266,7 +266,7 @@
 							"collectionConfig": {
 								"collectionReference": {
 									"className": "com.liferay.asset.list.model.AssetListEntry",
-									"classPK": "[$ASSET_LIST_ENTRY_ID:COURSES$]"
+									"classPK": "[#ASSET_LIST_ENTRY_ID:COURSES#]"
 								},
 								"collectionType": "Collection"
 							},
