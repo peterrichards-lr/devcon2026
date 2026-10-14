@@ -8,8 +8,9 @@ relationships — belongs to `modules/masterclass-cms-site-initializer`, not her
 ## Deploy order matters, and nothing enforces it
 
 ```
-1. deploy modules/masterclass-cms-workarounds
-   and client-extensions/liferay-masterclassobj-simplerheadlesscallsjs (either order)
+1. deploy modules/masterclass-cms-workarounds,
+   client-extensions/liferay-masterclassobj-simplerheadlesscallsjs
+   and client-extensions/liferay-masterclass-custom-css (any order)
 2. deploy modules/masterclass-cms-site-initializer
 3. create the site from it
 4. deploy this client extension
@@ -20,10 +21,14 @@ Step 1 has to come before step 3, for two reasons:
 - The workarounds module corrects collections and attachment mappings **as the site saves
   them**; a site created without it keeps the uncorrected versions until it is recreated.
   See `modules/masterclass-cms-workarounds/README.md`.
-- The master pages load the `liferay-masterclassobj-simplerheadlesscallsjs` global JS
-  client extension, which the fragments call as `window.LiferayService`. The master pages
-  reference it by external reference code, so it has to be deployed before the site is
-  created from them.
+- The master pages load two client extensions, both referenced by external reference code,
+  so both have to be deployed before the site is created from them:
+  - `liferay-masterclassobj-simplerheadlesscallsjs`, a global JS client extension the
+    fragments call as `window.LiferayService`.
+  - `liferay-masterclass-custom-css`, a global CSS client extension holding the site's own
+    styles (link colours, buttons, the login form and the Source Serif font). It replaced
+    `layout-set/*/css.css`, which stopped reaching any page once the master pages gained a
+    `settings` block. Without it, links fall back to Clay blue.
 
 A client extension runs its batch files **when it deploys**. The site initializer runs
 **when a site is created from it**. The Space is created by the initializer, so it does not
