@@ -17,6 +17,10 @@ Every failure on this card is **silent**. The build succeeds, the site provision
 
 Use `"[#…#]"` where the field must be a JSON number. The extender's own test bundles do this for `classPK` and `imageId` in page definitions. Both forms resolve against the same tokens, so the scope rules below apply to both.
 
+> **Critical parser divergence on `classPK`:**
+> - In **Display Page Templates** (`layout-page-templates/display-page-templates/`), `classPK` on `AssetListEntry` strictly requires a JSON number: `"classPK": "[#ASSET_LIST_ENTRY_ID:...#]"`. Passing a string silently drops the collection mapping.
+> - In **Content Pages** (`layouts/`), `classPK` inside `CollectionDisplay` expects a JSON string: `"classPK": "[$ASSET_LIST_ENTRY_ID:...$]"`. Passing a raw number causes type mismatch and leaves `collectionSettings: {}` empty.
+
 The `[#` form only works as a **whole quoted string**. Anywhere else (inside a longer string, or without the surrounding quotes) it is never substituted, and reaches the parser as a literal that resolves to nothing:
 
 ```json
