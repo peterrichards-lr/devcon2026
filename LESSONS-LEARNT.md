@@ -11,6 +11,43 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Page Specification REST mutations require LPD-74328 and Object attachment #fileURL mapping
+
+**What happened.** When retargeting the `blog-entry` Display Page Template from legacy Structured
+Content (`JournalArticle`) to our modern Headless CMS Object (`Blog`), updating the page
+specification via `PUT /o/headless-admin-site/v1.0/sites/{siteERC}/page-specifications/{draftERC}`
+failed with a silent `400: {"status": "BAD_REQUEST", "type": "UnsupportedOperationException"}`.
+Tracing `PageSpecificationResourceImpl.java` revealed that write operations on page specifications
+are strictly guarded by the developer feature flag **`LPD-74328`**; without it enabled under
+**Instance Settings → Feature Flags**, all mutation calls throw `UnsupportedOperationException`.
+
+Once `LPD-74328` was enabled and the specification was submitted with `"type": "ContentPageSpecification"`
+and `"status": "Draft"` (which Liferay strictly enforces for content page drafts), the page editor
+rendered the title, subtitle, author, and body mappings, but failed to bind the main image.
+In Liferay's Object & Info Item framework (`ObjectEntryInfoItemFormProviderUtil.java`), an Object
+Attachment field is not exposed as a single scalar value. Instead, it is decomposed into subfields:
+`#fileName`, `#mimeType`, and **`#fileURL`**. An Image fragment (`data-lfr-editable-type="image"`)
+requires a URL to render the asset, requiring the specific composite key:
+`"fieldKey": "ObjectField_<objectFieldId>#fileURL"` (e.g., `ObjectField_143894#fileURL`), rather than
+a plain `ObjectField_mainImage`.
+
+### Lessons
+
+1. **`putSitePageSpecification` is gated by `LPD-74328`.** The headless admin site API for mutating
+   page specifications requires developer feature flag `LPD-74328`. Without it, the endpoint throws
+   an unhelpful `400 UnsupportedOperationException`. Furthermore, the specification payload must
+   specify `"type": "ContentPageSpecification"` and `"status": "Draft"`.
+   *Slide angle: The hidden gatekeeper: why headless page authoring demands LPD-74328.*
+
+2. **Object Attachment fields map via `#fileURL` with the field ID.** While text fields map using
+   their semantic name (`ObjectField_title`), Attachment fields in Liferay Objects expose subfields.
+   To map an Image fragment to an Object attachment in a DPT or page specification, the fieldKey
+   must point to the URL subfield using the object field's numeric ID:
+   `ObjectField_<objectFieldId>#fileURL`.
+   *Slide angle: Deconstructing Object attachments: why images demand #fileURL in page mappings.*
+
+---
+
 ## 2026-10-15 — Headless CMS Space Categorization: Company scope with assetLibraries association
 
 **What happened.** When categorizing custom Object Entries in a Headless CMS Space (`depot` scope),
