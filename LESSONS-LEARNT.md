@@ -11,6 +11,54 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Headless CMS Space Categorization: Company scope with assetLibraries association
+
+**What happened.** When categorizing custom Object Entries in a Headless CMS Space (`depot` scope),
+passing site-scoped category IDs failed with `400: Asset category <id> does not belong to the object entry's scope`.
+Furthermore, creating a vocabulary directly via the asset library endpoint
+(`postAssetLibraryTaxonomyVocabulary`) created an internal vocabulary that was accepted by the API
+but completely hidden from the Liferay UI under **Space → Categorization → Categories**.
+
+To make a vocabulary both valid for depot-scoped entries and visible in the Space's UI, it must be
+created at the **Company/Global scope** with an explicit `assetLibraries` association:
+```json
+{
+  "name": "Masterclass",
+  "externalReferenceCode": "VOCAB_MASTERCLASS_SPACE",
+  "visibilityType": "PUBLIC",
+  "multiValued": true,
+  "assetLibraries": [
+    {
+      "id": 143544,
+      "externalReferenceCode": "SPACE-MASTERCLASS-CMS"
+    }
+  ],
+  "assetTypes": [
+    {
+      "type": "AllAssetTypes",
+      "subtype": "AllAssetSubtypes",
+      "required": false
+    }
+  ]
+}
+```
+Posting this body to `POST /v1.0/sites/{companyGroupId}/taxonomy-vocabularies` (`postSiteTaxonomyVocabulary`
+with `siteId: 20121`) creates the vocabulary. Categories added to it via
+`POST /v1.0/taxonomy-vocabularies/{id}/taxonomy-categories` inherit the Space association, render
+in the Space Categorization UI, and bind seamlessly to modern CMS entries via `"taxonomyCategoryIds": [<id>]`.
+
+### Lessons
+
+1. **Space vocabularies live at company scope with an `assetLibraries` association.** Liferay's
+   Space Categorization UI filters vocabularies by looking for company-level vocabularies explicitly
+   linked to the Space's groupId via the `assetLibraries` property array. To automate space vocabulary
+   provisioning, always call `postSiteTaxonomyVocabulary` on the company site (`20121`) passing
+   `"assetLibraries": [{"id": <spaceGroupId>, "externalReferenceCode": "<spaceERC>"}]`. Calling
+   `postAssetLibraryTaxonomyVocabulary` creates an unlinked vocabulary that the UI ignores.
+   *Slide angle: The taxonomy scope paradox: why Space vocabularies belong to the Company.*
+
+---
+
 ## 2026-10-15 — DAM ingestion via fileURL vs base64 and the ERC Recycle Bin trap
 
 **What happened.** When migrating media assets from an existing site DAM into the modern
