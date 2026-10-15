@@ -11,6 +11,45 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Display Page Templates can host nested Collections: remember to remap related feeds
+
+**What happened.** When retargeting Display Page Templates (`blog-entry`, `course`, `classroom`)
+to modern Headless CMS Objects (`Blog`, `Course`, `Classroom`), initial attention was focused
+strictly on primary entity fields sourced from `DisplayPageItem` (such as titles, descriptions,
+and video URLs). However, rich display page templates frequently host **nested collection displays**
+(such as *"More like this"* on a Blog DPT, or *"Teachers on this Course"* on Course and Classroom DPTs).
+
+If these embedded collections are overlooked:
+- The `CollectionDisplay` remains bound to legacy site collections or obsolete filter criteria.
+- Child fragments inside `CollectionItem` continue trying to map to legacy `DDMStructure_*` fields
+  instead of modern `ObjectField_*` fields.
+- The page renders as partially migrated while related content sections appear empty or broken.
+
+Auditing the entire page specification tree for `CollectionDisplay` elements allowed us to
+rebind each nested feed to the appropriate modern `CollectionProvider`:
+```json
+"collectionSettings": {
+  "collectionReference": {
+    "className": "com.liferay.object.model.ObjectDefinition#<Hash>",
+    "collectionType": "CollectionProvider"
+  }
+}
+```
+and remap their child `CollectionItem` fragment fields (e.g., photo to `ObjectField_<id>#fileURL`,
+name to `ObjectField_name`, and link target to `displayPageURL`).
+
+### Lessons
+
+1. **DPT retargeting must audit nested collections.** When retargeting a Display Page Template,
+   do not stop at the primary `DisplayPageItem` fields. Always traverse the full page element
+   tree to discover nested `CollectionDisplay` elements (`collectionType: "Collection"`).
+   Rebind them to the modern Object `CollectionProvider` (`collectionType: "CollectionProvider"`)
+   and remap child `CollectionItem` fragment fields to ensure related content feeds remain fully
+   operational.
+   *Slide angle: Beyond the single entity: why DPT migration must traverse nested collection displays.*
+
+---
+
 ## 2026-10-15 — Page Specification REST mutations require LPD-74328 and Object attachment #fileURL mapping
 
 **What happened.** When retargeting the `blog-entry` Display Page Template from legacy Structured
