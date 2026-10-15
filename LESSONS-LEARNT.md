@@ -11,6 +11,51 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — DAM ingestion via fileURL vs base64 and the ERC Recycle Bin trap
+
+**What happened.** When migrating media assets from an existing site DAM into the modern
+Headless CMS Space (`CMSBasicDocument`), passing image data as inline `file.fileBase64`
+through API request buffers led to truncated payloads. The resulting document saved in
+the Space was corrupt (only a few kilobytes, failing image preview and downloads).
+
+Additionally, when deleting the corrupted document to recreate it, a subsequent `POST` with
+the same `externalReferenceCode` failed with `400: This external reference code is already in use.`
+Deleting via Headless REST performs a soft delete, moving the entry to the Recycle Bin while
+retaining uniqueness constraints on its `externalReferenceCode`.
+
+Switching to `file.fileURL` pointing directly to the live document endpoint:
+```json
+{
+  "externalReferenceCode": "BLOG_IMG_01",
+  "title": "blog_01.jpg",
+  "objectEntryFolderExternalReferenceCode": "CMS_FOLDER_BLOG_IMAGES",
+  "file": {
+    "name": "blog_01.jpg",
+    "fileURL": "http://localhost:8080/documents/65391/0/blog_01.jpg/cf5929fe-...?download=true"
+  }
+}
+```
+allowed Liferay to stream the uncorrupted binary directly from source to destination at full
+fidelity. For the soft-deleted entry, calling the restore endpoint
+(`PUT .../by-external-reference-code/{erc}/restore`) followed by `PATCH` seamlessly updated
+the record without ERC collisions.
+
+### Lessons
+
+1. **Prefer `fileURL` over Base64 for headless asset migrations.** In modern CMS
+   (`CMSBasicDocument`), inline Base64 strings risk buffer truncation and memory bloat.
+   Supplying `file.fileURL` lets the portal fetch the binary directly over HTTP without
+   intermediate serialization overhead or truncation risks.
+   *Slide angle: Clean asset ingestion: why streaming beats Base64 in headless migrations.*
+
+2. **REST delete is a soft delete.** Deleting an object entry or document sends it to the
+   Recycle Bin, keeping its `externalReferenceCode` reserved. Recreating an entry with the
+   same ERC fails immediately. To replace an existing ERC, either restore and patch the
+   entry or assign a new unique ERC.
+   *Slide angle: The ghost in the trash: handling ERC collisions after REST deletion.*
+
+---
+
 ## 2026-10-15 — Attachment fileSource in Headless CMS: userComputer vs CMSBasicDocument item selector
 
 **What happened.** When authoring custom depot-scoped Object Definitions intended as Headless
