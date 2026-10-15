@@ -11,6 +11,49 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Attachment fileSource in Headless CMS: userComputer vs CMSBasicDocument item selector
+
+**What happened.** When authoring custom depot-scoped Object Definitions intended as Headless
+CMS Content Structures (`scope: "depot"`, `objectFolderExternalReferenceCode: "L_CMS_CONTENT_STRUCTURES"`),
+attachment fields configured with `"fileSource": "userComputerToCMSBasicDocument"` restricted
+the CMS editorial UI to a local disk file-picker only. Users could not browse or select existing
+media assets from the Space's CMS library / DAM. Furthermore, this prevented referencing
+already-migrated CMS documents by their `externalReferenceCode`.
+
+Updating the attachment field settings to `"fileSource": "CMSBasicDocument"`:
+```json
+{
+  "name": "image",
+  "businessType": "Attachment",
+  "objectFieldSettings": [
+    {"name": "acceptedFileExtensions", "value": "jpeg, jpg, pdf, png"},
+    {"name": "maximumFileSize", "value": 100},
+    {"name": "fileSource": "CMSBasicDocument"}
+  ]
+}
+```
+enabled the full **Item Selector** in the CMS editor, granting users the ability to both
+browse/select existing media assets in the library and upload new files from their computer.
+Crucially, Liferay allows live patching of `objectFieldSettings` on published attachment
+fields via `PATCH /o/object-admin/v1.0/object-fields/{id}` without deleting or recreating
+the object definition.
+
+### Lessons
+
+1. **`CMSBasicDocument` gives both choices, `userComputer` locks to local only.** In modern
+   CMS structures, always prefer `"fileSource": "CMSBasicDocument"`. It provides the complete
+   Item Selector experience (library browsing + direct upload) and allows Headless API entries
+   to link media assets by `externalReferenceCode`.
+   *Slide angle: Field settings that empower editors: why fileSource choice dictates DAM integration.*
+
+2. **Published field settings are live patchable.** Unlike structural constraints (such as
+   renaming fields or toggling versioning), `objectFieldSettings` on attachment fields can be
+   updated via `PATCH /v1.0/object-fields/{id}` on live, published definitions without data loss
+   or schema reprovisioning.
+   *Slide angle: Painless schema iteration: what you can and cannot patch live in Liferay Objects.*
+
+---
+
 ## 2026-10-14 — The dual personality of collection classPK: string in pages, number in templates
 
 **What happened.** While standardizing collection displays across the site initializer,
