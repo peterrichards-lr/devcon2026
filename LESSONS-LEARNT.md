@@ -11,6 +11,47 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Navigation Menus during CMS migration: silent regressions, type immutability, and cross-scope references
+
+**What happened.** While auditing the site after retargeting Display Page Templates and Content Pages,
+the top header's "Courses" dropdown in the "Main Navigation" menu appeared completely empty.
+The menu originally contained 3 items pointing to legacy Structured Content (`JournalArticle`) courses.
+Because the legacy structure's default DPT had been retargeted to modern Object definitions, Liferay's
+navigation taglib (`NavItemUtil.java`) silently omitted the un-renderable items without throwing any
+server errors or logs, making it an invisible regression on the live site.
+
+Reconnecting the navigation menu to modern Course Object entries via the Headless Admin Site API
+(`PUT /v1.0/sites/{siteERC}/navigation-menus/{menuERC}`) revealed two core engine behaviors:
+
+1. **Menu Item `type_` is immutable on update:** In `NavigationMenuResourceImpl._updateNavigationMenuItems`,
+   updating an existing item by its `externalReferenceCode` calls `updateSiteNavigationMenuItem()`,
+   which updates `typeSettings` but physically cannot alter the database column `type_`. Updating a
+   `JournalArticle` item in-place left its type stuck on `com.liferay.journal.model.JournalArticle`.
+   To convert an item to an Object display page, assigning a **new `externalReferenceCode`** is mandatory:
+   it forces `_fetchSiteNavigationMenuItem` to return `null`, calling `_createNavigationMenuItem` with the
+   new Object type (`com.liferay.object.model.ObjectDefinition#<Hash>`), while `_deleteNavigationMenuItems`
+   automatically prunes the obsolete legacy records.
+2. **Space scoping on cross-site navigation items:** In `DisplayPageTypeContext.java`, Liferay validates
+   and resolves display-page menu items via `InfoItemReference` using `ERCInfoItemIdentifier(externalReferenceCode, scopeExternalReferenceCode)`.
+   Because the navigation menu lives on the Site (`groupId: 65391`) while our modern CMS Objects live in
+   the Headless Space, `navigationMenuItemSettings` must explicitly pass `scopeExternalReferenceCode: "SPACE-MASTERCLASS-CMS"`.
+   Omitting it causes `_hasModel` to look for the object in the Site group and throw `400 IllegalArgumentException`.
+
+### Lessons
+
+1. **Navigation Menus must be included in CMS migration audits.** Navigation menus often embed typed
+   content items (e.g. Web Content articles). When legacy structures lose their default DPTs, Liferay
+   silently drops them from navigation renders. Always audit `/navigation-menus` alongside pages and collections.
+2. **Assign new `externalReferenceCode`s when changing a menu item's type.** Menu item types are immutable
+   on in-place REST updates. Generating fresh ERCs allows the API to create the modern Object item and
+   safely purge the legacy item.
+3. **Always supply `scopeExternalReferenceCode` for Space-scoped Object items.** When a navigation menu
+   references Object entries living inside a Headless CMS Space (Asset Library / depot scope), the item
+   settings must explicitly declare `scopeExternalReferenceCode` pointing to the Space ERC.
+   *Slide angle: The Silent Drop: Why Navigation Menus are the hidden victims of CMS object migrations, and how Liferay's type immutability handles model transitions.*
+
+---
+
 ## 2026-10-15 — Display Page Templates cannot be published via REST: postSitePageSpecificationPublish is an un-implemented stub
 
 **What happened.** When automating Display Page Template (DPT) migration, we attempted to publish
