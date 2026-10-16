@@ -316,42 +316,41 @@ Reconnecting the navigation menu to modern Course Object entries via the Headles
 
 ---
 
-## 2026-10-15 — Display Page Templates cannot be published via REST: postSitePageSpecificationPublish is an un-implemented stub
+## 2026-10-15 — Publishing Display Page Templates via REST: sub-resource draft locks vs. parent-level automation
 
 **What happened.** When automating Display Page Template (DPT) migration, we attempted to publish
-the updated draft layouts (`blog-entry`, `course`, `classroom`) via the Headless Admin Site API:
+the updated draft layouts (`blog-entry`, `course`, `classroom`) via the sub-resource endpoint:
 `POST /v1.0/sites/{siteERC}/page-specifications/{draftERC}/publish`.
 The endpoint returned an immediate `204 No Content`, leading us to assume the layout had been promoted
-to published/approved. However, inspecting the site showed the changes remained unpromoted drafts,
-and the DPTs continued rendering legacy content until a user opened each DPT in the Page Editor and
-clicked the blue **"Publish"** button.
+to published/approved. However, the changes remained unpromoted drafts, and the DPTs continued rendering
+legacy content until an administrator opened each DPT in the Page Editor and clicked "Publish".
+Attempting to send `status: "Approved"` directly to `PUT /page-specifications/{erc}` failed with:
+`IllegalArgumentException: The page specification must be in draft status for content pages`.
 
-Inspecting Liferay's portal source code (`headless-admin-site-impl`) uncovered the exact reason:
-`PageSpecificationResourceImpl.java` does **not** implement or override `postSitePageSpecificationPublish`.
-The call falls back to Vulcan's auto-generated stub in `BasePageSpecificationResourceImpl.java`:
-```java
-@Override
-public PageSpecification postSitePageSpecificationPublish(...) {
-    return new PageSpecification();
-}
-```
-The method literally executes zero persistence logic, returning 204 without touching the database!
-Furthermore, Liferay's service layer strictly blocks updating a DPT in "Approved" status via REST:
-`PageSpecificationResourceImpl.putSitePageSpecification` enforces `!layout.isDraftLayout() -> throw IllegalArgumentException`.
-As a result, while standard Content Pages (`SitePage`) can be updated and published directly via
-`PUT /site-pages`, **Display Page Templates physically cannot be published via headless REST and
-strictly require human verification and manual approval via the Page Editor UI.**
+Consulting Liferay's engineering team and inspecting `headless-admin-site-impl` revealed the full architecture:
+1. **The `/publish` sub-resource is an un-implemented stub:** In `BasePageSpecificationResourceImpl.java`,
+   `postSitePageSpecificationPublish` returns an empty `new PageSpecification()`. It executes zero backend
+   promotion logic, returning 204 as a false positive.
+2. **`putSitePageSpecification` is draft-only by design:** The sub-resource `/page-specifications/{erc}`
+   mirrors the Page Editor UI draft workspace; Liferay strictly blocks saving non-draft specifications here.
+3. **The Solution — Parent-Level REST Publishing:** DPTs **can** be published programmatically without
+   touching the UI by updating the top-level parent entity:
+   `PUT /o/headless-admin-site/v1.0/sites/{siteERC}/display-page-templates/{dptERC}?nestedFields=pageSpecifications`
+   When both `pageSpecifications` (draft and layout) are submitted with `status: "Approved"`,
+   `DisplayPageTemplateResourceImpl` executes `LayoutUtil.updateContentLayout()` and calls
+   `_layoutPageTemplateEntryService.updateStatus(..., WorkflowConstants.STATUS_APPROVED)`,
+   promoting the DPT to live status automatically.
 
 ### Lessons
 
-1. **`postSitePageSpecificationPublish` is an empty API stub.** Calling the `/publish` endpoint on
-   page specifications returns `204 No Content` as a false positive without executing any promotion
-   logic in Liferay.
-2. **DPTs strictly require manual UI publishing.** Because DPT page specifications can only be mutated
-   in "Draft" status (`status: "Draft"` on `<dptERC>-layout-draft`), any headless migration or CI/CD
-   pipeline automating DPT retargeting must stop at the draft stage and require an administrative user
-   to open the Page Editor and click "Publish".
-   *Slide angle: The 204 False Alarm: Why DPT publishing cannot be automated and demands human-in-the-loop approval.*
+1. **`postSitePageSpecificationPublish` is an un-implemented stub.** Never use the `/page-specifications/{erc}/publish`
+   endpoint for layout promotion; it returns a `204 No Content` false positive.
+2. **`putSitePageSpecification` is restricted to drafts.** The `/page-specifications/{erc}` sub-resource only
+   accepts `status: "Draft"`.
+3. **Publish DPTs headlessly via the parent resource.** To publish a Display Page Template programmatically
+   without human UI intervention, call `PUT /display-page-templates/{dptERC}?nestedFields=pageSpecifications`
+   passing both `pageSpecifications` with `status: "Approved"`.
+   *Slide angle: The Sub-Resource Trap: Why DPT publishing fails on `/page-specifications` and how parent-level REST unlocks 100% headless automation.*
 
 ---
 
