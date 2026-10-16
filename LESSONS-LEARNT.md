@@ -11,6 +11,50 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — MCP Tool Invocations vs. Programmatic Script Execution: When to Use Each and How to Steer AI
+
+**What happened.** Throughout the site migration to Headless CMS Objects, two execution channels
+were used in parallel:
+1. Direct Liferay MCP tool invocations (e.g. `getObjectDefinitionsPage`, `patchSiteDisplayPageTemplate`,
+   `postSitePageSpecificationPublish`).
+2. Targeted Python scripts executed locally against the live REST APIs (`http://localhost:8080/o/...`).
+
+While MCP served as the canonical discovery and lifecycle interface, mutating complex page layouts
+revealed clear operational boundaries between direct tool calling and programmatic script execution:
+- **Payload volume and context cost:** Liferay has no granular endpoint to update a single fragment
+  or field mapping. Mutating a layout requires sending the entire `PageSpecification` tree
+  (`pageExperiences[0].pageElements`), which frequently spans 100KB–200KB of JSON. Passing payloads
+  of this size inside LLM tool arguments strains context window limits, inflates per-turn token costs,
+  and introduces latency.
+- **RPC transport stability:** Large JSON payloads or rapid consecutive mutations sent across
+  stdio JSON-RPC occasionally triggered transport timeouts or `fetch failed` errors. In contrast,
+  local Python scripts streamed `urllib` HTTP calls directly to the portal with immediate status codes.
+- **In-memory data transformation:** Sanitizing layouts (stripping read-only fields like `customFields`,
+  `creator`, `uuid`), generating unique element UUIDs, and updating nested dictionary keys is executed
+  reliably in memory in milliseconds via code, avoiding polluting the conversational context with huge diffs.
+
+### Lessons
+
+1. **Use MCP for:**
+   - **Introspection & Discovery:** Inspecting schemas, fetching available toolsets, querying Object definitions,
+     and checking template metadata.
+   - **Discrete CRUD & Lifecycle Transitions:** Patching a DPT's `contentTypeReference`, creating individual
+     records, publishing drafts, and operations where structured tool output provides high signal.
+2. **Use Programmatic Scripts (Python/Shell) for:**
+   - **Deep Tree & Batch Transformations:** Reading, modifying, and re-submitting massive nested trees
+     (e.g., 100KB+ `PageSpecification` hierarchies) where passing full payloads through the LLM context
+     is token-inefficient and error-prone.
+   - **DTO Sanitization:** Stripping server-generated read-only attributes before PUT operations.
+   - **High-Volume Binary Streaming:** Uploading multi-megabyte media to DAM via file streaming to prevent
+     Base64 buffer truncation.
+3. **Agent Autonomy vs. Steering:**
+   - Allow the agent the architectural autonomy to select the optimal execution mechanism dynamically:
+     defaulting to MCP for control-plane and lifecycle operations, while escalating to programmatic script
+     execution when payload volume, RPC limits, or complex data transformations demand it.
+   *Slide angle: MCP vs Code Execution: Finding the pragmatic boundary between LLM tool calls and programmatic execution.*
+
+---
+
 ## 2026-10-15 — Site Page layout mutations vs DPTs: endpoints, privateLayout flag, HTML templates, and Object link keys
 
 **What happened.** When retargeting the public `/courses` page (`SitePage`) to a modern Object
