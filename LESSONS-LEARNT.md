@@ -11,49 +11,37 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
-## 2026-10-15 — Site Page layout mutations vs DPTs: endpoints, privateLayout flag, HTML templates, and Object link keys
+## 2026-10-15 — Headless Site Page Mutations: Endpoints, Flags, Fragment HTML, and Object Linking
 
-**What happened.** When retargeting the public `/courses` page (`SitePage`) to a modern Object
-`CollectionProvider`, several subtle API and schema differences from Display Page Templates
-(`LayoutPageTemplateEntry`) caused repeated errors and blank card renders:
+1. **Differentiate DPT vs. Site Page REST endpoints.**
+   - **Display Page Templates (DPTs):** Mutated via `PUT /o/headless-admin-site/v1.0/sites/{siteERC}/page-specifications/{dptERC}-layout-draft` because Liferay maintains a distinct `LayoutPageTemplateEntry` database record for DPT drafts.
+   - **Standard Content Pages (`SitePage`):** Do not register draft layouts under `<pageERC>-draft` in the `Layout` table. Calling `/page-specifications/<pageERC>-draft` fails with `400 UnsupportedOperationException`. Standard Content Pages must be mutated via the SitePage resource:
+     ```http
+     PUT /o/headless-admin-site/v1.0/sites/{siteERC}/site-pages/{sitePageERC}?nestedFields=pageSpecifications&privateLayout=false
+     ```
 
-1. **DPTs vs Site Pages endpoint split:** DPT drafts are mutated via `PUT /page-specifications/<dptERC>-layout-draft`
-   because Liferay persists a distinct `LayoutPageTemplateEntry` record for DPT drafts. In contrast,
-   standard Content Pages (`SitePage`) do not register their draft layouts under `<pageERC>-draft` in
-   the `Layout` table; attempting to mutate them via `/page-specifications/<pageERC>-draft` fails with
-   `400 UnsupportedOperationException`. Standard Content Pages must be mutated via the SitePage resource:
-   `PUT /o/headless-admin-site/v1.0/sites/{siteERC}/site-pages/{sitePageERC}?nestedFields=pageSpecifications&privateLayout=false`.
-2. **`privateLayout=false` query parameter:** Omitting `privateLayout=false` on `PUT /site-pages/{sitePageERC}`
-   causes Liferay to check `EnabledUtil.checkPrivateLayoutEnabled(contextCompany)`, which throws a silent
-   `400 UnsupportedOperationException` on portals with private layouts disabled. Passing `?privateLayout=false`
-   is mandatory.
-3. **Payload stripping:** `GET /site-pages/{sitePageERC}?nestedFields=pageSpecifications` returns server-generated
-   read-only fields (`creator`, `dateCreated`, `dateModified`, `datePublished`, `uuid`, `customFields`) that
-   trigger `400 BAD_REQUEST` schema rejections if re-submitted in `PUT`. They must be stripped.
-4. **Fragment hierarchy hygiene:** Borrowing fragments from other pages requires assigning fresh UUIDs as
-   `externalReferenceCode`, setting `parentExternalReferenceCode` to the target container, and stripping
-   old layout-scoped IDs (`fragmentInstanceExternalReferenceCode`, `draftFragmentInstanceExternalReferenceCode`,
-   `namespace`, `uuid`). Any mismatched parent reference causes `PageElementDTOConverter` to throw
-   `UnsupportedOperationException`.
-5. **Fragment HTML is mandatory:** `fragmentInstance.html` must contain the fragment's full HTML markup with
-   `data-lfr-editable-id`. Unlike headless templates in other frameworks, Liferay does not dynamically pull
-   the template from the fragment definition during layout evaluation. If `html: ""` is empty, Liferay renders
-   a blank DOM node even if the editable values are mapped.
-6. **Object Display Page Link Key:** Inside a `CollectionItem` over an Object Definition, the display page
-   link key is `ObjectEntry_displayPageURL` (not `displayPageURL`).
-7. **Styling preservation:** To preserve Clay design tokens and typography, `fragmentViewports` (e.g.
-   `fontFamilySansSerif`, `textColor: "secondaryColor"`), `fragmentConfigurationFieldValues` (e.g.
-   `headingLevel: "h3"`), and fragment `css` must be retained when injecting or updating fragments.
+2. **Always supply `?privateLayout=false` when updating public Site Pages.**
+   Omitting `privateLayout=false` on `PUT /site-pages/{sitePageERC}` causes Liferay's `SitePageResourceImpl` to check `EnabledUtil.checkPrivateLayoutEnabled(contextCompany)`. If private layouts are disabled on the portal/instance, this check immediately throws a silent `400 UnsupportedOperationException`. Explicitly passing `?privateLayout=false` bypasses this check.
 
-### Lessons
+3. **Strip server-generated read-only fields before PUT.**
+   The response from `GET /site-pages/{sitePageERC}?nestedFields=pageSpecifications` contains read-only and server-calculated attributes: `creator`, `dateCreated`, `dateModified`, `datePublished`, `uuid`, and `customFields`. Re-submitting these in a `PUT` payload triggers schema validation errors (e.g., `400 BAD_REQUEST: The property "customFields" is not defined in SitePage`). Always strip them prior to submission.
 
-1. **Differentiate DPT and SitePage REST endpoints:** Use `/page-specifications/<erc>` exclusively for
-   Display Page Templates. Use `/site-pages/<erc>?nestedFields=pageSpecifications&privateLayout=false` for
-   standard Content Pages.
-2. **Never send empty `html` on fragment instances:** Always include the fragment template markup with
-   `data-lfr-editable-id` and preserve `fragmentViewports` and `css` to retain typography and spacing.
-3. **Use `ObjectEntry_displayPageURL` for Object collection links.**
-   *Slide angle: Pitfalls in Headless Page Mutations: Why Site Pages and DPTs require completely different REST lifecycles.*
+4. **Fragment hierarchy hygiene when moving or cloning page elements.**
+   When copying fragments between containers or pages:
+   - Assign fresh UUIDs as `externalReferenceCode`.
+   - Set `parentExternalReferenceCode` to match the exact target container ERC. Mismatched parent references cause `PageElementDTOConverter` to throw `UnsupportedOperationException`.
+   - Strip source-layout-scoped instance metadata (`fragmentInstanceExternalReferenceCode`, `draftFragmentInstanceExternalReferenceCode`, `namespace`, `uuid`).
+
+5. **`fragmentInstance.html` is strictly mandatory for rendering.**
+   Liferay does *not* dynamically pull HTML templates from fragment definitions at layout render time. Instead, it renders mapped editable values directly into the `html` string stored inside `fragmentInstance` using the `data-lfr-editable-id` tokens. If a fragment instance is created or updated with `html: ""`, Liferay renders a blank DOM node even though the editable field values are fully mapped.
+
+6. **Use `ObjectEntry_displayPageURL` for Object collection links.**
+   When linking to a display page from within a `CollectionItem` over an Object Definition, the field key is `ObjectEntry_displayPageURL` (not `displayPageURL` or `JournalArticle_displayPageURL`).
+
+7. **Preserve fragment viewports, styling, and configuration.**
+   When updating page elements programmatically, preserve `fragmentViewports` (e.g. `fontFamily: "fontFamilySansSerif"`, `textColor: "secondaryColor"`, `marginBottom: "6"`), `fragmentConfigurationFieldValues` (e.g. `headingLevel: "h3"`), and fragment `css`. Omitting them strips Clay tokens, reverting elements to unstyled browser defaults.
+
+*Slide angle: Pitfalls in Headless Page Mutations: Why Site Pages and DPTs require completely different REST lifecycles.*
 
 ---
 
