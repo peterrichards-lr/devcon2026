@@ -11,6 +11,38 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Site Page Inventory Audits: Why visual navigation browsing misses pages like 'My Learning'
+
+**What happened.** During the public content page migration phase, we initially audited and retargeted
+`/courses`, `/blog`, and `/home`. We inadvertently omitted `/my-learning` until the final review.
+Tracing why this happened revealed two critical gaps in migration planning:
+1. **Primary Navigation Bias:** The initial page inventory was gathered by browsing the top header
+   navbar (Home, Courses, Blog, Apply). However, `/my-learning` had `hiddenFromNavigation: true` because
+   it belongs to a secondary, user-profile-scoped navigation menu ("Private Area Navigation"). Pages
+   outside primary menus are completely invisible to navbar-based audits.
+2. **Missing Entity Listing Audit:** In earlier phases, we migrated 4 CMS Content Structures: `Blog`,
+   `Teacher`, `Course`, and `Classroom`. While we migrated listings for Courses and Blogs, we never
+   cross-referenced `Classroom` to ask: *"Where on the site are Classroom entries listed?"* In this site's
+   information architecture, classrooms are listed as enrolled courses on `/my-learning` rather than a
+   public `/classrooms` route.
+
+By relying on visual navigation instead of querying the site-pages endpoint directly:
+`GET /o/headless-admin-site/v1.0/sites/{siteERC}/site-pages`
+a content page hosting an active `CollectionDisplay` was temporarily overlooked.
+
+### Lessons
+
+1. **Always perform an exhaustive API-based page inventory.** Never rely on visible navbar links or
+   sitemaps to inventory pages for migration. Always query `GET /site-pages` to discover all pages,
+   especially utility, private-area, and `hiddenFromNavigation: true` pages.
+2. **Cross-reference every migrated data model against site listings.** When migrating multiple
+   content structures or objects, audit every single model against the site pages to verify where its
+   collection displays, search facets, or listings reside. If an entity exists in the backend without a
+   matching collection display in your page list, a page has been missed.
+   *Slide angle: The Navigation Trap: Why visual inspection misses critical pages and how to audit site-wide collection coverage.*
+
+---
+
 ## 2026-10-15 — Navigation Menus during CMS migration: silent regressions, type immutability, and cross-scope references
 
 **What happened.** While auditing the site after retargeting Display Page Templates and Content Pages,
