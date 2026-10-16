@@ -11,6 +11,45 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-15 — Display Page Templates cannot be published via REST: postSitePageSpecificationPublish is an un-implemented stub
+
+**What happened.** When automating Display Page Template (DPT) migration, we attempted to publish
+the updated draft layouts (`blog-entry`, `course`, `classroom`) via the Headless Admin Site API:
+`POST /v1.0/sites/{siteERC}/page-specifications/{draftERC}/publish`.
+The endpoint returned an immediate `204 No Content`, leading us to assume the layout had been promoted
+to published/approved. However, inspecting the site showed the changes remained unpromoted drafts,
+and the DPTs continued rendering legacy content until a user opened each DPT in the Page Editor and
+clicked the blue **"Publish"** button.
+
+Inspecting Liferay's portal source code (`headless-admin-site-impl`) uncovered the exact reason:
+`PageSpecificationResourceImpl.java` does **not** implement or override `postSitePageSpecificationPublish`.
+The call falls back to Vulcan's auto-generated stub in `BasePageSpecificationResourceImpl.java`:
+```java
+@Override
+public PageSpecification postSitePageSpecificationPublish(...) {
+    return new PageSpecification();
+}
+```
+The method literally executes zero persistence logic, returning 204 without touching the database!
+Furthermore, Liferay's service layer strictly blocks updating a DPT in "Approved" status via REST:
+`PageSpecificationResourceImpl.putSitePageSpecification` enforces `!layout.isDraftLayout() -> throw IllegalArgumentException`.
+As a result, while standard Content Pages (`SitePage`) can be updated and published directly via
+`PUT /site-pages`, **Display Page Templates physically cannot be published via headless REST and
+strictly require human verification and manual approval via the Page Editor UI.**
+
+### Lessons
+
+1. **`postSitePageSpecificationPublish` is an empty API stub.** Calling the `/publish` endpoint on
+   page specifications returns `204 No Content` as a false positive without executing any promotion
+   logic in Liferay.
+2. **DPTs strictly require manual UI publishing.** Because DPT page specifications can only be mutated
+   in "Draft" status (`status: "Draft"` on `<dptERC>-layout-draft`), any headless migration or CI/CD
+   pipeline automating DPT retargeting must stop at the draft stage and require an administrative user
+   to open the Page Editor and click "Publish".
+   *Slide angle: The 204 False Alarm: Why DPT publishing cannot be automated and demands human-in-the-loop approval.*
+
+---
+
 ## 2026-10-15 — MCP Tool Invocations vs. Programmatic Script Execution: When to Use Each and How to Steer AI
 
 **What happened.** Throughout the site migration to Headless CMS Objects, two execution channels
