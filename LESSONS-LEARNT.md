@@ -213,7 +213,7 @@ Carried over so they are in one place. The detail and evidence live in `.agent-s
 
 # Approach 2: live site, migrated in place
 
-## 2026-10-15 — Headless REST Deletions Bypass the Recycle Bin: deleteArticle vs. moveArticleToTrash
+## 2026-10-15 — Headless REST Deletions of legacy content bypass the Recycle Bin; new CMS entries do not
 
 **What happened.** While cleaning up legacy Web Content articles, Documents & Media files, and obsolete
 site collections after migrating them to modern Headless CMS Objects, the site's Recycle Bin remained
@@ -228,18 +228,24 @@ Inspecting Liferay's `headless-delivery` implementation revealed why this happen
    the HTTP `DELETE` handler directly calls `JournalArticleService.deleteArticle(...)` and `DLAppService.deleteFileEntry(...)`.
    The headless layer adheres to strict REST semantics where `DELETE` is permanent, completely bypassing the
    `TrashHandler` subsystem.
-3. **Collections and Object definitions:** Collections (`AssetListEntry`) and modern Custom Objects (`/o/c/...`)
-   do not participate in the legacy Recycle Bin framework at all; deletions on these models are always permanent.
+3. **Collections:** Collections (`AssetListEntry`) do not participate in the Recycle Bin framework at all;
+   deleting one is always permanent.
+4. **New CMS entries are the exception: they are soft deleted.** Verified on 2026.q3.5 (2026-10-16): a
+   `DELETE /o/c/elearningblogs/{id}` on an entry in the eLearning Space returned `204`, yet the entry was
+   still readable by ERC with `status = 8` (in trash), a `TrashEntry` row existed, and creating a new entry
+   with the same ERC failed with `400 This external reference code is already in use.` This matches the
+   2026-10-15 DAM ingestion lesson below. Company scoped custom objects were not tested.
 
 ### Lessons
 
-1. **Headless REST `DELETE` operations are irreversible hard deletes.** Never assume items deleted via
-   REST APIs or MCP tools can be recovered from the Recycle Bin. There is no soft-delete safety net in
-   the Headless layer.
+1. **What a REST `DELETE` does depends on what you delete.** Legacy web content, documents and
+   collections are gone for good: never assume they can be recovered from the Recycle Bin. New CMS entries
+   in a Space go to the Recycle Bin and keep their ERC reserved, so a re-run that recreates them with the
+   same ERC fails until the trash is emptied.
 2. **Take full database snapshots before automated cleanup.** In migration pipelines or automated cleanup
    scripts, full database and document store backups are the only recovery mechanism against accidental
    data loss during programmatic cleanup.
-   *Slide angle: The Invisible Trash: Why Headless REST DELETES bypass the Recycle Bin and why automated migrations need external backup nets.*
+   *Slide angle: The Invisible Trash: the same DELETE is permanent for the old CMS and reversible for the new one, so snapshot before cleanup and empty the trash before a re-run.*
 
 ---
 
