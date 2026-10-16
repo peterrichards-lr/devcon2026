@@ -213,6 +213,36 @@ Carried over so they are in one place. The detail and evidence live in `.agent-s
 
 # Approach 2: live site, migrated in place
 
+## 2026-10-15 — Headless REST Deletions Bypass the Recycle Bin: deleteArticle vs. moveArticleToTrash
+
+**What happened.** While cleaning up legacy Web Content articles, Documents & Media files, and obsolete
+site collections after migrating them to modern Headless CMS Objects, the site's Recycle Bin remained
+completely empty before and after all deletion operations. Deletions executed via the REST APIs and MCP
+tools were immediately permanent and bypassed the Recycle Bin entirely.
+
+Inspecting Liferay's `headless-delivery` implementation revealed why this happens by design:
+1. **Admin UI vs. Headless REST deletion engines:** In the Liferay UI, clicking "Delete" on an article or
+   file routes through the MVC portlet action, which invokes `moveArticleToTrash()` and `moveFileEntryToTrash()`,
+   creating records in the `TrashEntry` table so administrators can restore them.
+2. **REST endpoints execute hard deletes:** In `StructuredContentResourceImpl.java` and `DocumentResourceImpl.java`,
+   the HTTP `DELETE` handler directly calls `JournalArticleService.deleteArticle(...)` and `DLAppService.deleteFileEntry(...)`.
+   The headless layer adheres to strict REST semantics where `DELETE` is permanent, completely bypassing the
+   `TrashHandler` subsystem.
+3. **Collections and Object definitions:** Collections (`AssetListEntry`) and modern Custom Objects (`/o/c/...`)
+   do not participate in the legacy Recycle Bin framework at all; deletions on these models are always permanent.
+
+### Lessons
+
+1. **Headless REST `DELETE` operations are irreversible hard deletes.** Never assume items deleted via
+   REST APIs or MCP tools can be recovered from the Recycle Bin. There is no soft-delete safety net in
+   the Headless layer.
+2. **Take full database snapshots before automated cleanup.** In migration pipelines or automated cleanup
+   scripts, full database and document store backups are the only recovery mechanism against accidental
+   data loss during programmatic cleanup.
+   *Slide angle: The Invisible Trash: Why Headless REST DELETES bypass the Recycle Bin and why automated migrations need external backup nets.*
+
+---
+
 ## 2026-10-15 — Site Page Inventory Audits: Why visual navigation browsing misses pages like 'My Learning'
 
 **What happened.** During the public content page migration phase, we initially audited and retargeted
