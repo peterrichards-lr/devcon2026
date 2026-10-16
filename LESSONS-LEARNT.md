@@ -11,6 +11,54 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 
 ---
 
+## 2026-10-16 — Correction: collection classPK is not string vs number, it is handler order
+
+**What happened.** The 2026-10-14 entry below concluded that display page templates need a
+numeric `classPK` (`"[#ASSET_LIST_ENTRY_ID:…#]"`) and content pages a string one
+(`"[$ASSET_LIST_ENTRY_ID:…$]"`). Two clean creations of the tree on LDM (2026.q3.5) and the
+portal source say otherwise:
+
+| Run | Template token | Handler order in the log | Blog DPT "More like this" collection |
+| --- | --- | --- | --- |
+| 14 Oct, #60 tree | `[$…$]` | `addLayoutPageTemplates` before `addAssetListEntries` | absent |
+| 15 Oct, current 02 | `[#…#]` | `addAssetListEntries` before `addLayoutPageTemplates` | present |
+
+The token form changed, and so did the order. Only the order matters.
+
+**Root cause.** Content pages and display page templates go through the same
+`CollectionLayoutStructureItemImporter`, which reads `classPK` with `String.valueOf(…)`, so a
+string and a number are treated the same. The failure is that the token has not been registered
+yet: `addAssetListEntries` registers `ASSET_LIST_ENTRY_ID`, and neither `addLayoutPageTemplates`
+nor `addOrUpdateLayoutsContent` depends on it. `BundleSiteInitializer` orders its handlers by
+iterating a `HashMap` keyed on objects with identity hash codes, so the order can change on every
+site creation. When the pages win, the literal token fails to parse and the collection is
+silently dropped. The same can happen to content pages, which is the likely explanation for
+numeric tokens "breaking" them in #63.
+
+**Evidence.** The two runs above; `_createRMap` and its run loop in `BundleSiteInitializer`;
+`CollectionLayoutStructureItemImporter._getCollectionJSONObject`. The course display page
+template, whose collection uses a provider class name with no tree scoped token, kept its
+collection on both runs.
+
+### Lessons
+
+1. **A fix that works once is a hypothesis.** The `[#…#]` change was followed by a working run,
+   which looked like proof. One more clean run with the order reversed would have shown the
+   result followed the order, not the token.
+   *Slide angle: It worked after my change is not the same as it worked because of my change.*
+
+1. **An intermittent bug can be on stage.** Any site creation, including the one in the demo, can
+   come up with empty collections. Check the collections after every creation, and keep a
+   pre-provisioned instance as the fallback.
+   *Slide angle: Rehearse the failure, not just the happy path.*
+
+1. **Correct the rules, not just the code.** The wrong rule had already been written into the
+   agents' portability card, where every future migration would have followed it. The card now
+   describes the race instead.
+   *Slide angle: A wrong rule taught to the agent is worse than no rule.*
+
+---
+
 ## 2026-10-15 — Site Page Inventory Audits: Why visual navigation browsing misses pages like 'My Learning'
 
 **What happened.** During the public content page migration phase, we initially audited and retargeted
@@ -426,6 +474,9 @@ the object definition.
 ---
 
 ## 2026-10-14 — The dual personality of collection classPK: string in pages, number in templates
+
+> **Superseded by the 2026-10-16 correction above.** The root cause below is wrong: the token
+> form does not matter, the order the initializer runs its handlers does.
 
 **What happened.** While standardizing collection displays across the site initializer,
 collections exhibited contradictory behavior between Content Pages and Display Page Templates:
