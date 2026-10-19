@@ -15,6 +15,24 @@ The project demonstrates two distinct migration methodologies:
 
 ---
 
+## Tags: where each stage of the talk lives
+
+| Tag | State |
+| --- | --- |
+| `devcon-start` | The starting point: the 2024 Masterclass site initializer on web content (DDM structures, journal articles), renamed to Masterclass CMS and nothing else. Both approaches start here. |
+| `devcon-approach-1` | Approach 1's final state: the site initializer rebuilt on the Headless CMS, with the data batch, the demo student and the test scripts. The Approach 1 demo and its backup video were recorded from a provision of this state. |
+| `devcon-approach-2` | Approach 2's final state: the live site migrated in place. |
+
+```bash
+git checkout devcon-start        # before
+git checkout devcon-approach-1   # after, Approach 1
+```
+
+`step-01-initial` and `step-02-aiconversion` are earlier checkpoints from 6 October and are
+kept for history.
+
+---
+
 ## Running Approach 1
 
 Approach 1 builds and runs on **Liferay DXP 2026.Q3** (verified on 2026.q3.5), starting from
