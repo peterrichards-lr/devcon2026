@@ -43,6 +43,18 @@ about 7 minutes, almost all of it provisioning (rehearsed on 2026-10-19):
    docker ps --format '{{.Names}}' | grep liferay-search-global
    ```
 
+1. **Check that Docker's clock agrees with the Mac's.** The log's timestamps come from
+   Docker's virtual machine and the time-lapse clock from the Mac, so they only line up if
+   the two clocks do. With the instance running:
+
+   ```bash
+   python3 -c "import subprocess, time; m = time.time(); d = float(subprocess.check_output(['docker', 'exec', 'devcon2026', 'date', '-u', '+%s.%N'])); print(f'Docker minus Mac: {d - m:+.2f} s')"
+   ```
+
+   Anything within about half a second is fine (measured +0.08 s on 2026-10-19, part of it
+   the command's own delay). A larger gap means Docker's clock has drifted; restarting
+   Docker Desktop resyncs it.
+
 1. **Lay out the screen** (macOS, Terminal.app), from the worktree:
 
    ```bash
@@ -96,6 +108,64 @@ without asking. To follow the logs without the layout script:
 ```bash
 scripts/follow-logs.sh
 ```
+
+### Making the time-lapse
+
+`scripts/clock_overlay.py` speeds the recording up and draws a clock in the corner the
+layout left clear. The clock keeps **real** time while the video runs fast, so it races
+during provisioning and still lines up with the timestamps in the log window. Run it on
+the full, uncut recording, then trim:
+
+```bash
+python3 scripts/clock_overlay.py "<recording>.mov" "<recording>-timelapse.mp4" \
+	--speed 15 --tz UTC --style digital --dual --size 260
+```
+
+This is the form used for the talk: a digital time of day that reads like the log's
+timestamps, with an elapsed-time panel under it, so the time-lapse shows both when each
+step happened and how long the run has taken. At `--size 260` it is 260 x 222 px, the
+largest that fits the clear corner's width.
+
+- **`--tz UTC`**, because Liferay's log timestamps are in UTC. The clock starts at the time
+  read from the recording's metadata, converted to `--tz` (default: this Mac's zone). It
+  prints that time before rendering; check it against the first log line in the recording.
+  Use `--start HH:MM:SS` only if the metadata is missing.
+- At `--speed 15`, a 12 minute take becomes about 50 seconds.
+- `--style analog|digital|both` chooses the clock, `--dual` adds an elapsed-time panel
+  under it, and `--start zero` turns it into a stopwatch.
+- `--subsec tenths|ms` adds sub-second digits to the digital elapsed readouts
+  (`--subsec-on all` adds them to the time of day too, though its start is only known to the
+  second). Each frame covers speed/30 s of real time, so at `--speed 15` even tenths only
+  show `.0` and `.5`; the script says so. Sub-seconds suit real-time clips, not the time-lapse.
+- **It has to fit the clear corner**: 310 px of height below its 40 px margin, at the
+  default `CLOCK_H=350`. At the default `--size 220`, analog with its label is 268 px and
+  fits; analog with `--dual` (333 px) or `--style both` (353 px) does not. Use `--size 200`
+  with `--dual`, or lay the screen out with a taller corner, such as
+  `CLOCK_H=420 scripts/record-layout.sh`, before recording.
+- It ends with a `BrokenPipeError`: it writes a few more clock frames than the sped up video
+  has, and ffmpeg stops first. The output is complete.
+
+**Check the clock against the log.** Pick an event whose exact time the log records, find
+the frame where it appears, and compare the clock with the newest log line. The site
+initializer's `Initialized` line works well: it appears once, in bold green, near the end
+of provisioning. Run this while the recorded instance is still up, since `docker logs` only
+covers the current container:
+
+```bash
+REC="<recording>.mov"; TL="<recording>-timelapse.mp4"; SPEED=15
+EVENT=$(docker logs devcon2026 2>&1 | grep -m1 "Initialized com.liferay.site.initializer" | cut -c1-23)
+START=$(ffprobe -v error -show_entries format_tags=creation_time -of default=nw=1:nk=1 "$REC")
+AT=$(python3 -c "from datetime import datetime as d; e = d.fromisoformat('$EVENT+00:00'); s = d.fromisoformat('$START'.replace('Z', '+00:00')); print(round((e - s).total_seconds() / $SPEED, 2))")
+echo "$EVENT should appear at ${AT}s"
+ffmpeg -loglevel error -y -ss "$AT" -i "$TL" -frames:v 1 clock-check.png && open clock-check.png
+```
+
+The clock should read the event's second, give or take one, with the `Initialized` line
+just appearing at the bottom of the log window. On 2026-10-19 the line stamped 16:46:36.226
+appeared between the clock reading 16:46:35 and 16:46:37. If they are further apart,
+re-render with `--start HH:MM:SS` set to the corrected start time.
+
+It needs `ffmpeg` (`brew install ffmpeg`) and Pillow (`pip3 install pillow`).
 
 ## The one rollback that always works
 
