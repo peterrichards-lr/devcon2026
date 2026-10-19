@@ -287,10 +287,15 @@ def main():
            "-an", "-c:v", "libx264", "-crf", "18", "-preset", "medium",
            "-movflags", "+faststart", a.output]
     ff = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    for i in range(n):
-        real = start + (i / FPS) * a.speed
-        ff.stdin.write(clock.render(real).tobytes())
-    ff.stdin.close()
+    try:
+        for i in range(n):
+            real = start + (i / FPS) * a.speed
+            ff.stdin.write(clock.render(real).tobytes())
+        ff.stdin.close()
+    except BrokenPipeError:
+        # n is an estimate; the sped up video can end a few frames sooner, and ffmpeg
+        # (overlay shortest=1) stops reading when it does. The output is complete.
+        pass
     sys.exit(ff.wait())
 
 
