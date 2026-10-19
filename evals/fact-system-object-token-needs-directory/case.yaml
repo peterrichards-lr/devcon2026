@@ -1,0 +1,23 @@
+schema_version: "1.0"
+name: fact-system-object-token-needs-directory
+description: >-
+  A site initializer tree with no object-definitions/ directory cannot resolve a
+  system object token. _addObjectDefinitions registers company wide tokens for custom
+  definitions, then returns early when that directory is missing — before the loop
+  that registers User, AccountEntry and the rest.
+tags: [fact, objects, site-initializer]
+runs: 5
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 20
+  timeout_seconds: 300
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    This site initializer deploys and the site provisions with no error, but the
+    relationship in `object-relationships/user-enrollments.json` is never created.
+    The DemoEnrollment object definitely exists and is published — a sibling batch
+    client extension creates it, and I can see it in Control Panel.
+
+    Why is the relationship not being created, and what is the smallest change that
+    fixes it?
