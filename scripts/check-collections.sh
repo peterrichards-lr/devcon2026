@@ -31,4 +31,4 @@ join layout l on l.plid = t.plid
 where l.groupid = ${GROUP_ID} and l.friendlyurl !~ '^/[0-9a-f]{8}-' and s.data_ like '%\\\"type\\\":\\\"collection\\\"%'
 order by 1\"" | awk -F'|' '
 	{ status = ($3 < $2) ? "MISSING" : "ok"; if ($3 < $2) bad++; printf "%-8s %-20s %s displays, %s configured\n", status, $1, $2, $3 }
-	END { if (bad) { print bad " page(s) with a collection display and no collection"; exit 1 } }'
+	END { if (NR == 0) { print "no collection displays found on this site"; exit 1 } if (bad) { print bad " page(s) with a collection display and no collection"; exit 1 } }'
