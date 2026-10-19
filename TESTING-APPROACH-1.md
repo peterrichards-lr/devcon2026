@@ -15,26 +15,87 @@ a snapshot `clean-2026q3.5` that holds no Masterclass data, and the admin
 
 ## Recording the run
 
-To record the whole run, use two terminal windows. On macOS, `scripts/record-layout.sh` opens both side by side in Terminal.app, with a large font, descriptive titles and the top-right corner left clear for a clock (`SCREEN_NAME=Built-in` for the laptop screen, `MENU_BAR=0` when the menu bar is hidden).
+The whole run, from a clean snapshot to the stage snapshot, recorded in one take. It takes
+about 7 minutes, almost all of it provisioning (rehearsed on 2026-10-19):
 
-**Logs.** The restore tears the Liferay container down, which ends a plain `ldm logs -f`, so
-wrap it in a loop that reconnects when Liferay comes back:
+| Stage | Time |
+| --- | --- |
+| 1. Build | about 25 s |
+| 2. Provision | about 5 m 45 s |
+| 3. to 6. Checks and the demo student | about 30 s |
+
+### Before you record
+
+1. **Merge what you are recording into 02**, then move the worktree to it. Nothing needs
+   rebuilding by hand; stage 1 builds:
+
+   ```bash
+   cd ../devcon2026-test
+   git fetch upstream
+   git checkout --detach upstream/02-aiconversion
+   ```
+
+1. **Check the shared search container is running.** A missing `liferay-search-global`
+   breaks the restore (stage 0). `ldm-provision.sh` refuses to start without it, but it is
+   better found now than on camera:
+
+   ```bash
+   docker ps --format '{{.Names}}' | grep liferay-search-global
+   ```
+
+1. **Lay out the screen** (macOS, Terminal.app), from the worktree:
+
+   ```bash
+   MENU_BAR=0 scripts/record-layout.sh
+   ```
+
+   It finds the 1920x1080 display and opens two windows on it, in a "Recording" profile:
+   Menlo 20 pt, dark by default, with titles that say what each window shows. The top-right
+   300x350 is left clear for a clock. Running it again replaces both windows.
+
+   | Window | Shows |
+   | --- | --- |
+   | Liferay server log (live), left | `scripts/follow-logs.sh`: the project's consolidated `ldm logs`, each line keeping its `service \|` prefix, the message coloured by what it says |
+   | Approach 1: build, provision and check, right | the worktree, with `scripts/record-approach-1.sh` typed at the prompt, waiting for Enter |
+
+   | Option | Default | Use |
+   | --- | --- | --- |
+   | `MENU_BAR` | `30` | `0` when the menu bar is hidden; otherwise it keeps clear the menu bar macOS doesn't report on a second display |
+   | `SCREEN_NAME` | none | lay out another display by name, for example `Built-in` |
+   | `THEME` | `dark` | `light` for a white background |
+
+1. **Set up the screen recording:** the 1920x1080 display, **SDR** (not HDR; the content
+   and the playback are SDR, and HDR comes out washed out when converted), 30 fps.
+
+### Recording
+
+Start the screen recording, then press Enter in the right window.
+
+`record-approach-1.sh` runs stages 1 to 6 below in order. Before each stage it shows a
+banner and waits for Enter, so you set the pace. Each command is printed as `$ …` before it
+runs, with every `--user` password shown as `****`. It passes the group id on by itself,
+stops at the first stage that fails, and ends with the time each stage took.
+
+What to expect, and what to say about it:
+
+| Moment | In the log window | In the run window |
+| --- | --- | --- |
+| Restore | Red `FATAL` lines from `devcon2026-db`: the restore starts from an empty database (`database "lportal" does not exist`) and stops Liferay while it is still connected (`connection to client lost`). Then `container restarted, reconnecting`. Nothing red once Liferay is back up. | `$ ldm restore …`, then `Liferay ready` |
+| Deploys | Green `STARTED` for each module and client extension | One `$ cp …` per artifact |
+| Site creation | Cyan `Invoking …` handler steps, then bold green `Initialized com.liferay.site.initializer.masterclass.cms` | `handler order ok`, or `RACE` and a second provision (see stage 2) |
+| Data batch | Bold green `Successfully deployed batch engine file` for each of the seven files | `batch files deployed: 7` |
+| Checks | Quiet | `ok` lines; two `WARN` lines in the student checks are the known self-approve issue |
+
+At the end it asks for a snapshot name. Use `masterclass-02-<short commit>`; Enter skips.
+Stage 8, the browser check, stays manual: do it after the snapshot, so the Pending
+enrolment it creates is not in it.
+
+`PAUSE=0` runs straight through without stopping; `SNAPSHOT=<name>` takes the snapshot
+without asking. To follow the logs without the layout script:
 
 ```bash
-while true; do ldm logs -f devcon2026; sleep 2; done
+scripts/follow-logs.sh
 ```
-
-**Stages.** From the checkout under test:
-
-```bash
-scripts/record-approach-1.sh
-```
-
-It runs stages 1 to 6 below in order, with a banner and a pause before each, so you press
-Enter when you are ready for the next. It passes the group id on by itself, stops at the
-first stage that fails, and at the end asks for a snapshot name (Enter skips). `PAUSE=0`
-runs straight through; `SNAPSHOT=<name>` takes the snapshot without asking. Stage 8, the
-browser check, stays manual.
 
 ## The one rollback that always works
 
@@ -274,5 +335,6 @@ Then sign in as the demo student and register for a second course, as in stage 8
 
 | Snapshot | Contents | Use |
 | --- | --- | --- |
-| `masterclass-02-<short commit>` | The latest clean run of this procedure | Stage, recording |
+| `masterclass-02-<short commit>` | The next clean run of this procedure, taken at the end of the recording | Stage, once it passes stage 8 |
+| `masterclass-02-26093eb` | 02 at `26093eb`: every stage passed, browser check included (2026-10-19). Its build is identical to 02 at `d0806f0` apart from build timestamps | Stage fallback until the recorded run replaces it |
 | `masterclass-02-7de77b5` | 02 at `7de77b5`: everything except the demo student | Last resort; it has no demo student, so stage 8 cannot be shown |
