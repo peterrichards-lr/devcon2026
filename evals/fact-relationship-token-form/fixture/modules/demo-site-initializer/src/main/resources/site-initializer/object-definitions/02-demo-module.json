@@ -1,0 +1,22 @@
+{
+	"externalReferenceCode": "DEMO-MODULE",
+	"label": {
+		"en_US": "Demo Module"
+	},
+	"name": "DemoModule",
+	"objectFields": [
+		{
+			"businessType": "Text",
+			"label": {
+				"en_US": "Title"
+			},
+			"name": "title",
+			"required": true
+		}
+	],
+	"pluralLabel": {
+		"en_US": "Demo Modules"
+	},
+	"scope": "company",
+	"titleObjectFieldName": "title"
+}

@@ -1,0 +1,23 @@
+schema_version: "1.0"
+name: fact-relationship-token-form
+description: >-
+  A relationship moving from a batch client extension into a site initializer tree
+  cannot keep its external reference code fields. The tree's handler resolves the
+  parent by numeric ID, so the ERC form resolves to nothing.
+tags: [fact, objects, site-initializer]
+runs: 5
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 20
+  timeout_seconds: 300
+  allowed_tools: [Read, Glob, Grep, Skill]
+  prompt: |
+    The two object definitions already live in the site initializer tree under
+    `object-definitions/`. The relationship between them is still in the batch
+    client extension, in `batch/05-object-relationship.batch-engine-data.json`.
+
+    I want to move that relationship into the tree as well, so the initializer owns
+    the whole model. Write me the file that goes in
+    `site-initializer/object-relationships/`, and tell me anything I need to be
+    careful about.

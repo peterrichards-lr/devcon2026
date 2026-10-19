@@ -118,6 +118,166 @@ Neither importer logs a warning or error — both log successful initialization.
 
 ---
 
+## 2026-10-13 — The guard that would have broken working code
+
+**What happened.** Applying a brief on agent-repo practice, we turned the portability
+audit in the `migrate-cms-to-objects` skill into blocking guards. The skill's card said
+`[#…#]` is "literal, never substituted", and its checklist made any use an error. 02 had
+five, so the first draft of the guard failed the tree. Before writing it, we checked the
+portal source. `SiteInitializerUtil.replace` has run a `"[#…#]"` pass since LRSD-5177
+(2024), with the double quotes as part of the delimiter, so it substitutes an unquoted
+number. All five uses were correct. The extender's own test bundles use the form for
+`classPK` and `imageId`.
+
+The same pass found that `.agents/rules/site-initializer-portability.md` was a symlink
+committed as a 75 byte text file, on 02, 03 and master. That is the failure that once made a
+week of evals measure nothing (#24). Claude and Gemini read the card through their own
+links, so only an agent reading `.agents/` directly got a path instead of the card.
+
+A third finding came from asking Gemini directly: it had never read `.gemini/GEMINI.md`.
+Version 0.46 only reads `GEMINI.md` from the working directory up to the git root, so
+Gemini sessions here started without the workspace rules, and the copy they would have
+read had drifted anyway.
+
+Fixed in rlluis/devcon2026#50 (card, symlink, guards with a GitHub Action) and #51 (a
+root `GEMINI.md` that imports the rules).
+
+### Lessons
+
+1. **A skill can be confidently wrong, and automation multiplies it.** As prose, the
+   card's mistake cost a reader a moment of doubt. As a blocking guard, it would have
+   failed correct code on every push, with a message citing the card as the reason.
+   Check the source before turning documentation into enforcement.
+   *Slide angle: the instructions needed a code review too.*
+
+1. **Prove a check both ways.** Every guard has a test that plants the violation, and the
+   check was run against 02 from before the fix to confirm it caught the real symlink.
+   The `[#` guard checks the rule as the code applies it (`[#…#]` outside a whole quoted
+   string), not as the card stated it.
+
+1. **Ask the tool what it loaded.** The Gemini file looked right, sat where a reader
+   would expect, and was never read. One `gemini --debug` prompt showed which files it
+   loaded and which heading it quoted, before and after.
+
+1. **Symlink failures recur.** Two instances within a week, both silent, both on files
+   agents depend on. That is now a guard, not a reminder.
+
+---
+
+## 2026-10-13 — The bridge entry that arrived empty
+
+**What happened.** Enrolment lives in our own objects (MyCourseSession, MyCourseEnrollment),
+but a CMS object in a Space cannot be related to them. Rafa bridged the gap with an
+`onAfterAdd` action on ElearningSession that creates a MyCourseSession, meant to copy the
+session's `id`, `startDate` and `endDate`. Only the `id` ever arrived.
+
+**Root cause, as Rafa found it.** ElearningSession has `enableObjectEntryDraft` and
+`enableObjectEntryVersioning` on, as all five of our Space scoped objects do. Creating an entry first saves a
+draft shell, and `onAfterAdd` fires on that shell, when only the generated `id` exists. The
+author's values come later, with an update. And `onAfterUpdate` cannot fill them in
+elsewhere: `add-object-entry` there makes a new bridge record on every save, and
+`update-object-entry` has no way to find the MyCourseSession whose `courseSessionID` matches
+the session.
+
+**What we did.** Rafa weighed a Groovy action on update against storing only the ID, and
+chose the ID. The bridge now holds just `courseSessionID`, and the registrations fragment
+reads the dates from ElearningSession itself, so the CMS object is the only source of truth
+for them (rlluis/devcon2026 `ba649c7`). On a clean provision, 12 sessions created 12 bridge
+entries with matching IDs, and an ordinary signed in user could read the dates.
+
+### Lessons
+
+1. **Drafts change what "after add" means.** On a draft enabled object, `onAfterAdd`
+   happens before the author has typed anything. Any action that copies field values
+   needs a trigger that fires on publish.
+
+1. **When the platform cannot sync a value, stop copying it.** Storing the reference
+   and reading through it removed the sync problem altogether, with no code to maintain.
+   *Slide angle: the least code answer was a smaller data model, not a script.*
+
+1. **This is product feedback, not just a workaround.** Rafa is filing it as a bug (an
+   `onAfterPublish` trigger, or deferring `onAfterAdd` until the entry leaves draft) and
+   a feature request (`update-object-entry` that finds its target by a field match). Add
+   the links here when they exist; they count toward the bugs and FRs slide.
+
+---
+
+## 2026-10-09 — The images only the author could see
+
+**What happened.** Rafa's info templates mapped course images, PDFs and video
+correctly when signed in, and not at all on a second machine or as a visitor. An AI
+diagnosis called it a race condition in the site initializer and concluded it could
+not be fixed. It was three separate problems, none of them a race.
+
+**Root causes.**
+- *Not a race.* The dependency graph orders the templates before the display pages
+  through an indirect dependency the diagnosis missed, and the steps run one at a time.
+  A clean first run proved it: every mapping resolved to a real template ID.
+- *Guests were refused, silently, twice.* The templates fetched documents over REST as
+  the visitor, which the Service Access Policy blocks; `!{}` turned the error into empty
+  output. Under that, every attachment download was 404 for a guest, because the file
+  is owned by the CMS Basic Document that uploaded it, and downloading also needs the
+  per field `DOWNLOAD_<FIELD>` action. The servlet reports a guest permission failure as
+  404, not 403.
+- *The tree cannot name an attachment mapping.* Attachment subfields are keyed by
+  numeric object field ID, and the importer drops display page mappings it cannot
+  validate. The info template is a real workaround, not a mistake.
+
+Fixes: guest grants in `resource-permissions.json`, templates that read the URL from
+their own fields, a missing blog image restored, and a removable module that scopes
+collections to the Space. Issue peterrichards-lr/devcon2026#13 has the batch half.
+
+### Lessons
+
+1. **Test as the visitor, on a clean instance, before believing a diagnosis.**
+   Both conditions mattered: signed in hid the permission bugs, and a reused instance
+   made run 2 look fixed.
+   *Slide angle: "works on my machine" now has a second clause: "as me".*
+
+1. **A confident explanation is not evidence.** The race story was detailed, cited
+   real source, and was wrong because it read one dependency list instead of the graph.
+   One clean run settled what an hour of reasoning could not.
+
+1. **Silent fallbacks compound.** `!{}` in the template, 404 for a refused guest, an
+   importer that drops what it cannot validate: each hid the next problem.
+
+1. **A 200 is not an image.** The first fix for the missing blog image produced an empty
+   file. Every URL for it returned `200 image/jpeg` with zero bytes, so an automated
+   check passed while the card stayed blank, and a person looking at the page caught it.
+   Checking content size, not status, found it in one step (rlluis/devcon2026#43).
+   *Slide angle: verify the thing the user sees, not the thing that is easy to assert.*
+
+---
+
+## 2026-10-09 — The modules that forgot their numbers
+
+**What happened.** Rafa found every course module showing an empty duration and `0` for
+module number and lesson count. The module batch file had all three values, so the data
+looked right. The bad import was the one that ran **after** it.
+
+**Root cause.** The course batch nests its modules, teachers and sessions by reference:
+just an external reference code and a title. Liferay doesn't treat a nested item as a
+link. It upserts it with a full replace, so every field the item leaves out is reset.
+Courses imported last, so they blanked the modules, and very likely teacher photos and
+descriptions too. Issue peterrichards-lr/devcon2026#13.
+
+### Lessons
+
+1. **The file with the bug isn't the file with the symptom.** Reading the module data
+   proves nothing. The defect was in a different file, two steps later in the import.
+   *Slide angle: when correct data arrives wrong, look at what touched it afterwards.*
+
+1. **The obvious fix didn't work.** `PARTIAL_UPDATE` looks like the answer, but on a fresh
+   bundle the course doesn't exist yet. It takes the create path, which ignores that
+   setting. Reading the source caught this before we shipped a fix that only worked on
+   a second deploy.
+
+1. **File numbering can be load bearing.** The fix was to import courses first and let
+   the later files overwrite the stubs. Nothing enforces that order except the file
+   names, so the README now says why.
+
+---
+
 ## 2026-10-08 — The blog that would not save
 
 **What happened.** Editing any `ElearningBlog` entry in the CMS and clicking Publish

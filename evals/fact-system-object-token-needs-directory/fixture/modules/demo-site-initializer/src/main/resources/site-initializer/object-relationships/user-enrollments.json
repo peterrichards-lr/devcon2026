@@ -1,0 +1,12 @@
+{
+	"deletionType": "prevent",
+	"externalReferenceCode": "DEMO-USER-ENROLLMENTS",
+	"label": {
+		"en_US": "Enrollments"
+	},
+	"name": "userEnrollments",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:User$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:DemoEnrollment$]",
+	"objectDefinitionName2": "DemoEnrollment",
+	"type": "oneToMany"
+}

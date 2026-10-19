@@ -367,6 +367,25 @@ So a tree may freely reference objects created live over `object-admin` — `res
 - The object must be **published**. That pass filters on `STATUS_APPROVED`, so a draft definition registers no token.
 - The token is keyed on the definition's **short name**, which equals `name` for a custom object.
 
+**A system object token needs an `object-definitions/` directory to exist at all.**
+`[$OBJECT_DEFINITION_ID:User$]`, `AccountEntry` and the rest are registered by a *second*
+loop in the same method — and `_addObjectDefinitions` returns early before reaching it when
+`getResourcePaths("/site-initializer/object-definitions")` is empty:
+
+```java
+// company wide pass for custom definitions happens first, then:
+Set<String> resourcePaths = _servletContext.getResourcePaths(
+	"/site-initializer/object-definitions");
+
+if (SetUtil.isEmpty(resourcePaths)) {
+	return;                       // <- system object definitions never registered
+}
+```
+
+So a tree carrying `object-relationships/` but no `object-definitions/` cannot name `User`.
+The token stays literal, the relationship is skipped, and the site still provisions. Adding
+any one definition file to `object-definitions/` is the fix.
+
 **Do not generalize this to other entity types.** `[$LIST_TYPE_DEFINITION_ID:<Name>$]` is registered inside the per file loop in `_addOrUpdateListTypeDefinitions`, with no such pass, so it resolves only for picklists in this tree. When in doubt, find where the handler calls `stringUtilReplaceValues.put` — inside the loop means tree only, before the loop means company wide.
 
 The practical upshot is that a **mixed layout is workable**: objects managed live over `object-admin`, their logic and permissions still authored in the tree and version controlled. Object definitions, fields, actions, notification templates, and entries are all company scoped and survive site deletion, so they persist across the reprovisions that page and fragment work require. What is *not* reproducible is the objects themselves — a fresh bundle or a different environment starts without them, so say plainly which half of the data layer the tree actually rebuilds.
@@ -613,6 +632,49 @@ Use the `settings` block to switch off the stock theme chrome when a master page
 > **A `themeCSS` CET cannot be selected from the initializer tree.** Liferay attaches one through a `ClientExtensionEntryRel` on the layout, the master layout, or the layout set, and `BundleSiteInitializer` has **no handler** that creates that relation — there is no key in `metadata.json` for it either. A deployed themeCSS CET is therefore *available* but not *applied* until someone picks it in Site Administration → Design → Theme, and that selection is lost on every reprovision.
 >
 > Plan accordingly. Appearance that must survive delete and redeploy has to come from things the tree can express: a style book (`defaultStyleBookEntry: true`), the master page, fragment CSS, and these layout set settings. Reach for a themeCSS CET for Clay level overrides that have no token — Classic exposes no `headings*` style book tokens, for instance — and state plainly that applying it needs a manual step.
+
+## `depot-entries.json`
+
+Creates an asset library. A Space is `"type": "Space"`; the handler also accepts
+`AssetLibrary` and `DesignLibrary`, and throws `IllegalArgumentException` on anything else.
+It matches an existing one on **group name**, and when the scope group is a site it also
+creates the connected site relation — which is otherwise a manual step repeated after every
+reprovision.
+
+```json
+[
+	{
+		"depotAppCustomization": {
+			"com_liferay_asset_list_web_portlet_AssetListPortlet": true,
+			"com_liferay_document_library_web_portlet_DLAdminPortlet": true,
+			"com_liferay_journal_web_portlet_JournalPortlet": false,
+			"com_liferay_translation_web_internal_portlet_TranslationPortlet": false
+		},
+		"description_i18n": {
+			"en_US": "<description>"
+		},
+		"name_i18n": {
+			"en_US": "<Name>"
+		},
+		"type": "Space"
+	}
+]
+```
+
+**`depotAppCustomization` is required on 2026.q3.5.** Omitting it throws inside site
+creation and rolls the whole site back. `LPD-103976` (2026-09-10) later null guarded it, so
+it is optional on a build carrying that fix.
+
+**There is no `externalReferenceCode` field.** The handler matches on group name and
+Liferay generates a code, so a Space the tree creates has a UUID that differs on every
+bundle. Anything that named that Space by code has to change — for a batch entry file that
+means `scopeKey`, and the fix is to scope by the **name** instead. `GroupUtil.getGroupId`
+resolves a scope key by name first, then numeric id, then external reference code.
+
+**It also inverts the deploy order.** A batch client extension runs when it deploys; the
+tree runs at site creation. A Space the tree owns does not exist while the batch is
+importing, so the sequence becomes deploy the tree, create the site, then deploy the batch.
+Out of order the import fails loudly with `NoSuchGroupException`, but nothing enforces it.
 
 ## `client-extension.yaml` for the Initializer
 
