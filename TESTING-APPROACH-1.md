@@ -105,8 +105,14 @@ during provisioning and still lines up with the timestamps in the log window. Ru
 the full, uncut recording, then trim:
 
 ```bash
-python3 scripts/clock_overlay.py "<recording>.mov" "<recording>-timelapse.mp4" --speed 15 --tz UTC
+python3 scripts/clock_overlay.py "<recording>.mov" "<recording>-timelapse.mp4" \
+	--speed 15 --tz UTC --style digital --dual --size 260
 ```
+
+This is the form used for the talk: a digital time of day that reads like the log's
+timestamps, with an elapsed-time panel under it, so the time-lapse shows both when each
+step happened and how long the run has taken. At `--size 260` it is 260 x 222 px, the
+largest that fits the clear corner's width.
 
 - **`--tz UTC`**, because Liferay's log timestamps are in UTC. The clock starts at the time
   read from the recording's metadata, converted to `--tz` (default: this Mac's zone). It
