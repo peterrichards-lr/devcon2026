@@ -183,6 +183,39 @@ DEBUG; the UI showed a generic toast. Issue peterrichards-lr/devcon2026#8; skill
 
 ---
 
+## Before PR tracking — CMS content structures must be draft-enabled
+
+> Written up after the fact, on 2026-10-19. This happened before the work was tracked in pull
+> requests, so there is no PR or measurement to point to; the account is Rafa's.
+
+**What happened.** The CMS objects created by the site initializer looked fine: they provisioned,
+took data from the batch, rendered, and answered over REST. The first sign of trouble was deleting
+an entry (a Course, a Module and so on) through the CMS UI, which failed.
+
+**Fix.** One property on each object definition: `"enableObjectEntryDraft": true`. It is set in
+the site initializer tree, in
+`modules/masterclass-cms-site-initializer/src/main/resources/site-initializer/object-definitions/`,
+on the five Space scoped content structures (`03-elearning-blog.json` to `07-elearning-course.json`),
+next to `"enableObjectEntryVersioning": true`. The two company scoped objects, `MyCourseSession` and
+`MyCourseEnrollment`, are not CMS content structures and keep it `false`.
+
+**Evidence.** Rafa's report; no PR. The tree has carried `true` on all five since they arrived
+(`6d7a098`, 2026-09-30, then `91f2eda` when they moved into the initializer).
+
+### Lessons
+
+1. **A missing flag can pass every test but one.** Provisioning, import, rendering and REST were all
+   green; only an editor's delete in the UI exposed it. The same shape as "the blog that would not
+   save" below: test the path editors use.
+   *Slide angle: The flag nobody tests for until someone clicks Delete.*
+
+1. **Teach it to the agent.** The `manage-cms` and `manage-objects` skills list
+   `enableObjectEntryDraft: true` in their examples, but nothing says what breaks without it. They
+   tie the failing UI delete to versioning instead, so which flag (or both) the delete actually
+   needs is still to be confirmed before that rule is written.
+
+---
+
 ## Earlier, from `.agent-state.md`
 
 Carried over so they are in one place. The detail and evidence live in `.agent-state.md`.
