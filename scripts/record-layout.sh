@@ -6,7 +6,8 @@
 # "Recording" profile with a large font, whose window titles show only a description of
 # what the window shows (created on first use):
 #
-#   left   the Liferay logs, from the LDM project folder, reconnecting whenever the restore restarts the container
+#   left   scripts/follow-logs.sh: the Liferay server log, coloured, reconnecting whenever
+#          the restore restarts the container
 #   right  in the checkout this script lives in, with scripts/record-approach-1.sh typed
 #          at the prompt but not run: press Enter to start
 #
@@ -21,14 +22,14 @@
 #   SCREEN_NAME          part of the display's name; overrides the size match
 #   SCREEN_W, SCREEN_H   default 1920 x 1080
 #   CLOCK_W, CLOCK_H     default 300 x 350
+#   THEME                dark (default: near black, light grey text) or light
 #   MENU_BAR             default 30: pixels kept clear for a menu bar macOS doesn't
 #                        report; 0 when the menu bar is hidden
 #   FONT, FONT_SIZE      default Menlo-Regular, 20
 #   PROFILE              default Recording
 #   LOGS_TITLE, RUN_TITLE  the two window titles
 #   LDM_PROJECT          default devcon2026
-#   LDM_DIR              default ~/ldm-verify/devcon2026; the logs window runs ldm from
-#                        here, since ldm warns when run from the home directory
+#   LDM_DIR              default ~/ldm-verify/devcon2026, passed to follow-logs.sh
 #
 # Running it again replaces the windows a previous run opened.
 #
@@ -51,6 +52,14 @@ FONT_SIZE="${FONT_SIZE:-20}"
 PROFILE="${PROFILE:-Recording}"
 LDM_PROJECT="${LDM_PROJECT:-devcon2026}"
 MENU_BAR="${MENU_BAR:-30}"
+THEME="${THEME:-dark}"
+
+# Background, text and bold text, as 16 bit RGB for Terminal.
+if [ "${THEME}" = light ]; then
+	COLOURS="65535 65535 65535 7710 7710 7710 0 0 0"
+else
+	COLOURS="7710 7710 7710 54227 54227 54227 65535 65535 65535"
+fi
 LDM_DIR="${LDM_DIR:-${HOME}/ldm-verify/devcon2026}"
 
 # The display's usable rectangle in macOS's own coordinates (origin at the bottom left of
@@ -128,7 +137,7 @@ EOF3
 	echo "created the ${PROFILE} profile"
 fi
 
-LOGS="cd '${LDM_DIR}' && clear; while true; do ldm logs -f ${LDM_PROJECT}; echo \"--- container restarted, reconnecting ---\"; sleep 2; done"
+LOGS="clear; LDM_DIR='${LDM_DIR}' LDM_PROJECT='${LDM_PROJECT}' '${ROOT}/scripts/follow-logs.sh'"
 RUN="cd '${ROOT}' && clear && print -z 'scripts/record-approach-1.sh'"
 LOGS_TITLE="${LOGS_TITLE:-Liferay server log (live)}"
 RUN_TITLE="${RUN_TITLE:-Approach 1: build, provision and check}"
@@ -173,10 +182,10 @@ end run
 EOF2
 
 osascript - "${PROFILE}" "${FONT}" "${FONT_SIZE}" "${LOGS}" "${RUN}" \
-	"${VX}" "${VY}" "${HALF}" "${VH}" "${RIGHT_H}" "${LOGS_TITLE}" "${RUN_TITLE}" <<'EOF'
+	"${VX}" "${VY}" "${HALF}" "${VH}" "${RIGHT_H}" "${LOGS_TITLE}" "${RUN_TITLE}" "${COLOURS}" <<'EOF'
 on run argv
 	set {profileName, fontName, fontSize, logsCommand, runCommand} to items 1 thru 5 of argv
-	set {vx, vy, half, vh, rightH, logsTitle, runTitle} to items 6 thru 12 of argv
+	set {vx, vy, half, vh, rightH, logsTitle, runTitle, colours} to items 6 thru 13 of argv
 	set {vx, vy, half, vh, rightH} to {vx as integer, vy as integer, half as integer, vh as integer, rightH as integer}
 
 	tell application "Terminal"
@@ -184,6 +193,11 @@ on run argv
 
 		set font name of settings set profileName to fontName
 		set font size of settings set profileName to (fontSize as integer)
+		set {r1, g1, b1, r2, g2, b2, r3, g3, b3} to words of colours
+		set background color of settings set profileName to {r1 as integer, g1 as integer, b1 as integer}
+		set normal text color of settings set profileName to {r2 as integer, g2 as integer, b2 as integer}
+		set bold text color of settings set profileName to {r3 as integer, g3 as integer, b3 as integer}
+		set cursor color of settings set profileName to {r2 as integer, g2 as integer, b2 as integer}
 
 		set logsTab to do script logsCommand
 		set current settings of logsTab to settings set profileName
