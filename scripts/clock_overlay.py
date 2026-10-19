@@ -19,6 +19,12 @@ Usage:
   --style   analog | digital | both. Default analog.
   --dual    Also show elapsed time since the start of the recording, in a panel
             under the clock (real time on the clock, elapsed below).
+  --subsec  none | tenths | ms. Sub-second digits on the digital readouts (default none).
+            Each output frame covers speed/30 s of real time, so at 15x the digits can
+            only show .000/.500: use tenths (or none) for --speed 3 and above.
+  --subsec-on  elapsed | all. Which readouts get them (default elapsed: the --dual
+            panel, and the readout when --start zero). all adds the time of day too,
+            whose start is only known to the second.
   --size    Clock width in pixels. Default 220.
   --pos     Corner: tr, tl, br, bl. Default tr (top right).
   --label   Text under the clock. Default "<speed>x speed". Use "" for none.
@@ -81,17 +87,38 @@ def load_font(px, mono=False):
     return ImageFont.load_default()
 
 
-def fmt_time(t, elapsed, long_run):
-    t = int(t)
+SUBSEC_DIGITS = {"none": 0, "tenths": 1, "ms": 3}
+
+
+def fmt_time(t, elapsed, long_run, subsec="none"):
+    ms_total = int(round(t * 1000))          # round once, so .9999 can't show as .10
+    t, frac = ms_total // 1000, ms_total % 1000
     h, m, sec = t // 3600, (t // 60) % 60, t % 60
     if elapsed and not long_run:
-        return "%02d:%02d" % (m, sec)
-    return "%02d:%02d:%02d" % (h % 24 if not elapsed else h, m, sec)
+        out = "%02d:%02d" % (m, sec)
+    else:
+        out = "%02d:%02d:%02d" % (h % 24 if not elapsed else h, m, sec)
+    digits = SUBSEC_DIGITS[subsec]
+    if digits:
+        out += "." + ("%03d" % frac)[:digits]
+    return out
+
+
+def fmt_sample(elapsed, long_run, subsec):
+    """The widest string a readout will show, for fitting its font."""
+    base = "00:00" if (elapsed and not long_run) else "00:00:00"
+    digits = SUBSEC_DIGITS[subsec]
+    return base + ("." + "0" * digits if digits else "")
 
 
 class Clock:
-    def __init__(self, size, style, label, elapsed, long_run, dual=False, start=0):
+    def __init__(self, size, style, label, elapsed, long_run, dual=False, start=0,
+                 subsec="none", subsec_on="elapsed"):
         self.size, self.style, self.label = size, style, label
+        # Sub-seconds on the main readout when it shows elapsed time, or when asked for all;
+        # on the --dual panel whenever they are on at all.
+        self.main_subsec = subsec if (elapsed or subsec_on == "all") else "none"
+        self.dual_subsec = subsec
         self.elapsed, self.long_run = elapsed, long_run
         self.dual, self.start = dual and not elapsed, start
         self.dual_h = int(size * 0.26) if self.dual else 0
@@ -104,17 +131,20 @@ class Clock:
         self.h = self.analog_h + self.gap + self.digital_h + self.gap2 + self.dual_h + self.label_h
         self.capfont = load_font(int(size * 0.075) * SS)
         self.font = load_font(int(size * 0.13) * SS)
-        sample = "00:00:00" if (not elapsed or long_run) else "00:00"
+        sample = fmt_sample(elapsed, long_run, self.main_subsec)
         px = int(size * 0.30) * SS
         f = load_font(px, mono=True)
         while f.getlength(sample) > (size - 24) * SS and px > 10:
             px -= SS
             f = load_font(px, mono=True)
         self.dfont = f
-        e_sample = "00:00:00" if long_run else "00:00"
+        e_sample = fmt_sample(True, long_run, self.dual_subsec)
+        # The elapsed time sits right of its "ELAPSED" caption: fit it to the space left,
+        # 10 px margins either side and an 8 px gap, so wider sub-second text can't collide.
+        e_room = (size - 28) * SS - self.capfont.getlength("ELAPSED")
         epx = int(size * 0.17) * SS
         ef = load_font(epx, mono=True)
-        while ef.getlength(e_sample) > (size * 0.62) * SS and epx > 10:
+        while ef.getlength(e_sample) > e_room and epx > 10:
             epx -= SS
             ef = load_font(epx, mono=True)
         self.efont = ef
@@ -131,7 +161,7 @@ class Clock:
             dh = self.digital_h * SS
             d.rounded_rectangle([2 * SS, y, W - 2 * SS, y + dh], radius=dh * 0.25,
                                 fill=(15, 18, 28, 215), outline=(255, 255, 255, 235), width=3 * SS)
-            txt = fmt_time(seconds, self.elapsed, self.long_run)
+            txt = fmt_time(seconds, self.elapsed, self.long_run, self.main_subsec)
             bb = d.textbbox((0, 0), txt, font=self.dfont)
             d.text(((W - (bb[2] - bb[0])) / 2 - bb[0], y + (dh - (bb[3] - bb[1])) / 2 - bb[1]),
                    txt, font=self.dfont, fill=(255, 255, 255, 255))
@@ -145,7 +175,7 @@ class Clock:
             cb = d.textbbox((0, 0), cap, font=self.capfont)
             d.text((10 * SS - cb[0], y + (eh - (cb[3] - cb[1])) / 2 - cb[1]), cap,
                    font=self.capfont, fill=(255, 190, 120, 255))
-            txt = fmt_time(max(0, seconds - self.start), True, self.long_run)
+            txt = fmt_time(max(0, seconds - self.start), True, self.long_run, self.dual_subsec)
             tb = d.textbbox((0, 0), txt, font=self.efont)
             d.text((W - 10 * SS - (tb[2] - tb[0]) - tb[0], y + (eh - (tb[3] - tb[1])) / 2 - tb[1]),
                    txt, font=self.efont, fill=(255, 255, 255, 255))
@@ -188,6 +218,10 @@ def main():
     ap.add_argument("--start", default="auto", help="auto|current | HH:MM[:SS] | elapsed|zero")
     ap.add_argument("--style", default="analog", choices=["analog", "digital", "both"])
     ap.add_argument("--dual", action="store_true", help="also show elapsed time below the clock")
+    ap.add_argument("--subsec", default="none", choices=["none", "tenths", "ms"],
+                    help="sub-second digits on the digital readouts")
+    ap.add_argument("--subsec-on", default="elapsed", choices=["elapsed", "all"],
+                    help="readouts that get them: elapsed (default) or all, adding the time of day")
     ap.add_argument("--tz", help="time zone for --start auto, e.g. UTC")
     ap.add_argument("--speed", type=float, default=15)
     ap.add_argument("--size", type=int, default=220)
@@ -211,7 +245,31 @@ def main():
     elapsed = a.start == "elapsed"
     if a.dual and elapsed:
         print("--dual ignored: --start zero already shows elapsed time.", file=sys.stderr)
-    clock = Clock(a.size, a.style, label, elapsed, long_run=(dur >= 3600), dual=a.dual, start=start)
+    shows_digital = a.style in ("digital", "both") or (a.dual and not elapsed)
+    if a.subsec != "none":
+        if not shows_digital:
+            print(f"--subsec {a.subsec} has no effect: it applies to digital readouts only "
+                  "(use --style digital|both, or --dual).", file=sys.stderr)
+        if a.subsec_on == "all" and not elapsed:
+            print(f"--subsec-on all: the time of day's start ({how}) is only known to the "
+                  "second, so its sub-second digits are not accurate.", file=sys.stderr)
+        step = a.speed / FPS                      # real seconds per output frame
+        # ms stops meaning more than tenths once a frame covers 0.1 s (3x); tenths stop
+        # meaning anything once a frame covers more than 0.1 s.
+        coarse = step >= 0.1 if a.subsec == "ms" else step > 0.1
+        if coarse:
+            shown = sorted({fmt_time(i * step, True, False, a.subsec).split(".")[1]
+                            for i in range(int(round(10 / step)) + 1)})
+            more = "" if len(shown) <= 10 else f" … ({len(shown)} values)"
+            print(f"--subsec {a.subsec} at {a.speed:g}x: each frame covers {step:.3f} s of real "
+                  f"time, so the digits only show ." + "/.".join(shown[:10]) + more + ".",
+                  file=sys.stderr)
+            if a.subsec == "ms":
+                print("Use --subsec tenths at --speed 3 and above.", file=sys.stderr)
+            elif step >= 0.5:
+                print("At this speed, --subsec none reads better.", file=sys.stderr)
+    clock = Clock(a.size, a.style, label, elapsed, long_run=(dur >= 3600), dual=a.dual, start=start,
+                  subsec=a.subsec, subsec_on=a.subsec_on)
     cw, ch = clock.w, clock.h
     m = 40
     x = {"tr": w - cw - m, "br": w - cw - m, "tl": m, "bl": m}[a.pos]

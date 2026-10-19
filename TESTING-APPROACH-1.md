@@ -133,6 +133,10 @@ largest that fits the clear corner's width.
 - At `--speed 15`, a 12 minute take becomes about 50 seconds.
 - `--style analog|digital|both` chooses the clock, `--dual` adds an elapsed-time panel
   under it, and `--start zero` turns it into a stopwatch.
+- `--subsec tenths|ms` adds sub-second digits to the digital elapsed readouts
+  (`--subsec-on all` adds them to the time of day too, though its start is only known to the
+  second). Each frame covers speed/30 s of real time, so at `--speed 15` even tenths only
+  show `.0` and `.5`; the script says so. Sub-seconds suit real-time clips, not the time-lapse.
 - **It has to fit the clear corner**: 310 px of height below its 40 px margin, at the
   default `CLOCK_H=350`. At the default `--size 220`, analog with its label is 268 px and
   fits; analog with `--dual` (333 px) or `--style both` (353 px) does not. Use `--size 200`
