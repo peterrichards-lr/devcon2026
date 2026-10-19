@@ -79,6 +79,21 @@ in ([UPSTREAM-FEEDBACK.md](UPSTREAM-FEEDBACK.md), item 7), and it still reports 
 After creating the site, open **Home**, **Blog** and **Courses**. If any of them lists
 nothing, delete the site and create it again.
 
+### Activate the demo student
+
+Users created by a site initializer are inactive by design: `BundleSiteInitializer` sets each
+user to inactive right after creating it (LPS-184738), so that an initializer can't silently
+create accounts that can sign in. An administrator must activate `student.one@liferay.com`
+before it can sign in: **Control Panel → Users and Organizations**, then the user's
+**Actions → Activate**. Or run `scripts/demo-prep.sh <groupId>`, which does this first and
+then gives the student one confirmed course.
+
+### Test it end to end
+
+[TESTING-APPROACH-1.md](TESTING-APPROACH-1.md) is the full procedure: provision from a clean
+snapshot, check collections, the guest view and the demo student, take the snapshot, and
+how to roll back when any stage fails.
+
 ---
 
 ## Upstream Feedback & Platform Tracking
