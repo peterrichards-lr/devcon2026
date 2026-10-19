@@ -8,6 +8,8 @@
 #   LDM_DIR        the LDM project folder (default ~/ldm-verify/devcon2026)
 #   LDM_PROJECT    the LDM project name (default devcon2026)
 #   CLEAN_SNAPSHOT a snapshot with no Masterclass data (default clean-2026q3.5)
+#   RECORDING      1 when run by record-approach-1.sh: it passes the group id on itself,
+#                  so the export line is not printed
 #   MAX_ATTEMPTS   how many times to provision when the handler order race hits (default 3)
 #   LIFERAY_URL    default http://localhost:8080
 #   LIFERAY_ADMIN  default test@liferay.com:test
@@ -142,6 +144,10 @@ echo "== errors since restore"
 tail -n +"$((N0 + 1))" "${LOG}" | grep --extended-regexp " ERROR " | cut -c1-200 | sort | uniq -c | sort -rn | head -15 || true
 
 G=$("$(dirname "$0")/site-id.sh") || exit 1
-echo "== site id (groupId): ${G}. Paste this line, then run the check scripts with no arguments:"
-echo
-echo "export MASTERCLASS_GROUP_ID=${G}"
+if [ "${RECORDING:-0}" = 1 ]; then
+	echo "== site id (groupId): ${G}"
+else
+	echo "== site id (groupId): ${G}. Paste this line, then run the check scripts with no arguments:"
+	echo
+	echo "export MASTERCLASS_GROUP_ID=${G}"
+fi

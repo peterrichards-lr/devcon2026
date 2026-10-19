@@ -58,24 +58,46 @@ stage() {
 	STARTED=${SECONDS}
 }
 
-# Print a command, with every --user password masked, then run it.
-run() {
+# Print a command, with every --user password masked.
+show() {
 	printf '\n$ %s\n' "$(printf '%s' "$*" | sed -E "s#${ROOT}/##g; s/(--user[ =])([^: ]+):[^ ]+/\\1\\2:****/g")"
+}
+
+# Print a command, then run it.
+run() {
+	show "$@"
 	"$@"
 }
 
 cd "${ROOT}"
 
-stage "1. Build $(git log --oneline -1)"
-run blade gw clean \
-	:modules:masterclass-cms-workarounds:jar \
-	:modules:masterclass-cms-site-initializer:jar \
-	:client-extensions:liferay-masterclassobj-simplerheadlesscallsjs:assemble \
-	:client-extensions:liferay-masterclass-custom-css:assemble \
-	:client-extensions:masterclass-cms-data-batch:assemble
+stage "1. Build $(git rev-parse --short HEAD)"
+
+# The build's own output (Gradle's container clean up, yarn, webpack) goes to a log, so the
+# recording shows the command and the result. On failure, the end of that log is shown.
+BUILD_LOG="${TMPDIR:-/tmp}/record-approach-1-build.log"
+
+BUILD=(blade gw clean
+	:modules:masterclass-cms-workarounds:jar
+	:modules:masterclass-cms-site-initializer:jar
+	:client-extensions:liferay-masterclassobj-simplerheadlesscallsjs:assemble
+	:client-extensions:liferay-masterclass-custom-css:assemble
+	:client-extensions:masterclass-cms-data-batch:assemble)
+
+show "${BUILD[@]}"
+
+if "${BUILD[@]}" > "${BUILD_LOG}" 2>&1; then
+	grep --max-count 1 "BUILD SUCCESSFUL" "${BUILD_LOG}"
+	ls modules/*/build/libs/*.jar client-extensions/*/dist/*.zip | sed 's/^/  built /'
+else
+	tail -40 "${BUILD_LOG}"
+	echo "build failed; full output in ${BUILD_LOG}" >&2
+	exit 1
+fi
 
 stage "2. Provision from the clean snapshot"
 export WT="${ROOT}"
+export RECORDING=1
 run "${HERE}/ldm-provision.sh"
 
 MASTERCLASS_GROUP_ID=$("${HERE}/site-id.sh")
