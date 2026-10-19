@@ -81,6 +81,11 @@ It runs the README deploy order: the workarounds module and the two global clien
 extensions, then the site initializer, then creates the site, then deploys the data
 batch. Each artifact must log `STARTED` before the next one goes in.
 
+It also reads the order the site initializer ran its handlers in. When the collections were
+created after the pages (the race in stage 3), it says `RACE` and provisions again from the
+restore, up to `MAX_ATTEMPTS` times (default 3), before it deploys the batch or prints the
+export line. Stage 3 still checks the result.
+
 **Expect**
 
 - `Initialized com.liferay.site.initializer.masterclass.cms … in N ms`
@@ -101,6 +106,8 @@ batch. Each artifact must log `STARTED` before the next one goes in.
 | `Unable to deploy batch …NoSuchGroupException` | The batch ran before the site existed. | Run again; the script keeps the order. |
 | `Unable to deploy batch` for any other reason | A data file is wrong. | Fix it, rebuild the batch, run again. A partial import cannot be cleanly removed. |
 | `site id: not found` | The site was not created. | Treat as `InitializationException`. |
+| `RACE: … ran before addAssetListEntries` | The handler order race. | Nothing: the script provisions again by itself. |
+| `gave up after 3 attempts` | The race hit every attempt. | Run the script again, or set `MAX_ATTEMPTS` higher. |
 
 ## Stage 3. Collections
 
@@ -112,8 +119,9 @@ scripts/check-collections.sh
 
 **If it fails.** `MISSING` means the site initializer's handler order race hit this run
 (UPSTREAM-FEEDBACK.md, item 7): the pages were imported before their collections existed.
-Nothing in the tree can prevent it. Go back to stage 2 and provision again; it usually
-passes on the next run.
+Nothing in the tree can prevent it. Stage 2 normally catches it from the log and provisions
+again; if a run still gets here, go back to stage 2. It usually passes on the next run.
+`guest-check.sh` reports the same run as `no display page links found` and `No Results Found`.
 
 ## Stage 4. Guest view
 
