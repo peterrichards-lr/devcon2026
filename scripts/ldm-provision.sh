@@ -8,11 +8,14 @@
 #   LDM_DIR        the LDM project folder (default ~/ldm-verify/devcon2026)
 #   LDM_PROJECT    the LDM project name (default devcon2026)
 #   CLEAN_SNAPSHOT a snapshot with no Masterclass data (default clean-2026q3.5)
+#   MAX_ATTEMPTS   how many times to provision when the handler order race hits (default 3)
 #   LIFERAY_URL    default http://localhost:8080
 #   LIFERAY_ADMIN  default test@liferay.com:test
 #
 # Empties osgi/modules apart from the activation key, restores the snapshot, deploys each
 # artifact and waits for it to start, creates the site, then deploys the batch.
+# If the site initializer created the collections after the pages (the handler order race),
+# it starts again from the restore, up to MAX_ATTEMPTS times.
 # Ends by printing an 'export MASTERCLASS_GROUP_ID=…' line: paste it, and the check scripts
 # use that site.
 #
@@ -25,6 +28,8 @@ WT="${WT:-$(cd "$(dirname "$0")/.." && pwd)}"
 LDM_DIR="${LDM_DIR:-${HOME}/ldm-verify/devcon2026}"
 LDM_PROJECT="${LDM_PROJECT:-devcon2026}"
 CLEAN_SNAPSHOT="${CLEAN_SNAPSHOT:-clean-2026q3.5}"
+MAX_ATTEMPTS="${MAX_ATTEMPTS:-3}"
+ATTEMPT="${ATTEMPT:-1}"
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 MOD="${LDM_DIR}/osgi/modules"
@@ -88,6 +93,32 @@ curl \
 wait_log "${n}" "Initialized com.liferay.site.initializer.masterclass.cms|InitializationException"
 tail -n +"$((n + 1))" "${LOG}" | grep --extended-regexp "Initialized|InitializationException" | cut -c1-160
 tail -n +"$((n + 1))" "${LOG}" | grep --extended-regexp "Invoking (addAssetListEntries|addLayoutPageTemplates|addOrUpdateLayoutsContent|addUserAccounts) " | sed 's/.*Invoking/ Invoking/'
+
+if tail -n +"$((n + 1))" "${LOG}" | grep --quiet InitializationException; then
+	echo "== the site initializer failed and rolled the site back; see InitializationException in ${LOG}" >&2
+	exit 1
+fi
+
+# The handler order race (UPSTREAM-FEEDBACK.md, item 7): when collections are created after
+# the page templates or the pages, those pages are saved with no collection. The order is in
+# the log, so catch it here and provision again rather than check a broken site.
+first=$(tail -n +"$((n + 1))" "${LOG}" \
+	| grep --only-matching --extended-regexp "Invoking (addAssetListEntries|addLayoutPageTemplates|addOrUpdateLayoutsContent) " \
+	| head -1 | awk '{print $2}')
+
+if [ "${first}" != addAssetListEntries ]; then
+	echo "== RACE: ${first} ran before addAssetListEntries, so pages lost their collections (attempt ${ATTEMPT} of ${MAX_ATTEMPTS})"
+
+	if [ "${ATTEMPT}" -lt "${MAX_ATTEMPTS}" ]; then
+		echo "== provisioning again"
+		exec env ATTEMPT=$((ATTEMPT + 1)) "$0"
+	fi
+
+	echo "== gave up after ${MAX_ATTEMPTS} attempts; run scripts/ldm-provision.sh again" >&2
+	exit 2
+fi
+
+echo "== handler order ok: collections were created before the pages"
 
 echo "== step 4: data batch"
 n=$(wc -l < "${LOG}")

@@ -90,8 +90,17 @@ while read -r url; do
 done < "${OUT}/media.txt"
 
 echo "== unresolved tokens or empty collections in page HTML"
-grep --count --extended-regexp 'No Results Found|\[\$[A-Z_]+|\[#[A-Z_]+|ObjectField_[0-9]' "${OUT}"/page*.html "${OUT}"/display*.html \
-	| grep --invert-match ':0$' && bad=$((bad + 1)) || echo "none"
+files=("${OUT}"/page*.html)
+[ -e "${OUT}/display1.html" ] && files+=("${OUT}"/display*.html)
+hits=$(grep --count --extended-regexp 'No Results Found|\[\$[A-Z_]+|\[#[A-Z_]+|ObjectField_[0-9]' "${files[@]}" | grep --invert-match ':0$' || true)
+
+if [ -n "${hits}" ]; then
+	echo "FAIL  found in:"
+	echo "${hits}" | sed 's/^/      /'
+	bad=$((bad + 1))
+else
+	echo "none"
+fi
 
 echo "${bad} failure(s)"
 [ "${bad}" = 0 ]
