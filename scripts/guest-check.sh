@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# guest-check.sh <groupId> — what an anonymous visitor gets.
+# guest-check.sh [groupId] — what an anonymous visitor gets.
 #
 # Fetches every page of the site as Guest, then every course and blog display page they
 # link to, then every image and document those pages reference, and reports status and
@@ -17,7 +17,17 @@
 set -o nounset
 set -o pipefail
 
-GROUP_ID="${1:?usage: guest-check.sh <groupId>}"
+if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+	GROUP_ID="${1}"
+	shift
+elif [ -n "${MASTERCLASS_GROUP_ID:-}" ]; then
+	GROUP_ID="${MASTERCLASS_GROUP_ID}"
+else
+	echo "no group id: paste the 'export MASTERCLASS_GROUP_ID=…' line that ldm-provision.sh printed, or pass the id as the first argument" >&2
+	exit 1
+fi
+
+echo "== site ${GROUP_ID}"
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 OUT="${GUEST_CHECK_OUT:-${TMPDIR:-/tmp}/guest-check}"
