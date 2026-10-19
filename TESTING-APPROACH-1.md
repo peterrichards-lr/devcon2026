@@ -111,6 +111,27 @@ scripts/follow-logs.sh
 
 ### Making the time-lapse
 
+One command does it, while the recorded instance is still up:
+
+```bash
+python3 scripts/make-timelapse.py
+```
+
+It takes the newest `Screen Recording*.mov` on the Desktop (or a file you name), and:
+
+1. renames it `approach-1-<commit>-<YYYYMMDD-HHMM>.mov` (`--name` to choose);
+1. trims the still stretches at either end: from a second before the first change in the
+   run window (so the pointer moving doesn't count) to two seconds after the last change on
+   screen, cutting on a whole second and writing the trimmed file's own start time, so the
+   clock stays exact;
+1. renders `<name>-timelapse.mp4` with the clock below, at `--speed 15 --tz UTC` and
+   `--style digital --dual --size 260` (anything after `--` replaces those clock options);
+1. runs the spot check below and saves `<name>-clock-check.png`.
+
+On 2026-10-19 it cut a 6 min 7 s take to 5 min 44 s and rendered 22.6 s at 15x; the
+check frame showed 17:52:22 on the clock as the `Initialized` line stamped 17:52:22.802
+arrived. The rest of this section is what it does, step by step, for running by hand.
+
 `scripts/clock_overlay.py` speeds the recording up and draws a clock in the corner the
 layout left clear. The clock keeps **real** time while the video runs fast, so it races
 during provisioning and still lines up with the timestamps in the log window. Run it on
@@ -142,8 +163,6 @@ largest that fits the clear corner's width.
   fits; analog with `--dual` (333 px) or `--style both` (353 px) does not. Use `--size 200`
   with `--dual`, or lay the screen out with a taller corner, such as
   `CLOCK_H=420 scripts/record-layout.sh`, before recording.
-- It ends with a `BrokenPipeError`: it writes a few more clock frames than the sped up video
-  has, and ffmpeg stops first. The output is complete.
 
 **Check the clock against the log.** Pick an event whose exact time the log records, find
 the frame where it appears, and compare the clock with the newest log line. The site
