@@ -1,97 +1,32 @@
 [
+		{
+			"title": "Blog Entries",
+			"unicodeProperties": {
+				"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningBlog$]",
+				"orderBy": [
+					{
+						"key": "orderByColumn1",
+						"value": "modifiedDate"
+					},
+					{
+						"key": "orderByColumn2",
+						"value": "title"
+					},
+					{
+						"key": "orderByType1",
+						"value": "DESC"
+					},
+					{
+						"key": "orderByType2",
+						"value": "ASC"
+					}
+				]
+			}
+		},
 	{
-		"assetEntrySubtypeId": "[$DDM_STRUCTURE_ID:BLOG$]",
-		"title": "Blog Entries",
-		"unicodeProperties": {
-			"anyClassType": "anyClassTypeJournalArticleAssetRendererFactory",
-			"classNameIds": "com.liferay.journal.model.JournalArticle",
-			"classTypeIds": "classTypeIdsJournalArticleAssetRendererFactory",
-			"orderBy": [
-				{
-					"key": "orderByColumn1",
-					"value": "modifiedDate"
-				},
-				{
-					"key": "orderByColumn2",
-					"value": "title"
-				},
-				{
-					"key": "orderByType1",
-					"value": "DESC"
-				},
-				{
-					"key": "orderByType2",
-					"value": "ASC"
-				}
-			],
-			"query": [
-				{
-					"key": "queryAndOperator",
-					"value": "true"
-				},
-				{
-					"key": "queryContains",
-					"value": "true"
-				},
-				{
-					"key": "queryName",
-					"value": "assetTags"
-				}
-			]
-		}
-	},
-	{
-		"assetEntrySubtypeId": "[$DDM_STRUCTURE_ID:BLOG$]",
-		"title": "Featured Blog Entries",
-		"unicodeProperties": {
-			"anyClassType": "anyClassTypeJournalArticleAssetRendererFactory",
-			"classNameIds": "com.liferay.journal.model.JournalArticle",
-			"classTypeIds": "classTypeIdsJournalArticleAssetRendererFactory",
-			"orderBy": [
-				{
-					"key": "orderByColumn1",
-					"value": "modifiedDate"
-				},
-				{
-					"key": "orderByColumn2",
-					"value": "title"
-				},
-				{
-					"key": "orderByType1",
-					"value": "ASC"
-				},
-				{
-					"key": "orderByType2",
-					"value": "ASC"
-				}
-			],
-			"query": [
-				{
-					"key": "queryAndOperator",
-					"value": "true"
-				},
-				{
-					"key": "queryContains",
-					"value": "true"
-				},
-				{
-					"key": "queryName",
-					"value": "assetTags"
-				},
-				{
-					"key": "queryTags",
-					"value": "[featured]"
-				}
-			]
-		}
-	},
-	{
-		"assetEntrySubtypeId": "[$DDM_STRUCTURE_ID:COURSE$]",
 		"title": "Courses",
 		"unicodeProperties": {
-			"anyClassType": "anyClassTypeJournalArticleAssetRendererFactory",
-			"classNameIds": "com.liferay.journal.model.JournalArticle",
-			"classTypeIds": "classTypeIdsJournalArticleAssetRendererFactory",
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]",
 			"orderBy": [
 				{
 					"key": "orderByColumn1",
@@ -109,30 +44,13 @@
 					"key": "orderByType2",
 					"value": "ASC"
 				}
-			],
-			"query": [
-				{
-					"key": "queryAndOperator",
-					"value": "true"
-				},
-				{
-					"key": "queryContains",
-					"value": "true"
-				},
-				{
-					"key": "queryName",
-					"value": "assetTags"
-				}
 			]
 		}
 	},
 	{
-		"assetEntrySubtypeId": "[$DDM_STRUCTURE_ID:TEACHER$]",
 		"title": "Teachers",
 		"unicodeProperties": {
-			"anyClassType": "anyClassTypeJournalArticleAssetRendererFactory",
-			"classNameIds": "com.liferay.journal.model.JournalArticle",
-			"classTypeIds": "classTypeIdsJournalArticleAssetRendererFactory",
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningTeacher$]",
 			"orderBy": [
 				{
 					"key": "orderByColumn1",
@@ -149,61 +67,6 @@
 				{
 					"key": "orderByType2",
 					"value": "ASC"
-				}
-			],
-			"query": [
-				{
-					"key": "queryAndOperator",
-					"value": "true"
-				},
-				{
-					"key": "queryContains",
-					"value": "true"
-				},
-				{
-					"key": "queryName",
-					"value": "assetTags"
-				}
-			]
-		}
-	},
-	{
-		"assetEntrySubtypeId": "[$DDM_STRUCTURE_ID:CLASSROOM$]",
-		"title": "Classrooms",
-		"unicodeProperties": {
-			"anyClassType": "anyClassTypeJournalArticleAssetRendererFactory",
-			"classNameIds": "com.liferay.journal.model.JournalArticle",
-			"classTypeIds": "classTypeIdsJournalArticleAssetRendererFactory",
-			"orderBy": [
-				{
-					"key": "orderByColumn1",
-					"value": "modifiedDate"
-				},
-				{
-					"key": "orderByColumn2",
-					"value": "title"
-				},
-				{
-					"key": "orderByType1",
-					"value": "ASC"
-				},
-				{
-					"key": "orderByType2",
-					"value": "ASC"
-				}
-			],
-			"query": [
-				{
-					"key": "queryAndOperator",
-					"value": "true"
-				},
-				{
-					"key": "queryContains",
-					"value": "true"
-				},
-				{
-					"key": "queryName",
-					"value": "assetTags"
 				}
 			]
 		}

@@ -25,7 +25,7 @@
 /plugins-sdk/dist
 /plugins-sdk/lib
 test-results
-
+**/borra
 # Skill eval run output — timestamped reports, traces and cost data.
 # The cases, graders, scaffolds and fixtures ARE tracked: without the
 # fixtures the scaffolds have nothing to stage and the suite cannot run.
@@ -34,3 +34,4 @@ evals/results/
 # Local MCP credentials. Note that ignoring this does NOT untrack the copy
 # already committed in 90b9899 — see issue #9.
 .gemini/settings.json
+__pycache__/

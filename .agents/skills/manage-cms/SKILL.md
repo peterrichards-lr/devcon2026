@@ -109,7 +109,7 @@ The same `POST /o/object-admin/v1.0/object-definitions` as any object, with `"sc
 		{"name": "acceptedGroupExternalReferenceCodes", "value": "<space-erc>"}
 	],
 	"objectFields": [
-		{"DBType": "String", "businessType": "Text", "externalReferenceCode": "<STRUCTURE_ERC>_TITLE", "indexed": true, "label": {"en_US": "Title"}, "localized": true, "name": "title", "required": true, "system": true},
+		{"DBType": "String", "businessType": "Text", "externalReferenceCode": "<STRUCTURE_ERC>_TITLE", "indexed": true, "label": {"en_US": "Title"}, "localized": true, "name": "title", "required": true, "system": false},
 		{"DBType": "Clob", "businessType": "RichText", "externalReferenceCode": "<STRUCTURE_ERC>_SUMMARY", "indexed": true, "label": {"en_US": "Summary"}, "localized": true, "name": "summary", "required": false}
 	],
 	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
@@ -122,7 +122,8 @@ The same `POST /o/object-admin/v1.0/object-definitions` as any object, with `"sc
 
 - **`status: {"code": 0}` in the body publishes it at once** (`approved`, no publish call).
 - **`restContextPath` is `/o/c/<name lowercased + "es">`** (`ZzTestNews` → `/o/c/zztestnewses`). Read it from the response rather than guessing.
-- **Name the display-title field literally `title`**, and point `titleObjectFieldName` at it. With any other name, the CMS content browser shows every entry as "Untitled Asset", although the entry, its GET, and its friendly URL are correct (verified 2026.q3.2). `title` is not a reserved name; `system: false` is also accepted.
+- **`title` field is mandatory:** Every CMS Content Structure (`objectFolderExternalReferenceCode: "L_CMS_CONTENT_STRUCTURES"`) MUST include a required `title` field (`"name": "title"`, `"required": true`, `"localized": true`, `"DBType": "String"`, `"businessType": "Text"`) and configure `"titleObjectFieldName": "title"`. If omitted or named differently, entries will fail validation or display as "Untitled Asset" in the CMS content browser (verified 2026.q3.2). `title` is not a reserved name; ensure `"system": false` for custom definitions.
+- **Versioning is mandatory (`"enableObjectEntryVersioning": true`):** All editorial content structures in `L_CMS_CONTENT_STRUCTURES` must enable versioning (`"enableObjectEntryVersioning": true`) alongside draft (`"enableObjectEntryDraft": true`). Without versioning, CMS lifecycle operations, draft revisions, scheduled publishing, and UI bulk deletion preview will fail or return 404s. Note: once published with versioning enabled, Liferay does not allow turning versioning off.
 - **Give every field its own ERC**, so a repeated batch or scripted write can upsert it (`manage-objects`).
 
 #### Custom File Types (Verified on 2026.q3.5)

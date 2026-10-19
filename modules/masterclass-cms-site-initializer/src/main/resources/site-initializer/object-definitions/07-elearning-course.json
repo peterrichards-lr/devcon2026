@@ -1,0 +1,319 @@
+{
+	"accountEntryRestricted": false,
+	"active": true,
+	"defaultLanguageId": "en_US",
+	"enableCategorization": true,
+	"enableComments": true,
+	"enableFriendlyURLCustomization": true,
+	"enableIndexSearch": true,
+	"enableLocalization": true,
+	"enableObjectEntryDraft": true,
+	"enableObjectEntryHistory": false,
+	"enableObjectEntrySchedule": true,
+	"enableObjectEntrySubscription": false,
+	"enableObjectEntryVersioning": true,
+	"externalReferenceCode": "ELEARNING-COURSE",
+	"label": {
+		"en_US": "eLearning Course"
+	},
+	"modifiable": true,
+	"name": "ElearningCourse",
+	"objectActions": [],
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-COURSE",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Title"
+			},
+			"localized": true,
+			"name": "title",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"required": true,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-SHORT-DESCRIPTION",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Short Description"
+			},
+			"localized": true,
+			"name": "shortDescription",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "RichText",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-COURSE-PROGRAM",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Course Program"
+			},
+			"localized": true,
+			"name": "courseProgram",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Clob",
+			"unique": false
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-DURATION",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Duration"
+			},
+			"localized": true,
+			"name": "duration",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-MAX-RETAKES",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Max Retakes"
+			},
+			"localized": false,
+			"name": "maxRetakes",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-PASS-PERCENTAGE",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Pass Percentage"
+			},
+			"localized": false,
+			"name": "passPercentage",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-LESSONS",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Lessons"
+			},
+			"localized": false,
+			"name": "lessons",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-QUIZZES",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Quizzes"
+			},
+			"localized": false,
+			"name": "quizzes",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Integer",
+			"unique": false
+		},
+		{
+			"DBType": "Long",
+			"businessType": "Attachment",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-REPRESENTATIVE-IMAGE",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Representative Image"
+			},
+			"localized": false,
+			"name": "representativeImage",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": 10000
+				}
+			],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Long",
+			"unique": false
+		},
+		{
+			"DBType": "Long",
+			"businessType": "Attachment",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-REFERENCE-VIDEO",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Reference Video"
+			},
+			"localized": false,
+			"name": "referenceVideo",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "mp4"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": 50000
+				}
+			],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Long",
+			"unique": false
+		},
+		{
+			"DBType": "Long",
+			"businessType": "Attachment",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-COURSE-COURSE-ONE-PAGER-SHEET",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Course One Pager Sheet"
+			},
+			"localized": false,
+			"name": "courseOnePagerSheet",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, pdf, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": 10000
+				}
+			],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Long",
+			"unique": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"panelCategoryKey": "",
+	"parameterRequired": false,
+	"pluralLabel": {
+		"en_US": "eLearning Course"
+	},
+	"portlet": true,
+	"scope": "depot",
+	"system": false,
+	"titleObjectFieldName": "title"
+}

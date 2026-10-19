@@ -1,9 +1,6 @@
 {
-	"contentSubtype": {
-		"subtypeKey": "COURSE"
-	},
 	"contentType": {
-		"className": "com.liferay.journal.model.JournalArticle"
+		"className": "[$OBJECT_DEFINITION_CLASS_NAME:ElearningCourse$]"
 	},
 	"defaultTemplate": true,
 	"name": "Course"

@@ -1,0 +1,7 @@
+assemble:
+    - from: assets
+      into: static
+liferay-masterclass-custom-css:
+    name: Masterclass Custom CSS
+    type: globalCSS
+    url: css/main.css

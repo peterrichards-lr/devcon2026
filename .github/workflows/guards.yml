@@ -1,0 +1,23 @@
+#
+# Fails a push or pull request that reintroduces a bug class we have already
+# paid for. The checks and the incident behind each one are in .guards.json;
+# run the same thing locally with:
+#
+#   python3 scripts/check_guards.py
+#
+
+name: Guards
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check guards
+        run: python3 scripts/check_guards.py
+      - name: Test the guards
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'

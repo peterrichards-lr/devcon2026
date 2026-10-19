@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# site-id.sh — print the group id (site id) of the Masterclass CMS site.
+#
+# ldm-provision.sh calls this after creating the site, and prints the result as an
+# 'export MASTERCLASS_GROUP_ID=…' line for the check scripts.
+#
+# SITE_NAME (default "Masterclass CMS"), LIFERAY_URL (default http://localhost:8080) and
+# LIFERAY_ADMIN (default test@liferay.com:test) select the site and the instance.
+#
+
+set -o nounset
+set -o pipefail
+
+H="${LIFERAY_URL:-http://localhost:8080}"
+ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
+NAME="${SITE_NAME:-Masterclass CMS}"
+
+ids=$(curl --silent --user "${ADMIN}" "${H}/o/headless-admin-site/v1.0/sites?pageSize=200" \
+	| jq -r --arg n "${NAME}" '.items[]? | select(.name == $n) | .id')
+
+case $(echo "${ids}" | grep --count .) in
+	1) echo "${ids}" ;;
+	0) echo "no site named '${NAME}' on ${H}; provision first, or pass the group id" >&2; exit 1 ;;
+	*) echo "more than one site named '${NAME}' ($(echo ${ids})); pass the group id" >&2; exit 1 ;;
+esac

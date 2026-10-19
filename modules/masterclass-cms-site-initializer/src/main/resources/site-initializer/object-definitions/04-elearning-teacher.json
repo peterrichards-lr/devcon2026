@@ -1,0 +1,117 @@
+{
+	"accountEntryRestricted": false,
+	"active": true,
+	"defaultLanguageId": "en_US",
+	"enableCategorization": true,
+	"enableComments": true,
+	"enableFriendlyURLCustomization": true,
+	"enableIndexSearch": true,
+	"enableLocalization": true,
+	"enableObjectEntryDraft": true,
+	"enableObjectEntryHistory": false,
+	"enableObjectEntrySchedule": true,
+	"enableObjectEntrySubscription": false,
+	"enableObjectEntryVersioning": true,
+	"externalReferenceCode": "ELEARNING-TEACHER",
+	"label": {
+		"en_US": "eLearning Teacher"
+	},
+	"modifiable": true,
+	"name": "ElearningTeacher",
+	"objectActions": [],
+	"objectDefinitionSettings": [
+		{
+			"name": "acceptAllGroups",
+			"value": "true"
+		}
+	],
+	"objectFields": [
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"defaultValue": "null",
+			"externalReferenceCode": "CMS-FIELD-TITLE-ELEARNING-TEACHER",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Title"
+			},
+			"localized": true,
+			"name": "title",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"required": true,
+			"state": false,
+			"system": false,
+			"type": "String",
+			"unique": false
+		},
+		{
+			"DBType": "Long",
+			"businessType": "Attachment",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-TEACHER-PHOTO",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "",
+			"label": {
+				"en_US": "Photo"
+			},
+			"localized": false,
+			"name": "photo",
+			"objectFieldSettings": [
+				{
+					"name": "acceptedFileExtensions",
+					"value": "jpeg, jpg, png"
+				},
+				{
+					"name": "fileSource",
+					"value": "CMSBasicDocument"
+				},
+				{
+					"name": "maximumFileSize",
+					"value": 100
+				}
+			],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Long",
+			"unique": false
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "RichText",
+			"defaultValue": "null",
+			"externalReferenceCode": "ELEARNING-TEACHER-DESCRIPTION",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"indexedLanguageId": "en_US",
+			"label": {
+				"en_US": "Description"
+			},
+			"localized": true,
+			"name": "description",
+			"objectFieldSettings": [],
+			"readOnly": "false",
+			"readOnlyConditionExpression": "",
+			"required": false,
+			"state": false,
+			"system": false,
+			"type": "Clob",
+			"unique": false
+		}
+	],
+	"objectFolderExternalReferenceCode": "L_CMS_CONTENT_STRUCTURES",
+	"panelCategoryKey": "",
+	"parameterRequired": false,
+	"pluralLabel": {
+		"en_US": "eLearning Teacher"
+	},
+	"portlet": true,
+	"scope": "depot",
+	"system": false,
+	"titleObjectFieldName": "title"
+}
