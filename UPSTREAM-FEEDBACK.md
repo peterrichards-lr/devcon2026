@@ -13,8 +13,8 @@ This document tracks upstream product gaps, architectural defects, and feature r
 | **3** | **Object Actions on Versioned/Draft Content Structures Fire on Empty Draft Shells** | Headless CMS & Data Engine | Bug / FR | Headless CMS Content Structures & Automation | [LPD-110575](https://liferay.atlassian.net/browse/LPD-110575) |
 | **4** | **Custom Display Templates (Info Templates) Not Available for Related Collections** | Layouts & Info Framework | Bug | Page Editor, Headless CMS rendering & Site Initializers | [LPD-110572](https://liferay.atlassian.net/browse/LPD-110572) |
 | **5** | **Page Layout Import Requires Internal Database Primary Key for Attachment Fields** | Layouts & Info Framework | Bug | Site Initializer portability & REST Page Specifications | [LPD-110573](https://liferay.atlassian.net/browse/LPD-110573) |
-| **6** | **Display Page Templates Fail on Clean Site Initializer Deployments Due to Template Dependency Timing** | Site Initializers & DevEx | Bug | Clean bundle provisioning, CI/CD pipelines | [LPD-110574](https://liferay.atlassian.net/browse/LPD-110574) |
-| **7** | **Collections in Page Definitions Are Inconsistently Resolved or Dropped on Clean Site Initializer Provisioning** | Site Initializers & DevEx | Bug | Site Initializer predictability and automation | [LPD-110315](https://liferay.atlassian.net/browse/LPD-110315) |
+| **6** | **Display Page Templates Fail on Clean Site Initializer Deployments Due to Template Dependency Timing** | Site Initializers & DevEx | Bug | Clean bundle provisioning, CI/CD pipelines | [LPD-110574](https://liferay.atlassian.net/browse/LPD-110574) (under review) |
+| **7** | **Collections in Page Definitions Are Dropped Depending on Site Initializer Handler Order** | Site Initializers & DevEx | Bug | Site Initializer predictability and automation | [LPD-110315](https://liferay.atlassian.net/browse/LPD-110315) |
 | **8** | **Support Object Validation Rules in Site Initializers** | Site Initializers & DevEx | Feature Request | Site Initializers & Infrastructure-as-Code | [Discuss #1074](https://discuss.liferay.com/t/better-support-for-object-validation-rules-in-site-initializers/1074) |
 
 ---
@@ -51,7 +51,7 @@ Expose endpoints under the headless admin suite (e.g., `headless-admin-asset-lis
 * **Summary:** Provide a dedicated action endpoint to publish an existing page draft without re-sending the entire JSON layout specification.
 
 ##### Description
-When managing site pages via the Headless Site API, publishing a draft page currently requires sending a heavy `PUT` request containing the entire page layout specification (which can easily exceed 100KB+ of JSON). A dedicated publish endpoint (`POST /v1.0/site-pages/{sitePageId}/site-page-specifications/publish`) is referenced in API specifications, but invoking it currently returns a `204 No Content` response while leaving the page draft in an unpublished state.
+When managing site pages via the Headless Site API, publishing a draft page currently requires sending a heavy `PUT` request containing the entire page layout specification (which can easily exceed 100KB+ of JSON). A dedicated publish endpoint (`POST /v1.0/sites/{siteExternalReferenceCode}/page-specifications/{pageSpecificationExternalReferenceCode}/publish`) is referenced in API specifications, but invoking it currently returns a `204 No Content` response while leaving the page draft in an unpublished state.
 
 ##### Impact
 Causes high overhead, wasted network bandwidth, and unnecessary latency when publishing pages via external workflows or automated pipelines.
@@ -140,6 +140,7 @@ Prevents Infrastructure-as-Code practices and breaks automated site deployments 
 * **Type:** Bug
 * **Tracking:** [LPD-110574](https://liferay.atlassian.net/browse/LPD-110574)
 * **Summary:** Display Page Templates referencing custom templates fail to import on fresh bundle installations, requiring a second run.
+* **Status:** Under review. The handler dependency map does not support the root cause below; see the note at the end of this item.
 
 ##### Description
 When provisioning a new site from a Site Initializer on a clean, empty Liferay bundle, Display Page Templates that use template replacement tokens fail to resolve their associated templates. This issue is non-deterministic: on a brand new database, the Display Page Template is created before the associated templates are ready in the system. If the exact same Site Initializer is triggered a second time on the already-running server, it succeeds because the templates already exist.
@@ -157,18 +158,25 @@ Completely blocks unattended CI/CD provisioning and automated Docker container s
 > **Clue for Engineering:**  
 > This looks like a topological dependency ordering gap in the bundle initializer: the routine creating layout page templates does not declare an explicit dependency on the routine importing DDM templates.
 
+> **Review note (2026-10-19):** In `BundleSiteInitializer._createRMap`, `addLayoutPageTemplates` depends on
+> `addOrUpdateJournalArticles`, which depends on `addOrUpdateDDMTemplates`. `TEMPLATE_ENTRY_ID` and
+> `DDM_TEMPLATE_ID` are registered in `_addOrUpdateDDMTemplates`, so on `master` they are always registered
+> before any display page template is read. Replacement tokens are also rebuilt from the tree on every run,
+> so templates left by an earlier run do not explain a second run succeeding. Until a log from a failing run
+> shows the order, treat this item as unconfirmed; the symptom may be the collection race in Item 7.
+
 ---
 
-#### Item 7: Collections in Page Definitions Are Inconsistently Resolved or Dropped on Clean Site Initializer Provisioning
+#### Item 7: Collections in Page Definitions Are Dropped Depending on Site Initializer Handler Order
 * **Type:** Bug
 * **Tracking:** [LPD-110315](https://liferay.atlassian.net/browse/LPD-110315)
-* **Summary:** Collection Display fragments in page definitions are dropped or left empty on clean bundle site deployments.
+* **Summary:** Collection Display fragments in page definitions are left with no collection on some site creations, depending on handler order.
 
 ##### Description
 A collection display in a site initializer page definition that references a collection by token (e.g. `"classPK": "[$ASSET_LIST_ENTRY_ID:<Name>$]"`) is sometimes saved with no collection configured. Whether it works depends on the order the initializer's handlers happen to run in, and that order can change between two site creations from the same bundle. Nothing is logged and the initializer reports success.
 
 ##### Impact
-Causes collections in `page-definition.json` to be dropped silently on clean bundle runs, compromising automated site deployments.
+Causes collections in `page-definition.json` to be dropped silently on any site creation where a page handler runs before `addAssetListEntries`, so two creations from the same bundle can differ.
 
 ##### Root Cause Summary
 `ASSET_LIST_ENTRY_ID:<Name>` is registered in string replace values by `addAssetListEntries`. However, `addLayoutPageTemplates` (display page templates, master pages) and `addOrUpdateLayoutsContent` (content pages) do not declare a dependency on `addAssetListEntries`. Because handler execution order is non-deterministic, when page handlers run first, the token remains an unreplaced literal string, causing primary key parsing to fail and the collection configuration to be dropped.
@@ -181,16 +189,18 @@ Causes collections in `page-definition.json` to be dropped silently on clean bun
 #### Item 8: Support Object Validation Rules in Site Initializers
 * **Type:** Feature Request
 * **Tracking:** [discuss.liferay.com/t/1074](https://discuss.liferay.com/t/better-support-for-object-validation-rules-in-site-initializers/1074)
-* **Summary:** Allow Object Validation Rules (including relationship and composite uniqueness checks) to be defined in Site Initializer source files.
+* **Summary:** Allow Object Validation Rules that reference relationship fields (such as composite uniqueness checks) to be defined in Site Initializer source files.
 
 ##### Description
-Currently, Site Initializers allow developers to declare Object Definitions, fields, and relationships as source configuration. However, there is no supported way to define **Object Validation Rules** (such as preventing duplicate enrollments, composite key checks, or value ranges) within the initializer files. Because validation rules cannot be declared in the codebase, administrators must manually recreate them through the Liferay Control Panel after every site deployment, defeating the purpose of automated Infrastructure-as-Code.
+Site Initializers let developers declare Object Definitions, fields, and relationships as source configuration. A validation rule on the object's own fields (a value range, a required format) can already be declared inline, in the `objectValidationRules` array of the object definition file: the initializer posts that file to `object-admin`, which creates the rules with the definition.
+
+What cannot be declared is a rule that uses a **relationship field**, such as preventing duplicate enrollments (*a student cannot enroll in the same session twice*). The relationship, and the `r_<relationship>_c_<parent>Id` field it adds, is created by a later handler than the object definition, so the field does not exist when the definition's rules are created. These rules have to be added through the Control Panel or the API after every site creation, which defeats Infrastructure-as-Code for exactly the integrity rules that matter most.
 
 ##### Impact
 Prevents data integrity rules from being defined as Infrastructure-as-Code in Site Initializers, forcing manual post-provisioning configuration.
 
 ##### Proposed Solution
-* Introduce a standardized folder structure (e.g., `object-validation-rules/`) in Site Initializers.
+* Introduce a standardized folder structure (e.g., `object-validation-rules/`) in Site Initializers, processed after relationships are created.
 * Ensure validations can reference relationship fields to enforce composite business rules (e.g., *Student A cannot register for Session B more than once*).
 
 > **Clue for Engineering:**  

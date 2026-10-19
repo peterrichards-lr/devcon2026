@@ -19,20 +19,9 @@ The project demonstrates two distinct migration methodologies:
 
 During the end-to-end implementation and automation of both approaches, several product gaps, race conditions, and architectural improvement opportunities were identified and logged with Liferay engineering and the community.
 
-### Executive Summary
+Eight items are tracked: three for Headless CMS and the data engine, two for layouts and the Info framework, and three for site initializers.
 
-| # | Item Title | Team / Domain | Classification | Primary Beneficiary | Tracking / Status |
-|---|---|---|---|---|---|
-| **1** | **Headless REST API for Collections / Asset Lists (CRUD & Criteria)** | Headless CMS & Data Engine | Feature Request | Headless CMS APIs, MCP, External CI/CD & AI Agents | [Discuss #1075](https://discuss.liferay.com/t/headless-rest-api-for-managing-collections-asset-lists-crud-criteria/1075) |
-| **2** | **Lightweight REST Endpoint to Publish Site Page Drafts** | Headless CMS & Data Engine | Bug / FR | Headless Site API (`headless-admin-site`) consumers | *Pending* |
-| **3** | **Object Actions on Versioned/Draft Content Structures Fire on Empty Draft Shells** | Headless CMS & Data Engine | Bug / FR | Headless CMS Content Structures & Automation | [LPD-110575](https://liferay.atlassian.net/browse/LPD-110575) |
-| **4** | **Custom Display Templates (Info Templates) Not Available for Related Collections** | Layouts & Info Framework | Bug | Page Editor, Headless CMS rendering & Site Initializers | [LPD-110572](https://liferay.atlassian.net/browse/LPD-110572) |
-| **5** | **Page Layout Import Requires Internal Database Primary Key for Attachment Fields** | Layouts & Info Framework | Bug | Site Initializer portability & REST Page Specifications | [LPD-110573](https://liferay.atlassian.net/browse/LPD-110573) |
-| **6** | **Display Page Templates Fail on Clean Site Initializer Deployments Due to Template Dependency Timing** | Site Initializers & DevEx | Bug | Clean bundle provisioning, CI/CD pipelines | [LPD-110574](https://liferay.atlassian.net/browse/LPD-110574) |
-| **7** | **Collections in Page Definitions Are Inconsistently Resolved or Dropped on Clean Site Initializer Provisioning** | Site Initializers & DevEx | Bug | Site Initializer predictability and automation | [LPD-110315](https://liferay.atlassian.net/browse/LPD-110315) |
-| **8** | **Support Object Validation Rules in Site Initializers** | Site Initializers & DevEx | Feature Request | Site Initializers & Infrastructure-as-Code | [Discuss #1074](https://discuss.liferay.com/t/better-support-for-object-validation-rules-in-site-initializers/1074) |
-
-For comprehensive descriptions, steps to reproduce, and technical pointers for each item, see **[UPSTREAM-FEEDBACK.md](UPSTREAM-FEEDBACK.md)**.
+For the summary table, descriptions, steps to reproduce, and technical pointers for each item, see **[UPSTREAM-FEEDBACK.md](UPSTREAM-FEEDBACK.md)**.
 
 ---
 
