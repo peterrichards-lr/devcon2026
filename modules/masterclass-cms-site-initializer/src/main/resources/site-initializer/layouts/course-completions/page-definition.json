@@ -4,9 +4,13 @@
 			{
 				"definition": {
 					"fragment": {
-						"key": "courses-confirmedregistrations"
+						"key": "masterclass-user-courses"
 					},
-					"fragmentConfig": {},
+					"fragmentConfig": {
+						"emptyMessage": "You have not completed any courses yet.",
+						"enrollmentStatus": "Completed",
+						"showAccessLink": false
+					},
 					"fragmentFields": []
 				},
 				"type": "Fragment"
