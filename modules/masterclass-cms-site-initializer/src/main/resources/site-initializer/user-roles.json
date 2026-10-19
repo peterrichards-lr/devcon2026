@@ -1,0 +1,10 @@
+[
+	{
+		"emailAddress": "student.one@liferay.com",
+		"roles": [
+			"Site Member",
+			"Student",
+			"User"
+		]
+	}
+]

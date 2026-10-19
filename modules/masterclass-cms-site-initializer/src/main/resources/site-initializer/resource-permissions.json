@@ -67,5 +67,23 @@
 		"resourceName": "com.liferay.object#[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
 		"roleName": "User",
 		"scope": "1"
+	},
+	{
+		"actionIds": [
+			"ADD_OBJECT_ENTRY"
+		],
+		"primKey": "0",
+		"resourceName": "com.liferay.object#[$OBJECT_DEFINITION_ID:MyCourseEnrollment$]",
+		"roleName": "Site Member",
+		"scope": "1"
+	},
+	{
+		"actionIds": [
+			"VIEW"
+		],
+		"primKey": "0",
+		"resourceName": "[$OBJECT_DEFINITION_CLASS_NAME:MyCourseSession$]",
+		"roleName": "Site Member",
+		"scope": "1"
 	}
 ]
