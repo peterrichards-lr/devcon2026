@@ -97,6 +97,34 @@ without asking. To follow the logs without the layout script:
 scripts/follow-logs.sh
 ```
 
+### Making the time-lapse
+
+`scripts/clock_overlay.py` speeds the recording up and draws a clock in the corner the
+layout left clear. The clock keeps **real** time while the video runs fast, so it races
+during provisioning and still lines up with the timestamps in the log window. Run it on
+the full, uncut recording, then trim:
+
+```bash
+python3 scripts/clock_overlay.py "<recording>.mov" "<recording>-timelapse.mp4" --speed 15 --tz UTC
+```
+
+- **`--tz UTC`**, because Liferay's log timestamps are in UTC. The clock starts at the time
+  read from the recording's metadata, converted to `--tz` (default: this Mac's zone). It
+  prints that time before rendering; check it against the first log line in the recording.
+  Use `--start HH:MM:SS` only if the metadata is missing.
+- At `--speed 15`, a 12 minute take becomes about 50 seconds.
+- `--style analog|digital|both` chooses the clock, `--dual` adds an elapsed-time panel
+  under it, and `--start zero` turns it into a stopwatch.
+- **It has to fit the clear corner**: 310 px of height below its 40 px margin, at the
+  default `CLOCK_H=350`. At the default `--size 220`, analog with its label is 268 px and
+  fits; analog with `--dual` (333 px) or `--style both` (353 px) does not. Use `--size 200`
+  with `--dual`, or lay the screen out with a taller corner, such as
+  `CLOCK_H=420 scripts/record-layout.sh`, before recording.
+- It ends with a `BrokenPipeError`: it writes a few more clock frames than the sped up video
+  has, and ffmpeg stops first. The output is complete.
+
+It needs `ffmpeg` (`brew install ffmpeg`) and Pillow (`pip3 install pillow`).
+
 ## The one rollback that always works
 
 From stage 2 onwards, provisioning writes things that outlive the site: company scoped
