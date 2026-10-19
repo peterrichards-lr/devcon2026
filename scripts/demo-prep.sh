@@ -38,6 +38,10 @@ ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 
 lr() { curl --silent --user "${ADMIN}" "$@"; }
 st() { curl --silent --user "${SE}:${SP}" "$@"; }
+# Print a command before running it, with every --user password masked.
+show() {
+	printf '$ %s\n' "$(printf '%s' "$*" | sed -E 's/(--user[ =])([^: ]+):[^ ]+/\1\2:****/g')"
+}
 die() { echo "FAIL  $*"; exit 1; }
 status() { lr "${H}/o/c/mycourseenrollments/$1" | jq -r '.enrollmentStatus.key'; }
 
@@ -47,6 +51,7 @@ SID=$(echo "${U}" | jq -r '.id // empty')
 [ -n "${SID}" ] || die "no user ${SE}"
 
 if [ "$(echo "${U}" | jq -r .status)" != Active ]; then
+	show "curl --request PATCH --url ${H}/o/headless-admin-user/v1.0/user-accounts/${SID} --user ${ADMIN} --data '{\"status\": \"Active\"}'"
 	lr -X PATCH -H 'Content-Type: application/json' -d '{"status": "Active"}' \
 		"${H}/o/headless-admin-user/v1.0/user-accounts/${SID}" -o /dev/null
 fi
@@ -71,6 +76,7 @@ else
 	echo "== 2. as the student: look up the session the way the button does, then enrol"
 	MS=$(st "${H}/o/c/mycoursesessions?filter=courseSessionID%20eq%20${ES}" | jq -r '.items[0].id // empty')
 	[ -n "${MS}" ] || die "the student cannot find MyCourseSession for session ${ES}"
+	show "curl --request POST --url ${H}/o/c/mycourseenrollments --user ${SE}:${SP} --data '{\"enrollmentStatus\": \"Pending\", \"r_courseToUser_userId\": ${SID}, \"r_enrollmentToCourseSession_c_myCourseSessionId\": ${MS}, \"courseID\": ${C}}'"
 	E=$(st -X POST -H 'Content-Type: application/json' "${H}/o/c/mycourseenrollments" \
 		-d "{\"enrollmentStatus\": \"Pending\", \"r_courseToUser_userId\": ${SID}, \"r_enrollmentToCourseSession_c_myCourseSessionId\": ${MS}, \"courseID\": ${C}}" \
 		| jq -r '.id // empty')
@@ -78,11 +84,13 @@ else
 	echo "ok    enrolled in '${TITLE}' (course ${C}, session ${ES}): entry ${E} $(status "${E}")"
 
 	echo "== as admin: approve"
+	show "curl --request PUT --url ${H}/o/c/mycourseenrollments/${E}/object-actions/approveACourse --user ${ADMIN}"
 	lr -X PUT "${H}/o/c/mycourseenrollments/${E}/object-actions/approveACourse" -o /dev/null
 	[ "$(status "${E}")" = Approved ] || die "approve left it $(status "${E}")"
 	echo "ok    Approved"
 
 	echo "== as the student: confirm"
+	show "curl --request PUT --url ${H}/o/c/mycourseenrollments/${E}/object-actions/confirmingEnrollment --user ${SE}:${SP}"
 	st -X PUT "${H}/o/c/mycourseenrollments/${E}/object-actions/confirmingEnrollment" -o /dev/null
 	[ "$(status "${E}")" = Confirmed ] || die "confirm left it $(status "${E}")"
 	echo "ok    Confirmed"
