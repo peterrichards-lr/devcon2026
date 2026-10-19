@@ -48,12 +48,18 @@ wait_log() {
 	return 1
 }
 
+# Print a command before running it, with every --user password masked.
+show() {
+	printf '$ %s\n' "$(printf '%s' "$*" | sed -E 's/(--user[ =])([^: ]+):[^ ]+/\1\2:****/g')"
+}
+
 deploy() {
 	local file=$1 pattern=$2 n
 
 	[ -f "${file}" ] || { echo "missing ${file}: build it first" >&2; exit 1; }
 	touch "${LOG}"
 	n=$(wc -l < "${LOG}")
+	show "cp ${file#"${WT}"/} ${MOD}/"
 	cp "${file}" "${MOD}/"
 	wait_log "${n}" "${pattern}"
 	echo "deployed $(basename "${file}")"
@@ -65,11 +71,13 @@ docker ps --format '{{.Names}}' | grep --quiet '^liferay-search-global$' \
 	|| { echo "liferay-search-global is not running; start it before restoring" >&2; exit 1; }
 
 echo "== empty osgi/modules apart from the activation key"
+show "find ${MOD} -maxdepth 1 -type f ! -name 'activation-key-*' -delete"
 find "${MOD}" -maxdepth 1 -type f ! -name 'activation-key-*' -print -delete
 
 echo "== restore ${CLEAN_SNAPSHOT}"
 touch "${LOG}"
 N0=$(wc -l < "${LOG}")
+show "ldm restore ${LDM_PROJECT} -n ${CLEAN_SNAPSHOT} --up -y"
 (cd "${LDM_DIR}" && ldm restore "${LDM_PROJECT}" -n "${CLEAN_SNAPSHOT}" --up -y --no-color | tail -1)
 
 echo "== step 1"
@@ -82,6 +90,7 @@ deploy "${WT}/modules/masterclass-cms-site-initializer/build/libs/com.liferay.si
 
 echo "== step 3: create the site"
 n=$(wc -l < "${LOG}")
+show "curl --request POST --url ${H}/o/headless-admin-site/v1.0/sites --user ${ADMIN} --header 'Content-Type: application/json' --data '{\"membershipType\": \"open\", \"name\": \"Masterclass CMS\", \"templateKey\": \"com.liferay.site.initializer.masterclass.cms\", \"templateType\": \"site-initializer\"}'"
 curl \
 	--data '{"membershipType": "open", "name": "Masterclass CMS", "templateKey": "com.liferay.site.initializer.masterclass.cms", "templateType": "site-initializer"}' \
 	--header "Content-Type: application/json" \
@@ -122,6 +131,7 @@ echo "== handler order ok: collections were created before the pages"
 
 echo "== step 4: data batch"
 n=$(wc -l < "${LOG}")
+show "cp client-extensions/masterclass-cms-data-batch/dist/masterclass-cms-data-batch.zip ${MOD}/"
 cp "${WT}/client-extensions/masterclass-cms-data-batch/dist/masterclass-cms-data-batch.zip" "${MOD}/"
 wait_log "${n}" "Successfully deployed batch engine file .*10-elearning-session|Unable to deploy batch"
 sleep 20
