@@ -15,6 +15,72 @@ The project demonstrates two distinct migration methodologies:
 
 ---
 
+## Running Approach 1
+
+Approach 1 builds and runs on **Liferay DXP 2026.Q3** (verified on 2026.q3.5), starting from
+an instance with no Masterclass data.
+
+### Feature flags
+
+None. Approach 1 uses only APIs that are on by default: a clean run with `LPD-35443` and
+`LPS-178052` switched off created the site, loaded the data, and rendered every page.
+
+Approach 2 edits page specifications over REST, and those calls need `LPD-74328`; see
+[LESSONS-LEARNT.md](LESSONS-LEARNT.md).
+
+### Build
+
+From the workspace root:
+
+```bash
+blade gw clean \
+	:modules:masterclass-cms-workarounds:jar \
+	:modules:masterclass-cms-site-initializer:jar \
+	:client-extensions:liferay-masterclassobj-simplerheadlesscallsjs:assemble \
+	:client-extensions:liferay-masterclass-custom-css:assemble \
+	:client-extensions:masterclass-cms-data-batch:assemble
+```
+
+The jars land in each module's `build/libs/`, and the client extension zips in each
+project's `dist/`.
+
+### Deploy, in this order
+
+Nothing enforces the order, and getting it wrong fails quietly. Copy each artifact into
+`osgi/modules/` and wait for its `STARTED` line before the next step.
+
+1. `com.liferay.masterclass.cms.workarounds-1.0.0.jar`,
+   `liferay-masterclassobj-simplerheadlesscallsjs.zip` and
+   `liferay-masterclass-custom-css.zip`, in any order.
+2. `com.liferay.site.initializer.masterclass.cms-1.0.0.jar`.
+3. Create the site: **Control Panel → Sites → Add**, then choose **Masterclass CMS**. Or
+   over REST:
+
+   ```bash
+   curl \
+   	--data '{"membershipType": "open", "name": "Masterclass CMS", "templateKey": "com.liferay.site.initializer.masterclass.cms", "templateType": "site-initializer"}' \
+   	--header "Content-Type: application/json" \
+   	--request POST \
+   	--url "http://localhost:8080/o/headless-admin-site/v1.0/sites" \
+   	--user "test@liferay.com:test"
+   ```
+
+   Wait for `Initialized com.liferay.site.initializer.masterclass.cms` in the log.
+4. `masterclass-cms-data-batch.zip`. It loads into the Space that step 3 creates, so it
+   fails if deployed earlier.
+
+Why the order matters, step by step:
+[client-extensions/masterclass-cms-data-batch/README.md](client-extensions/masterclass-cms-data-batch/README.md).
+
+### Check the result
+
+The site initializer can drop a page's collection depending on the order its handlers run
+in ([UPSTREAM-FEEDBACK.md](UPSTREAM-FEEDBACK.md), item 7), and it still reports success.
+After creating the site, open **Home**, **Blog** and **Courses**. If any of them lists
+nothing, delete the site and create it again.
+
+---
+
 ## Upstream Feedback & Platform Tracking
 
 During the end-to-end implementation and automation of both approaches, several product gaps, race conditions, and architectural improvement opportunities were identified and logged with Liferay engineering and the community.
