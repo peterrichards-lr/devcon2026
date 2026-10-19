@@ -15,7 +15,7 @@ a snapshot `clean-2026q3.5` that holds no Masterclass data, and the admin
 
 ## Recording the run
 
-To record the whole run, use two terminal windows.
+To record the whole run, use two terminal windows. On macOS, `scripts/record-layout.sh` opens both side by side in Terminal.app, with a large font, descriptive titles and the top-right corner left clear for a clock (`SCREEN_NAME=Built-in` for the laptop screen, `MENU_BAR=0` when the menu bar is hidden).
 
 **Logs.** The restore tears the Liferay container down, which ends a plain `ldm logs -f`, so
 wrap it in a loop that reconnects when Liferay comes back:
