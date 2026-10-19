@@ -2,8 +2,8 @@
 #
 # site-id.sh — print the group id (site id) of the Masterclass CMS site.
 #
-# The check scripts call this when they are not given a group id, so they always act on
-# the site the latest provision created. MASTERCLASS_GROUP_ID, when set, wins.
+# ldm-provision.sh calls this after creating the site, and prints the result as an
+# 'export MASTERCLASS_GROUP_ID=…' line for the check scripts.
 #
 # SITE_NAME (default "Masterclass CMS"), LIFERAY_URL (default http://localhost:8080) and
 # LIFERAY_ADMIN (default test@liferay.com:test) select the site and the instance.
@@ -11,11 +11,6 @@
 
 set -o nounset
 set -o pipefail
-
-if [ -n "${MASTERCLASS_GROUP_ID:-}" ]; then
-	echo "${MASTERCLASS_GROUP_ID}"
-	exit 0
-fi
 
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"

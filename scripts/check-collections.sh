@@ -11,10 +11,14 @@ set -o pipefail
 if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
 	GROUP_ID="${1}"
 	shift
+elif [ -n "${MASTERCLASS_GROUP_ID:-}" ]; then
+	GROUP_ID="${MASTERCLASS_GROUP_ID}"
 else
-	GROUP_ID=$("$(dirname "$0")/site-id.sh") || exit 1
-	echo "site ${GROUP_ID} (Masterclass CMS)"
+	echo "no group id: paste the 'export MASTERCLASS_GROUP_ID=…' line that ldm-provision.sh printed, or pass the id as the first argument" >&2
+	exit 1
 fi
+
+echo "== site ${GROUP_ID}"
 DB_CONTAINER="${LDM_DB_CONTAINER:-devcon2026-db}"   # the LDM project's Postgres container
 
 docker exec "${DB_CONTAINER}" sh -c "psql -U \${POSTGRES_USER:-liferay} -d \${POSTGRES_DB:-lportal} -At -F '|' -c \"

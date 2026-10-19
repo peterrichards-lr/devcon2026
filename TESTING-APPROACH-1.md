@@ -86,9 +86,10 @@ batch. Each artifact must log `STARTED` before the next one goes in.
 - `Initialized com.liferay.site.initializer.masterclass.cms … in N ms`
 - `batch files deployed: 7`, and nothing under `Unable to deploy batch`
 - nothing under `errors since restore`
-- a site id on the last line. The later scripts find the site by name themselves, so you
-  run them with no arguments. To point them at another site, pass its id as the first
-  argument or set `MASTERCLASS_GROUP_ID`.
+- the new site's id, then a line `export MASTERCLASS_GROUP_ID=<id>`. **Paste that line
+  into your shell.** The later scripts read it, print which site they are checking, and
+  stop if it is not set. The id can change between runs, so paste the new line after every
+  provision. Passing the id as the first argument also works.
 
 **If it fails**
 

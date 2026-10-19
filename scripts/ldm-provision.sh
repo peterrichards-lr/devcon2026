@@ -13,7 +13,8 @@
 #
 # Empties osgi/modules apart from the activation key, restores the snapshot, deploys each
 # artifact and waits for it to start, creates the site, then deploys the batch.
-# Prints the new site's id. The check scripts look it up themselves when not given one.
+# Ends by printing an 'export MASTERCLASS_GROUP_ID=…' line: paste it, and the check scripts
+# use that site.
 #
 
 set -o errexit
@@ -99,5 +100,7 @@ tail -n +"$((n + 1))" "${LOG}" | grep "Unable to deploy batch" | cut -c1-200 || 
 echo "== errors since restore"
 tail -n +"$((N0 + 1))" "${LOG}" | grep --extended-regexp " ERROR " | cut -c1-200 | sort | uniq -c | sort -rn | head -15 || true
 
-G=$("$(dirname "$0")/site-id.sh") || G="not found"
-echo "== site id (groupId): ${G}. The check scripts find it themselves; run them with no arguments."
+G=$("$(dirname "$0")/site-id.sh") || exit 1
+echo "== site id (groupId): ${G}. Paste this line, then run the check scripts with no arguments:"
+echo
+echo "export MASTERCLASS_GROUP_ID=${G}"

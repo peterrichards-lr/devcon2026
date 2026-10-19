@@ -31,10 +31,14 @@ set -o pipefail
 if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
 	G="${1}"
 	shift
+elif [ -n "${MASTERCLASS_GROUP_ID:-}" ]; then
+	G="${MASTERCLASS_GROUP_ID}"
 else
-	G=$("$(dirname "$0")/site-id.sh") || exit 1
-	echo "site ${G} (Masterclass CMS)"
+	echo "no group id: paste the 'export MASTERCLASS_GROUP_ID=…' line that ldm-provision.sh printed, or pass the id as the first argument" >&2
+	exit 1
 fi
+
+echo "== site ${G}"
 SE="${1:-student.one@liferay.com}"
 SP="${2:-test}"
 H="${LIFERAY_URL:-http://localhost:8080}"
