@@ -86,8 +86,9 @@ batch. Each artifact must log `STARTED` before the next one goes in.
 - `Initialized com.liferay.site.initializer.masterclass.cms … in N ms`
 - `batch files deployed: 7`, and nothing under `Unable to deploy batch`
 - nothing under `errors since restore`
-- a site id on the last line. Every later stage takes it as `<groupId>`, and it can change
-  between runs.
+- a site id on the last line. The later scripts find the site by name themselves, so you
+  run them with no arguments. To point them at another site, pass its id as the first
+  argument or set `MASTERCLASS_GROUP_ID`.
 
 **If it fails**
 
@@ -103,7 +104,7 @@ batch. Each artifact must log `STARTED` before the next one goes in.
 ## Stage 3. Collections
 
 ```bash
-scripts/check-collections.sh <groupId>
+scripts/check-collections.sh
 ```
 
 **Expect** `ok` on all five pages: `/blog`, `/blog-entry`, `/course`, `/courses`, `/home`.
@@ -116,7 +117,7 @@ passes on the next run.
 ## Stage 4. Guest view
 
 ```bash
-scripts/guest-check.sh <groupId>
+scripts/guest-check.sh
 ```
 
 It fetches every page as an anonymous visitor, then the course and blog display pages they
@@ -138,7 +139,7 @@ reported as `member-only`.
 ## Stage 5. Prepare the demo student
 
 ```bash
-scripts/demo-prep.sh <groupId>
+scripts/demo-prep.sh
 ```
 
 Users created by a site initializer are inactive by design: `BundleSiteInitializer` sets
@@ -169,7 +170,7 @@ It is safe to run again: a course that is already Confirmed is kept.
 ## Stage 6. Student checks
 
 ```bash
-scripts/student-check.sh <groupId>
+scripts/student-check.sh
 ```
 
 **Expect** `0 failure(s), 2 warning(s)`. The two warnings are a known issue, logged and not

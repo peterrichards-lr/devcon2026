@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# demo-prep.sh <groupId> [student-email] [student-password] [course title]
+# demo-prep.sh [groupId] [student-email] [student-password] [course title]
 #
 # Run once after provisioning, before student-check.sh and before taking a snapshot.
 #
@@ -19,10 +19,16 @@
 set -o nounset
 set -o pipefail
 
-G="${1:?usage: demo-prep.sh <groupId> [student-email] [student-password] [course title]}"
-SE="${2:-student.one@liferay.com}"
-SP="${3:-test}"
-TITLE="${4:-Building Enterprise Websites with Liferay}"
+if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+	G="${1}"
+	shift
+else
+	G=$("$(dirname "$0")/site-id.sh") || exit 1
+	echo "site ${G} (Masterclass CMS)"
+fi
+SE="${1:-student.one@liferay.com}"
+SP="${2:-test}"
+TITLE="${3:-Building Enterprise Websites with Liferay}"
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 

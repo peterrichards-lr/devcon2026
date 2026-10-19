@@ -13,7 +13,7 @@
 #
 # Empties osgi/modules apart from the activation key, restores the snapshot, deploys each
 # artifact and waits for it to start, creates the site, then deploys the batch.
-# Prints the new site's id: the <groupId> the check scripts take.
+# Prints the new site's id. The check scripts look it up themselves when not given one.
 #
 
 set -o errexit
@@ -99,5 +99,5 @@ tail -n +"$((n + 1))" "${LOG}" | grep "Unable to deploy batch" | cut -c1-200 || 
 echo "== errors since restore"
 tail -n +"$((N0 + 1))" "${LOG}" | grep --extended-regexp " ERROR " | cut -c1-200 | sort | uniq -c | sort -rn | head -15 || true
 
-G=$(curl --silent --user "${ADMIN}" "${H}/o/headless-admin-site/v1.0/sites?pageSize=100" | jq -r '[.items[] | select(.name == "Masterclass CMS")][0].id // empty')
-echo "== site id (groupId): ${G:-not found}"
+G=$("$(dirname "$0")/site-id.sh") || G="not found"
+echo "== site id (groupId): ${G}. The check scripts find it themselves; run them with no arguments."

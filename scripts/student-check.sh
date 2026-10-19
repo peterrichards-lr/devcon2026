@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# student-check.sh <groupId> [student-email] [student-password]
+# student-check.sh [groupId] [student-email] [student-password]
 #
 # Verifies the demo student after scripts/demo-prep.sh has run. Run it before taking a
 # snapshot: it removes everything it creates, so the snapshot keeps only demo-prep's
@@ -28,9 +28,15 @@
 set -o nounset
 set -o pipefail
 
-G="${1:?usage: student-check.sh <groupId> [student-email] [student-password]}"
-SE="${2:-student.one@liferay.com}"
-SP="${3:-test}"
+if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+	G="${1}"
+	shift
+else
+	G=$("$(dirname "$0")/site-id.sh") || exit 1
+	echo "site ${G} (Masterclass CMS)"
+fi
+SE="${1:-student.one@liferay.com}"
+SP="${2:-test}"
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 OTHER_EMAIL=other.tester@example.com

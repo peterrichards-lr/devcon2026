@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# guest-check.sh <groupId> — what an anonymous visitor gets.
+# guest-check.sh [groupId] — what an anonymous visitor gets.
 #
 # Fetches every page of the site as Guest, then every course and blog display page they
 # link to, then every image and document those pages reference, and reports status and
@@ -17,7 +17,13 @@
 set -o nounset
 set -o pipefail
 
-GROUP_ID="${1:?usage: guest-check.sh <groupId>}"
+if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+	GROUP_ID="${1}"
+	shift
+else
+	GROUP_ID=$("$(dirname "$0")/site-id.sh") || exit 1
+	echo "site ${GROUP_ID} (Masterclass CMS)"
+fi
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 OUT="${GUEST_CHECK_OUT:-${TMPDIR:-/tmp}/guest-check}"
