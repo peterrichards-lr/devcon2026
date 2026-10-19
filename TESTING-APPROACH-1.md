@@ -13,6 +13,29 @@ a snapshot `clean-2026q3.5` that holds no Masterclass data, and the admin
 `test@liferay.com` / `test`. Every script reads `LIFERAY_URL` and `LIFERAY_ADMIN`, and
 `scripts/ldm-provision.sh` also reads `LDM_DIR`, `LDM_PROJECT`, `CLEAN_SNAPSHOT` and `WT`.
 
+## Recording the run
+
+To record the whole run, use two terminal windows.
+
+**Logs.** The restore tears the Liferay container down, which ends a plain `ldm logs -f`, so
+wrap it in a loop that reconnects when Liferay comes back:
+
+```bash
+while true; do ldm logs -f devcon2026; sleep 2; done
+```
+
+**Stages.** From the checkout under test:
+
+```bash
+scripts/record-approach-1.sh
+```
+
+It runs stages 1 to 6 below in order, with a banner and a pause before each, so you press
+Enter when you are ready for the next. It passes the group id on by itself, stops at the
+first stage that fails, and at the end asks for a snapshot name (Enter skips). `PAUSE=0`
+runs straight through; `SNAPSHOT=<name>` takes the snapshot without asking. Stage 8, the
+browser check, stays manual.
+
 ## The one rollback that always works
 
 From stage 2 onwards, provisioning writes things that outlive the site: company scoped
