@@ -11,6 +11,12 @@ The tables below list the common endpoints per module — they are not exhaustiv
 **Base URI:** `/o/headless-admin-site/v1.0`
 
 > **Path identifier — this module keys subresources by external reference code, not numeric ID.** Use `{siteExternalReferenceCode}` (the site's ERC) in these paths; passing a numeric site ID returns 404. (By contrast, `headless-admin-content` and `headless-delivery` below use the numeric `{siteId}`.)
+>
+> **Resolving numeric `siteId` to ERC:** Do **NOT** use `headless-admin-user/v1.0/sites/{id}` to discover a site's ERC — that DTO completely omits `externalReferenceCode` from its schema, falsely returning `null`. Instead, resolve it via `headless-admin-site`:
+> ```http
+> GET /o/headless-admin-site/v1.0/sites?filter=id eq <siteId>
+> ```
+> Or in MCP: `headless-admin-site-v1.0:getSitesPage` with `filter: "id eq <siteId>"`. (The same filter works with `key eq '<name>'` or `friendlyUrlPath eq '/<path>'`.)
 
 | Resource | Method | Path |
 | --- | --- | --- |

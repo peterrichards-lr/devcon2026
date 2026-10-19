@@ -1,0 +1,23 @@
+[
+	{
+		"depotAppCustomization": {
+			"com_liferay_asset_list_web_portlet_AssetListPortlet": true,
+			"com_liferay_document_library_web_portlet_DLAdminPortlet": true,
+			"com_liferay_journal_web_portlet_JournalPortlet": false,
+			"com_liferay_translation_web_internal_portlet_TranslationPortlet": false
+		},
+		"description_i18n": {
+			"en_US": "Main Asset Library containing eLearning courses, teachers, modules and blogs managed content."
+		},
+		"name_i18n": {
+			"en_US": "eLearning"
+		},
+		"type": "Space",
+		"typeSettings": [
+			{
+				"key": "sharingEnabled",
+				"value": "true"
+			}
+		]
+	}
+]

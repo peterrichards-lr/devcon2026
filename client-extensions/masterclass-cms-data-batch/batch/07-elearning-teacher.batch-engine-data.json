@@ -1,0 +1,77 @@
+{
+    "configuration": {
+        "className": "com.liferay.object.rest.dto.v1_0.ObjectEntry",
+        "multiCompany": true,
+        "parameters": {
+            "containsHeaders": "true",
+            "createStrategy": "UPSERT",
+            "onErrorFail": "false",
+            "scopeKey": "eLearning",
+            "taskItemDelegateName": "C_ElearningTeacher",
+            "updateStrategy": "UPDATE"
+        },
+        "taskItemDelegateName": "C_ElearningTeacher"
+    },
+    "items": [
+        {
+            "description": "<p>Specialized in Back-End development, Brooklyn has been with us since 2020 nad has a great technical practical background in both Java and .NET</p>",
+            "externalReferenceCode": "TEACHER-BROOKLYN-SIMMONS",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-BROOKLYN-SIMMONS",
+                "name": "teacher_brooklyn_simmons.jpg"
+            },
+            "scopeKey": "eLearning",
+            "title": "Brooklyn Simmons"
+        },
+        {
+            "description": "<p>Esther Howard is an accomplished UX researcher and product designer who joined our academy in 2019.&nbsp;</p>",
+            "externalReferenceCode": "TEACHER-ESTHER-HOWARD",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-ESTHER-HOWARD",
+                "name": "teacher_esther_howard.jpg"
+            },
+            "scopeKey": "eLearning",
+            "title": "Esther Howard"
+        },
+        {
+            "description": "<p>Ralph Edwards is a senior Front-End architect and passionate educator with over a decade of experience building highly interactive user interfaces.&nbsp;</p>",
+            "externalReferenceCode": "TEACHER-RALPH-EDWARDS",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-RALPH-EDWARDS",
+                "name": "teacher_ralph_edwards.jpg"
+            },
+            "scopeKey": "eLearning",
+            "title": "Ralph Edwards"
+        },
+        {
+            "description": "<p>Jane Cooper is a certified Agile coach and product strategist with over eight years of experience guiding cross-functional teams to successful software launches.&nbsp;</p>",
+            "externalReferenceCode": "TEACHER-JANE-COOPER",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-JANE-COOPER",
+                "name": "teacher_jane_cooper.jpg"
+            },
+            "scopeKey": "eLearning",
+            "title": "Jane Cooper"
+        },
+        {
+            "description": "<p>Jerome Bell has been a cornerstone of our mobile development curriculum since 2022.&nbsp;</p>",
+            "externalReferenceCode": "TEACHER-JEROME-BELL",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-JEROME-BELL",
+                "name": "teacher_jerome_bell.jpg"
+            },
+            "scopeKey": "eLearning",
+            "title": "Jerome Bell"
+        },
+        {
+            "description": "<p>Balazs Demeter is an accomplished UX researcher and product designer who joined our academy in 2019.&nbsp;</p>",
+            "externalReferenceCode": "TEACHER-BALAZS-DEMETER",
+            "photo": {
+                "externalReferenceCode": "FILE-TEACHER-BALAZS-DEMETER",
+                "name": "Balasz.png"
+            },
+            "scopeKey": "eLearning",
+            "title": "Balazs Demeter"
+        }
+    ]
+}

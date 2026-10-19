@@ -6,20 +6,37 @@ A site initializer tree is portable when every identifier it contains either res
 
 Every failure on this card is **silent**. The build succeeds, the site provisions, the handler logs no warning, and the defect surfaces as a blank region on a page or an empty collection.
 
-## Token Delimiters Are `[$` and `$]`
+## Token Delimiters: `[$…$]`, and `"[#…#]"` for Numbers
 
-`SiteInitializerUtil.replace` keys on `[$` and `$]`. Any other delimiter is not a token — it is a literal string that reaches the JSON parser unchanged and resolves to nothing.
+`SiteInitializerUtil.replace` runs two passes over the same token values. The second is the familiar one, keyed on `[$` and `$]`. The first is keyed on `"[#` and `#]"`, **with the double quotes as part of the delimiter**, so it replaces the whole JSON string and leaves the bare value behind:
 
 ```json
-"classPK": "[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"     // substituted
-"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // literal, never substituted
+"classPK": "[$ASSET_LIST_ENTRY_ID:BLOG-ENTRIES$]"     // becomes "classPK": "41203"
+"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // becomes "classPK": 41203
 ```
 
-The `[#…#]` form is easy to introduce by hand and impossible to spot by eye, because the entity name inside it is correct. Grep for it directly:
+Use `"[#…#]"` where the field must be a JSON number. The extender's own test bundles do this for `classPK` and `imageId` in page definitions. Both forms resolve against the same tokens, so the scope rules below apply to both.
+
+> **The form of a collection `classPK` does not matter; the handler order does.** Display page
+> templates and content pages are both imported through `CollectionLayoutStructureItemImporter`,
+> which reads the value with `String.valueOf(collectionReference.get("classPK"))`, so
+> `"[$ASSET_LIST_ENTRY_ID:…$]"` and `"[#ASSET_LIST_ENTRY_ID:…#]"` behave identically once
+> resolved. What fails is resolution: see "Collection Tokens Race the Page Importers" below.
+
+The `[#` form only works as a **whole quoted string**. Anywhere else (inside a longer string, or without the surrounding quotes) it is never substituted, and reaches the parser as a literal that resolves to nothing:
+
+```json
+"classPK": "[#ASSET_LIST_ENTRY_ID:BLOG-ENTRIES#]"     // substituted
+"url": "/web/x/[#LAYOUT_ID:/home#]"                   // literal, never substituted
+```
+
+Find the misplaced form directly. Every match is a defect:
 
 ```bash
-grep -rn '\[#[A-Z_]*:' <tree>
+grep -rnE '(^|[^"])\[#[A-Z_]+:|#\]([^"]|$)' <tree>
 ```
+
+Source: `SiteInitializerUtil.replace` in `site-initializer-extender-api`, since LRSD-5177 (2024).
 
 ## Two Token Scopes — This Decides Whether a Reference Resolves
 
@@ -44,6 +61,44 @@ The practical consequence: **a tree whose objects come from a `batch` CET can st
 Two conditions on the company wide pass: the definition must be **published** (the pass filters on `STATUS_APPROVED`, so a draft registers nothing), and the token is keyed on the definition's **short name**, which equals `name` for a custom object.
 
 To confirm a token's scope, find where its handler calls `stringUtilReplaceValues.put` in `BundleSiteInitializer` — inside the loop means tree only, before the loop means company wide.
+
+## Collection Tokens Race the Page Importers
+
+`[$ASSET_LIST_ENTRY_ID:<Name>$]` is registered by `addAssetListEntries`. Neither
+`addLayoutPageTemplates` (display page templates, master pages) nor `addOrUpdateLayoutsContent`
+(content pages) declares a dependency on it, so whether the token exists when a page is read
+depends on the order the handlers happen to run in.
+
+That order is **not stable between site creations**. `BundleSiteInitializer` keeps its handlers
+in a `HashMap` keyed on an inner class `R` that does not override `hashCode`, then runs, pass by
+pass, every handler whose dependencies are met in that map's iteration order. Identity hashes
+change every time the map is built, so two creations from the same tree can order these
+handlers differently.
+
+When a page is imported first, the token is still a literal, `Long.parseLong` fails on it, and
+the collection element is saved with **no collection configured**. Nothing is logged at INFO
+and the initializer reports success.
+
+Verified on 2026.q3.5 with two clean creations of the Masterclass tree:
+
+| Run | Log order | Blog display page template collection |
+| --- | --- | --- |
+| `[$…$]` in the template | `addLayoutPageTemplates`, then `addAssetListEntries` | absent |
+| `[#…#]` in the template | `addAssetListEntries`, then `addLayoutPageTemplates` | present |
+
+The change of token form coincided with the change of order; it did not cause it. Nothing in
+the tree can force the order, so:
+
+- After every site creation, check each collection display actually has a collection, rather
+  than trusting the `Initialized … in N ms` line. Read the order from the `Invoking …` lines of
+  that run to see whether the run was exposed.
+- Prefer a reference that needs no tree scoped token where one exists, such as a collection
+  provider whose class name carries only `[$COMPANY_ID$]` and object and relationship names
+  (see "Collection Provider Class Names" below). The course display page template does this,
+  and its collection was present on both runs.
+
+Source: `_createRMap` and the run loop in `BundleSiteInitializer`;
+`CollectionLayoutStructureItemImporter._getCollectionJSONObject` in `layout-impl`.
 
 ## Object References Have Two Valid Forms
 
@@ -156,12 +211,13 @@ Run against any tree before trusting it on a fresh bundle:
 
 | Check | Severity |
 | --- | --- |
-| No `[#…#]` delimiters | Error |
+| `[#…#]` only as a whole quoted string, `"[#…#]"` | Error |
 | Every `ObjectDefinition#XXXX` alias declared in a visible object definition | Error |
 | No `ObjectField_<digits>` field keys | Error |
 | No `name<hex>` relationship names in provider class names | Error |
 | Tree scoped tokens resolve against this tree | Error |
 | Company scoped tokens resolve against this tree or a sibling batch CET | Warning |
+| Collection displays checked on the created site, not trusted from the log (handler order race) | Warning |
 | Every file valid JSON and valid UTF-8 | Error |
 | `resource-permissions.json` uses `scope` `"1"` or `"2"`, not `"3"` | Warning |
 

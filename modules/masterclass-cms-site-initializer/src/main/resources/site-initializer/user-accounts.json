@@ -1,0 +1,12 @@
+[
+	{
+		"alternateName": "student.one",
+		"emailAddress": "student.one@liferay.com",
+		"externalReferenceCode": "STUDENT-ONE",
+		"familyName": "One",
+		"givenName": "Student",
+		"name": "Student One",
+		"password": "test",
+		"status": "Active"
+	}
+]

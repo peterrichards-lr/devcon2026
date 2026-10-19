@@ -1,0 +1,78 @@
+[#assign targetStatus = configuration.enrollmentStatus!"Confirmed" /]
+[#assign hasItems = false /]
+[#assign spaceFriendlyUrl = "" /]
+
+<div class="masterclass-user-courses">
+	<div class="row">
+		[#if user?? && (user.getUserId() > 0)]
+			[#assign currentUserId = user.getUserId()?c /]
+			[#assign filterQuery = "?filter=r_courseToUser_userId eq '" + currentUserId + "' and enrollmentStatus eq '" + targetStatus + "'&pageSize=100" /]
+			[#assign enrollmentsResponse = restClient.get("/c/mycourseenrollments" + filterQuery)!{} /]
+
+			[#if enrollmentsResponse?has_content && enrollmentsResponse.items?? && (enrollmentsResponse.items?size > 0)]
+				[#list enrollmentsResponse.items as enrollment]
+					[#if enrollment.courseID?? && enrollment.courseID?has_content]
+						[#assign courseId = enrollment.courseID?c /]
+						[#assign courseObj = restClient.get("/c/elearningcourses/" + courseId)!{} /]
+
+						[#if courseObj?has_content && courseObj.title??]
+							[#assign hasItems = true /]
+							[#assign courseTitle = courseObj.title /]
+							[#assign courseImage = "" /]
+							[#if courseObj.representativeImage?? && courseObj.representativeImage.link?? && courseObj.representativeImage.link.href??]
+								[#assign courseImage = courseObj.representativeImage.link.href /]
+							[/#if]
+
+							[#-- Resolve Asset Library / Space friendly URL dynamically if scoped --]
+							[#if !spaceFriendlyUrl?has_content && courseObj.systemProperties?? && courseObj.systemProperties.scope?? && courseObj.systemProperties.scope.externalReferenceCode??]
+								[#assign assetLibraryObj = restClient.get("/headless-asset-library/v1.0/asset-libraries/" + courseObj.systemProperties.scope.externalReferenceCode)!{} /]
+								[#if assetLibraryObj?has_content && assetLibraryObj.friendlyURL??]
+									[#assign spaceFriendlyUrl = assetLibraryObj.friendlyURL /]
+								[/#if]
+							[/#if]
+
+							[#-- Build Course Display Page Template URL --]
+							[#assign courseUrl = "" /]
+							[#if courseObj.friendlyUrlPath?? && courseObj.friendlyUrlPath?has_content]
+								[#assign courseUrl = "/web" + themeDisplay.getScopeGroup().getFriendlyURL() + "/c_elearningcourse" + spaceFriendlyUrl + "/" + courseObj.friendlyUrlPath /]
+							[#elseif courseObj.displayPageURL?? && courseObj.displayPageURL?has_content]
+								[#assign courseUrl = courseObj.displayPageURL /]
+							[/#if]
+
+							<div class="col-12 col-md-6 col-lg-4 mb-4">
+								<div class="card h-100 shadow-sm border-0 masterclass-course-card">
+									[#if courseImage?has_content]
+										<div class="masterclass-card-img-wrapper">
+											<img alt="${courseTitle}" class="card-img-top masterclass-course-img" src="${courseImage}" />
+										</div>
+									[/#if]
+									<div class="card-body p-4 d-flex flex-column">
+										<h3 class="card-title h4 mb-3 text-break">
+											${courseTitle}
+										</h3>
+										[#if configuration.showAccessLink && courseUrl?has_content]
+											<div class="mt-auto pt-3">
+												<a class="masterclass-link link-sm" href="${courseUrl}">
+													ACCESS COURSE
+													<svg class="link-arrow" fill="none" height="9" viewBox="0 0 37 9" width="37" xmlns="http://www.w3.org/2000/svg">
+														<path clip-rule="evenodd" d="M32.5607 0.146447L36.3536 3.93932C36.5488 4.13458 36.5488 4.45117 36.3536 4.64643L32.3536 8.64636C32.1583 8.84162 31.8417 8.84162 31.6465 8.64636C31.4512 8.4511 31.4512 8.13452 31.6465 7.93926L34.7929 4.79288H0.5V3.79288H34.7929L31.8536 0.853553C31.6583 0.658291 31.6583 0.341709 31.8536 0.146447C32.0488 -0.0488155 32.3654 -0.0488155 32.5607 0.146447Z" fill="var(--primary)" fill-rule="evenodd" />
+													</svg>
+												</a>
+											</div>
+										[/#if]
+									</div>
+								</div>
+							</div>
+						[/#if]
+					[/#if]
+				[/#list]
+			[/#if]
+		[/#if]
+
+		[#if !hasItems]
+			<div class="col-12 py-5 text-center text-muted">
+				<p class="mb-0 fs-5">${configuration.emptyMessage!"No courses found."}</p>
+			</div>
+		[/#if]
+	</div>
+</div>

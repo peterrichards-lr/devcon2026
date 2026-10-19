@@ -1,0 +1,47 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "Confirmed",
+					"label": "enrollment-status",
+					"name": "enrollmentStatus",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "Confirmed",
+								"value": "Confirmed"
+							},
+							{
+								"label": "Completed",
+								"value": "Completed"
+							},
+							{
+								"label": "Pending",
+								"value": "Pending"
+							},
+							{
+								"label": "Approved",
+								"value": "Approved"
+							}
+						]
+					}
+				},
+				{
+					"defaultValue": true,
+					"label": "show-access-link",
+					"name": "showAccessLink",
+					"type": "checkbox"
+				},
+				{
+					"defaultValue": "No courses found.",
+					"label": "empty-message",
+					"name": "emptyMessage",
+					"type": "text"
+				}
+			]
+		}
+	]
+}

@@ -544,6 +544,13 @@ For Many-to-Many relationships:
 
 ## Patterns and Gotchas
 
+### CMS Content Structures (`L_CMS_CONTENT_STRUCTURES`) Requirements
+
+When defining depot-scoped object definitions intended as Headless CMS Content Structures (`scope: "depot"`, `objectFolderExternalReferenceCode: "L_CMS_CONTENT_STRUCTURES"`):
+
+1. **Title field is mandatory:** Every CMS Content Structure MUST include a required `title` field (`"name": "title"`, `"required": true`, `"localized": true`, `"DBType": "String"`, `"businessType": "Text"`, `"system": false`) and configure `"titleObjectFieldName": "title"`. Omission causes validation failure or entries displaying as "Untitled Asset" in the CMS admin UI.
+2. **Versioning is mandatory (`"enableObjectEntryVersioning": true`):** Editorial content structures in `L_CMS_CONTENT_STRUCTURES` must enable versioning alongside `"enableObjectEntryDraft": true`. Without versioning, CMS lifecycle operations, draft workflows, and UI bulk deletion preview return 404 or fail. Note: once published with versioning enabled, Liferay does not allow turning versioning off.
+
 ### OData Relationship Filters Use ERC Strings, Not Numeric IDs
 
 Filtering relationship fields by numeric ID throws `HTTP 400 InvalidFilterException: Incompatible types`. Always filter by the string ERC of the related entry instead:
