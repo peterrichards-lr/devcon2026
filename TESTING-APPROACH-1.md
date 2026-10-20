@@ -263,7 +263,13 @@ export line. Stage 3 still checks the result.
 
 - `Initialized com.liferay.site.initializer.masterclass.cms … in N ms`
 - `batch files deployed: 7`, and nothing under `Unable to deploy batch`
-- nothing under `errors since restore`
+- under `errors since restore`, only the known start-up and site-creation loggers:
+  `HeadlessDisplayTag` and `BaseDisplayTag` (data set tags rendered before their serializer
+  is up, a few seconds after Liferay starts) and `RESTClientTemplateContextContributor` (2,
+  fragments rendered while the site is being built), and sometimes `ElasticsearchIndexWriter`
+  and `BulkDocumentRequestExecutor` (a search delete for an entry that wasn't indexed). Any
+  other logger is worth reading;
+  see LESSONS-LEARNT.md, "The red in the log is the platform warming up"
 - the new site's id, then a line `export MASTERCLASS_GROUP_ID=<id>`. **Paste that line
   into your shell.** The later scripts read it, print which site they are checking, and
   stop if it is not set. The id can change between runs, so paste the new line after every
