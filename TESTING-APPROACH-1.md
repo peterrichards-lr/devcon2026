@@ -336,6 +336,9 @@ create accounts that can sign in. The script:
 
 It is safe to run again: a course that is already Confirmed is kept.
 
+The rule **one registration per student per session** is already in place by now: the
+workarounds module adds it while the site is created (see its README).
+
 **Expect** `My Learning shows 'Building Enterprise Websites with Liferay'`.
 
 **If it fails**
@@ -357,6 +360,9 @@ scripts/student-check.sh
 
 **Expect** `0 failure(s), 2 warning(s)`. The two warnings are a known issue, logged and not
 fixed before DevCon: an enrolment's owner can approve it, or set its status, themselves.
+Among the passes, `a second registration for the same session is refused` shows the
+workarounds module's session rule is in place. If it fails, look for `Added composite key
+rule` (or `Unable to add composite key rule`) in the log from site creation.
 
 The script checks that the student can sign in, read every course object and the
 MyCourseSession lookup the register button makes, sees the Confirmed course from stage 5,
