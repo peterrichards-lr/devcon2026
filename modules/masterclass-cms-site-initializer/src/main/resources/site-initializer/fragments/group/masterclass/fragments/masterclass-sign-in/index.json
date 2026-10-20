@@ -1,4 +1,32 @@
 {
 	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "landing",
+					"description": "Where the login form sends a student after signing in. The instance's landing page is set in Instance Settings (scripts/demo-prep.sh sets it to My Learning).",
+					"label": "After signing in, go to",
+					"name": "afterSignIn",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{
+								"label": "The instance's landing page",
+								"value": "landing"
+							},
+							{
+								"label": "My Learning",
+								"value": "my-learning"
+							},
+							{
+								"label": "The site's home page",
+								"value": "home"
+							}
+						]
+					}
+				}
+			]
+		}
 	]
 }
