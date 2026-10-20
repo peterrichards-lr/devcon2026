@@ -21,9 +21,239 @@ PR, commit, or measurement), so a claim on a slide can be traced back to somethi
 | How | AI rewrites the initializer tree; the site is recreated from it | AI calls the Headless APIs and MCP against the live site; no initializer involved |
 | Lessons | [Approach 1](#approach-1-site-initializer-to-site-initializer) | [Approach 2](#approach-2-live-site-migrated-in-place) |
 
+## Decisions
+
+Calls made along the way that shape what is shown on stage. Newest first; each says who
+agreed it and where the change landed.
+
+| Date | Decision | Why | Where |
+| --- | --- | --- | --- |
+| 2026-10-20 | Prevent a student registering twice for the same session with a composite key rule, added by `demo-prep.sh` | Rafa built this live in 2024. The site initializer can't declare it (item 8), but the scripted post-provision step can. Peter and Rafa | #100 (in progress) |
+| 2026-10-19 | The time-lapse runs at 15x with a digital UTC clock and an elapsed panel; the backup video of the live enrolment stays real time, with no clock | The clock matches the log timestamps, so the audience can see both when each step happened and how long it took. A live action should play at its real pace | #98, #99 |
+| 2026-10-19 | The recorded take is the stage fallback: snapshot `masterclass-02-b0684c3`, tagged `devcon-approach-1` | Every stage passed, the browser check included. Later 02 commits only add the time-lapse tooling | tags, `TESTING-APPROACH-1.md` |
+| 2026-10-19 | Master becomes the converted site; the before state is kept as the tag `devcon-start` | People will look at master. A tag keeps the starting point one checkout away | #92, #96 |
+| 2026-10-19 | Leave the database's red `FATAL` lines during the restore red, and explain them | They are real: the restore starts the database from empty and stops Liferay while it is connected. Nothing red appears after Liferay is back up | narration |
+| 2026-10-19 | Students approving or completing their own enrolment is a known issue, logged and not fixed before DevCon | The stage flow doesn't depend on it; `student-check.sh` reports it as a warning | entry below |
+| 2026-10-19 | Only scripted, documented steps after provisioning: activating the demo student (and, with #100, the session rule). Any manual permission change makes a run unclean | Everything on stage has to come from the tree, the batch or a script in the repo | #88, `TESTING-APPROACH-1.md` |
+| 2026-10-19 | Give the demo student a Confirmed course by running the real flow (enrol, admin approves, student confirms) before the snapshot, rather than seeding one | An enrolment created by the initializer or batch is owned by the admin, and students only see enrolments they own | #88 |
+| 2026-10-19 | Pending stays the real behaviour. On stage the student registers for a second course and shows it Pending on Course Registrations; no demo-only shortcut to Confirmed | Peter and Rafa | #88 |
+| 2026-10-19 | The demo student is created by the site initializer, as a Site Member, with no custom role | All of it must come from the tree, so a clean provision is stage ready. Rafa | #86 |
+| 2026-10-19 | Demo 1 shows an already provisioned site plus a short time-lapse of the provisioning; nothing is provisioned live. Guest self registration is out of scope | Provisioning takes 6 to 11 minutes and can hit the collection race. Peter and Rafa | `TESTING-APPROACH-1.md` |
+| 2026-10-16 | Two use cases, 20 minutes each: Approach 1 (initializer to initializer) and Approach 2 (live site migrated in place) | Peter and Rafa, after the 2026-10-14 meeting | the table above |
+
 ---
 
 # Approach 1: site initializer to site initializer
+
+## 2026-10-19 — A clock you can trust next to the log
+
+**What happened.** The time-lapse of provisioning carries a clock, so the audience sees how
+long each step really took while the video runs at 15x. It has to agree with the log
+window's timestamps, or the first sharp-eyed viewer stops trusting both. Three things could
+pull them apart, and one did:
+
+- **Time zone.** The clock started from the recording's metadata in the Mac's zone (BST),
+  while Liferay logs in UTC: an hour out. `--tz UTC` fixed it.
+- **Precision.** MOV stores its creation time in whole seconds. Trimming the recording at
+  19.5 s and writing the new start back came out as `.000`, half a second out, so the trim
+  now cuts on a whole second.
+- **Clock skew.** The log is stamped by Docker's virtual machine, the clock by the Mac. They
+  were +0.05 to +0.08 s apart: fine, but now checked before every take.
+
+**Evidence.** A frame where the site initializer's `Initialized` line (16:46:36.226) arrives
+shows the clock moving from 16:46:35 to 16:46:37, and the recorded take's check frame shows
+17:52:22 as the line stamped 17:52:22.802 arrives. `scripts/clock_overlay.py` (Peter's) and
+`scripts/make-timelapse.py`, #98 and #99.
+
+### Lessons
+
+1. **Put a timestamp next to a timestamp only if you have checked they agree.** A clock that
+   is an hour or half a second out undermines every log line on screen.
+   *Slide angle: Two clocks on one screen will be compared; make sure they agree.*
+
+1. **Check against an event, not a feeling.** The spot check takes one log line with a
+   known time, works out the frame where it must appear, and looks.
+
+---
+
+## 2026-10-19 — The red in the log is the platform warming up
+
+**What happened.** Every provisioning run shows red in the log window, and on a recording it
+looks alarming. Each one was traced:
+
+| When | What | Why it is harmless |
+| --- | --- | --- |
+| The restore | The database logs `FATAL` (`database "lportal" does not exist`, `the database system is shutting down`, `connection to client lost`) | The restore starts Postgres from empty, runs a temporary server to load the snapshot, and stops Liferay while it is still connected. The wording varies by run; the cause doesn't |
+| About 40 s after Liferay starts | Data set display tags throw `NullPointerException` (`fdsSerializer` is null), 6 to 21 pairs | A reindex task renders a data set component before its serializer service is up: a start-up race, before anything of ours is deployed |
+| Site creation | 2 `RESTClientTemplateContextContributor` `SecurityException`s | Fragment templates that call `restClient` render while the site is being built, with no user who has access |
+| Site creation | One search index delete fails | The entry wasn't in the index |
+
+Nothing red appears once the site is up, and the checks after provisioning all pass.
+
+**Evidence.** `docker logs` of the 2026-10-19 runs; the timings above are from the takes at
+16:43 and 17:47 UTC.
+
+### Lessons
+
+1. **A clean log is not the success criterion; the checks are.** Explain the red rather than
+   hide it. Hiding it reads as hiding something.
+   *Slide angle: The red lines are the restore at work. Watch what the checks say.*
+
+---
+
+## 2026-10-19 — A check that could never fail
+
+**What happened.** `ldm-provision.sh` ends with "errors since restore", listing every
+`ERROR` logged during the run. It printed nothing on every rehearsal, yet the log had
+dozens. It counted the log's lines before the restore and printed only what came after that
+line number, but the restore starts a new, shorter log file, so it was always reading past
+the end.
+
+**Evidence.** The 2026-10-19 rehearsals: the section empty each time, while `docker logs`
+showed the data set exceptions above. A fix is in progress, in its own PR.
+
+### Lessons
+
+1. **Test a check by making it fail.** A check that has never shown a failure is a guess.
+   *Slide angle: Green because it works, or green because it can't see?*
+
+---
+
+## 2026-10-19 — Two branches, one silent deletion
+
+**What happened.** Master was kept as the "before" state, so in October a change that
+landed there by mistake was reverted (#16). Merging 02 into master after the conversion
+would have deleted four files Approach 1 needs (the enrolment object, its status picklist
+and both enrolment relationships) and restored five old batch files, **with no conflict**:
+git applies a revert's deletion wherever the other side hasn't touched the file since. The
+trial merge in a scratch worktree showed it before anything reached master.
+
+**What we did.** Carried everything that only master had into 02 first (#92), then merged
+with master taking 02's tree exactly (#96). All 112 files master lost were traced to the
+02 commit that removed them on purpose. `devcon-start` keeps the before state.
+
+**Evidence.** #92, #96, and "A clean merge can delete the whole conversion" under "Earlier,
+from `.agent-state.md`" below, which saw the same trap in the other direction.
+
+### Lessons
+
+1. **A merge without conflicts is not a merge without changes.** Compare the result's tree
+   with what you meant, file by file.
+   *Slide angle: The most dangerous merge is the one that just works.*
+
+---
+
+## 2026-10-19 — The collection race, measured
+
+**What happened.** The race from 2026-10-16 (collections created after the pages that use
+them) hit **3 of 12** site creations on 19 October, including one recorded take. The site
+initializer still reports success when it happens. `ldm-provision.sh` now reads the handler
+order from the log and, when the collections lost the race, provisions again by itself, up
+to three times. On the recorded take it printed `RACE … provisioning again`, and the second
+attempt passed every check.
+
+**Evidence.** #90; `scripts/check-collections.sh` and the run logs of 19 October;
+UPSTREAM-FEEDBACK.md item 7 (LPD-110315).
+
+### Lessons
+
+1. **Count an intermittent failure before you call it rare.** One in four is not rare on a
+   stage.
+   *Slide angle: The safeguard caught it on camera.*
+
+---
+
+## 2026-10-19 — Known issue: students can approve or complete their own enrolment
+
+**What happened.** An enrolment's owner gets every action on it: update, delete, and every
+standalone object action. So a student can run `approveACourse` on their own Pending
+enrolment (204, now Approved), or PATCH its status straight to Completed (200). Pending
+stops nothing.
+
+**Decision.** Logged, not fixed before DevCon. The stage flow doesn't depend on it, and
+`student-check.sh` reports both as warnings rather than failures. Possible fixes, not yet
+evaluated: limit the Owner role's permissions on the object's actions, a validation rule on
+status changes, or approval through a workflow.
+
+**Evidence.** Tested as a site member on 02 at `7de77b5`, 2026-10-19; the two `WARN` lines in
+every `student-check.sh` run since.
+
+### Lessons
+
+1. **Pending is only a gate if the owner can't open it.** Check who can run each standalone
+   action, not just who can create the entry.
+
+---
+
+## 2026-10-19 — The register button only worked for admins
+
+**What happened.** Testing as an ordinary signed in member, not as admin, the register
+button failed twice over:
+
+1. It first looks the session up in MyCourseSession, and members had no VIEW on it: the
+   lookup returned 0 of 12, and the button said "not linked".
+1. Its enrolment links that session, and linking needs VIEW on the related entry: the POST
+   returned **403**. The same POST without the session link returned 200.
+
+REST tests run as admin had passed throughout. Separately, an enrolment created by an
+admin was invisible to the student it was for (404), because students only see enrolments
+they own. That ruled out seeding a Confirmed enrolment from the initializer or batch.
+
+**What we did.** #84 let signed in users enrol (ADD on MyCourseEnrollment for the User
+role); #86 moved the grants to Site Member and added VIEW on MyCourseSession. And
+`demo-prep.sh` gives the demo student a Confirmed course through the real flow, so the
+student owns it (#88).
+
+**Evidence.** #84, #86, #88; the two-user and student checks in `scripts/student-check.sh`.
+
+### Lessons
+
+1. **Test as the user who will click it.** Admin passes every permission check, so admin
+   tests prove nothing about permissions.
+   *Slide angle: It works on my admin account.*
+
+1. **A relationship is also a read.** Linking an entry to another needs VIEW on the other.
+
+---
+
+## 2026-10-19 — The demo student who couldn't sign in
+
+**What happened.** The site initializer created the demo student, added it to the site, and
+left it **Inactive**: signing in returned 401. The same JSON sent to the user API directly
+created an active user, so it looked like a bug. Then it was put down to an internal
+security request. The portal source settled it: `BundleSiteInitializer._addUserAccounts`
+sets every user it creates to inactive on purpose, so an initializer can't silently create
+accounts that can sign in (LPS-184738, 2023-12-26).
+
+**What we did.** `demo-prep.sh` activates the student as its first, scripted, documented step
+after provisioning, and the README says why.
+
+**Evidence.** #88; `000dba9c42` in liferay-portal (LPS-184738).
+
+### Lessons
+
+1. **Read the source before you name a cause.** It turned "bug" and "someone asked for it"
+   into one line of platform code with a ticket.
+   *Slide angle: The platform did exactly what it was told. It just wasn't us who told it.*
+
+---
+
+## 2026-10-19 — No feature flags needed for Approach 1
+
+**What happened.** The README had to say which feature flags to enable. The LDM instance had
+two on (`LPD-35443`, `LPS-178052`) with nothing recording whether Approach 1 needed them. A
+clean run with both switched off created the site, loaded the data and rendered every page.
+
+**Evidence.** #85; two clean runs of 02 at `7de77b5`, one with LDM's default flags and one
+with both off. (Approach 2's page specification edits do need `LPD-74328`; see the
+2026-10-15 entry under Approach 2.)
+
+### Lessons
+
+1. **Test the minimum, don't inherit it.** "These flags are on" is not "these flags are
+   needed".
+
+---
 
 ## 2026-10-16 — Correction: collection classPK is not string vs number, it is handler order
 
