@@ -337,18 +337,21 @@ create accounts that can sign in. The script:
 
 1. activates `student.one@liferay.com` and checks it can sign in;
 2. makes the instance open the Masterclass site instead of the default Welcome site: the
-   Home URL becomes `/web/masterclass-cms`, signing in lands on `/web/masterclass-cms/my-learning`
-   and signing out on `/web/masterclass-cms` (Instance Settings > Instance Configuration >
-   General). A site initializer can't set instance settings. It finds the instance from
-   `LIFERAY_URL`'s host, and the Home URL update sends every other company field back
+   Home URL becomes `/web/masterclass-cms`, signing in lands on the site's home page (or on
+   My Learning with `LANDING=my-learning`), and signing out on `/web/masterclass-cms`
+   (Instance Settings > Instance Configuration > General). A site initializer can't set
+   instance settings. It finds the instance from `LIFERAY_URL`'s host, and the Home URL update sends every other company field back
    unchanged, because it replaces them all, the virtual host included;
 3. as the student, enrols in **Building Enterprise Websites with Liferay** with the register
    button's payload; as admin, approves; as the student, confirms;
 4. checks My Learning shows the course.
 
 Steps 1 and 2 are the only allowed post-provision changes. It is safe to run again:
-settings already in place, and a course already Confirmed, are kept. `LANDING_PAGE` chooses
-another page to land on after signing in.
+settings already in place, and a course already Confirmed, are kept.
+
+**For the stage fallback, land on My Learning:** the live demo starts there, so run the take
+with `LANDING=my-learning PAUSE=0 scripts/record-approach-1.sh`; `record-approach-1.sh`
+passes it on to this script.
 
 The rule **one registration per student per session** is already in place by now: the
 workarounds module adds it while the site is created (see its README).

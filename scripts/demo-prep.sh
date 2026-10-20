@@ -17,8 +17,9 @@
 # Steps 1 and 2 are the only allowed post-provision changes. Grants no permissions. Safe
 # to re-run: settings already in place, and an enrolment already Confirmed, are kept.
 #
-# SITE_PATH (default /web/masterclass-cms) and LANDING_PAGE (default /my-learning, under
-# SITE_PATH) choose the pages.
+# Where signing in lands: the site's home page by default, or My Learning with
+# LANDING=my-learning (any other page name under the site works too). SITE_PATH (default
+# /web/masterclass-cms) is the site.
 #
 # LIFERAY_URL (default http://localhost:8080) and LIFERAY_ADMIN (default
 # test@liferay.com:test) select the instance and the administrator.
@@ -42,7 +43,7 @@ SE="${1:-student.one@liferay.com}"
 SP="${2:-test}"
 TITLE="${3:-Building Enterprise Websites with Liferay}"
 SITE_PATH="${SITE_PATH:-/web/masterclass-cms}"
-LANDING_PAGE="${LANDING_PAGE:-/my-learning}"
+LANDING="${LANDING:-home}"
 H="${LIFERAY_URL:-http://localhost:8080}"
 ADMIN="${LIFERAY_ADMIN:-test@liferay.com:test}"
 
@@ -79,13 +80,13 @@ CID=$(lr "${H}/api/jsonws/company/get-company-by-virtual-host" -d "virtualHost=$
 [ -n "${CID}" ] || die "${HOST} is not an instance's virtual host; nothing changed"
 
 # Landing and logout pages are instance preferences.
-LANDING="${SITE_PATH}${LANDING_PAGE}"
-PREFS=$(jq -cn --arg l "${LANDING}" --arg o "${SITE_PATH}" '{"default.landing.page.path": $l, "default.logout.page.path": $o}')
+LANDING_PATH="${SITE_PATH}/${LANDING#/}"
+PREFS=$(jq -cn --arg l "${LANDING_PATH}" --arg o "${SITE_PATH}" '{"default.landing.page.path": $l, "default.logout.page.path": $o}')
 show "curl --request POST --url ${H}/api/jsonws/company/update-preferences --user ${ADMIN} --data companyId=${CID} --data unicodeProperties='${PREFS}'"
 code=$(lr "${H}/api/jsonws/company/update-preferences" --data-urlencode "companyId=${CID}" \
 	--data-urlencode "unicodeProperties=${PREFS}" --output /dev/null --write-out '%{http_code}')
 [ "${code}" = 200 ] || die "the landing and logout pages were refused (${code})"
-echo "ok    sign in lands on ${LANDING}, sign out on ${SITE_PATH}"
+echo "ok    sign in lands on ${LANDING_PATH}, sign out on ${SITE_PATH}"
 
 # The Home URL is a field of the company record. Updating it replaces every field,
 # including the virtual host, so send back what is there.
