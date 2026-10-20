@@ -203,5 +203,8 @@ Prevents data integrity rules from being defined as Infrastructure-as-Code in Si
 * Introduce a standardized folder structure (e.g., `object-validation-rules/`) in Site Initializers, processed after relationships are created.
 * Ensure validations can reference relationship fields to enforce composite business rules (e.g., *Student A cannot register for Session B more than once*).
 
+##### Workaround in this repository
+The workarounds module (`modules/masterclass-cms-workarounds`) adds the rule while the site is created: when the initializer publishes MyCourseEnrollment, after the relationships exist, it adds a `compositeKey` validation rule over `r_courseToUser_userId` and `r_enrollmentToCourseSession_c_myCourseSessionId`, so a student can't register for the same session twice. `scripts/student-check.sh` checks that a second registration is refused.
+
 > **Clue for Engineering:**  
 > Validations often depend on relationship fields. In the current import flow, relationships are created after definitions, so having a dedicated validation import stage that executes after relationships are established would prevent reference errors.

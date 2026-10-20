@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<Configuration strict="true">
+	<Loggers>
+		<!-- The portal logs com.liferay.* at ERROR, which would hide what these listeners report. -->
+		<Logger level="INFO" name="com.liferay.masterclass.cms.workarounds" />
+	</Loggers>
+</Configuration>

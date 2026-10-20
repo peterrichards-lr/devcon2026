@@ -9,13 +9,14 @@
 #   1. The student exists, is active, is a site member, and can sign in.
 #   2. The student can read every course object, and the MyCourseSession lookup the
 #      register button makes.
-#   3. demo-prep's Confirmed course is visible; the full flow works over REST: enrol with
-#      the button's payload (Pending), admin approves, student confirms, My Learning
-#      shows it. Self-approval and self-update are reported as WARN: a known issue,
+#   3. demo-prep's Confirmed course is visible, and registering again for its session is
+#      refused (the one-registration-per-session rule the workarounds module adds); the full flow
+#      works over REST: enrol with the button's payload (Pending), admin approves, student
+#      confirms, My Learning shows it. Self-approval and self-update are reported as WARN: a known issue,
 #      logged and not fixed before DevCon.
 #   4. The student can't list, read, change or delete another user's enrolment.
 #   5. No manual permission changes. This script grants nothing, so a missing grant in
-#      the tree shows up as a FAIL above. The only allowed post-provision step is the
+#      the tree shows up as a FAIL above. The only allowed post-provision steps are the
 #      scripted, documented user activation in demo-prep.sh.
 #
 # Check 3 on stage (the register button in a browser) is manual: a second course goes
@@ -50,6 +51,7 @@ KNOWN="known issue: enrolment owners can change their own status (LESSONS-LEARNT
 fails=0
 warns=0
 E=
+DUP=
 OE=
 OTHER=
 
@@ -61,13 +63,13 @@ warn() { echo "WARN  $*"; warns=$((warns + 1)); }
 fail() { echo "FAIL  $*"; fails=$((fails + 1)); }
 
 cleanup() {
-	for id in ${E} ${OE}; do
+	for id in ${E} ${DUP} ${OE}; do
 		lr -X DELETE "${H}/o/c/mycourseenrollments/${id}" -o /dev/null
 	done
 
 	[ -n "${OTHER}" ] && lr -X DELETE "${H}/o/headless-admin-user/v1.0/user-accounts/${OTHER}" -o /dev/null
 
-	echo "cleaned up: test enrolments ${E:-none} ${OE:-none}, test user ${OTHER:-none}"
+	echo "cleaned up: test enrolments ${E:-none} ${DUP:-none} ${OE:-none}, test user ${OTHER:-none}"
 }
 
 trap cleanup EXIT
@@ -110,7 +112,28 @@ n=$(st "${H}/o/c/mycourseenrollments?filter=r_courseToUser_userId%20eq%20'${SID}
 [ "${n}" -ge 1 ] 2>/dev/null && pass "Confirmed enrolment from demo-prep.sh visible to the student (${n})" \
 	|| fail "no Confirmed enrolment visible to the student; run scripts/demo-prep.sh first"
 
-MS=$(lr "${H}/o/c/mycoursesessions?pageSize=1&sort=id:desc" | jq -r '.items[0].id')
+# The session of demo-prep's enrolment: registering for it again must be refused by the
+# "one registration per student per session" rule the workarounds module adds when the
+# site initializer publishes MyCourseEnrollment.
+PREP=$(lr "${H}/o/c/mycourseenrollments?pageSize=50&filter=r_courseToUser_userId%20eq%20'${SID}'" \
+	| jq -c '[.items[] | select(.enrollmentStatus.key == "Confirmed")][0] // empty')
+PS=$(echo "${PREP}" | jq -r '.r_enrollmentToCourseSession_c_myCourseSessionId // empty')
+
+if [ -n "${PS}" ] && [ "${PS}" != 0 ]; then
+	R=$(st -X POST -H 'Content-Type: application/json' "${H}/o/c/mycourseenrollments" --write-out '\n%{http_code}' \
+		-d "{\"enrollmentStatus\": \"Pending\", \"r_courseToUser_userId\": ${SID}, \"r_enrollmentToCourseSession_c_myCourseSessionId\": ${PS}, \"courseID\": $(echo "${PREP}" | jq -r .courseID)}")
+	DUP=$(echo "${R%$'\n'*}" | jq -r '.id // empty' 2>/dev/null)
+	if [ -z "${DUP}" ]; then
+		pass "a second registration for the same session is refused (${R##*$'\n'}: $(echo "${R%$'\n'*}" | jq -r '(.detail | fromjson? | .[0].errorMessage) // .title // empty' 2>/dev/null | head -c 80))"
+	else
+		fail "a second registration for the same session was accepted (entry ${DUP}); is the workarounds module deployed, and did it log "Added composite key rule"?"
+	fi
+else
+	fail "demo-prep's enrolment has no session; run scripts/demo-prep.sh first"
+fi
+
+# The full flow uses a different session, so the rule doesn't refuse it.
+MS=$(lr "${H}/o/c/mycoursesessions?pageSize=50&sort=id:desc" | jq -r --arg ps "${PS:-0}" '[.items[] | select((.id | tostring) != $ps)][0].id')
 C2=$(lr "${H}/o/c/elearningcourses/scopes/eLearning?pageSize=1&sort=id:desc" | jq -r '.items[0].id')
 R=$(st -X POST -H 'Content-Type: application/json' "${H}/o/c/mycourseenrollments" --write-out '\n%{http_code}' \
 	-d "{\"enrollmentStatus\": \"Pending\", \"r_courseToUser_userId\": ${SID}, \"r_enrollmentToCourseSession_c_myCourseSessionId\": ${MS}, \"courseID\": ${C2}}")
@@ -166,7 +189,7 @@ if [ -n "${OE}" ]; then
 	[ "${still}" = Confirmed ] && pass "other's enrolment unchanged (${still})" || fail "other's enrolment changed: ${still}"
 fi
 
-echo "== 5. no manual permission changes; the only allowed post-provision step is the scripted, documented user activation"
+echo "== 5. no manual permission changes; the only allowed post-provision step is the scripted user activation"
 echo "this script granted nothing, so any FAIL above is a grant missing from the tree"
 echo "${fails} failure(s), ${warns} warning(s)"
 [ "${fails}" = 0 ] && echo "Ready for check 3: sign in as ${SE}, register for a session of a second course, then check it is Pending on Course Registrations and demo-prep's course is on My Learning."

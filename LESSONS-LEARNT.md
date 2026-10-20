@@ -29,7 +29,7 @@ agreed it and where the change landed.
 | Date | Decision | Why | Where |
 | --- | --- | --- | --- |
 | 2026-10-20 | The demo student stays activated by `demo-prep.sh`, not by the workarounds module | The initializer creates users inactive on purpose (LPS-184738), so it can't silently create accounts that can sign in; activating them automatically in a module would undo that quietly. A visible, scripted exception keeps it honest, and the script is needed anyway for the prepared enrolment. The time-lapse was also already recorded with this flow. Peter | `scripts/demo-prep.sh` |
-| 2026-10-20 | Prevent a student registering twice for the same session with a composite key rule, in the workarounds module | Rafa built this live in 2024; the site initializer can't declare it (item 8). Rafa asked whether one OSGi module could replace the script altogether. It can't sensibly (see the row above), so the line is drawn by purpose: fixes to the data model go in the module, where they apply to every site created from the tree; steps taken only for the stage stay in the script. Peter and Rafa | #100 (in progress) |
+| 2026-10-20 | Prevent a student registering twice for the same session with a composite key rule, in the workarounds module | Rafa built this live in 2024; the site initializer can't declare it (item 8). Rafa asked whether one OSGi module could replace the script altogether. It can't sensibly (see the row above), so the line is drawn by purpose: fixes to the data model go in the module, where they apply to every site created from the tree; steps taken only for the stage stay in the script. Peter and Rafa | #100 |
 | 2026-10-19 | The time-lapse runs at 15x with a digital UTC clock and an elapsed panel; the backup video of the live enrolment stays real time, with no clock | The clock matches the log timestamps, so the audience can see both when each step happened and how long it took. A live action should play at its real pace | #98, #99 |
 | 2026-10-19 | The recorded take is the stage fallback: snapshot `masterclass-02-b0684c3`, tagged `devcon-approach-1` | Every stage passed, the browser check included. Later 02 commits only add the time-lapse tooling | tags, `TESTING-APPROACH-1.md` |
 | 2026-10-19 | Master becomes the converted site; the before state is kept as the tag `devcon-start` | People will look at master. A tag keeps the starting point one checkout away | #92, #96 |
@@ -45,6 +45,50 @@ agreed it and where the change landed.
 ---
 
 # Approach 1: site initializer to site initializer
+
+## 2026-10-20 — One registration per session: the rule the initializer couldn't declare
+
+**What happened.** Nothing stopped a student registering for the same session twice. In
+2024 Rafa added a composite key validator live; this time the site initializer can't
+declare it, because a rule on relationship fields needs them to exist, and the initializer
+creates relationships after the object definitions (UPSTREAM-FEEDBACK.md item 8, Discuss
+#1074). It went first into `demo-prep.sh` as a REST call, then, at Rafa's suggestion, into
+the workarounds module with the other fixes to the model, where it applies to every site
+created from the tree. A listener adds the rule when MyCourseEnrollment is published.
+
+Testing it found three things the code review didn't:
+
+1. **A caught exception still rolled the site back.** Publishing marks the definition
+   approved before it creates the object's table. Adding the rule inside that transaction
+   queried the missing table, and on PostgreSQL a failed statement aborts the whole
+   transaction, so the site creation rolled back although the exception was caught and
+   logged. The rule is now added after the transaction commits, in its own.
+1. **A composite key can't be added once the object has data.** The platform refuses it
+   when existing entries already have values in the fields, and reports that as an invalid
+   field value. So deploying the module onto the fallback snapshot, which has an enrolment,
+   added nothing; the listener now says why in a warning.
+1. **The module's logging had always been invisible.** The portal logs `com.liferay.*` at
+   ERROR, and our package inherits it, so no INFO or WARN line the module ever wrote had
+   appeared. Its `module-log4j.xml` now sets its own level. A start-up pass that ran on one
+   deploy and not the next turned out to be a lazily activated component, now immediate.
+
+**Evidence.** #100; the test runs of 2026-10-20: the first full provision rolled back
+(`relation "o_…_mycourseenrollment" does not exist`), the second and third passed with the
+rule added after `Initialized` and a second registration refused with "You are already
+registered for this session." (an orange warning toast in the browser).
+
+### Lessons
+
+1. **Catching an exception doesn't save a transaction the database has already aborted.**
+   *Slide angle: The error was handled. The transaction was already dead.*
+
+1. **Test every path you claim.** "Also works on an existing site" was in the README until
+   the test said otherwise.
+
+1. **If you can't see a log line, check whether you could ever have seen it.**
+   *Slide angle: Silence in the log is not success; it might be a log level.*
+
+---
 
 ## 2026-10-19 — A clock you can trust next to the log
 
