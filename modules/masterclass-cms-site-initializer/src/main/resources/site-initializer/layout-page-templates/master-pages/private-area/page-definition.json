@@ -107,6 +107,25 @@
 															}
 														},
 														"fragmentLink": {
+															"value": {
+																"href": {
+																	"mapping": {
+																		"itemReference": {
+																			"className": "com.liferay.portal.kernel.model.Layout",
+																			"fields": [
+																				{
+																					"fieldName": "friendlyURL",
+																					"fieldValue": "/home"
+																				},
+																				{
+																					"fieldName": "privatePage",
+																					"fieldValue": "false"
+																				}
+																			]
+																		}
+																	}
+																}
+															},
 															"value_i18n": {}
 														}
 													}

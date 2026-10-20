@@ -5,8 +5,9 @@ fails. The steps follow [README.md](README.md#running-approach-1) literally; the
 in [`scripts/`](scripts) do the waiting and checking.
 
 A run is **clean** when every stage below passes with no manual permission changes. The
-only allowed step after provisioning is the scripted, documented activation of the demo
-student (stage 5). Take the stage snapshot from a clean run only.
+only allowed steps after provisioning are the two scripted, documented ones in stage 5:
+activating the demo student, and making the instance open the Masterclass site. Take the
+stage snapshot from a clean run only.
 
 The commands assume an LDM project called `devcon2026` in `~/ldm-verify/devcon2026`, with
 a snapshot `clean-2026q3.5` that holds no Masterclass data, and the admin
@@ -334,18 +335,29 @@ Users created by a site initializer are inactive by design: `BundleSiteInitializ
 each one to inactive after creating it (LPS-184738), so an initializer can't silently
 create accounts that can sign in. The script:
 
-1. activates `student.one@liferay.com` and checks it can sign in. This is the one allowed
-   post-provision step;
-2. as the student, enrols in **Building Enterprise Websites with Liferay** with the register
+1. activates `student.one@liferay.com` and checks it can sign in;
+2. makes the instance open the Masterclass site instead of the default Welcome site: the
+   Home URL becomes `/web/masterclass-cms`, signing in lands on the site's home page (or on
+   My Learning with `LANDING=my-learning`), and signing out on `/web/masterclass-cms`
+   (Instance Settings > Instance Configuration > General). A site initializer can't set
+   instance settings. It finds the instance from `LIFERAY_URL`'s host, and the Home URL update sends every other company field back
+   unchanged, because it replaces them all, the virtual host included;
+3. as the student, enrols in **Building Enterprise Websites with Liferay** with the register
    button's payload; as admin, approves; as the student, confirms;
-3. checks My Learning shows the course.
+4. checks My Learning shows the course.
 
-It is safe to run again: a course that is already Confirmed is kept.
+Steps 1 and 2 are the only allowed post-provision changes. It is safe to run again:
+settings already in place, and a course already Confirmed, are kept.
+
+**For the stage fallback, land on My Learning:** the live demo starts there, so run the take
+with `LANDING=my-learning PAUSE=0 scripts/record-approach-1.sh`; `record-approach-1.sh`
+passes it on to this script.
 
 The rule **one registration per student per session** is already in place by now: the
 workarounds module adds it while the site is created (see its README).
 
-**Expect** `My Learning shows 'Building Enterprise Websites with Liferay'`.
+**Expect** `http://localhost:8080/ opens 'Home - Masterclass CMS - Liferay'` and
+`My Learning shows 'Building Enterprise Websites with Liferay'`.
 
 **If it fails**
 
