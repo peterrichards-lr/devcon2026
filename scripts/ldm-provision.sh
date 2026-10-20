@@ -78,7 +78,6 @@ find "${MOD}" -maxdepth 1 -type f ! -name 'activation-key-*' -print -delete
 
 echo "== restore ${CLEAN_SNAPSHOT}"
 touch "${LOG}"
-N0=$(wc -l < "${LOG}")
 show "ldm restore ${LDM_PROJECT} -n ${CLEAN_SNAPSHOT} --up -y"
 (cd "${LDM_DIR}" && ldm restore "${LDM_PROJECT}" -n "${CLEAN_SNAPSHOT}" --up -y --no-color | tail -1)
 
@@ -140,8 +139,14 @@ sleep 20
 tail -n +"$((n + 1))" "${LOG}" | grep --count "Successfully deployed batch engine file" | sed 's/^/batch files deployed: /'
 tail -n +"$((n + 1))" "${LOG}" | grep "Unable to deploy batch" | cut -c1-200 || true
 
-echo "== errors since restore"
-tail -n +"$((N0 + 1))" "${LOG}" | grep --extended-regexp " ERROR " | cut -c1-200 | sort | uniq -c | sort -rn | head -15 || true
+# Read the errors from the container's own log, not the log file: the restore recreates the
+# container, so its log holds exactly this run, while the file is replaced by a shorter one
+# and a line count taken before the restore points past its end.
+echo "== errors since restore, by logger (the restore and start up log some; see TESTING-APPROACH-1.md)"
+docker logs "${LDM_PROJECT}" 2>&1 \
+	| grep --only-matching --extended-regexp " ERROR +\[[^]]*\]\[[A-Za-z0-9_]+:[0-9]+\]" \
+	| sed -E 's/ ERROR +\[[^]]*\]\[([A-Za-z0-9_]+):[0-9]+\]/\1/' \
+	| sort | uniq -c | sort -rn | head -15 || true
 
 G=$("$(dirname "$0")/site-id.sh") || exit 1
 if [ "${RECORDING:-0}" = 1 ]; then
