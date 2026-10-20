@@ -17,7 +17,8 @@
 #   4. The student can't list, read, change or delete another user's enrolment.
 #   5. No manual permission changes. This script grants nothing, so a missing grant in
 #      the tree shows up as a FAIL above. The only allowed post-provision steps are the
-#      scripted, documented user activation in demo-prep.sh.
+#      scripted, documented ones in demo-prep.sh: the user activation, and opening the
+#      Masterclass site by default.
 #
 # Check 3 on stage (the register button in a browser) is manual: a second course goes
 # to Pending on Course Registrations.
@@ -189,7 +190,7 @@ if [ -n "${OE}" ]; then
 	[ "${still}" = Confirmed ] && pass "other's enrolment unchanged (${still})" || fail "other's enrolment changed: ${still}"
 fi
 
-echo "== 5. no manual permission changes; the only allowed post-provision step is the scripted user activation"
+echo "== 5. no manual permission changes; the only allowed post-provision steps are demo-prep.sh's: the user activation and opening the Masterclass site"
 echo "this script granted nothing, so any FAIL above is a grant missing from the tree"
 echo "${fails} failure(s), ${warns} warning(s)"
 [ "${fails}" = 0 ] && echo "Ready for check 3: sign in as ${SE}, register for a session of a second course, then check it is Pending on Course Registrations and demo-prep's course is on My Learning."
