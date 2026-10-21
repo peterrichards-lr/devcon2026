@@ -449,5 +449,6 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Snapshot | Contents | Use |
 | --- | --- | --- |
 | `masterclass-02-<short commit>` | The next clean run of this procedure, taken at the end of the recording | Stage, once it passes stage 8 |
-| `masterclass-02-26093eb` | 02 at `26093eb`: every stage passed, browser check included (2026-10-19). Its build is identical to 02 at `d0806f0` apart from build timestamps | Stage fallback until the recorded run replaces it |
+| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103) | **Stage fallback** |
+| `masterclass-02-b0684c3` | 02 at `b0684c3`: the recorded take of 2026-10-19, every stage passed. It has neither the session rule nor the Masterclass landing | Previous fallback, if `3c9a590` will not restore |
 | `masterclass-02-7de77b5` | 02 at `7de77b5`: everything except the demo student | Last resort; it has no demo student, so stage 8 cannot be shown |
