@@ -61,8 +61,8 @@ at `skills/`. Without it the harness silently falls back to baseline and reports
 | Case | Asserts | Last measured |
 | --- | --- | --- |
 | `fact-batch-directory` | `site-initializer/batch/` is never read by `BundleSiteInitializer` | **Δ +0.32** (7 Oct, after splitting a compound grader). The earlier **+0.76** was measured with no skill loaded |
-| `fact-relationship-foreign-key` | The FK sits on the child but is named for the parent; a wrong key still returns `200` | Δ +0.18 |
-| `plan-object-model-end-to-end` | Grades a whole migration plan: field types, and both reference rewrites | Δ −0.07 |
+| `fact-relationship-foreign-key` | The FK sits on the child but is named for the parent; a wrong key still returns `200` | **Δ +0.36** (7 Oct). The earlier **+0.18** was measured with no skill loaded |
+| `plan-object-model-end-to-end` | Grades a whole migration plan: field types, and both reference rewrites | **Δ +0.00** (7 Oct), but the skill fired 0/5, so this measures discoverability, not content. The earlier **−0.07** was measured with no skill loaded |
 
 ## What the measurements established
 
@@ -71,8 +71,10 @@ surface or ordinary data modelling** measured ~0 — scope constants, dangling o
 references, token delimiters, resolving numbered fieldsets into a related object, the
 DDM to object type mapping, the display page template rewrites. The model has all of it.
 
-The only case measuring real uplift covers **undocumented implementation behaviour**:
-that `BundleSiteInitializer` silently skips `batch/` appears in no published document.
+Three cases measure real uplift, and all three cover **undocumented implementation
+behaviour** that appears in no published document: `fact-system-object-token-needs-directory`
+(**+0.60**), `fact-relationship-foreign-key` (**+0.36**) and `fact-batch-directory`
+(**+0.32**), which asserts that `BundleSiteInitializer` silently skips `batch/`.
 
 So the test for new skill content, and for new cases, is: **could someone find this in
 the documentation?** If yes, writing it down does not change what an agent does.
