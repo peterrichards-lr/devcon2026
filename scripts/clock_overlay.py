@@ -31,7 +31,7 @@ Usage:
 
 Needs: ffmpeg/ffprobe on PATH, Python 3 with Pillow (pip3 install pillow).
 """
-import argparse, json, math, subprocess, sys
+import argparse, json, math, os, subprocess, sys
 from datetime import datetime, timezone
 from PIL import Image, ImageDraw, ImageFont
 
@@ -66,8 +66,10 @@ def start_from_metadata(tags, tz_name):
     dt = datetime.fromisoformat(norm)
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
-    if tz_name:
-        from zoneinfo import ZoneInfo
+    if tz_name and tz_name.upper() == "UTC":
+        dt = dt.astimezone(timezone.utc)  # no time zone database needed (Windows has none)
+    elif tz_name:
+        from zoneinfo import ZoneInfo  # on Windows, needs: pip install tzdata
         dt = dt.astimezone(ZoneInfo(tz_name))
     else:
         dt = dt.astimezone()  # this computer's zone
@@ -75,16 +77,20 @@ def start_from_metadata(tags, tz_name):
 
 
 def load_font(px, mono=False):
+    win = os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts")
     names = (("/System/Library/Fonts/Menlo.ttc", "/System/Library/Fonts/SFNSMono.ttf",
-              "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf") if mono else
+              "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+              os.path.join(win, "consolab.ttf"), os.path.join(win, "consola.ttf")) if mono else
              ("/System/Library/Fonts/Helvetica.ttc", "/System/Library/Fonts/SFNS.ttf",
-              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
+              "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+              os.path.join(win, "arialbd.ttf"), os.path.join(win, "segoeuib.ttf")))
     for f in names:
         try:
             return ImageFont.truetype(f, px)
         except OSError:
             pass
-    return ImageFont.load_default()
+    # Pillow's own font, at the size asked for (without a size it is a fixed 10 px)
+    return ImageFont.load_default(px)
 
 
 SUBSEC_DIGITS = {"none": 0, "tenths": 1, "ms": 3}
