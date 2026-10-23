@@ -112,6 +112,8 @@ scripts/follow-logs.sh
 
 ### Making the time-lapse
 
+For other recordings, Windows, and a prompt for an AI session, see [TIMELAPSE.md](TIMELAPSE.md).
+
 One command does it, while the recorded instance is still up:
 
 ```bash
