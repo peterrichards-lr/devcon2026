@@ -130,6 +130,7 @@ For the summary table, descriptions, steps to reproduce, and technical pointers 
 * **[LESSONS-LEARNT.md](LESSONS-LEARNT.md)** — Decisions, and the chronological engineering log of discoveries, empirical measurements, and slide takeaways for the DevCon talk.
 * **[PLATFORM-FACTS.md](PLATFORM-FACTS.md)** — Liferay platform behaviour found along the way that an agent couldn't have known, and which agent file each fact belongs in.
 * **[TESTING-APPROACH-1.md](TESTING-APPROACH-1.md)** — Testing and recording Approach 1 end to end, with rollback for each stage.
+* **[TIMELAPSE.md](TIMELAPSE.md)** — Turning a screen recording into the clocked 15x time-lapse, on macOS or Windows, with a prompt for an AI session.
 * **[GETTING_STARTED.md](GETTING_STARTED.md)** — Local bundle initialization and workspace setup instructions.
 * **[GEMINI.md](GEMINI.md)** — Liferay Workspace standards, architectural principles, and AI agent execution rules.
 
