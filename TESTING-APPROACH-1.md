@@ -429,7 +429,11 @@ in it.
 back to stage 1. If you need a working instance in the meantime, restore the previous
 fallback (below).
 
-## On stage
+## Before the talk
+
+Nothing is restored on stage. Restore the stage snapshot beforehand, and again after any
+rehearsal of the registration: a rehearsal leaves a Pending registration behind, and the
+one registration per session rule (#100) then refuses the same registration on stage.
 
 ```bash
 cd ~/ldm-verify/devcon2026
@@ -450,9 +454,24 @@ It takes a few seconds and changes nothing else: the student is already active a
 Confirmed course is kept. **Expect** `ok    http://localhost:8080/ opens 'Home - Masterclass
 CMS - Liferay'`. Without it, `/` opens the Welcome site and signing in lands there too.
 
-Then sign in as the demo student and register for a second course, as in stage 8.
+Then check, in a private browser window, without registering for anything:
 
-**If the restore fails or the site looks wrong**
+1. `/` opens the Masterclass home page.
+2. Signing in as `student.one@liferay.com` / `test` lands on My Learning, showing
+   **Building Enterprise Websites with Liferay**.
+3. Signing out returns to the Masterclass home page.
+
+Leave the instance running, and the Model Builder open in an administrator's tab.
+
+## On stage
+
+1. Play the time-lapse of the run.
+2. Sign in as the demo student and show their profile and My Learning.
+3. Register for a session of a course **other than** Building Enterprise Websites. Course
+   Registrations shows it as **Pending**.
+4. Switch to the Model Builder and walk through the objects and their relationships.
+
+**If the site looks wrong**
 
 | Symptom | Do this |
 | --- | --- |
@@ -466,6 +485,6 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Snapshot | Contents | Use |
 | --- | --- | --- |
 | `masterclass-02-<short commit>` | The next clean run of this procedure, taken at the end of the recording | Stage, once it passes stage 8 |
-| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103), once `demo-prep.sh` has been re-run after the restore (see "On stage") | **Stage fallback** |
+| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103), once `demo-prep.sh` has been re-run after the restore (see "Before the talk") | **Stage fallback** |
 | `masterclass-02-b0684c3` | 02 at `b0684c3`: the recorded take of 2026-10-19, every stage passed. It has neither the session rule nor the Masterclass landing | Previous fallback, if `3c9a590` will not restore |
 | `masterclass-02-7de77b5` | 02 at `7de77b5`: everything except the demo student | Last resort; it has no demo student, so stage 8 cannot be shown |
