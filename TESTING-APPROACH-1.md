@@ -436,11 +436,10 @@ cd ~/ldm-verify/devcon2026
 ldm restore devcon2026 -n masterclass-02-<short commit> --up -y
 ```
 
-**Then put the instance settings back, from the repository.** LDM starts Liferay with
-`company.default.virtual.host.sync.on.startup=true` (since its update of 2026-10-23), and
-that startup sync empties the Home URL and deletes the default landing and logout pages.
-The snapshot has them; every start of Liferay, a restore included, removes them. So after
-every restore or restart:
+**Then put the instance settings back, from the repository.** On 2026-11-01, the first
+start of Liferay after restoring this snapshot (LDM 2.26.7) emptied the Home URL and deleted
+the default landing and logout pages, although the snapshot has them. A plain restart kept
+them. So after every restore:
 
 ```bash
 cd /Volumes/SanDisk/repos/devcon2026
@@ -458,7 +457,7 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Symptom | Do this |
 | --- | --- |
 | `Global search service not running` | Start `liferay-search-global`, then restore again. |
-| `/` opens the Welcome site, or signing in lands there | Run `demo-prep.sh` as above: Liferay's startup removed the instance settings. |
+| `/` opens the Welcome site, or signing in lands there | Run `demo-prep.sh` as above: the restore lost the instance settings. |
 | Lists or collections are empty | Check `docker ps` for `liferay-search-global`; if it is there, restore again. |
 | Anything else | Restore the previous fallback snapshot and use the recorded backup video. |
 
