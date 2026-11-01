@@ -436,6 +436,21 @@ cd ~/ldm-verify/devcon2026
 ldm restore devcon2026 -n masterclass-02-<short commit> --up -y
 ```
 
+**Then put the instance settings back, from the repository.** LDM starts Liferay with
+`company.default.virtual.host.sync.on.startup=true` (since its update of 2026-10-23), and
+that startup sync empties the Home URL and deletes the default landing and logout pages.
+The snapshot has them; every start of Liferay, a restore included, removes them. So after
+every restore or restart:
+
+```bash
+cd /Volumes/SanDisk/repos/devcon2026
+LANDING=my-learning MASTERCLASS_GROUP_ID=$(scripts/site-id.sh) scripts/demo-prep.sh
+```
+
+It takes a few seconds and changes nothing else: the student is already active and their
+Confirmed course is kept. **Expect** `ok    http://localhost:8080/ opens 'Home - Masterclass
+CMS - Liferay'`. Without it, `/` opens the Welcome site and signing in lands there too.
+
 Then sign in as the demo student and register for a second course, as in stage 8.
 
 **If the restore fails or the site looks wrong**
@@ -443,6 +458,7 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Symptom | Do this |
 | --- | --- |
 | `Global search service not running` | Start `liferay-search-global`, then restore again. |
+| `/` opens the Welcome site, or signing in lands there | Run `demo-prep.sh` as above: Liferay's startup removed the instance settings. |
 | Lists or collections are empty | Check `docker ps` for `liferay-search-global`; if it is there, restore again. |
 | Anything else | Restore the previous fallback snapshot and use the recorded backup video. |
 
@@ -451,6 +467,6 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Snapshot | Contents | Use |
 | --- | --- | --- |
 | `masterclass-02-<short commit>` | The next clean run of this procedure, taken at the end of the recording | Stage, once it passes stage 8 |
-| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103) | **Stage fallback** |
+| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103), once `demo-prep.sh` has been re-run after the restore (see "On stage") | **Stage fallback** |
 | `masterclass-02-b0684c3` | 02 at `b0684c3`: the recorded take of 2026-10-19, every stage passed. It has neither the session rule nor the Masterclass landing | Previous fallback, if `3c9a590` will not restore |
 | `masterclass-02-7de77b5` | 02 at `7de77b5`: everything except the demo student | Last resort; it has no demo student, so stage 8 cannot be shown |
