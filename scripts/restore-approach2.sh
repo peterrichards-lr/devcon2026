@@ -37,6 +37,10 @@ fi
 
 die() { echo "FAIL  $*" >&2; exit 1; }
 
+case "${SNAPSHOT}" in
+	-*) sed -n '2,22p' "$0"; exit 2 ;;
+esac
+
 start=$(date +%s)
 
 docker ps --format '{{.Names}}' | grep --quiet --line-regexp liferay-search-global \
