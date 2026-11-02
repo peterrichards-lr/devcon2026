@@ -28,6 +28,7 @@ agreed it and where the change landed.
 
 | Date | Decision | Why | Where |
 | --- | --- | --- | --- |
+| 2026-11-02 | Rafa's live demo runs on a second instance on Peter's laptop, `approach2.devcon.demo:8081`, from snapshot `masterclass-approach2-063ee2f`; both instances are started and checked before the talk, and nothing is restored during it | Both approaches may be shown from one laptop. Rafa shows his time-lapse, then the finished site and the CMS admin. A restore took 223 s plus a reindex and once came back with a dead search index. Peter | LDM project `masterclass-approach2`, entry below |
 | 2026-10-21 | The stage fallback is now snapshot `masterclass-02-3c9a590`, and `devcon-approach-1` moves to that commit; the provisioning time-lapse recorded on 2026-10-19 from `b0684c3` is kept | The snapshot needed the session rule (#100) and the instance opening the Masterclass site, landing on My Learning (#103). A fresh take of merged 02 with `LANDING=my-learning` passed every stage. The time-lapse shows the same provisioning; only the post-provision steps changed. Peter | tags, `TESTING-APPROACH-1.md` |
 | 2026-10-20 | The instance opens the Masterclass site, not the default Welcome site: Home URL, landing page (the site's home page, or My Learning with `LANDING=my-learning`, which the stage fallback uses) and logout page, set by `demo-prep.sh` | Found while testing in the browser: signing in and out led to the Welcome site. A site initializer can't set instance settings, and they aren't a fix to the data model, so they go in the demo script, as its second scripted post-provision step. The landing page is one switch in the script; landing on My Learning makes the live demo's first step happen by itself. The site's own sign-in fragment, carried over from 2024, hard-coded a redirect to `/home` that beat the instance setting, so it was removed (a fragment setting for it was tried and dropped: one switch, in the script, was wanted); the private area's logo now links to the site's home page. Peter | `scripts/demo-prep.sh`, `masterclass-sign-in`, private-area master page |
 | 2026-10-20 | The demo student stays activated by `demo-prep.sh`, not by the workarounds module | The initializer creates users inactive on purpose (LPS-184738), so it can't silently create accounts that can sign in; activating them automatically in a module would undo that quietly. A visible, scripted exception keeps it honest, and the script is needed anyway for the prepared enrolment. The time-lapse was also already recorded with this flow. Peter | `scripts/demo-prep.sh` |
@@ -682,6 +683,91 @@ Carried over so they are in one place. The detail and evidence live in `.agent-s
 ---
 
 # Approach 2: live site, migrated in place
+
+## 2026-11-02 — The second run: a fresh AI session, Rafa's rules, and what it got wrong
+
+**What happened.** To give Rafa a stage instance on Peter's laptop, the migration was run again
+from scratch: the 2024 site from `devcon-start` on a clean 2026.q3.5, then a new Claude session
+given Rafa's rules (MCP first, Python only where MCP can't, never JSON-WS, never web search,
+don't touch the site initializer folders) and asked for a plan. It drafted the same shape Rafa's
+run of 28 October had: discovery, Space and structures, content, display page templates, pages and
+menus, verification, then deleting the old articles. Each phase was reviewed before the next, as
+Rafa does. The result matches his: four standalone structures (Blog, Teacher, Course, Classroom),
+all 30 files copied into the Space, the categories in `L_CMS`, the Courses dropdown repointed, and
+only the 20 old articles deleted. A signed-out check after the deletion found every page, all 15
+display pages and the 19 images and videos they use working, with nothing left on Journal.
+
+Rafa's own prompts after the plan were short go-aheads ("go with 2", "let's go with phase 3",
+"go ahead"), plus one scoping line before cleanup: "you dont need to delete the structures
+themselves or thecollections, just the old structured contents".
+
+It went wrong once, in the pages phase: every card's link and every course item in the menu came
+out empty, and every display page URL returned 404. The agent tried other link keys and URL
+patterns, then concluded it was a limit of Space entries. It wasn't. The database showed the three
+new display page templates bound to the generic `com.liferay.object.model.ObjectEntry` with no
+subtype (`classTypeId -1`), and none marked default, although the `markedAsDefault` PATCH had
+answered `true`. Rebound to each structure's own class (`ObjectDefinition#Z5S6` and so on) and
+marked default, the links resolved, and the menu items could then be created too.
+
+The other findings, all from this run:
+
+| Finding | Evidence |
+| --- | --- |
+| An entry gets a display page only from the **default** template bound to its **own structure's class**; the generic `ObjectEntry` class matches nothing | `layoutpagetemplateentry`: `classnameid` = `ObjectEntry`, `classtypeid -1`, `defaulttemplate f`; links resolved after the rebind |
+| A write's response is not proof: `markedAsDefault` came back `true` while the row said `false` | The same query |
+| The vocabulary mapping key needs the scope suffix, `AssetVocabulary__ERC__<vocab>__SERC__L_CMS`; the unscoped key renders nothing | Display page template payloads |
+| Images and videos need Guest `VIEW` and `DOWNLOAD_FILE` on the **Basic Document**; a grant on the entry that uses the file isn't enough (404) | Phase 5 signed-out check |
+| The permissions PUT needs `roleName` on every grant; leaving it out returns 500 and changes nothing | Phase 5 |
+| PATCHing a published field's type answers 200 and changes nothing; Text's 280-character limit is too short for some values, so those fields are LongText | Phase 1 |
+| A Basic Document can be created from the site's original file by pointing `fileURL` at it, without sending the bytes; Rafa's run did the same | Phase 2 |
+| The site-wide export-batch for web content only covers the root folder; all 20 articles were in subfolders | Phase 0 |
+
+**The lessons.**
+
+1. **Rafa's process carries over to another model and another person.** The same rules and the
+   same review after each phase produced the same end state as his Gemini runs.
+2. **The lessons log only helps if the agent reads it at the right moment.** The `/publish` stub
+   (PLATFORM-FACTS #12) and the menu items' Space scope (2026-10-15 entry) were both written
+   down, and the agent still hit both. Pointing it at the entry fixed each in one step.
+3. **Read back every write.** The one costly detour came from trusting a 200.
+4. **When an AI says "the platform can't", check the data first.** One database query turned "a
+   limit of Space entries" into a one-line fix.
+
+*Slide angle: same prompt, same rules, different AI: the process is the product. And: trust the
+read-back, not the response.*
+
+**Evidence:** snapshots `masterclass-start-bc57b1c` (before), `masterclass-approach2-precleanup`
+and `masterclass-approach2-063ee2f` (after) in the `masterclass-approach2` LDM project on Peter's
+laptop; the session's scripts and payloads, kept outside the repo; Rafa's recording of 28 October.
+
+## 2026-11-02 — Two instances on one laptop
+
+**What happened.** Both approaches will be shown from Peter's laptop, so Rafa's instance became a
+second LDM project running beside Peter's, each on its own host name:
+`approach1.devcon.demo:8080` and `approach2.devcon.demo:8081`. Separate host names also keep their
+cookies and sign-ins apart. Getting there took a day of traps, most of them silent:
+
+| Trap | What we saw | Evidence |
+| --- | --- | --- |
+| Index prefixes nest | A project named `devcon2026-approach2` would get indices matching Peter's `ldm-devcon2026-*`, so restoring Peter's would delete Rafa's. Renamed `masterclass-approach2` | LDM #2313 |
+| `ldm fork` is broken | It treated the new name as a remote target, copied the source's UUID and its index prefix. The project was built by hand from the clean snapshot instead | LDM #2314 |
+| A restore puts the old prefix back | The clean snapshot carries `ldm-devcon2026-` as the index prefix, and a restore copies it into the project. Both instances also share one company ID, so Rafa's startup reindex **emptied Peter's index**: 6,301 documents written, 12,614 deleted, 0 left. Fixed by restoring Peter's snapshot | Elasticsearch index stats |
+| The JIT flag ignores its setting | A normal start forces `-XX:TieredStopAtLevel=1`, and every authenticated request (PBKDF2 on Basic auth, so every MCP call) took 1.9 s instead of 0.22 s | LDM #2308; timings |
+| A restored index can be dead | After a restore, a shard reported started while every search answered 503 (`AlreadyClosedException`), so the reindex added nothing. Seen twice. Restarting the search container, then Liferay, fixed it | Elasticsearch log |
+| MCP needs a second switch | With `LPD-63311` on, `/o/mcp` still answered 404 until `MCPServerConfiguration` `enabled=true` was set | 404, then 200 |
+
+**The lessons.**
+
+1. **Don't restore during the talk.** A restore took 223 s plus the reindex, and twice in one day
+   a search index came back dead. Both instances run side by side, so switching is a change of
+   Chrome profile.
+2. **Isolation has to be checked, not assumed.** Separate projects still shared a search node, a
+   company ID and, through a copied setting, an index prefix.
+3. **Check search after every restore.** `_count` on the company index must answer with a number.
+   The restore script for Rafa's instance now fails when it doesn't.
+
+**Evidence:** LDM issues #2308, #2313 and #2314; `restore-stage.sh` in the
+`masterclass-approach2` LDM project.
 
 ## 2026-10-15 — Headless REST Deletions of legacy content bypass the Recycle Bin; new CMS entries do not
 

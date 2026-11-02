@@ -23,6 +23,27 @@ name: mcp-server
 
 Enable `LPD-63311` in the active configuration. Use `skills/feature-flags/SKILL.md` for the per environment mechanism (Tomcat / Docker prebuilt / Docker custom) and the env var encoding scheme.
 
+### Enable the Server Itself
+
+On 2026.Q3 the flag is not enough. The MCP server also has its own configuration,
+`com.liferay.mcp.server.rest.internal.configuration.MCPServerConfiguration`, whose `enabled`
+attribute defaults to **false**. Until it is set, `/o/mcp` answers **404**, which looks exactly
+like a wrong URL or a missing flag. Set it in System Settings, or deploy a config file to
+`osgi/configs/`:
+
+```properties
+# com.liferay.mcp.server.rest.internal.configuration.MCPServerConfiguration.config
+enabled=B"true"
+```
+
+No restart is needed: the endpoint answers within seconds of the file appearing. On a fresh
+instance, also wait for the server's first start to finish before probing. It deploys its own
+batch files on first boot, and `/o/mcp` returns 404 until the `Successfully deployed batch engine
+file com.liferay.mcp.server.rest.impl` lines appear in the log.
+
+Verified on 2026.q3.5: 404 with the flag alone, 200 on `initialize` after the config file. Source:
+`OSGI-INF/metatype` in `com.liferay.mcp.server.rest.impl`.
+
 ### Restart the CLI Session
 
 Most CLI based agents load MCP configuration at startup only and cannot pick up new settings midsession. Prompt the user to exit and restart their agent session **before starting the Liferay server** — so the restart costs nothing while the server is still down.
