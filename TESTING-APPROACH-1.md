@@ -449,7 +449,9 @@ cd /Volumes/SanDisk/repos/devcon2026
 RESTORE_MINE=1 scripts/prepare-stage.sh
 ```
 
-It starts the search node, restores both instances, runs `demo-prep.sh` on Approach 1 and
+It starts Colima with the 6 CPUs and 16 GiB both instances need (with the SanDisk drive
+mounted: Colima lives on it), starts the search node, restores both instances, runs
+`demo-prep.sh` on Approach 1 and
 waits for both search indices. **Expect** it to end with `== ready` and both URLs. Without
 `RESTORE_MINE=1` it leaves Approach 1's data as it is; restore it after any rehearsal of the
 registration, because a rehearsal leaves a Pending registration behind and the one

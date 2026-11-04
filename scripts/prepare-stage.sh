@@ -8,6 +8,9 @@
 #   Approach 1 (Peter)   devcon2026              http://approach1.devcon.demo:8080
 #   Approach 2 (Rafa)    masterclass-approach2   http://approach2.devcon.demo:8081
 #
+#   0. Starts Colima with 6 CPUs and 16 GiB if it isn't running. Both instances need that
+#      much; with less it stops, because resizing Colima stops every container. Colima's
+#      home (~/.colima) is on the SanDisk drive, so the drive must be mounted.
 #   1. Starts the shared search node if it is stopped. If its container is gone, stops:
 #      starting LDM without it can wipe every project's search data.
 #   2. Approach 1: with RESTORE_MINE=1, restores masterclass-02-3c9a590 first (do this
@@ -30,6 +33,8 @@ HERE=$(cd "$(dirname "$0")" && pwd)
 LDM_PROJECTS="${LDM_PROJECTS:-${HOME}/ldm-verify}"
 URL1=http://approach1.devcon.demo:8080
 URL2=http://approach2.devcon.demo:8081
+COLIMA_CPUS=6
+COLIMA_MEMORY=16
 
 LDM=(ldm)
 if ! ldm --version >/dev/null 2>&1; then
@@ -39,6 +44,18 @@ fi
 die() { echo "FAIL  $*" >&2; exit 1; }
 
 start=$(date +%s)
+
+echo "== 0. Docker"
+[ -e "${HOME}/.colima/default" ] \
+	|| die "${HOME}/.colima/default is missing: is the SanDisk drive mounted?"
+if ! colima status >/dev/null 2>&1; then
+	colima start --cpu "${COLIMA_CPUS}" --memory "${COLIMA_MEMORY}"
+fi
+cpus=$(docker info --format '{{.NCPU}}')
+memory=$(docker info --format '{{.MemTotal}}')
+[ "${cpus}" -ge "${COLIMA_CPUS}" ] && [ "${memory}" -ge $(( (COLIMA_MEMORY - 1) * 1024 * 1024 * 1024 )) ] \
+	|| die "Docker has ${cpus} CPUs and $(( memory / 1024 / 1024 / 1024 )) GiB; both instances need ${COLIMA_CPUS} and ${COLIMA_MEMORY}. Run: colima stop && colima start --cpu ${COLIMA_CPUS} --memory ${COLIMA_MEMORY} (this stops every container)"
+echo "ok    Colima: ${cpus} CPUs, $(( memory / 1024 / 1024 / 1024 )) GiB"
 
 echo "== 1. search node"
 state=$(docker inspect --format '{{.State.Status}}' liferay-search-global 2>/dev/null || true)
