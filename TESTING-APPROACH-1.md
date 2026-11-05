@@ -429,21 +429,72 @@ in it.
 back to stage 1. If you need a working instance in the meantime, restore the previous
 fallback (below).
 
-## On stage
+## Before the talk
+
+Both approaches run from Peter's laptop, as two LDM projects side by side, each on its own
+host name (added to `/etc/hosts` with `ldm fix-hosts`):
+
+| Approach | LDM project | URL | Stage snapshot |
+| --- | --- | --- | --- |
+| 1 (Peter) | `devcon2026` | `http://approach1.devcon.demo:8080` | `masterclass-02-3c9a590` |
+| 2 (Rafa) | `masterclass-approach2` | `http://approach2.devcon.demo:8081` | `masterclass-approach2-063ee2f` |
+
+Nothing is restored on stage: a restore takes minutes, and its search index can come back
+dead (LDM #2316). Switching between the approaches is switching Chrome profile.
+
+Get both ready with one command, before the talk:
 
 ```bash
-cd ~/ldm-verify/devcon2026
-ldm restore devcon2026 -n masterclass-02-<short commit> --up -y
+cd /Volumes/SanDisk/repos/devcon2026
+RESTORE_MINE=1 scripts/prepare-stage.sh
 ```
 
-Then sign in as the demo student and register for a second course, as in stage 8.
+It starts Colima with the 6 CPUs and 16 GiB both instances need (with the SanDisk drive
+mounted: Colima lives on it), starts the search node, restores both instances, runs
+`demo-prep.sh` on Approach 1 and
+waits for both search indices. **Expect** it to end with `== ready` and both URLs. Without
+`RESTORE_MINE=1` it leaves Approach 1's data as it is; restore it after any rehearsal of the
+registration, because a rehearsal leaves a Pending registration behind and the one
+registration per session rule (#100) then refuses the same registration on stage.
 
-**If the restore fails or the site looks wrong**
+Why the steps after the restores:
+
+- **Approach 1 loses its instance settings on restore.** On 2026-11-01 the first start after
+  a restore emptied the Home URL and deleted the default landing and logout pages, although
+  the snapshot has them. `demo-prep.sh` puts them back: without it, `/` opens the Welcome
+  site and signing in lands there too.
+- **Approach 2 needs three fixes after a restore**, made by `scripts/restore-approach2.sh`.
+  It drops the index prefix the restore brings back (LDM #2315), which otherwise empties
+  Approach 1's index, as it did on 2026-11-02. It starts the JVM without
+  `TieredStopAtLevel=1` (LDM #2308), and switches the MCP server on.
+
+Then, in each Chrome profile (a restart signs everyone out):
+
+1. **Peter's**, in a private window and without registering for anything:
+   - `/` opens the Masterclass home page;
+   - signing in as `student.one@liferay.com` / `test` lands on My Learning, showing
+     **Building Enterprise Websites with Liferay**;
+   - signing out returns to the Masterclass home page.
+
+   Then sign in as an administrator and leave the Model Builder open.
+2. **Rafa's**: sign in to `http://approach2.devcon.demo:8081` as `test@liferay.com` and open
+   the CMS admin screens he shows; the Space's contents should be listed.
+
+## On stage
+
+1. Play the time-lapse of the run.
+2. Sign in as the demo student and show their profile and My Learning.
+3. Register for a session of a course **other than** Building Enterprise Websites. Course
+   Registrations shows it as **Pending**.
+4. Switch to the Model Builder and walk through the objects and their relationships.
+
+**If the site looks wrong**
 
 | Symptom | Do this |
 | --- | --- |
 | `Global search service not running` | Start `liferay-search-global`, then restore again. |
-| Lists or collections are empty | Check `docker ps` for `liferay-search-global`; if it is there, restore again. |
+| `/` opens the Welcome site, or signing in lands there | Run `SKIP_APPROACH2=1 scripts/prepare-stage.sh`: it re-runs `demo-prep.sh` on Approach 1 without restoring anything. |
+| Lists or collections are empty | Check `docker ps` for `liferay-search-global`. If it is there, check the instance's index: `docker exec liferay-search-global curl -s localhost:9200/ldm-devcon2026-68894291378179/_count` (or `ldm-masterclass-approach2-…`). A 503 means a dead shard (LDM #2316): `docker restart liferay-search-global`, then `docker restart` the instance, and wait for its reindex. |
 | Anything else | Restore the previous fallback snapshot and use the recorded backup video. |
 
 ## Fallback snapshots
@@ -451,6 +502,6 @@ Then sign in as the demo student and register for a second course, as in stage 8
 | Snapshot | Contents | Use |
 | --- | --- | --- |
 | `masterclass-02-<short commit>` | The next clean run of this procedure, taken at the end of the recording | Stage, once it passes stage 8 |
-| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103) | **Stage fallback** |
+| `masterclass-02-3c9a590` | 02 at `3c9a590`, tagged `devcon-approach-1`: every stage passed with `LANDING=my-learning`, browser check included (2026-10-21). It has the one registration per session rule (#100) and opens on My Learning (#103), once `demo-prep.sh` has been re-run after the restore (see "Before the talk") | **Stage fallback** |
 | `masterclass-02-b0684c3` | 02 at `b0684c3`: the recorded take of 2026-10-19, every stage passed. It has neither the session rule nor the Masterclass landing | Previous fallback, if `3c9a590` will not restore |
 | `masterclass-02-7de77b5` | 02 at `7de77b5`: everything except the demo student | Last resort; it has no demo student, so stage 8 cannot be shown |
