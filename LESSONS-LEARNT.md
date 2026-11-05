@@ -28,6 +28,7 @@ agreed it and where the change landed.
 
 | Date | Decision | Why | Where |
 | --- | --- | --- | --- |
+| 2026-11-01 | Re-run `demo-prep.sh` after every restore of the stage instance | Restoring the fallback snapshot with LDM 2.26.7 emptied the Home URL and deleted the landing and logout pages, though the snapshot has them. Re-running is safe and takes seconds, and works whatever the cause turns out to be. Peter | `TESTING-APPROACH-1.md` "On stage" |
 | 2026-10-21 | The stage fallback is now snapshot `masterclass-02-3c9a590`, and `devcon-approach-1` moves to that commit; the provisioning time-lapse recorded on 2026-10-19 from `b0684c3` is kept | The snapshot needed the session rule (#100) and the instance opening the Masterclass site, landing on My Learning (#103). A fresh take of merged 02 with `LANDING=my-learning` passed every stage. The time-lapse shows the same provisioning; only the post-provision steps changed. Peter | tags, `TESTING-APPROACH-1.md` |
 | 2026-10-20 | The instance opens the Masterclass site, not the default Welcome site: Home URL, landing page (the site's home page, or My Learning with `LANDING=my-learning`, which the stage fallback uses) and logout page, set by `demo-prep.sh` | Found while testing in the browser: signing in and out led to the Welcome site. A site initializer can't set instance settings, and they aren't a fix to the data model, so they go in the demo script, as its second scripted post-provision step. The landing page is one switch in the script; landing on My Learning makes the live demo's first step happen by itself. The site's own sign-in fragment, carried over from 2024, hard-coded a redirect to `/home` that beat the instance setting, so it was removed (a fragment setting for it was tried and dropped: one switch, in the script, was wanted); the private area's logo now links to the site's home page. Peter | `scripts/demo-prep.sh`, `masterclass-sign-in`, private-area master page |
 | 2026-10-20 | The demo student stays activated by `demo-prep.sh`, not by the workarounds module | The initializer creates users inactive on purpose (LPS-184738), so it can't silently create accounts that can sign in; activating them automatically in a module would undo that quietly. A visible, scripted exception keeps it honest, and the script is needed anyway for the prepared enrolment. The time-lapse was also already recorded with this flow. Peter | `scripts/demo-prep.sh` |
@@ -47,6 +48,52 @@ agreed it and where the change landed.
 ---
 
 # Approach 1: site initializer to site initializer
+
+## 2026-11-01 — The snapshot was right; the restore lost the settings
+
+**What happened.** Restoring the stage fallback, `masterclass-02-3c9a590`, opened the
+Welcome site again: the Home URL was empty, and signing in and out went to the default
+pages. The snapshot was fine: its database dump has the Home URL `/web/masterclass-cms` and
+both page preferences. The live database showed the company record rewritten at 09:16:19,
+three seconds before Tomcat finished starting, with the Home URL empty and the two
+preference rows gone.
+
+The restore lost them; a plain restart afterwards did not. Liferay rewrote the
+company record at startup again, and the settings survived. The prime suspect was a tool
+update. LDM was updated on 2026-10-23, two days after the snapshot, and now starts Liferay
+with `company.default.virtual.host.sync.on.startup=true`, which rewrites the company record
+on every boot. But the restart shows the sync alone doesn't drop the settings, and the
+virtual host row is the same in the snapshot and the live database. What differs on the
+first boot after a restore is not yet known.
+
+**What we did.** Put the settings back by re-running `demo-prep.sh`, which is safe to
+re-run (the student and their Confirmed course are kept), and made that the step after
+every restore in "On stage". The loss goes to LDM as an issue.
+
+**Evidence.** The snapshot's `database.sql` (company `homeurl` and `portalpreferencevalue`
+rows 201 and 202) against the live database after the restore; `docker-compose.yml`
+regenerated at the restore with the two `LIFERAY_COMPANY_PERIOD_DEFAULT_PERIOD_VIRTUAL_PERIOD_HOST_…`
+variables, which the snapshot's `meta` doesn't list; a `docker restart` at 09:52, after
+which the company record was rewritten and the settings were still there.
+
+### Lessons
+
+1. **A snapshot captures the data, not the environment it starts in.** Anything that runs
+   at startup can change what a restore gives you, and the tools around the snapshot keep
+   changing after it is taken.
+   *Slide angle: Same snapshot, new tool, different site.*
+
+1. **Check after the restore, not only before the snapshot.** The settings were verified
+   when the snapshot was taken, and were still lost. Only looking at the restored site
+   caught it, and the stage day is too late to find out.
+
+1. **Settings applied by a script belong to the script.** Re-running `demo-prep.sh` put
+   them back in seconds, because it was written to be re-run.
+
+1. **Test the explanation before you write it down.** The first account blamed every start
+   of Liferay; one restart disproved it, before the change was merged.
+
+---
 
 ## 2026-10-20 — One registration per session: the rule the initializer couldn't declare
 
