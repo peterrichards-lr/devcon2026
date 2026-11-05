@@ -33,6 +33,22 @@ kept for history.
 
 ---
 
+## Talk materials
+
+The slides and the Approach 1 videos from the talk are in [`talk-materials/`](talk-materials):
+
+| File | What it is |
+| --- | --- |
+| `devcon-2026-masterclass-slides.pptx` | The slide deck |
+| `approach-1-provisioning-recording.mp4` | The full Approach 1 provisioning run, recorded on 19 October (6 min 7 s) |
+| `approach-1-provisioning-timelapse-15x.mp4` | The same run as a 15x time-lapse with a real-time clock (22.6 s) |
+
+Both videos are H.264 MP4 (1080p, 30 fps) and play on Windows, macOS and Linux. The run was
+recorded from commit `b0684c3`; see the `devcon-approach-1` tag above and
+[TIMELAPSE.md](TIMELAPSE.md) for how the time-lapse was made.
+
+---
+
 ## Running Approach 1
 
 Approach 1 builds and runs on **Liferay DXP 2026.Q3** (verified on 2026.q3.5), starting from
